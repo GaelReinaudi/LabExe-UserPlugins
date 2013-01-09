@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sdfghjk", "sdfghjk\sdfghjk.vcproj", "{DCAA3FD3-0E44-4313-B060-32D2CA2371D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCAA3FD3-0E44-4313-B060-32D2CA2371D8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DCAA3FD3-0E44-4313-B060-32D2CA2371D8}.Debug|Win32.Build.0 = Debug|Win32
+		{DCAA3FD3-0E44-4313-B060-32D2CA2371D8}.Release|Win32.ActiveCfg = Release|Win32
+		{DCAA3FD3-0E44-4313-B060-32D2CA2371D8}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		QtVersion = $(DefaultQtVersion)
+	EndGlobalSection
+EndGlobal

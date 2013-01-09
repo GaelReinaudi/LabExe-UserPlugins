@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RollingStatsPlugin", "RollingStatsPlugin.vcproj", "{E1DADD19-E565-402B-81F5-8AAA3ABE2561}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release with Debug|Win32 = Release with Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1DADD19-E565-402B-81F5-8AAA3ABE2561}.Debug|Win32.ActiveCfg = Release with Debug|Win32
+		{E1DADD19-E565-402B-81F5-8AAA3ABE2561}.Debug|Win32.Build.0 = Release with Debug|Win32
+		{E1DADD19-E565-402B-81F5-8AAA3ABE2561}.Release with Debug|Win32.ActiveCfg = Release with Debug|Win32
+		{E1DADD19-E565-402B-81F5-8AAA3ABE2561}.Release with Debug|Win32.Build.0 = Release with Debug|Win32
+		{E1DADD19-E565-402B-81F5-8AAA3ABE2561}.Release|Win32.ActiveCfg = Release|Win32
+		{E1DADD19-E565-402B-81F5-8AAA3ABE2561}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

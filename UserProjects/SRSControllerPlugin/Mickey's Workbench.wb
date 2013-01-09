@@ -1,0 +1,26 @@
+[General]
+WorkBench-Type=GWorkBench
+objectName=Mickey's Workbench
+isVisible=true
+Dynamic-Docks=GBenchDockWidget-14d1b50.120213.122156
+
+[BenchDevices]
+NumberBenchDevices=1
+m_BenchDevices={3b2e238e-8fc6-48b3-8618-0c3885e2b042}
+
+[%7B3b2e238e-8fc6-48b3-8618-0c3885e2b042%7D]
+WidgetPosition=@Point(0 22)
+BenchDockID=GBenchDockWidget-14d1b50.120213.122156
+Class=GSRSControllerVersion1
+Parent-Device-ID=
+Name=GSRSControllerVersion1-2
+%7B3b2e238e-8fc6-48b3-8618-0c3885e2b042%7D%28Frequency%20%28MHz%29=119
+%7B3b2e238e-8fc6-48b3-8618-0c3885e2b042%7D%28Shift%20Time%20%28seconds%29=2
+
+[Geometry]
+geometry=@ByteArray(\x1\xd9\xd0\xcb\0\x1\0\0\0\0\0\x82\0\0\x1\x5\0\0\x2\xab\0\0\x2\xa3\0\0\0\x8a\0\0\x1#\0\0\x2\xa3\0\0\x2\x9b\0\0\0\0\0\0)
+windowState=@ByteArray(\0\0\0\xff\0\0\0\0\xfd\0\0\0\x1\0\0\0\x1\0\0\0\xc8\0\0\x1X\xfc\x2\0\0\0\x2\xfb\0\0\0\f\0\x44\0o\0\x63\0k\0-\0\x30\x1\0\0\0!\0\0\x1X\0\0\0\x43\0\xff\xff\xff\xfb\0\0\0\x16\0m\0_\0p\0\x44\0o\0\x63\0k\0U\0n\0\x64\0o\0\0\0\0\0\xff\xff\xff\xff\0\0\0_\0\xff\xff\xff\0\0\x1N\0\0\x1X\0\0\0\x4\0\0\0\x4\0\0\0\b\0\0\0\b\xfc\0\0\0\x1\0\0\0\x2\0\0\0\x1\0\0\0\x18\0p\0M\0\x61\0i\0n\0T\0o\0o\0l\0\x42\0\x61\0r\x1\0\0\0\0\xff\xff\xff\xff\0\0\0\0\0\0\0\0)
+
+[GBenchDockWidget-14d1b50.120213.122156]
+objectName=Dock-0
+title=GSRSControllerVersion1-2

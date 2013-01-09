@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TextLoaderPlugin", "TextLoaderPlugin.vcproj", "{94464EDA-F71A-4AC8-A667-C06EECC212BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release with Debug|Win32 = Release with Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94464EDA-F71A-4AC8-A667-C06EECC212BB}.Debug|Win32.ActiveCfg = Release with Debug|Win32
+		{94464EDA-F71A-4AC8-A667-C06EECC212BB}.Debug|Win32.Build.0 = Release with Debug|Win32
+		{94464EDA-F71A-4AC8-A667-C06EECC212BB}.Release with Debug|Win32.ActiveCfg = Release with Debug|Win32
+		{94464EDA-F71A-4AC8-A667-C06EECC212BB}.Release with Debug|Win32.Build.0 = Release with Debug|Win32
+		{94464EDA-F71A-4AC8-A667-C06EECC212BB}.Release|Win32.ActiveCfg = Release|Win32
+		{94464EDA-F71A-4AC8-A667-C06EECC212BB}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
