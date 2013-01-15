@@ -1,7 +1,7 @@
 #ifndef Plot1DPlugin_GLOBAL_H
 #define Plot1DPlugin_GLOBAL_H
 
-#include <QtCore/qglobal.h>
+#include <QtGlobal>
 
 #ifdef Plot1DPlugin_LIB
 # define Plot1DPlugin_EXPORT Q_DECL_EXPORT
