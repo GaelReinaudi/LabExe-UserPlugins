@@ -47,6 +47,11 @@ private:
 	GSingleParamBucket m_InputBucket;
 	GSingleParamBucket m_OutputBucket;
 //! [variablesInputBucket]
+//! [variablesReset]
+	//! a reset boolean that will provide a reset button
+	GParamBool m_Reset;
+	GParamBool m_Enable;
+//! [variablesReset]
 //! [variablesOutput]
 	//! the output of the filter
 	//GParamDouble m_Output;
@@ -63,11 +68,6 @@ private:
 	GParamInt m_CurrentStep;
 	GParamInt m_PointsPerStep;
 //! [variablesSampleSize]
-//! [variablesReset]
-	//! a reset boolean that will provide a reset button
-	GParamBool m_Reset;
-	GParamBool m_Enable;
-//! [variablesReset]
 	//! the history of the values of the parameters
 	QList<double> m_History;
 //! [variables]

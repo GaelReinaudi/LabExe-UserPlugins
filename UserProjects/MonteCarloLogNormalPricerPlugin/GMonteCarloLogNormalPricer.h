@@ -51,10 +51,10 @@ private:
 private:
 	//! the bucket for the input parameter
 	GSingleParamBucket m_VolBucket;
+	GSingleParamBucket m_ExpiryBucket;
 	GSingleParamBucket m_StrikeBucket;
 	GParamDouble m_InterestRate;
 	//! the output of the filter
-	GSingleParamBucket m_ExpiryBucket;
 	//! the number of samples to average on.
 	GParamInt m_PathNumber;
 	//! a run boolean that will iterate the simulation for m_PathNumber extra points
