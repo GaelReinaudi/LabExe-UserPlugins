@@ -4,7 +4,6 @@ DESTDIR = ../../../LabExe/plugins/$$TARGET
 
 QT += core gui widgets printsupport
 
-DEFINES += Plot1DPlugin_LIB
 INCLUDEPATH += \
 	./../../../LabExe/src \
 	./../../../LabExe/include \
@@ -21,6 +20,7 @@ OBJECTS_DIR += ./GeneratedFiles/Obj
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
 
+DEFINES += Plot1DPlugin_LIB
 include(Plot1DPlugin.pri)
 
 

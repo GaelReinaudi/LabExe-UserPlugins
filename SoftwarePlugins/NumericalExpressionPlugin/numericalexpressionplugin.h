@@ -13,6 +13,7 @@ This plugin will register the GNumericalExpression class in the device manager f
 class NUMERICALEXPRESSIONPLUGIN_EXPORT GNumericalExpressionPlugin : public GDevicePlugin
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")
 	Q_INTERFACES(GDevicePlugin)
 	G_REGISTER_PLUGIN_PROG_DEVICE(GNumericalExpression)
 

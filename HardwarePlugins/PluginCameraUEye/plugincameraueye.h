@@ -13,6 +13,7 @@ This plugin will register a camera manager and allow the use of uEyencamera mana
 class PLUGINCAMERAUEYE_EXPORT GPluginCameraUEye : public GDevicePlugin
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")
 	Q_INTERFACES(GDevicePlugin)
 	G_REGISTER_PLUGIN_HARD_DEVICE(GUeyeCameraManager, "uEye Camera Manager")
 
