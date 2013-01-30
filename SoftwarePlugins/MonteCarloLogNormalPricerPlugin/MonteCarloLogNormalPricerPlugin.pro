@@ -4,7 +4,6 @@ DESTDIR = ../../../LabExe/plugins/$$TARGET
 
 QT += core gui widgets script
 
-DEFINES += MonteCarloLogNormalPricerPlugin_LIB
 INCLUDEPATH += \
 	./../../../LabExe/src \
 	./../../../LabExe/include \
@@ -13,12 +12,18 @@ INCLUDEPATH += \
 
 LIBS += \
 	-L"./../../../LabExe/lib" \
-	-L"./../../../LabExe/bin" \
-	-llabexe
+	-L"./../../../LabExe/bin"
+
+CONFIG(debug, debug|release) {
+	LIBS += -llabexe_D
+} else {
+	LIBS += -llabexe
+}
 
 MOC_DIR += ./GeneratedFiles
 OBJECTS_DIR += ./GeneratedFiles/Obj
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
 
+DEFINES += MonteCarloLogNormalPricerPlugin_LIB
 include(MonteCarloLogNormalPricerPlugin.pri)

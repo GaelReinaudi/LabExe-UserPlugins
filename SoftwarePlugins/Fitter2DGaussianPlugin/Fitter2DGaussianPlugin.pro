@@ -2,7 +2,7 @@ TEMPLATE = lib
 CONFIG += plugin
 DESTDIR = ../../../LabExe/plugins/$$TARGET
 
-QT += core gui widgets printsupport
+QT += core gui widgets
 
 INCLUDEPATH += \
 	./../../../LabExe/src \
@@ -12,9 +12,15 @@ INCLUDEPATH += \
 
 LIBS += \
 	-L"./../../../LabExe/lib" \
-	-L"./../../../LabExe/bin" \
-	-llabexe \
-	-lLabExeImaging
+	-L"./../../../LabExe/bin"
+
+CONFIG(debug, debug|release) {
+	LIBS += -llabexe_D
+	LIBS += -lLabExeImaging_D
+} else {
+	LIBS += -llabexe
+	LIBS += -lLabExeImaging
+}
 
 MOC_DIR += ./GeneratedFiles
 OBJECTS_DIR += ./GeneratedFiles/Obj

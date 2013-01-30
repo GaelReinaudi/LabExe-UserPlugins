@@ -13,6 +13,7 @@ This plugin allows you to control the serial port
 class SERIALCOMPORTPLUGIN_EXPORT GSerialComPortPlugin : public GDevicePlugin
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")
 	Q_INTERFACES(GDevicePlugin)
 	G_REGISTER_PLUGIN_PROG_DEVICE(GSerialPortController)
 

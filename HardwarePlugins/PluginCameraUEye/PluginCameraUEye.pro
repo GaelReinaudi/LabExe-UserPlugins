@@ -13,9 +13,15 @@ INCLUDEPATH += \
 LIBS += \
 	-L"./../../../LabExe/lib" \
 	-L"./../../../LabExe/bin" \
-	-llabexe \
-	-lLabExeImaging \
 	-luEye_api
+
+CONFIG(debug, debug|release) {
+	LIBS += -llabexe_D
+	LIBS += -lLabExeImaging_D
+} else {
+	LIBS += -llabexe
+	LIBS += -lLabExeImaging
+}
 
 MOC_DIR += ./GeneratedFiles
 OBJECTS_DIR += ./GeneratedFiles/Obj

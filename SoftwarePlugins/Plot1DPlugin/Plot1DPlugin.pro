@@ -12,8 +12,13 @@ INCLUDEPATH += \
 
 LIBS += \
 	-L"./../../../LabExe/lib" \
-	-L"./../../../LabExe/bin" \
-	-llabexe
+	-L"./../../../LabExe/bin"
+
+CONFIG(debug, debug|release) {
+	LIBS += -llabexe_D
+} else {
+	LIBS += -llabexe
+}
 
 MOC_DIR += ./GeneratedFiles
 OBJECTS_DIR += ./GeneratedFiles/Obj

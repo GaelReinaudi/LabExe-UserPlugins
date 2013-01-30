@@ -24,8 +24,9 @@ SOURCES += ./GSerialPortController.cpp \
     ./PortSettingsWidget.cpp \
     ./qextserialport/src/qextserialenumerator.cpp \
     ./qextserialport/src/qextserialenumerator_win.cpp \
-    ./qextserialport/src/qextserialport.cpp \
-    ./qextserialport/src/qextserialport_win.cpp \
-    ./serialcomportplugin.cpp
+	./qextserialport/src/qextserialport.cpp \
+	./qextserialport/src/qextserialport_win.cpp \
+	./qextserialport/src/qextwineventnotifier_p.cpp \
+	./serialcomportplugin.cpp
 FORMS += ./GSerialPortControllerWidget.ui \
     ./PortSettingsWidget.ui

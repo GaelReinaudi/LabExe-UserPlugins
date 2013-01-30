@@ -17,6 +17,7 @@ The reset button clears the history of the parameter.
 class Pupin632MonitorPlugin_EXPORT GPupin632MonitorPlugin : public GDevicePlugin
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")
 	Q_INTERFACES(GDevicePlugin)
 	G_REGISTER_PLUGIN_PROG_DEVICE(GPupin632Monitor)
 

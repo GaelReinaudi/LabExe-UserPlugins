@@ -1,14 +1,54 @@
 TEMPLATE = subdirs
 
-SUBDIRS += \
-	../../LabExe-UserPlugins/SoftwarePlugins/MonteCarloLogNormalPricerPlugin \
-	../../LabExe-UserPlugins/SoftwarePlugins/Scroller2DPlugin \
-	../../LabExe-UserPlugins/SoftwarePlugins/StepperPlugin \
-	../../LabExe-UserPlugins/SoftwarePlugins/RandomNumberPlugin \
-	../../LabExe-UserPlugins/SoftwarePlugins/NumericalExpressionPlugin \
-	../../LabExe-UserPlugins/SoftwarePlugins/Plot1DPlugin \
-	../../LabExe-UserPlugins/SoftwarePlugins/PlotYPlugin \
-	../../LabExe-UserPlugins/SoftwarePlugins/PlotXYPlugin \
-	../../LabExe-UserPlugins/SoftwarePlugins/Fitter2DGaussianPlugin \
-	../../LabExe-UserPlugins/SoftwarePlugins/ImagePixelAdderPlugin
+THE_SRYBEXE_PLUGINS = \
+MonteCarloLogNormalPricerPlugin \
+Scroller2DPlugin \
+StepperPlugin \
+LowPassFilterPlugin \
+RollingStatsPlugin \
+LockingSlapperPlugin \
+Scroller2DPlugin \
+RandomNumberPlugin \
+NumericalExpressionPlugin \
+MemorySwitcherPlugin \
+ParamSupplierPlugin \
+TimerPlugin \
+TextLoaderPlugin \
+\
+Plot1DPlugin \
+PlotYPlugin \
+PlotXYPlugin \
+\
+Fitter2DGaussianPlugin \
+ImagePixelAdderPlugin \
+ImageSaverPlugin \
+ImageAbsorptionPlugin \
+BetterAbsorptionImagePlugin \
+ImageStackerPlugin \
+\
+LinearCombinationPlugin \
+\
+PlainTextLoggerPlugin \
+SRSControllerPlugin \
+Pupin632MonitorPlugin \
+\
+ImagePixelAdderPlugin \
+ImagePixelAdderPlugin \
+ImagePixelAdderPlugin
+
+#\
+#ParamPlotterPlugin \
+#SerialComPortPlugin \
+#DropObserverPlugin \
+#YoutubePlugin \
+
+
+for(plugproj, THE_SRYBEXE_PLUGINS) {
+	exists($$plugproj) {
+	SUBDIRS += $$plugproj
+	}
+}
+
+
+
 

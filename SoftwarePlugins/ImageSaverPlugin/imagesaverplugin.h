@@ -13,6 +13,7 @@ This plugin will register the GImageSaver class in the device manager for saving
 class IMAGESAVERPLUGIN_EXPORT GImageSaverPlugin : public GDevicePlugin
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")
 	Q_INTERFACES(GDevicePlugin)
 	G_REGISTER_PLUGIN_PROG_DEVICE(GImageSaver)
 
