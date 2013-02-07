@@ -2,8 +2,7 @@
 HEADERS += ./GPlainTextLogger.h \
     ./GPlainTextLoggerWidget.h \
     ./plaintextloggerplugin.h \
-    ./plaintextloggerplugin_global.h \
-    ./resource.h
+	./plaintextloggerplugin_global.h
 SOURCES += ./GPlainTextLogger.cpp \
     ./GPlainTextLoggerWidget.cpp \
     ./plaintextloggerplugin.cpp

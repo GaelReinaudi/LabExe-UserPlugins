@@ -29,7 +29,7 @@ ImageStackerPlugin \
 LinearCombinationPlugin \
 \
 PlainTextLoggerPlugin \
-SRSControllerPlugin \
+#SRSControllerPlugin \
 Pupin632MonitorPlugin \
 \
 ImagePixelAdderPlugin \
