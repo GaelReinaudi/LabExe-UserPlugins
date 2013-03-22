@@ -15,7 +15,7 @@
 
 #include <QObject>
 #include <QThread>
-#include <uEye/uEye.h>
+#include "uEye/uEye.h"
 
 /*!
  * \defgroup EVENTTHREAD uEye events implementation
