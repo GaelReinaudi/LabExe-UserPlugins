@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(ProjectDir)../../../LabExe/plugins"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -60,7 +60,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="labexe.lib qtmain.lib QtCore4.lib QtGui4.lib"
-				OutputFile="$(ProjectDir)\..\..\..\LabExe\plugins\$(ProjectName)\$(ProjectName).dll"
+				OutputFile="$(OutDir)\$(ProjectName)\$(ProjectName).dll"
 				AdditionalLibraryDirectories="$(QTDIR)\lib;..\..\..\LabExe\lib;..\..\..\LabExe\bin"
 				GenerateDebugInformation="false"
 				SubSystem="2"
@@ -89,7 +89,7 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(ProjectDir)../../../LabExe/plugins"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -132,7 +132,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="labexe_D.lib qtmaind.lib QtCored4.lib QtGuid4.lib"
-				OutputFile="$(ProjectDir)\..\..\..\LabExe\plugins\$(ProjectName)\$(ProjectName).dll"
+				OutputFile="$(OutDir)\$(ProjectName)\$(ProjectName).dll"
 				AdditionalLibraryDirectories="$(QTDIR)\lib;..\..\..\LabExe\lib;..\..\..\LabExe\bin"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -161,7 +161,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release with Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(ProjectDir)../../../LabExe/plugins"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -203,7 +203,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="labexe.lib qtmain.lib QtCore4.lib QtGui4.lib"
-				OutputFile="$(ProjectDir)\..\..\..\LabExe\plugins\$(ProjectName)\$(ProjectName).dll"
+				OutputFile="$(OutDir)\$(ProjectName)\$(ProjectName).dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(QTDIR)\lib;..\..\..\LabExe\lib;..\..\..\LabExe\bin"
 				GenerateDebugInformation="true"

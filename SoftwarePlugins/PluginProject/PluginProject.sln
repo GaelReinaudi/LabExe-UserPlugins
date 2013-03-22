@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PluginProject", "PluginProject.vcproj", "{C4776B4D-CC1E-4437-8D4F-A88FA73F8FAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release with Debug|Win32 = Release with Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C4776B4D-CC1E-4437-8D4F-A88FA73F8FAA}.Debug|Win32.ActiveCfg = Release with Debug|Win32
+		{C4776B4D-CC1E-4437-8D4F-A88FA73F8FAA}.Debug|Win32.Build.0 = Release with Debug|Win32
+		{C4776B4D-CC1E-4437-8D4F-A88FA73F8FAA}.Release with Debug|Win32.ActiveCfg = Release with Debug|Win32
+		{C4776B4D-CC1E-4437-8D4F-A88FA73F8FAA}.Release with Debug|Win32.Build.0 = Release with Debug|Win32
+		{C4776B4D-CC1E-4437-8D4F-A88FA73F8FAA}.Release|Win32.ActiveCfg = Release with Debug|Win32
+		{C4776B4D-CC1E-4437-8D4F-A88FA73F8FAA}.Release|Win32.Build.0 = Release with Debug|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

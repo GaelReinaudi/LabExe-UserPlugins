@@ -61,7 +61,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="labexe.lib qtmain.lib QtCore4.lib QtGui4.lib"
 				OutputFile="$(OutDir)\$(ProjectName)\$(ProjectName).dll"
-				AdditionalLibraryDirectories="..\..\..\LabExe\lib;..\..\..\LabExe\bin;$(QTDIR)\lib;"
+				AdditionalLibraryDirectories="$(QTDIR)\lib;..\..\..\LabExe\lib;..\..\..\LabExe\bin"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 			/>
@@ -132,7 +132,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="labexe_D.lib qtmaind.lib QtCored4.lib QtGuid4.lib"
-				OutputFile="$(OutDir)\$(ProjectName)\$(ProjectName)_D.dll"
+				OutputFile="$(OutDir)\$(ProjectName)\$(ProjectName).dll"
 				AdditionalLibraryDirectories="..\..\..\LabExe\lib;..\..\..\LabExe\bin;$(QTDIR)\lib;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -203,7 +203,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="labexe_RD.lib qtmain.lib QtCore4.lib QtGui4.lib"
-				OutputFile="$(OutDir)\$(ProjectName)\$(ProjectName)_RD.dll"
+				OutputFile="$(OutDir)\$(ProjectName)\$(ProjectName).dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\..\LabExe\lib;..\..\..\LabExe\bin;$(QTDIR)\lib;"
 				GenerateDebugInformation="true"
