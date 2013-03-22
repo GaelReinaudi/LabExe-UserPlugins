@@ -1,5 +1,5 @@
 #include "GImage2DGaussFitter.h"
-#include "AlgLib/src/interpolation.h"
+#include "Alglib/src/interpolation.h"
 using namespace alglib;
 
 const QString fitFieldString("fit");
