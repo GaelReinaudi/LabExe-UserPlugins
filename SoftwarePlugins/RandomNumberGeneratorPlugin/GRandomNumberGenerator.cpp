@@ -11,9 +11,9 @@ GRandomNumberGenerator::GRandomNumberGenerator(QObject *parent, QString uniqueId
 	// put initialization code here
 	m_MaxUniformValue = 1.0;
 
-	// makes the seed update
-	SetSeed();
-	connect(&m_Seed, SIGNAL(ValueUpdated(double)), this, SLOT(SetSeed()));
+// 	// makes the seed update
+// 	SetSeed();
+// 	connect(&m_Seed, SIGNAL(ValueUpdated(double)), this, SLOT(SetSeed()));
 
 	connect(&m_DoGenerate, SIGNAL(ValueUpdated(bool)), this, SLOT(Activate(bool)));
 }
@@ -53,12 +53,26 @@ void GRandomNumberGenerator::SetSeed()
 void GRandomNumberGenerator::Activate(bool doGenerate)
 {
 	if(doGenerate) {
-		m_pTimer = new QTimer(this);
-		connect(m_pTimer, SIGNAL(timeout()), this, SLOT(GenerateRandom()));
+// 		start();
+		SetSeed();
+		m_pTimer = new QTimer();
+		connect(m_pTimer, SIGNAL(timeout()), this, SLOT(GenerateRandom()));//, Qt::DirectConnection);
 		m_pTimer->start(10);
 	}
 	else if(m_pTimer) {
+		quit();
+		wait(1000);
+		terminate();
 		delete m_pTimer;
 		m_pTimer = 0;
 	}
+}
+
+void GRandomNumberGenerator::run()
+{
+	SetSeed();
+	m_pTimer = new QTimer();
+	connect(m_pTimer, SIGNAL(timeout()), this, SLOT(GenerateRandom()));//, Qt::DirectConnection);
+	m_pTimer->start(10);
+	GProgDevice::run();	
 }
