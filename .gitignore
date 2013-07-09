@@ -17,5 +17,6 @@ labexe*.dll
 *.ncb
 *.exp
 *.pdb
+*.pch
 *.dep
 *moc_*.*
