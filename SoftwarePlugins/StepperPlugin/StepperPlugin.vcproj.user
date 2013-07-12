@@ -9,7 +9,7 @@
 			Name="Release|Win32"
 			>
 			<DebugSettings
-				Command="..\..\..\LabExe\bin\WinLabExe.exe"
+				Command="$(OutDir)/../bin/WinLabExe.exe"
 				WorkingDirectory=""
 				CommandArguments=""
 				Attach="false"
@@ -37,7 +37,7 @@
 			Name="Debug|Win32"
 			>
 			<DebugSettings
-				Command="..\..\..\LabExe\bin\WinLabExe_D.exe"
+				Command="$(OutDir)/../bin/WinLabExe_D.exe"
 				WorkingDirectory=""
 				CommandArguments=""
 				Attach="false"
@@ -65,7 +65,7 @@
 			Name="Release with Debug|Win32"
 			>
 			<DebugSettings
-				Command="..\..\..\LabExe\bin\WinLabExe.exe"
+				Command="$(OutDir)/../bin/WinLabExe.exe"
 				WorkingDirectory=""
 				CommandArguments=""
 				Attach="false"

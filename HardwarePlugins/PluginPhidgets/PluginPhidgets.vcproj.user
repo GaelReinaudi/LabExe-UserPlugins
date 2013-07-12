@@ -4,11 +4,11 @@
 	Version="9.00"
 	ShowAllFiles="false"
 	>
-	<Configurations>
-		<Configuration
+  <Configurations>
+    <Configuration
 			Name="Release|Win32"
 			>
-			<DebugSettings
+      <DebugSettings
 				Command="$(OutDir)/../bin/WinLabExe.exe"
 				WorkingDirectory=""
 				CommandArguments=""
@@ -20,7 +20,7 @@
 				HttpUrl=""
 				PDBPath=""
 				SQLDebugging=""
-				Environment="PATH=&quot;$(QTDIR)\bin;$(PATH)"
+				Environment="PATH=$(QTDIR)\bin;&quot;$(QTDIR)\bin;$(PATH)"
 				EnvironmentMerge="true"
 				DebuggerFlavor="0"
 				MPIRunCommand=""
@@ -32,11 +32,11 @@
 				MPIAcceptMode=""
 				MPIAcceptFilter=""
 			/>
-		</Configuration>
-		<Configuration
+    </Configuration>
+    <Configuration
 			Name="Debug|Win32"
 			>
-			<DebugSettings
+      <DebugSettings
 				Command="$(OutDir)/../bin/WinLabExe_D.exe"
 				WorkingDirectory=""
 				CommandArguments=""
@@ -48,7 +48,7 @@
 				HttpUrl=""
 				PDBPath=""
 				SQLDebugging=""
-				Environment="PATH=&quot;$(QTDIR)\bin;$(PATH)"
+				Environment="PATH=$(QTDIR)\bin;&quot;$(QTDIR)\bin;$(PATH)"
 				EnvironmentMerge="true"
 				DebuggerFlavor="0"
 				MPIRunCommand=""
@@ -60,11 +60,11 @@
 				MPIAcceptMode=""
 				MPIAcceptFilter=""
 			/>
-		</Configuration>
-		<Configuration
+    </Configuration>
+    <Configuration
 			Name="Release with Debug|Win32"
 			>
-			<DebugSettings
+      <DebugSettings
 				Command="$(OutDir)/../bin/WinLabExe.exe"
 				WorkingDirectory=""
 				CommandArguments=""
@@ -76,7 +76,7 @@
 				HttpUrl=""
 				PDBPath=""
 				SQLDebugging=""
-				Environment="PATH=&quot;$(QTDIR)\bin;$(PATH)"
+				Environment="PATH=$(QTDIR)\bin;&quot;$(QTDIR)\bin;$(PATH)"
 				EnvironmentMerge="true"
 				DebuggerFlavor="0"
 				MPIRunCommand=""
@@ -88,6 +88,6 @@
 				MPIAcceptMode=""
 				MPIAcceptFilter=""
 			/>
-		</Configuration>
-	</Configurations>
+    </Configuration>
+  </Configurations>
 </VisualStudioUserFile>
