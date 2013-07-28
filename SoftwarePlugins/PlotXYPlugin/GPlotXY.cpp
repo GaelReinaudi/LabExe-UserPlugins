@@ -512,7 +512,8 @@ void GPlotXY::EventNewValueY(double newValueY)
 			{	//Ignore the x input param bucket: 
 				// Prepend a value to the list of X-axis data: 
 				if(m_XIsTime)
-				{	if(m_XWhichTime)
+				{	
+                    if(m_XWhichTime)
 					{	//User would like to use the elapsed time (ms) since last Clear():
 						m_HistoryX.prepend(QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0 - m_TimeAtClear);//Precision is 1 ms.
 					}
