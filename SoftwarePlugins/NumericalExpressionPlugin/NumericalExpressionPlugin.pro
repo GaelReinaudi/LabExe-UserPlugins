@@ -12,19 +12,19 @@ INCLUDEPATH += \
 
 LIBS += \
 	-L"./../../../LabExe/lib" \
-	-L"./../../../LabExe/bin" \
-	-llabexe
-
-MOC_DIR += ./GeneratedFiles
-OBJECTS_DIR += ./GeneratedFiles/Obj
-UI_DIR += ./GeneratedFiles
-RCC_DIR += ./GeneratedFiles
+	-L"./../../../LabExe/bin"
 
 CONFIG(debug, debug|release) {
 	LIBS += -llabexe_D
 } else {
 	LIBS += -llabexe
 }
+
+MOC_DIR += ./GeneratedFiles
+OBJECTS_DIR += ./GeneratedFiles/Obj
+UI_DIR += ./GeneratedFiles
+RCC_DIR += ./GeneratedFiles
+
 
 DEFINES += NUMERICALEXPRESSIONPLUGIN_LIB
 include(NumericalExpressionPlugin.pri)

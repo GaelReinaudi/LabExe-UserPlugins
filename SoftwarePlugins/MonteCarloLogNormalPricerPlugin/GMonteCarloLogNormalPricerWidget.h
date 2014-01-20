@@ -1,7 +1,7 @@
 #ifndef GMONTECARLOLOGNORMALPRICERWIDGET_H
 #define GMONTECARLOLOGNORMALPRICERWIDGET_H
 
-#include <QWidget>
+#include <QtWidgets>
 #include "ui_GMonteCarloLogNormalPricerWidget.h"
 
 class GMonteCarloLogNormalPricer;

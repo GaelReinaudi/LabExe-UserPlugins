@@ -16,21 +16,21 @@ public:
 	GWebDisplay(QObject *parent);
 	~GWebDisplay();
 
-	//! Creates a GWebProcessor and then loads the manipulated web page.
-	void Load(const QUrl& url);
+//	//! Creates a GWebProcessor and then loads the manipulated web page.
+//	void Load(const QUrl& url);
 
 	//! Re-implemented.
 	QWidget* ProvideNewWebDisplayWidget(QWidget* parentWidget);
 
 protected:
-	//! Loads the web page.
-	void SetUrl(const QUrl& url);
+//	//! Loads the web page.
+//	void SetUrl(const QUrl& url);
 
 protected slots:
 //REMOVE_WEB_FOR_NOW	virtual void ProcessWebPage(QWebPage* page);
 
 private slots:
-	void EventWebPageLoaded(bool okay);
+//	void EventWebPageLoaded(bool okay);
 
 private:
 //REMOVE_WEB_FOR_NOW	QWebPage* m_WebPage;

@@ -6,7 +6,7 @@ QT += core gui widgets webkit webkitwidgets
 
 INCLUDEPATH += \
 	./../../../LabExe/src \
-	./../../../LabExe/include \
+	./../../include \
 	./GeneratedFiles \
 	.
 

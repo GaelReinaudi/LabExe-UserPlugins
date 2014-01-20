@@ -6,12 +6,12 @@ QT += core gui widgets printsupport
 
 INCLUDEPATH += \
 	./../../../LabExe/src \
-	./../../../LabExe/include \
+	./../../include \
 	./GeneratedFiles \
 	.
 
 LIBS += \
-	-L"./../../../LabExe/lib" \
+	-L"./../../lib" \
 	-L"./../../../LabExe/bin"
 
 CONFIG(debug, debug|release) {
@@ -28,4 +28,8 @@ RCC_DIR += ./GeneratedFiles
 DEFINES += Plot1DPlugin_LIB
 include(Plot1DPlugin.pri)
 
+HEADERS += \
+	../../include/QCustomPlot/qcustomplot.h
 
+SOURCES += \
+	../../include/QCustomPlot/qcustomplot.cpp

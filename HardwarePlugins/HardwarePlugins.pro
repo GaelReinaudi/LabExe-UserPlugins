@@ -1,8 +1,10 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-	../../LabExe-UserPlugins/HardwarePlugins\PluginCameraUEye \
-	../../LabExe-UserPlugins/HardwarePlugins\PluginPhidgets
+	../HardwarePlugins\PluginCameraUEye \
+	../HardwarePlugins\PluginPhidgets \
+#	../HardwarePlugins\PluginWavelengthHighFinesse \
+#	../HardwarePlugins\PxiSystem
 
 
 

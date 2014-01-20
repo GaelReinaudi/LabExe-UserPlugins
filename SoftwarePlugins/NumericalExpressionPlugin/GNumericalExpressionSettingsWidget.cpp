@@ -12,6 +12,7 @@
 
 GNumericalExpressionSettingsWidget::GNumericalExpressionSettingsWidget( GNumericalExpression* numericalExpression, QObject* parent /*= NULL*/)	
 {
+    Q_UNUSED(parent);
 	m_NumericalExpression = numericalExpression;
 
 	QGroupBox* pExpressionSettings = new QGroupBox;

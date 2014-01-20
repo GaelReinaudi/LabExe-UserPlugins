@@ -3,16 +3,16 @@ HEADERS += ./fitter2dgaussianplugin.h \
     ./GImage2DGaussFitter.h
 SOURCES += ./fitter2dgaussianplugin.cpp \
     ./GImage2DGaussFitter.cpp \
-	../../../LabExe/include/AlgLib/src/alglibinternal.cpp \
-	../../../LabExe/include/AlgLib/src/alglibmisc.cpp \
-	../../../LabExe/include/AlgLib/src/ap.cpp \
-	../../../LabExe/include/AlgLib/src/dataanalysis.cpp \
-	../../../LabExe/include/AlgLib/src/diffequations.cpp \
-	../../../LabExe/include/AlgLib/src/fasttransforms.cpp \
-	../../../LabExe/include/AlgLib/src/integration.cpp \
-	../../../LabExe/include/AlgLib/src/interpolation.cpp \
-	../../../LabExe/include/AlgLib/src/linalg.cpp \
-	../../../LabExe/include/AlgLib/src/optimization.cpp \
-	../../../LabExe/include/AlgLib/src/solvers.cpp \
-	../../../LabExe/include/AlgLib/src/specialfunctions.cpp \
-	../../../LabExe/include/AlgLib/src/statistics.cpp
+	../../include/AlgLib/src/alglibinternal.cpp \
+	../../include/AlgLib/src/alglibmisc.cpp \
+	../../include/AlgLib/src/ap.cpp \
+	../../include/AlgLib/src/dataanalysis.cpp \
+	../../include/AlgLib/src/diffequations.cpp \
+	../../include/AlgLib/src/fasttransforms.cpp \
+	../../include/AlgLib/src/integration.cpp \
+	../../include/AlgLib/src/interpolation.cpp \
+	../../include/AlgLib/src/linalg.cpp \
+	../../include/AlgLib/src/optimization.cpp \
+	../../include/AlgLib/src/solvers.cpp \
+	../../include/AlgLib/src/specialfunctions.cpp \
+	../../include/AlgLib/src/statistics.cpp

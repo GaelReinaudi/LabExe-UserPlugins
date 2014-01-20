@@ -42,6 +42,7 @@ GPupin632Monitor::~GPupin632Monitor()
 
 void GPupin632Monitor::StartReadingPages(QObject *parent, QString TheLabUrl, QString TheGoogleUrl)
 {
+    Q_UNUSED(parent)
     Thehtml = "";
     TheWebView->load(QUrl(TheLabUrl));
 //	TheGooglehtml = "";

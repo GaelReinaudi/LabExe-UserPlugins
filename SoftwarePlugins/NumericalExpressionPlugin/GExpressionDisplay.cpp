@@ -22,5 +22,5 @@ void GExpressionDisplay::ExpressionChanged( const QString& expression )
 	// DO NOT MESS AROUND WITH THIS CODE! IT IS VERY TEMPERMENTAL.
 	QString encodedExpression = QUrl::toPercentEncoding(expression, "*", "+/()[]{}");
 	QByteArray encodedUrl = ("http://www.wolframalpha.com/input/?i=" + encodedExpression).toUtf8();
-	Load(QUrl::fromEncoded(encodedUrl));
+//	Load(QUrl::fromEncoded(encodedUrl));
 }

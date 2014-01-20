@@ -2,11 +2,11 @@ TEMPLATE = lib
 CONFIG += plugin
 DESTDIR = ../../../LabExe/plugins/$$TARGET
 
-QT += core gui widgets printsupport
+QT += core gui widgets
 
 INCLUDEPATH += \
 	./../../../LabExe/src \
-	./../../../LabExe/include \
+	./../../include \
 	./GeneratedFiles \
 	.
 

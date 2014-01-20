@@ -135,7 +135,7 @@ void GPlot1D::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget )
 	m_Plot->addGraph();
 
 	// -- Initial graph customization: 
-	m_Plot->setupFullAxesBox();//Adds right and top axes with ticks but no labels. 
+    m_Plot->axisRect()->setupFullAxesBox();//Adds right and top axes with ticks but no labels.
 	//		Make left and bottom axes always transfer their ranges to right and top axes:
 	connect(m_Plot->xAxis, SIGNAL(rangeChanged(QCPRange)), m_Plot->xAxis2, SLOT(setRange(QCPRange)));
 	connect(m_Plot->yAxis, SIGNAL(rangeChanged(QCPRange)), m_Plot->yAxis2, SLOT(setRange(QCPRange)));
@@ -466,15 +466,15 @@ void GPlot1D::EventNewValueY(double newValueY)
 void GPlot1D::UpdateGraphAll()
 {	
 	// Make the plot pretty...
-	m_Plot->setTitle(m_Title);
+//	m_Plot->setTitle(m_Title);
 	m_Plot->xAxis->setLabel(m_LabelX);
 	m_Plot->yAxis->setLabel(m_LabelY);
-	m_Plot->setColor(QColor(m_BkgndColor));//Background color -- there has to be a better way!  This changes the color outside the plotted area.  
-	m_Plot->graph(0)->setPen(QPen(QColor(m_YColor)));//Curve color
-	m_Plot->xAxis->setGrid(m_XGridOn);//Grids on/off
-	m_Plot->yAxis->setGrid(m_YGridOn);
-	m_Plot->xAxis->setGridPen(QPen(QColor(m_XGridColor), 1, Qt::DotLine));//Grid colors 
-	m_Plot->yAxis->setGridPen(QPen(QColor(m_YGridColor), 1, Qt::DotLine));
+    m_Plot->setBackground(QColor(m_BkgndColor));//Background color -- there has to be a better way!  This changes the color outside the plotted area.
+    m_Plot->graph(0)->setPen(QPen(QColor(m_YColor)));//Curve color
+    m_Plot->xAxis->grid()->setVisible(m_XGridOn);//Grids on/off
+    m_Plot->yAxis->grid()->setVisible(m_YGridOn);
+    m_Plot->xAxis->grid()->setPen(QPen(QColor(m_XGridColor), 1, Qt::DotLine));//Grid colors
+    m_Plot->yAxis->grid()->setPen(QPen(QColor(m_YGridColor), 1, Qt::DotLine));
 
 	if(m_XIsTime)
 	{	// Configure bottom axis to show date and time instead of number:
@@ -485,15 +485,15 @@ void GPlot1D::UpdateGraphAll()
 	{	m_Plot->xAxis->setTickLabelType(QCPAxis::ltNumber);
 	}
 
-	if(m_AllowMouseRescale)
-	{	// Make axis range moveable by mouse interaction (click and drag):
-		m_Plot->setRangeDrag(Qt::Horizontal | Qt::Vertical);
-		m_Plot->setRangeZoom(Qt::Horizontal | Qt::Vertical);
-	}
-	else
-	{	m_Plot->setRangeDrag(0 | 0);
-		m_Plot->setRangeZoom(0 | 0);
-	}
+    if(m_AllowMouseRescale)
+    {	// Make axis range moveable by mouse interaction (click and drag):
+        m_Plot->axisRect()->setRangeDrag(Qt::Horizontal | Qt::Vertical);
+        m_Plot->axisRect()->setRangeZoom(Qt::Horizontal | Qt::Vertical);
+    }
+    else
+    {	m_Plot->axisRect()->setRangeDrag(0 | 0);
+        m_Plot->axisRect()->setRangeZoom(0 | 0);
+    }
 
 	//Things that used to be in UpdateGraphData()
 	// Set linear or logarithmic axis scales: 

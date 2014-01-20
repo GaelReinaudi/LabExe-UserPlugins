@@ -33,6 +33,7 @@ GNumericalExpression::~GNumericalExpression()
 
 void GNumericalExpression::ReCalculate(int debugInfo /*= -1*/)
 {
+    Q_UNUSED(debugInfo);
 	// Evaluate and display the result.
 	QScriptValue scriptResult = m_pScriptEngine->Evaluate();
 }
@@ -76,7 +77,8 @@ void GNumericalExpression::AddVariableFromParam( GParam* forThatParam )
 
 void GNumericalExpression::RemoveVariableFromParam(int oldIndex, GParam* forThatParam)
 {
-	GParamString* pNameStr = m_VariableBucket.ExtraParamString(forThatParam, "symb");
+    Q_UNUSED(oldIndex);
+    GParamString* pNameStr = m_VariableBucket.ExtraParamString(forThatParam, "symb");
 	GParamNum* pParNum = qobject_cast<GParamNum*>(forThatParam);
 	if(!pNameStr || !pParNum) {
 		qWarning() << "problem RemoveVariableFromParam()";

@@ -84,7 +84,8 @@ void GBetterAbsorptionImage::InterpretSettings( QSettings& fromQsettings )
 
 void GBetterAbsorptionImage::ProcessImageFull(const GImageDouble & fullImage, const QRect & theAoiInTheFullImage)
 {
-	QDateTime timeThisPicture = fullImage.DateTimeCreated();
+    Q_UNUSED(theAoiInTheFullImage);
+    QDateTime timeThisPicture = fullImage.DateTimeCreated();
 	// update the m_CurrentImageType
 	WichImageMustThatBe(timeThisPicture);
 	switch(m_CurrentImageType) {
@@ -306,7 +307,7 @@ QPoint GBetterAbsorptionImage::CorrectPosition( int maxChebyshevLength )
 			GImageDouble imBeamShifted = imBeam.DataShifted(pointTrans);
 			double* dBeam = imBeamShifted.DoubleArray().data();
 
-			int Npix = (wid - 2 * maxChebyshevLength) * (hei - 2 * maxChebyshevLength);
+            //int Npix = (wid - 2 * maxChebyshevLength) * (hei - 2 * maxChebyshevLength);
 			double sumLn = 0.0;
 			double sumLnSquared = 0.0;
 			int iTot = 0;
