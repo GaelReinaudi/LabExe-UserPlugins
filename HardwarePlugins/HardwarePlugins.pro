@@ -4,7 +4,7 @@ SUBDIRS += \
 	../HardwarePlugins\PluginCameraUEye \
 	../HardwarePlugins\PluginPhidgets \
 #	../HardwarePlugins\PluginWavelengthHighFinesse \
-#	../HardwarePlugins\PxiSystem
+#	../HardwarePlugins\PluginPxiSystem
 
 
 

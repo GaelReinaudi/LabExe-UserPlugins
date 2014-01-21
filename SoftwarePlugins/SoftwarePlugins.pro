@@ -8,12 +8,13 @@ LowPassFilterPlugin \
 RollingStatsPlugin \
 LockingSlapperPlugin \
 Scroller2DPlugin \
-RandomNumberPlugin \
+RandomNumberGeneratorPlugin \
 NumericalExpressionPlugin \
 MemorySwitcherPlugin \
 ParamSupplierPlugin \
 TimerPlugin \
 TextLoaderPlugin \
+LabNotesLoggerPlugin \
 \
 Plot1DPlugin \
 PlotYPlugin \
@@ -29,7 +30,8 @@ ImageStackerPlugin \
 LinearCombinationPlugin \
 \
 PlainTextLoggerPlugin \
-#SRSControllerPlugin \
+SRSControllerPlugin \
+SerialComPortPlugin \
 Pupin632MonitorPlugin \
 \
 ImagePixelAdderPlugin \
@@ -41,7 +43,7 @@ ImagePixelAdderPlugin \
 #SerialComPortPlugin \
 #DropObserverPlugin \
 YoutubePlugin \
-
+TCO13Round1Plugin
 
 for(plugproj, THE_SRYBEXE_PLUGINS) {
 	exists($$plugproj) {

@@ -1,9 +1,5 @@
 #include "GSRSController.h"
-//#include <QString>
-//#include <QObject>
-//#include <QIODevice>
-//#include <QThread>
-#include "Winsock2.h" 
+//#include "Winsock2.h"
 #pragma comment(lib,  "ws2_32.lib")
 
 /* prototypes */ 

@@ -6,12 +6,12 @@ QT += core gui widgets
 
 INCLUDEPATH += \
 	./../../../LabExe/src \
-	./../../../LabExe/include \
+	./../../include \
 	./GeneratedFiles \
 	.
 
 LIBS += \
-	-L"./../../../LabExe/lib" \
+	-L"./../../lib" \
 	-L"./../../../LabExe/bin"
 
 CONFIG(debug, debug|release) {
@@ -25,5 +25,5 @@ OBJECTS_DIR += ./GeneratedFiles/Obj
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
 
-DEFINES += SRSControllerPlugin_LIB
-include(SRSControllerPlugin.pri)
+DEFINES += PXILABEXE_LIB
+include(PluginPxiSystem.pri)

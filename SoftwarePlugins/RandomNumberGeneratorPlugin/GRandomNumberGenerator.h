@@ -3,7 +3,6 @@
 
 #include "device.h"
 #include "param.h"
-#include <QBasicTimer>
 
 class QTimer;
 
@@ -32,8 +31,6 @@ public slots:
 protected:
 	//! Re-implemented
 	void PopulateDeviceWidget(GDeviceWidget* theDeviceWidget);
-	//! Re-implemented to generate in a separate thread.
-	void run();
 
 private:
 	//! the seed of the random numbers

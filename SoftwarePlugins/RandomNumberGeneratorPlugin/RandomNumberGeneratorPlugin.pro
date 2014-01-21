@@ -25,5 +25,5 @@ OBJECTS_DIR += ./GeneratedFiles/Obj
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
 
-DEFINES += SRSControllerPlugin_LIB
-include(SRSControllerPlugin.pri)
+DEFINES += RandomNumberGeneratorPlugin_LIB
+include(RandomNumberGeneratorPlugin.pri)
