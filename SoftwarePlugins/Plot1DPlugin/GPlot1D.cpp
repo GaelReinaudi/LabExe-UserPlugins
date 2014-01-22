@@ -663,7 +663,8 @@ void GPlot1D::SettingsCancel()
 }
 
 void GPlot1D::setBkgndColor()
-{	QColorDialog* dummyDialog = new QColorDialog;
+{
+    QColorDialog* dummyDialog = new QColorDialog;
 	QColor dummy = dummyDialog->getColor(QColor(m_BkgndColor));
 	if(dummy.isValid())
 	{	m_BkgndColor = dummy.name();//save new color in RGB string format "#RRGGBB".  
@@ -673,7 +674,8 @@ void GPlot1D::setBkgndColor()
 }
 
 void GPlot1D::setYColor()
-{	QColorDialog* dummyDialog = new QColorDialog;
+{
+    QColorDialog* dummyDialog = new QColorDialog;
 	QColor dummy = dummyDialog->getColor(QColor(m_YColor));
 	if(dummy.isValid())
 	{	m_YColor = dummy.name();//save new color in RGB string format "#RRGGBB".  
@@ -683,7 +685,8 @@ void GPlot1D::setYColor()
 }
 
 void GPlot1D::setYGridColor()
-{	QColorDialog* dummyDialog = new QColorDialog;
+{
+    QColorDialog* dummyDialog = new QColorDialog;
 	QColor dummy = dummyDialog->getColor(QColor(m_YGridColor));
 	if(dummy.isValid())
 	{	m_YGridColor = dummy.name();//save new color in RGB string format "#RRGGBB".  

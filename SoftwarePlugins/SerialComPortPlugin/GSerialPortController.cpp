@@ -1,7 +1,7 @@
 #include "GSerialPortController.h"
 #include "GSerialPortControllerWidget.h"
-#include "qextserialport.h"
-#include "qextserialenumerator.h"
+#include "qExtSerialPort/src/qextserialport.h"
+#include "qExtSerialPort/src/qextserialenumerator.h"
 #include <stdio.h>
 #include <QMutexLocker>
 #include "hled.h"
@@ -473,7 +473,7 @@ void GSerialPortController::onReadyRead()
 	emit LEDisGreen();
 	QByteArray bytes;
 	int QLocation = -1;
-	int a = m_pExtSerialPort->bytesAvailable();
+//	int a = m_pExtSerialPort->bytesAvailable();
 	m_Bytes.chop(m_Bytes.length()+100);//This will initialize m_Bytes to an empty array
 	//m_Bytes.resize(a);
 	m_Bytes = m_pExtSerialPort->readAll();//used to be "read"

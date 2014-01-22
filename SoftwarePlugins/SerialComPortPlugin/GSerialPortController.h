@@ -3,10 +3,8 @@
 
 #include "device.h"
 #include "param.h"
-//#include "qExtSerialPort/qextserialport.h"
-//#include "qExtSerialPort/qextserialenumerator.h"
-#include "qextserialport.h"
-#include "qextserialenumerator.h"
+#include "qExtSerialPort/src/qextserialport.h"
+#include "qExtSerialPort/src/qextserialenumerator.h"
 #include "PortSettingsWidget.h"
 #include "hled.h"
 //#include "GSerialPortControllerWidget.h"
