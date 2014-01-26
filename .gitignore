@@ -1,9 +1,10 @@
+/build*/
 /GeneratedFiles/
 /*/GeneratedFiles/
 /*/*/GeneratedFiles/
 /*/*/*/GeneratedFiles/
 /*/*Makefile*
-/*/*/Makefile*
+
 
 labexe*.lib
 labexe*.dll
