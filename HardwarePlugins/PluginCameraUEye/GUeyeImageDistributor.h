@@ -24,7 +24,9 @@ protected:
 	//! re-implemented from QThread in order to initialize the variables and start waiting for images.
 	void run();
 	//! Reimplemented
-	virtual void PopulateDeviceWidget(GDeviceWidget* theDeviceWidget) {}
+    virtual void PopulateDeviceWidget(GDeviceWidget* theDeviceWidget) {
+        Q_UNUSED(theDeviceWidget);
+    }
 
 private:
 	//! Called when a new buffer was grabbed by the loop in the thread

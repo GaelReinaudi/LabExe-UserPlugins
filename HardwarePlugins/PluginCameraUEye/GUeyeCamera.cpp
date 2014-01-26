@@ -124,7 +124,7 @@ bool GUeyeCamera::OpenCamera()
 		unsigned int pClockMax = nRange[1];
 		unsigned int pClockInt = nRange[2];
 		m_PixelClock.SetHardLimits(pClockMin, pClockMax);
-		qDebug() << "Pixel clock range" << pClockMin << "to" << pClockMax;
+        qDebug() << "Pixel clock range" << pClockMin << "to" << pClockMax << "int" << pClockInt;
 	}
 
 	SetPixelClock_MHz(m_PixelClock);
@@ -134,17 +134,6 @@ bool GUeyeCamera::OpenCamera()
 		// set the desired color mode
 		is_SetColorMode(m_CamHandle, m_nColorMode);
 	}  
-
-	// test
-	int XPos = 541;
-	int YPos = 1024/2-1024/8;
-	int Width = 233;
-	int Height = 1024/4;
-// 	if(is_SetAOI (m_CamHandle, IS_SET_IMAGE_AOI, &XPos, &YPos, &Width, &Height) != IS_SUCCESS) 
-	{
-		Height = 4;
-	}
-
 	return true;
 }
 
@@ -215,7 +204,7 @@ double GUeyeCamera::GetExposureMin()
 	double dblRange[3];
 	double minExpo = 1e-9, maxExpo = 1e9, incExpo = 3.1415;
 	if(IsAble()) {
-		int nRet = is_Exposure(m_CamHandle, IS_EXPOSURE_CMD_GET_EXPOSURE_RANGE, (void*)&dblRange, sizeof(dblRange));
+        is_Exposure(m_CamHandle, IS_EXPOSURE_CMD_GET_EXPOSURE_RANGE, (void*)&dblRange, sizeof(dblRange));
 		minExpo = dblRange[0];
 		maxExpo = dblRange[1];
 		incExpo = dblRange[2];
@@ -228,7 +217,7 @@ double GUeyeCamera::GetExposureMax()
 	double dblRange[3];
 	double minExpo = 1e-9, maxExpo = 1e9, incExpo = 3.1415;
 	if(IsAble()) {
-		int nRet = is_Exposure(m_CamHandle, IS_EXPOSURE_CMD_GET_EXPOSURE_RANGE, (void*)&dblRange, sizeof(dblRange));
+        is_Exposure(m_CamHandle, IS_EXPOSURE_CMD_GET_EXPOSURE_RANGE, (void*)&dblRange, sizeof(dblRange));
 		minExpo = dblRange[0];
 		maxExpo = dblRange[1];
 		incExpo = dblRange[2];
@@ -273,7 +262,7 @@ bool GUeyeCamera::SupportsExternalTrigger() const
 void GUeyeCamera::UseExternalTrigger( bool yesORno )
 {
 	int nTriggerMode = yesORno ? IS_SET_TRIGGER_LO_HI : IS_SET_TRIGGER_OFF;
-	int ret = is_SetExternalTrigger (m_CamHandle, nTriggerMode);
+    is_SetExternalTrigger (m_CamHandle, nTriggerMode);
 	qDebug() << "Use trigger set to" << nTriggerMode;
 // 	// 2011-04-04 to try to have the camera grab continuously when trigger mode is changed during acquisition.
 // 	ContinuousShot(false);

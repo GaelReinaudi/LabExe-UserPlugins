@@ -6,12 +6,12 @@ QT += core gui widgets
 
 INCLUDEPATH += \
 	./../../../LabExe/src \
-	./../../../LabExe/include \
+	./../../include \
 	./GeneratedFiles \
 	.
 
 LIBS += \
-	-L"./../../../LabExe/lib" \
+	-L"./../../lib" \
 	-L"./../../../LabExe/bin"
 
 CONFIG(debug, debug|release) {

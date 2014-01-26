@@ -54,7 +54,7 @@ void GUeyeImageDistributor::run()
 				is_CaptureStatus (hCam, IS_CAPTURE_STATUS_INFO_CMD_GET,
 					(void*)&CaptureStatusInfo,
 					sizeof(CaptureStatusInfo));
-				ulong caperr = CaptureStatusInfo.adwCapStatusCnt_Detail[IS_CAP_STATUS_API_CONVERSION_FAILED];
+                CaptureStatusInfo.adwCapStatusCnt_Detail[IS_CAP_STATUS_API_CONVERSION_FAILED];
 //				qDebug() << "Transfert failed" << caperr;
 				BufferToTreat(0);
 				emit ProcessorFailed();
@@ -86,7 +86,7 @@ void GUeyeImageDistributor::BufferToTreat( char * pPix)
 	QRect aoi = m_pParentUeyeCamera->SensorAOI();
 	int widht = aoi.width();
 	int height = aoi.height();
-	int bitsPPixel = m_pParentUeyeCamera->BitsPerPixel();
+    //int bitsPPixel = m_pParentUeyeCamera->BitsPerPixel();
 	int bytePerLine = 0;
 	// the line pitch for making the QImage out of raw data
 	is_GetImageMemPitch (hCam, &bytePerLine);

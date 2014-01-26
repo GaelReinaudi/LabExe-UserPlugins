@@ -35,6 +35,7 @@ void GPhidgetManagerWidget::UpdateSubDevicesWidgetList()
 
 	// lets delete the gone's and create the new's
 	foreach(GDevice* pDev, goneDevicesInList) {
+        Q_UNUSED(pDev)
 		for (int i = 0; i < pLayout->count(); ++i) {
 			GDeviceWidget* pWid = qobject_cast<GDeviceWidget*>(pLayout->itemAt(i)->widget());
 			if(pWid && goneDevicesInList.contains(pWid->Device())) {

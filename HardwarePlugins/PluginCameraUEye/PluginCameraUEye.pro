@@ -12,8 +12,8 @@ INCLUDEPATH += \
 
 LIBS += \
 	-L"./../../lib" \
-	-L"./../../../LabExe/bin" \
-	-L"./../../lib/uEye" -luEye_api_64
+	-L"./../../../LabExe/bin"
+LIBS += -L"./../../lib/uEye" -luEye_api_64
 
 CONFIG(debug, debug|release) {
 	LIBS += -llabexe_D

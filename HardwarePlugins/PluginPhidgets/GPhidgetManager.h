@@ -48,7 +48,9 @@ protected slots:
 
 protected:
 	//! Reimplemented
-	virtual void PopulateDeviceWidget(GDeviceWidget* theDeviceWidget ) {}
+    virtual void PopulateDeviceWidget(GDeviceWidget* theDeviceWidget ) {
+        Q_UNUSED(theDeviceWidget)
+    }
 	void LatterInitialization(){
 		GHardDevice::LatterInitialization();
 		UpdateListPhidgetsModules();
