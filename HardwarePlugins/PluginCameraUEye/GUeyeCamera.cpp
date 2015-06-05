@@ -83,11 +83,11 @@ bool GUeyeCamera::OpenCamera()
 //	m_CamHandle = (HIDS) (0 | IS_USE_DEVICE_ID);  
 	int nRet = is_InitCamera(&m_CamHandle, NULL);
 	if (nRet != IS_SUCCESS) {
-//		qDebug() << "initialization failed" << UniqueSystemID();
+		qDebug() << "Camera initialization failed: " << UniqueSystemID();
 		return false;
 	}
-	else
-		qDebug() << "initialization successful" << UniqueSystemID();
+	else {
+		qDebug() << "Camera initialization successful: " << UniqueSystemID();
 	// let's set the camera ID to the m_CamHandle value: It may help the driver to recognize which handle represents which camera
 	nRet = is_SetCameraID(m_CamHandle, m_CamHandle);
 
@@ -100,40 +100,64 @@ bool GUeyeCamera::OpenCamera()
 	// get sensor info
 	SENSORINFO SensorInfo;
 	is_GetSensorInfo(m_CamHandle, &SensorInfo );
-
+	
 	if(SensorInfo.nColorMode == IS_COLORMODE_MONOCHROME) {
-		// for monochrome camera models use Y8 mode
-		m_nColorMode = IS_SET_CM_Y8;
-		m_nBitsPerPixel = 8;
+		//qDebug()<<"Camera is monochrome.";
+		m_nBitsPerPixel = 8;//default value, may change below
+
+		// 2015-06-02 Mickey and Bart: Changing color mode for monochrome camera from IS_SET_CM_Y8 (bad b/c allows image to be altered) to IS_CM_SENSOR_RAW8 or ...12: 
+		//m_nColorMode = IS_SET_CM_Y8;//Pre 2015-06-01 used this which is same as IS_CM_MONO8, probably was ok, but not preferred! 
+		//First, try to initialize to 12 bits:  
+		m_nColorMode = IS_CM_SENSOR_RAW12;
+		nRet = is_SetColorMode(m_CamHandle, m_nColorMode);
+		if(nRet==IS_SUCCESS){
+			qDebug() << "Camera monochrome color mode set to IS_CM_SENSOR_RAW12 with 12-bit depth.";
+			m_nBitsPerPixel = 12;
+		}
+		else{
+			//If 12 bits didn't work, now try 8 bits: 
+			m_nColorMode = IS_CM_SENSOR_RAW8;
+			nRet = is_SetColorMode(m_CamHandle, m_nColorMode);
+			if(nRet==IS_SUCCESS){
+				qDebug() << "Camera monochrome color mode set to IS_CM_SENSOR_RAW8 with 8-bit depth.";
+				m_nBitsPerPixel = 8;
+			}
+			else{
+				//Neither worked, throw error: 
+				qDebug() << "Unable to set camera color mode!";
+				return false;
+			}
+		}
+		// 2015-06-01 Mickey and Bart: MAKE SURE GAMMA PROCESSING OFF!
+		INT nGamma = 100;//This means gamma is 1.00, which is OFF! Any other value makes camera data nonlinear with intensity. 
+		nRet = is_SetGamma(m_CamHandle,nGamma);
+		if(nRet==IS_SUCCESS){
+			qDebug() << "Camera gamma value set to unity.";
+		}
 	}
 	else {
-		qWarning() << "This camera" << Name() << "is not Monochrome!";
+		qWarning() << "This camera " << Name() << " is not Monochrome!";
 		m_nColorMode = is_SetColorMode(m_CamHandle, IS_GET_COLOR_MODE);
 	}
-
-	qDebug() << "bits per pixels" << m_nBitsPerPixel;
+	
+	
+	//qDebug() << "Camera bits per pixels = " << m_nBitsPerPixel;//use by us! 
 	// init image size
-	qDebug() << "Max image size" << GetMaxImageSize();
+	qDebug() << "Maximum camera image size: " << GetMaxImageSize();
 	// init expo range
 //	qDebug() << "Exposure range" << GetExposureMin() << "to" << GetExposureMax();
 
-	// pixel clock range
+	// pixel clock range and adjustment
 	unsigned int nRange[3];
 	if(is_PixelClock(m_CamHandle, IS_PIXELCLOCK_CMD_GET_RANGE, (void*)nRange, sizeof(nRange)) == IS_SUCCESS) {
 		unsigned int pClockMin = nRange[0];
 		unsigned int pClockMax = nRange[1];
 		unsigned int pClockInt = nRange[2];
 		m_PixelClock.SetHardLimits(pClockMin, pClockMax);
-		qDebug() << "Pixel clock range" << pClockMin << "to" << pClockMax;
+		qDebug() << "Camera pixel clock range: " << pClockMin << "to" << pClockMax;
 	}
-
 	SetPixelClock_MHz(m_PixelClock);
 	connect(&m_PixelClock, SIGNAL(ValueUpdated(double)), this, SLOT(SetPixelClock_MHz()), Qt::UniqueConnection);
-
-	if (nRet == IS_SUCCESS) {
-		// set the desired color mode
-		is_SetColorMode(m_CamHandle, m_nColorMode);
-	}  
 
 	// test
 	int XPos = 541;
@@ -146,6 +170,7 @@ bool GUeyeCamera::OpenCamera()
 	}
 
 	return true;
+	}
 }
 
 QSize GUeyeCamera::GetMaxImageSize() const

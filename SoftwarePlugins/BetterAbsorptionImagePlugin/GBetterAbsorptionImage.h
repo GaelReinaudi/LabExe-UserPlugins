@@ -74,6 +74,7 @@ private:
 	//! Tells that we correct the amplitude of the "Beam" image
 	GParamBool m_DoCorrectAmplitude;
 	GParamBool m_DoCorrectPosition;
+	GParamBool m_GaelOrMickey;
 	//! mutex to protect the access to shared images
 	QMutex m_ImageMutex;
 };

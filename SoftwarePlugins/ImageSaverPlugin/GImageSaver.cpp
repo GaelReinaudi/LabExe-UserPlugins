@@ -41,7 +41,18 @@ void GImageSaver::ProcessImageAOIed(const GImageDouble & aoiImage)
 	fileName += QDateTime::currentDateTime().toString("yyyy-MM-dd-hh-mm-ss.zzz");
 	fileName += ".png";
 
-	QPixmap::fromImage(aoiImage).save(fileName);
+	QPixmap::fromImage(aoiImage).save(fileName);//Gael's original implementation which saves 8-bit QImage.
+	
+	//2015-06-03 modifying to save directly from DoubleArray, to avoid converting to 8-bit QImage first. 
+/*	double* doubleArrayToSave = aoiImage.DoubleArray().data();//Get access to its DoubleArray.
+	uint length = aoiImage.width()*aoiImage.height();
+	QByteArray ByteArrayToSave =QByteArray(2*length,0);
+	for(int iTot=0; iTot<length; iTot++){
+		//Somehow fill byte array... 
+	}
+	QPixmap MapToSave; 
+	MapToSave.loadFromData(ByteArrayToSave);
+	MapToSave.save(fileName);*/
 }
 
 void GImageSaver::ChooseFolder()
@@ -49,7 +60,7 @@ void GImageSaver::ChooseFolder()
 	QFileDialog* pDialog = new QFileDialog(0, "Select folder", m_Folder);
 	pDialog->setFileMode(QFileDialog::Directory);
 	pDialog->setOption(QFileDialog::ShowDirsOnly);
-	pDialog->show();
+	pDialog->show();	
 	pDialog->setAttribute(Qt::WA_DeleteOnClose);
 
 	connect(pDialog, SIGNAL(fileSelected(QString)), this, SLOT(SetFolder(QString)));

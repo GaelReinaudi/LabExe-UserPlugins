@@ -114,7 +114,7 @@
 				AdditionalOptions="/MP7"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;..\..\include&quot;;&quot;..\..\..\LabExe\src&quot;;&quot;..\..\..\LabExe\include&quot;;&quot;.\GeneratedFiles&quot;;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\qtmain&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;.\&quot;"
-				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_CORE_LIB;QT_GUI_LIB;PLUGINCAMERAUEYE_LIB"
+				PreprocessorDefinitions="UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_CORE_LIB;QT_GUI_LIB;PLUGINCAMERAUEYE_LIB"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
 				WarningLevel="3"
@@ -133,7 +133,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="labexe_D.lib LabExeImaging_D.lib qtmaind.lib QtCored4.lib QtGuid4.lib uEye_api.lib "
 				OutputFile="$(OutDir)\$(ProjectName)\$(ProjectName).dll"
-				AdditionalLibraryDirectories="$(QTDIR)\lib;..\..\..\LabExe\lib;..\..\..\LabExe\bin"
+				AdditionalLibraryDirectories="&quot;$(QTDIR)\lib&quot;;..\..\..\LabExe\lib;..\..\..\LabExe\bin"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 			/>

@@ -9,6 +9,7 @@ GBetterAbsorptionImage::GBetterAbsorptionImage(QObject *parent, QString uniqueId
 	, m_DisplayRailDown("Disp-min", this)
 	, m_DisplayRailUp("Disp-max", this)
 	, m_DoCorrectAmplitude("Correct amplitude", this)
+	, m_GaelOrMickey("Check for Gael's algorithm, blank for Mickey's", this)
 	, m_CorrectAmplPercent("[%]", this, GParam::ReadOnly)
 	, m_DoCorrectPosition("Correct position", this)
 	, m_CorrectPosX("dX", this, GParam::ReadOnly)
@@ -62,9 +63,11 @@ void GBetterAbsorptionImage::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget
 	YerrLay->addRow(m_CorrectPosY.ProvideNewLabel(theDeviceWidget), m_CorrectPosY.ProvideNewParamSpinBox(theDeviceWidget));
 	QFormLayout* correctionLayout = new QFormLayout();
 	QFormLayout* AmpcorrLay = new QFormLayout();
+	QFormLayout* GaelOrMickeyLay = new QFormLayout ();
 	AmpcorrLay->addRow(m_CorrectAmplPercent.ProvideNewLabel(theDeviceWidget), m_CorrectAmplPercent.ProvideNewParamSpinBox(theDeviceWidget));
 	correctionLayout->addRow(m_DoCorrectPosition.ProvideNewParamCheckBox(theDeviceWidget), ErrLay);
 	correctionLayout->addRow(m_DoCorrectAmplitude.ProvideNewParamCheckBox(theDeviceWidget), AmpcorrLay);
+	correctionLayout->addRow(m_GaelOrMickey.ProvideNewParamCheckBox(theDeviceWidget), GaelOrMickeyLay);
 	theDeviceWidget->AddSubLayout(correctionLayout);
 }
 
@@ -118,7 +121,7 @@ void GBetterAbsorptionImage::ProcessImageAOIed( const GImageDouble & aoiImage )
 		m_ImageMutex.unlock();
 	}
 
-	if(m_CurrentImageType == Back) {
+	if(m_CurrentImageType ==  Back) {//2015-06-02 accidentally edited, hopefully restored correctly! 
 		start();
 	}
 }
@@ -128,27 +131,31 @@ void GBetterAbsorptionImage::run()
 	double factorBeam = 1.0;
 	QPoint bestTranslationBeam(0,0);
 
+	//Subtract background images: 
+	//2015-06-02 Found this was commented out!  Uncommented now, so background image is subtracted! Confirmed it works now. 
 	m_ImageMutex.lock();
-// 	m_AoiIn[Atom] -= m_AoiIn[Back];
-// 	m_AoiIn[Beam] -= m_AoiIn[Back];
-// 	m_ImageIn[Atom] -= m_ImageIn[Back];
-// 	m_ImageIn[Beam] -= m_ImageIn[Back];
+ 	m_AoiIn[Atom] -= m_AoiIn[Back];
+ 	m_AoiIn[Beam] -= m_AoiIn[Back];
+ 	m_ImageIn[Atom] -= m_ImageIn[Back];
+ 	m_ImageIn[Beam] -= m_ImageIn[Back];
 	m_ImageMutex.unlock();
 
 	if(m_DoCorrectPosition) {
 		bestTranslationBeam = CorrectPosition(MaxChebyshevLength);
+		//2015-06-02 moved next four lines inside this if statement: 
+		m_ImageMutex.lock();
+		m_ImageIn[Beam] = m_ImageIn[Beam].DataShifted(bestTranslationBeam);
+		m_AoiIn[Beam] = m_AoiIn[Beam].DataShifted(bestTranslationBeam);
+		m_ImageMutex.unlock();
 	}
-	m_ImageMutex.lock();
-	m_ImageIn[Beam] = m_ImageIn[Beam].DataShifted(bestTranslationBeam);
-	m_AoiIn[Beam] = m_AoiIn[Beam].DataShifted(bestTranslationBeam);
-	m_ImageMutex.unlock();
-
+	
 	if(m_DoCorrectAmplitude) {
 		factorBeam = CorrectionFactorAmplitude();
+		//2015-06-02 moved next three lines inside this if statement: 
+		m_ImageMutex.lock();
+		m_ImageIn[Beam] *= factorBeam;
+		m_ImageMutex.unlock();
 	}
-	m_ImageMutex.lock();
-	m_ImageIn[Beam] *= factorBeam;
-	m_ImageMutex.unlock();
 
 	m_CorrectAmplPercent = factorBeam * 100.0 - 100.0;
 	m_CorrectPosX = bestTranslationBeam.x();
@@ -271,20 +278,41 @@ double GBetterAbsorptionImage::CorrectionFactorAmplitude()
 	double* dAtom = imAtom.DoubleArray().data();
 	double* dBeam = imBeam.DoubleArray().data();
 	int Npix = imBeam.DoubleArray().count();
-	int pxTot = 0;
-	double sumLn = 1.0;
-	for(int i = 0; i < Npix; i++) {
-		if(dAtom[i] > 0.0 && dBeam[i] > 0.0) {
-			sumLn *= (dBeam[i] / dAtom[i]);
-			pxTot++;
-		}
-	}
-	if(!pxTot)
-		return 1.0;
-	sumLn = qLn(sumLn);
 
-	factorRet = qExp(-sumLn / double(pxTot));
-	return factorRet;
+
+	if(m_GaelOrMickey){
+		//qDebug()<< "Gael's amp correction algorithm!";
+		int pxTot = 0;
+		double sumLn = 1.0;
+		for(int i = 0; i < Npix; i++) {
+			if(dAtom[i] > 0.0 && dBeam[i] > 0.0) {
+				sumLn *= (dBeam[i] / dAtom[i]);
+				pxTot++;
+			}
+		}
+
+		if(!pxTot)
+			return 1.0;
+		sumLn = qLn(sumLn);
+
+		factorRet = qExp(-sumLn / double(pxTot));
+		return factorRet;
+	}
+	else
+	{	//2015-06-01 This seems to work a little better, and easier to compute: 
+		//qDebug()<< "Mickey's amp correction algorithm!";
+		double sumBeam = 0;
+		double sumAtom = 0;
+
+		for(int i = 0; i < Npix; i++) {
+			sumBeam += dBeam[i];
+			sumAtom += dAtom[i];
+		}
+		factorRet = sumAtom/sumBeam;
+		return factorRet;
+	}
+	
+
 }
 
 QPoint GBetterAbsorptionImage::CorrectPosition( int maxChebyshevLength )
