@@ -8,12 +8,15 @@ GBetterAbsorptionImage::GBetterAbsorptionImage(QObject *parent, QString uniqueId
 	, m_CurrentImageType(Suspicious)
 	, m_DisplayRailDown("Disp-min", this)
 	, m_DisplayRailUp("Disp-max", this)
-	, m_DoCorrectAmplitude("Correct amplitude", this)
-	, m_GaelOrMickey("Check for Gael's algorithm, blank for Mickey's", this)
+	, m_DoCorrectAmplitude("Correct amplitude (CA)", this)
+	, m_GaelOrMickey("CA:y=Gael;n=Mickey", this)
 	, m_CorrectAmplPercent("[%]", this, GParam::ReadOnly)
 	, m_DoCorrectPosition("Correct position", this)
 	, m_CorrectPosX("dX", this, GParam::ReadOnly)
 	, m_CorrectPosY("dY", this, GParam::ReadOnly)
+	, m_CorrectIsat("Correct for saturation", this)
+	, m_IsatParam("Isat[count/px/us]", this)
+	, m_AbsPulseTime("Light[us]", this)
 	, m_AoiIn(5)
 {
 	// this is an image provider
@@ -28,6 +31,11 @@ GBetterAbsorptionImage::GBetterAbsorptionImage(QObject *parent, QString uniqueId
 
 	m_CorrectAmplPercent.SetHardLimits(-99.9, 999.9);
 //	m_CorrectAmplPercent.SetDisplayDecimals(1);
+
+	m_IsatParam.SetHardLimits(0.1, 999999.9);//must avoid zero or negative values
+	m_AbsPulseTime.SetHardLimits(1, 999999.9);//min value 1 microsecond
+	m_IsatParam.SetDisplayDecimals(1);
+	m_AbsPulseTime.SetDisplayDecimals(1);
 }
 
 GBetterAbsorptionImage::~GBetterAbsorptionImage()
@@ -53,7 +61,7 @@ void GBetterAbsorptionImage::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget
 	hLayout->addItem(downLayout);
 	hLayout->addItem(upLayout);
 	theDeviceWidget->AddSubLayout(hLayout);
-
+	
 	QHBoxLayout* ErrLay = new QHBoxLayout();
 	QFormLayout* XerrLay = new QFormLayout();
 	QFormLayout* YerrLay = new QFormLayout();
@@ -65,9 +73,20 @@ void GBetterAbsorptionImage::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget
 	QFormLayout* AmpcorrLay = new QFormLayout();
 	QFormLayout* GaelOrMickeyLay = new QFormLayout ();
 	AmpcorrLay->addRow(m_CorrectAmplPercent.ProvideNewLabel(theDeviceWidget), m_CorrectAmplPercent.ProvideNewParamSpinBox(theDeviceWidget));
+	
+	//Added correct for saturation row, 10/28/15 Bart. 
+	QHBoxLayout* CorrectIsatLay = new QHBoxLayout();
+	QFormLayout* IsatParamLay = new QFormLayout();
+	QFormLayout* AbsPulseTimeLay = new QFormLayout();
+	CorrectIsatLay->addLayout(IsatParamLay);
+	CorrectIsatLay->addLayout(AbsPulseTimeLay);
+	IsatParamLay->addRow(m_IsatParam.ProvideNewLabel(theDeviceWidget), m_IsatParam.ProvideNewParamSpinBox(theDeviceWidget));
+	AbsPulseTimeLay->addRow(m_AbsPulseTime.ProvideNewLabel(theDeviceWidget), m_AbsPulseTime.ProvideNewParamSpinBox(theDeviceWidget));
+	
 	correctionLayout->addRow(m_DoCorrectPosition.ProvideNewParamCheckBox(theDeviceWidget), ErrLay);
 	correctionLayout->addRow(m_DoCorrectAmplitude.ProvideNewParamCheckBox(theDeviceWidget), AmpcorrLay);
 	correctionLayout->addRow(m_GaelOrMickey.ProvideNewParamCheckBox(theDeviceWidget), GaelOrMickeyLay);
+	correctionLayout->addRow(m_CorrectIsat.ProvideNewParamCheckBox(theDeviceWidget), CorrectIsatLay);
 	theDeviceWidget->AddSubLayout(correctionLayout);
 }
 
@@ -254,11 +273,24 @@ GImageDouble GBetterAbsorptionImage::ComputeAbsorption( double RailDownForDispla
 	double* dAtom = imAtom.DoubleArray().data();
 	double* dBeam = imBeam.DoubleArray().data();
 	int Npix = OpticalDensity.DoubleArray().size();
-	for(int i = 0; i < Npix; i++) {
-		if(dAtom[i] > 0.0 && dBeam[i] > 0.0) {
-			dOD[i] = qLn(dBeam[i] / dAtom[i]);
-		} else {
-			dOD[i] = qQNaN();
+	if(m_CorrectIsat){
+		//Compute absorption with correctino for two-level system saturation, assuming alpha^* parameter is unity [Gael's 2007 paper]. New 10/28/15 Bart.
+		//qDebug()<< "Correcting for saturation: Isat = " << m_IsatParam << " and Exposure = " << m_AbsPulseTime;
+		for(int i = 0; i < Npix; i++) {
+			if(dAtom[i] > 0.0 && dBeam[i] > 0.0) {
+				dOD[i] = qLn(dBeam[i] / dAtom[i]) + (dBeam[i]-dAtom[i])/(m_IsatParam*m_AbsPulseTime);
+			} else {
+				dOD[i] = qQNaN();
+			}
+		}
+	} else {
+		//Compute absorption assuming no saturation (Limit of infinite Isat parameter)
+		for(int i = 0; i < Npix; i++) {
+			if(dAtom[i] > 0.0 && dBeam[i] > 0.0) {
+				dOD[i] = qLn(dBeam[i] / dAtom[i]);
+			} else {
+				dOD[i] = qQNaN();
+			}
 		}
 	}
 	OpticalDensity.FillQimageFromUsingDoubleArray(RailDownForDisplay, RailUp255ForDisplay);
