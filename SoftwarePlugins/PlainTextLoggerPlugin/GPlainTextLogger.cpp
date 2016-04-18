@@ -30,10 +30,10 @@ GPlainTextLogger::GPlainTextLogger(QObject *parent, QString uniqueIdentifierName
 	connect(&m_FileName, SIGNAL(ValueUpdated(QString)), this, SLOT(ResetCount()));
 	connect(&m_FolderPath, SIGNAL(ValueUpdated(QString)), this, SLOT(ChooseFolder(QString)), Qt::QueuedConnection);
 
-	m_SecUpdate.SetHardLimits(0.0, 9e9);
-	m_SecMidnight.SetHardLimits(0.0, 9e9);
-	m_SecEpoch.SetHardLimits(0.01, 9e10);
-	m_FirstColValue.SetHardLimits(0.01, 9e10);
+	m_SecUpdate.SetHardLimits(0.0, 9e99);
+	m_SecMidnight.SetHardLimits(0.0, 9e99);
+	m_SecEpoch.SetHardLimits(0.0, 9e99);
+	m_FirstColValue.SetHardLimits(0.0, 9e99);
 
 	m_SecondTimer = 1.0;
 	m_SecondTimer.SetDisplayDecimals(2);
@@ -183,7 +183,8 @@ void GPlainTextLogger::AppendLine()
 	//SPECIAL FIRST COLUMNS BEFORE DATA:  Bart 2016-04-19. 
 	out << m_CurrentIndexUpdate.DoubleValue() << "\t";// update index.
 	out << m_SecUpdate.DoubleValue() << "\t";// elapsed time (previously "sec update") 
-	out << m_SecEpoch.DoubleValue() << "\t";// UTC time in ms, time zone adjusted?
+	//out << m_SecEpoch.DoubleValue() << "\t";// UTC time in s, time zone adjusted? DON'T USE BECAUSE MISSING ms information.
+	out << msSinceEpoch << "\t";// UTC time in ms, time zone adjusted? USE THIS. 
 	out << thedatetime.toString("MM/dd/yyyy") << "\t";// Local date.
 	out << thedatetime.toString("hh:mm:ss.zzz") << "\t";// Local time (24 hour format).
 
