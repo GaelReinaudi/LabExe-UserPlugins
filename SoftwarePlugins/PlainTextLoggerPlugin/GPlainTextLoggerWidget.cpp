@@ -33,13 +33,13 @@ GPlainTextLoggerWidget::GPlainTextLoggerWidget(GPlainTextLogger* pPlainTextLogge
 	pFirstColLayout1->addWidget(m_pLogger->m_SecUpdate.ProvideNewLabel(this));
 	pFirstColLayout1->addWidget(m_pLogger->m_SecUpdate.ProvideNewParamWidget(this));
 	pFirstColLayout1->addStretch();
-	pFirstColLayout1->addWidget(m_pLogger->m_FirstColName.ProvideNewLabel(this));
-	pFirstColLayout1->addWidget(m_pLogger->m_FirstColName.ProvideNewParamLineEdit(this));
+	//pFirstColLayout1->addWidget(m_pLogger->m_FirstColName.ProvideNewLabel(this));
+	//pFirstColLayout1->addWidget(m_pLogger->m_FirstColName.ProvideNewParamLineEdit(this));
 
-	pFirstColLayout2->addWidget(m_pLogger->m_FirstColFormula.ProvideNewLabel(this));
-	pFirstColLayout2->addWidget(m_pLogger->m_FirstColFormula.ProvideNewParamLineEdit(this));
-	pFirstColLayout2->addWidget(m_pLogger->m_FirstColValue.ProvideNewLabel(this));
-	pFirstColLayout2->addWidget(m_pLogger->m_FirstColValue.ProvideNewParamWidget(this));
+	//pFirstColLayout2->addWidget(m_pLogger->m_FirstColFormula.ProvideNewLabel(this));
+	//pFirstColLayout2->addWidget(m_pLogger->m_FirstColFormula.ProvideNewParamLineEdit(this));
+	//pFirstColLayout2->addWidget(m_pLogger->m_FirstColValue.ProvideNewLabel(this));
+	//pFirstColLayout2->addWidget(m_pLogger->m_FirstColValue.ProvideNewParamWidget(this));
 }
 
 GPlainTextLoggerWidget::~GPlainTextLoggerWidget()
