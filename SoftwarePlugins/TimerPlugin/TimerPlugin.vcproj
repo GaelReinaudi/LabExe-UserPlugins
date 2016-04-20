@@ -517,7 +517,7 @@
 		/>
 		<Global
 			Name="QtVersion Win32"
-			Value="$(DefaultQtVersion)"
+			Value="4.7.3"
 		/>
 		<Global
 			Name="RccDir"
