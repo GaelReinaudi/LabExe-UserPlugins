@@ -1,9 +1,5 @@
-/build*/
-/GeneratedFiles/
-/*/GeneratedFiles/
-/*/*/GeneratedFiles/
-/*/*/*/GeneratedFiles/
 /*/*Makefile*
+*/*/Makefile*
 
 
 labexe*.lib
@@ -24,3 +20,4 @@ labexe*.dll
 *moc_*.*
 /build-SoftwarePlugins-Desktop_Qt_5_2_0_MSVC2012_OpenGL_64bit-Debug/
 /tmp/
+/Makefile
