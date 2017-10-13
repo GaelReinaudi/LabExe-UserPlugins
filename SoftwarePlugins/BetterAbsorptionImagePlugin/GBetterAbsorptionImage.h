@@ -74,6 +74,10 @@ private:
 	//! Tells that we correct the amplitude of the "Beam" image
 	GParamBool m_DoCorrectAmplitude;
 	GParamBool m_DoCorrectPosition;
+	GParamBool m_GaelOrMickey;
+	GParamBool m_CorrectIsat;//!10/28/15 Bart: allow user to correct for two-level atom saturation following Gael's 2007 paper. 
+	GParamDouble m_IsatParam;//!10/28/15 Bart: alpha^* Isat parameter in experimental units of bits/pixel for 1 microsecond of exposure. (As implemented, we assume alpha^* parameter is unity [Gael's 2007 paper].)
+	GParamDouble m_AbsPulseTime;//!10/28/15 Bart: absorption imaging light pulse length in microseconds.
 	//! mutex to protect the access to shared images
 	QMutex m_ImageMutex;
 };

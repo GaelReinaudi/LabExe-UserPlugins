@@ -9,19 +9,19 @@ GPlainTextLogger::GPlainTextLogger(QObject *parent, QString uniqueIdentifierName
 	: GProgDevice(parent, uniqueIdentifierName)
 	, m_FolderPath("Folder", this/*, GParam::ReadOnly*/)
 	, m_FileName("File name", this)
-	, m_ShouldLogOnUpdate("On update", this)
-	, m_ShouldLogOnTimer("On timer", this)
-	, m_SecondTimer("timer[s]", this)
+	, m_ShouldLogOnUpdate("On update?", this)
+	, m_ShouldLogOnTimer("On timer?", this)
+	, m_SecondTimer("Delay [s]:", this)
 	, m_Bucket("Data", this)
 	, m_BucketColNames("Col Names", this)
 	, m_UpdateCount(0)
-	, m_SecUpdate("sec update", this, GParam::ReadOnly)
+	, m_SecUpdate("Elapsed time (s):", this, GParam::ReadOnly)
 	, m_SecMidnight("sec mid", this, GParam::ReadOnly)
 	, m_SecEpoch("sec epoch", this, GParam::ReadOnly)
-	, m_CurrentIndexUpdate("index", this, GParam::ReadOnly)
+	, m_CurrentIndexUpdate("Update #:", this, GParam::ReadOnly)
 	, m_pNotePadProcess(0)
-	, m_FirstColName("First Column Name", this)
-	, m_FirstColFormula("Formula", this)
+	, m_FirstColName("Col. name:", this)
+	, m_FirstColFormula("Formula (use i,t,tu,tm):", this)
 	, m_FirstColValue("=", this, GParam::ReadOnly)
 {
 	connect(&m_Bucket, SIGNAL(BucketUpdatedValues()), this, SLOT(EventBucketUpdated()));
@@ -30,9 +30,10 @@ GPlainTextLogger::GPlainTextLogger(QObject *parent, QString uniqueIdentifierName
 	connect(&m_FileName, SIGNAL(ValueUpdated(QString)), this, SLOT(ResetCount()));
 	connect(&m_FolderPath, SIGNAL(ValueUpdated(QString)), this, SLOT(ChooseFolder(QString)), Qt::QueuedConnection);
 
-	m_SecUpdate.SetHardLimits(0.0, 9e9);
-	m_SecMidnight.SetHardLimits(0.0, 9e9);
-	m_SecEpoch.SetHardLimits(0.01, 9e9);
+	m_SecUpdate.SetHardLimits(0.0, 9e99);
+	m_SecMidnight.SetHardLimits(0.0, 9e99);
+	m_SecEpoch.SetHardLimits(0.0, 9e99);
+	m_FirstColValue.SetHardLimits(0.0, 9e99);
 
 	m_SecondTimer = 1.0;
 	m_SecondTimer.SetDisplayDecimals(2);
@@ -122,7 +123,15 @@ void GPlainTextLogger::AppendLine()
 	if(m_UpdateCount == 0) {
 		m_OriginTime = QDateTime::currentDateTime();
 		// and we add a line with some name
-		out << m_FirstColName << "\t";
+		
+		//SPECIAL FIRST COLUMN NAMES: Bart 2016-04-19. 
+		//out << m_FirstColName << "\t"; //previous first column, removed. 
+		out << "Update\t";// update index.
+		out << "Elapsed time\t";// elapsed time (previously "sec update") 
+		out << "UTC\t";// UTC time in ms, time zone adjusted?
+		out << "Local date\t";// Local date.
+		out << "Local time\t";// Local time (24 hour formal).
+
 		foreach(GParam* pPar, parmToLog) {
 			// is there is a name provided in the name bucket, we use this one
 			GParamString* pParStr = qobject_cast<GParamString*>(parmNames.value(parmToLog.indexOf(pPar)));
@@ -133,32 +142,52 @@ void GPlainTextLogger::AppendLine()
 		}
 		out << "\n";
 		// and we add a line with some units
-		out << m_FirstColValue.Units() << "\t";
+
+		//SPECIAL FIRST COLUMN UNITS: Bart 2016-04-19. 
+		//out << m_FirstColValue.Units() << "\t"; //previous first column, removed. 
+		out << "\t";// update index.
+		out << "s\t";// elapsed time (previously "sec update") 
+		out << "ms\t";// UTC time in ms, time zone adjusted?
+		out << "MM/dd/yyyy\t";// Local date, OriginPro format.
+		out << "HH:mm:ss.###\t";// Local time (24 hour format), OriginPro format.
+
 		foreach(GParam* pPar, parmToLog) {
 			// is there is a name provided in the name bucket, we use this one
 			out << pPar->Units() << "\t";
 		}
 		out << "\n";
 	}
-	QDateTime thedatetime = QDateTime::currentDateTime();
+	QDateTime thedatetime = QDateTime::currentDateTime();// local system clock time. 
 	qint64 msSinceStart = m_OriginTime.msecsTo(thedatetime);
 	qint64 msSinceMidnight = QDateTime(m_OriginTime.date()).msecsTo(thedatetime);
-	qint64 msSinceEpoch = thedatetime.toMSecsSinceEpoch();
+	qint64 msSinceEpoch = thedatetime.toMSecsSinceEpoch(); //UTC time in ms, but might have time zone adjust? 
+	//qDebug() << thedatetime.toMSecsSinceEpoch();//UTC in ms, such as 1460992218058. 
+	//qDebug() << thedatetime.toTime_t();//UTC in s, such as 1460992218. 
 	m_SecUpdate = double(msSinceStart) / 1e3;
 	m_SecMidnight = double(msSinceMidnight) / 1e3;
 	m_SecEpoch = double(msSinceEpoch) / 1e3;
 	m_CurrentIndexUpdate = m_UpdateCount;
 
- 	GMathScriptEngine firstColumnEngine;
-	firstColumnEngine.globalObject().setProperty("tu", double(m_SecUpdate));
-	firstColumnEngine.globalObject().setProperty("tm", double(m_SecMidnight));
-	firstColumnEngine.globalObject().setProperty("t", double(m_SecEpoch));
-	firstColumnEngine.globalObject().setProperty("i", int(m_CurrentIndexUpdate));
-	QScriptValue theValue = firstColumnEngine.evaluate(m_FirstColFormula);
-	if(!m_FirstColFormula.StringValue().isEmpty())
-		m_FirstColValue = theValue.toNumber();
+	//2016-04-18 Bart commented out, because really want to making special first columns permanent: 
+//  	GMathScriptEngine firstColumnEngine;
+// 	firstColumnEngine.globalObject().setProperty("tu", double(m_SecUpdate));
+// 	firstColumnEngine.globalObject().setProperty("tm", double(m_SecMidnight));
+// 	firstColumnEngine.globalObject().setProperty("t", double(m_SecEpoch));
+// 	firstColumnEngine.globalObject().setProperty("i", int(m_CurrentIndexUpdate));
+// 	QScriptValue theValue = firstColumnEngine.evaluate(m_FirstColFormula);
+// 	if(!m_FirstColFormula.StringValue().isEmpty())
+// 		m_FirstColValue = theValue.toNumber();
+// 
+// 	out << m_FirstColValue.DoubleValue() << "\t";
 
-	out << m_FirstColValue.DoubleValue() << "\t";
+	//SPECIAL FIRST COLUMNS BEFORE DATA:  Bart 2016-04-19. 
+	out << m_CurrentIndexUpdate.DoubleValue() << "\t";// update index.
+	out << m_SecUpdate.DoubleValue() << "\t";// elapsed time (previously "sec update") 
+	//out << m_SecEpoch.DoubleValue() << "\t";// UTC time in s, time zone adjusted? DON'T USE BECAUSE MISSING ms information.
+	out << msSinceEpoch << "\t";// UTC time in ms, time zone adjusted? USE THIS. 
+	out << thedatetime.toString("MM/dd/yyyy") << "\t";// Local date.
+	out << thedatetime.toString("hh:mm:ss.zzz") << "\t";// Local time (24 hour format).
+
 	foreach(double iVal, valuesToLog)
 		out << iVal << "\t";
 	out << "\n";

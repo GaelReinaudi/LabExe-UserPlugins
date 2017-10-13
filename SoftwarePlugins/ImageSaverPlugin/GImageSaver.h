@@ -41,7 +41,8 @@ signals:
 private:
 	//! the folder to save images into
 	QString m_Folder;
-	
+	GParamBool m_SaveDouble;//2015-06-24 Bart: if true, then enables code to save binary data with full double precision (very large file size!).
+	GParamBool m_Save12bit;//2015-06-24 Bart: if true, then enables code to save ...
 };
 
 #endif // GIMAGESAVER_H

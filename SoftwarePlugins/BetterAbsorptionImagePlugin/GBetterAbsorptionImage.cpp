@@ -8,11 +8,15 @@ GBetterAbsorptionImage::GBetterAbsorptionImage(QObject *parent, QString uniqueId
 	, m_CurrentImageType(Suspicious)
 	, m_DisplayRailDown("Disp-min", this)
 	, m_DisplayRailUp("Disp-max", this)
-	, m_DoCorrectAmplitude("Correct amplitude", this)
+	, m_DoCorrectAmplitude("Correct amplitude (CA)", this)
+	, m_GaelOrMickey("CA:y=Gael;n=Mickey", this)
 	, m_CorrectAmplPercent("[%]", this, GParam::ReadOnly)
 	, m_DoCorrectPosition("Correct position", this)
 	, m_CorrectPosX("dX", this, GParam::ReadOnly)
 	, m_CorrectPosY("dY", this, GParam::ReadOnly)
+	, m_CorrectIsat("Correct for saturation", this)
+	, m_IsatParam("Isat[count/px/us]", this)
+	, m_AbsPulseTime("Light[us]", this)
 	, m_AoiIn(5)
 {
 	// this is an image provider
@@ -27,6 +31,11 @@ GBetterAbsorptionImage::GBetterAbsorptionImage(QObject *parent, QString uniqueId
 
 	m_CorrectAmplPercent.SetHardLimits(-99.9, 999.9);
 //	m_CorrectAmplPercent.SetDisplayDecimals(1);
+
+	m_IsatParam.SetHardLimits(0.1, 999999.9);//must avoid zero or negative values
+	m_AbsPulseTime.SetHardLimits(1, 999999.9);//min value 1 microsecond
+	m_IsatParam.SetDisplayDecimals(1);
+	m_AbsPulseTime.SetDisplayDecimals(1);
 }
 
 GBetterAbsorptionImage::~GBetterAbsorptionImage()
@@ -52,7 +61,7 @@ void GBetterAbsorptionImage::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget
 	hLayout->addItem(downLayout);
 	hLayout->addItem(upLayout);
 	theDeviceWidget->AddSubLayout(hLayout);
-
+	
 	QHBoxLayout* ErrLay = new QHBoxLayout();
 	QFormLayout* XerrLay = new QFormLayout();
 	QFormLayout* YerrLay = new QFormLayout();
@@ -62,9 +71,22 @@ void GBetterAbsorptionImage::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget
 	YerrLay->addRow(m_CorrectPosY.ProvideNewLabel(theDeviceWidget), m_CorrectPosY.ProvideNewParamSpinBox(theDeviceWidget));
 	QFormLayout* correctionLayout = new QFormLayout();
 	QFormLayout* AmpcorrLay = new QFormLayout();
+	QFormLayout* GaelOrMickeyLay = new QFormLayout ();
 	AmpcorrLay->addRow(m_CorrectAmplPercent.ProvideNewLabel(theDeviceWidget), m_CorrectAmplPercent.ProvideNewParamSpinBox(theDeviceWidget));
+	
+	//Added correct for saturation row, 10/28/15 Bart. 
+	QHBoxLayout* CorrectIsatLay = new QHBoxLayout();
+	QFormLayout* IsatParamLay = new QFormLayout();
+	QFormLayout* AbsPulseTimeLay = new QFormLayout();
+	CorrectIsatLay->addLayout(IsatParamLay);
+	CorrectIsatLay->addLayout(AbsPulseTimeLay);
+	IsatParamLay->addRow(m_IsatParam.ProvideNewLabel(theDeviceWidget), m_IsatParam.ProvideNewParamSpinBox(theDeviceWidget));
+	AbsPulseTimeLay->addRow(m_AbsPulseTime.ProvideNewLabel(theDeviceWidget), m_AbsPulseTime.ProvideNewParamSpinBox(theDeviceWidget));
+	
 	correctionLayout->addRow(m_DoCorrectPosition.ProvideNewParamCheckBox(theDeviceWidget), ErrLay);
 	correctionLayout->addRow(m_DoCorrectAmplitude.ProvideNewParamCheckBox(theDeviceWidget), AmpcorrLay);
+	correctionLayout->addRow(m_GaelOrMickey.ProvideNewParamCheckBox(theDeviceWidget), GaelOrMickeyLay);
+	correctionLayout->addRow(m_CorrectIsat.ProvideNewParamCheckBox(theDeviceWidget), CorrectIsatLay);
 	theDeviceWidget->AddSubLayout(correctionLayout);
 }
 
@@ -84,8 +106,7 @@ void GBetterAbsorptionImage::InterpretSettings( QSettings& fromQsettings )
 
 void GBetterAbsorptionImage::ProcessImageFull(const GImageDouble & fullImage, const QRect & theAoiInTheFullImage)
 {
-    Q_UNUSED(theAoiInTheFullImage);
-    QDateTime timeThisPicture = fullImage.DateTimeCreated();
+	QDateTime timeThisPicture = fullImage.DateTimeCreated();
 	// update the m_CurrentImageType
 	WichImageMustThatBe(timeThisPicture);
 	switch(m_CurrentImageType) {
@@ -119,7 +140,7 @@ void GBetterAbsorptionImage::ProcessImageAOIed( const GImageDouble & aoiImage )
 		m_ImageMutex.unlock();
 	}
 
-	if(m_CurrentImageType == Back) {
+	if(m_CurrentImageType ==  Back) {//2015-06-02 accidentally edited, hopefully restored correctly! 
 		start();
 	}
 }
@@ -129,27 +150,31 @@ void GBetterAbsorptionImage::run()
 	double factorBeam = 1.0;
 	QPoint bestTranslationBeam(0,0);
 
+	//Subtract background images: 
+	//2015-06-02 Found this was commented out!  Uncommented now, so background image is subtracted! Confirmed it works now. 
 	m_ImageMutex.lock();
-// 	m_AoiIn[Atom] -= m_AoiIn[Back];
-// 	m_AoiIn[Beam] -= m_AoiIn[Back];
-// 	m_ImageIn[Atom] -= m_ImageIn[Back];
-// 	m_ImageIn[Beam] -= m_ImageIn[Back];
+ 	m_AoiIn[Atom] -= m_AoiIn[Back];
+ 	m_AoiIn[Beam] -= m_AoiIn[Back];
+ 	m_ImageIn[Atom] -= m_ImageIn[Back];
+ 	m_ImageIn[Beam] -= m_ImageIn[Back];
 	m_ImageMutex.unlock();
 
 	if(m_DoCorrectPosition) {
 		bestTranslationBeam = CorrectPosition(MaxChebyshevLength);
+		//2015-06-02 moved next four lines inside this if statement: 
+		m_ImageMutex.lock();
+		m_ImageIn[Beam] = m_ImageIn[Beam].DataShifted(bestTranslationBeam);
+		m_AoiIn[Beam] = m_AoiIn[Beam].DataShifted(bestTranslationBeam);
+		m_ImageMutex.unlock();
 	}
-	m_ImageMutex.lock();
-	m_ImageIn[Beam] = m_ImageIn[Beam].DataShifted(bestTranslationBeam);
-	m_AoiIn[Beam] = m_AoiIn[Beam].DataShifted(bestTranslationBeam);
-	m_ImageMutex.unlock();
-
+	
 	if(m_DoCorrectAmplitude) {
 		factorBeam = CorrectionFactorAmplitude();
+		//2015-06-02 moved next three lines inside this if statement: 
+		m_ImageMutex.lock();
+		m_ImageIn[Beam] *= factorBeam;
+		m_ImageMutex.unlock();
 	}
-	m_ImageMutex.lock();
-	m_ImageIn[Beam] *= factorBeam;
-	m_ImageMutex.unlock();
 
 	m_CorrectAmplPercent = factorBeam * 100.0 - 100.0;
 	m_CorrectPosX = bestTranslationBeam.x();
@@ -248,11 +273,24 @@ GImageDouble GBetterAbsorptionImage::ComputeAbsorption( double RailDownForDispla
 	double* dAtom = imAtom.DoubleArray().data();
 	double* dBeam = imBeam.DoubleArray().data();
 	int Npix = OpticalDensity.DoubleArray().size();
-	for(int i = 0; i < Npix; i++) {
-		if(dAtom[i] > 0.0 && dBeam[i] > 0.0) {
-			dOD[i] = qLn(dBeam[i] / dAtom[i]);
-		} else {
-			dOD[i] = qQNaN();
+	if(m_CorrectIsat){
+		//Compute absorption with correctino for two-level system saturation, assuming alpha^* parameter is unity [Gael's 2007 paper]. New 10/28/15 Bart.
+		//qDebug()<< "Correcting for saturation: Isat = " << m_IsatParam << " and Exposure = " << m_AbsPulseTime;
+		for(int i = 0; i < Npix; i++) {
+			if(dAtom[i] > 0.0 && dBeam[i] > 0.0) {
+				dOD[i] = qLn(dBeam[i] / dAtom[i]) + (dBeam[i]-dAtom[i])/(m_IsatParam*m_AbsPulseTime);
+			} else {
+				dOD[i] = qQNaN();
+			}
+		}
+	} else {
+		//Compute absorption assuming no saturation (Limit of infinite Isat parameter)
+		for(int i = 0; i < Npix; i++) {
+			if(dAtom[i] > 0.0 && dBeam[i] > 0.0) {
+				dOD[i] = qLn(dBeam[i] / dAtom[i]);
+			} else {
+				dOD[i] = qQNaN();
+			}
 		}
 	}
 	OpticalDensity.FillQimageFromUsingDoubleArray(RailDownForDisplay, RailUp255ForDisplay);
@@ -272,20 +310,41 @@ double GBetterAbsorptionImage::CorrectionFactorAmplitude()
 	double* dAtom = imAtom.DoubleArray().data();
 	double* dBeam = imBeam.DoubleArray().data();
 	int Npix = imBeam.DoubleArray().count();
-	int pxTot = 0;
-	double sumLn = 1.0;
-	for(int i = 0; i < Npix; i++) {
-		if(dAtom[i] > 0.0 && dBeam[i] > 0.0) {
-			sumLn *= (dBeam[i] / dAtom[i]);
-			pxTot++;
-		}
-	}
-	if(!pxTot)
-		return 1.0;
-	sumLn = qLn(sumLn);
 
-	factorRet = qExp(-sumLn / double(pxTot));
-	return factorRet;
+
+	if(m_GaelOrMickey){
+		//qDebug()<< "Gael's amp correction algorithm!";
+		int pxTot = 0;
+		double sumLn = 1.0;
+		for(int i = 0; i < Npix; i++) {
+			if(dAtom[i] > 0.0 && dBeam[i] > 0.0) {
+				sumLn *= (dBeam[i] / dAtom[i]);
+				pxTot++;
+			}
+		}
+
+		if(!pxTot)
+			return 1.0;
+		sumLn = qLn(sumLn);
+
+		factorRet = qExp(-sumLn / double(pxTot));
+		return factorRet;
+	}
+	else
+	{	//2015-06-01 This seems to work a little better, and easier to compute: 
+		//qDebug()<< "Mickey's amp correction algorithm!";
+		double sumBeam = 0;
+		double sumAtom = 0;
+
+		for(int i = 0; i < Npix; i++) {
+			sumBeam += dBeam[i];
+			sumAtom += dAtom[i];
+		}
+		factorRet = sumAtom/sumBeam;
+		return factorRet;
+	}
+	
+
 }
 
 QPoint GBetterAbsorptionImage::CorrectPosition( int maxChebyshevLength )
@@ -307,7 +366,7 @@ QPoint GBetterAbsorptionImage::CorrectPosition( int maxChebyshevLength )
 			GImageDouble imBeamShifted = imBeam.DataShifted(pointTrans);
 			double* dBeam = imBeamShifted.DoubleArray().data();
 
-            //int Npix = (wid - 2 * maxChebyshevLength) * (hei - 2 * maxChebyshevLength);
+			int Npix = (wid - 2 * maxChebyshevLength) * (hei - 2 * maxChebyshevLength);
 			double sumLn = 0.0;
 			double sumLnSquared = 0.0;
 			int iTot = 0;
