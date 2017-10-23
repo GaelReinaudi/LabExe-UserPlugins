@@ -16,6 +16,10 @@
  extern "C" {
 #endif
 
+// Access mode 
+#define IS_FILE_ACCESS_MODE_WRITE 0x01 
+#define IS_FILE_ACCESS_MODE_READ  0x02
+
  // Color modes ------------------------------------------------
 #define IS_AVI_CM_RGB32     0	// RGB32
 #define IS_AVI_CM_RGB24		1	// RGB24
@@ -52,6 +56,13 @@ typedef DWORD  HIDS;
 #define IS_AVI_ERR_INVALID_POSITION			ISAVIMAKEERR(19)
 #define IS_AVI_ERR_INVALID_UEYE				ISAVIMAKEERR(20)
 #define IS_AVI_ERR_EVENT_FAILED				ISAVIMAKEERR(21)
+#define IS_AVI_ERR_EXCEPTION                ISAVIMAKEERR(22)
+#define IS_AVI_ERR_GENERIC                  ISAVIMAKEERR(23)
+#define IS_AVI_ERR_NOT_SUPPORTED            ISAVIMAKEERR(24)
+#define IS_AVI_ERR_FILE_NOT_OPEN            ISAVIMAKEERR(25)
+#define IS_AVI_ERR_WRITE_FAILED             ISAVIMAKEERR(26)
+#define IS_AVI_ERR_READ_FAILED              ISAVIMAKEERR(27)
+#define IS_AVI_ERR_SEEK_FAILED              ISAVIMAKEERR(28)
 
 #define IDSAVIEXP    extern  __declspec(dllexport) INT __stdcall
 
@@ -361,6 +372,168 @@ IDSAVIEXP isavi_DisableEvent		(INT nAviID, INT which);
 *  \return  IS_AVI_ERR_PARAMETER    Invalid Event id
 ***********************************************************************************************************/
 IDSAVIEXP isavi_ExitEvent		(INT nAviID, INT which);
+/*! \brief Initialises the uEye File interface. 
+*
+*
+*  \param   punFileID:	 After the function call, it contains the instance ID needed by the other functions. 
+*						 Several instances may be opened at the same time.
+*  \param   nAccessMode: Access mode (Read: IS_FILE_ACCESS_MODE_READ; Write: IS_FILE_ACCESS_MODE_WRITE) 
+*
+*  \return	IS_AVI_NO_ERR				No error, initialisation was successful
+*  \return	IS_AVI_ERR_GENERIC          Generic error
+*  \return	IS_AVI_ERR_PARAMETER		pnAviID points to NULL
+*  \return	IS_AVI_ERR_NEW_FAILED    	The maximum available instances of the interface have been 
+*										reached.
+*  \return	IS_AVI_ERR_EXCEPTION		An exception occured
+***********************************************************************************************************/
+IDSAVIEXP israw_InitFile(UINT* punFileID, INT nAccessMode);
+
+/*! \brief Ends and frees the instance of the uEye AVI interface specified by the given instance ID.
+*
+*
+*  \param   unFileID: Instance ID returned by israw_InitFile()
+*
+*  \return	IS_AVI_NO_ERR			No error, deinitialisation was successful
+*  \return	IS_AVI_ERR_EXCEPTION    An exception occured
+***********************************************************************************************************/
+IDSAVIEXP israw_ExitFile(UINT unFileID);
+
+/*! \brief	After this, the function israw_AddFrame receives as parameter a pointer to the data
+*           and uses this information to save only the valid data.
+*
+*
+*  \param   unFileID:     Instance ID returned by israw_InitFile()
+*  \param	Width:		  Image width
+*  \param	Height:		  Image height
+*  \param	BitsPerPixel: Image depth
+*
+*  \return	IS_AVI_NO_ERR				No error, initialisation was successful
+*  \return	IS_AVI_ERR_GENERIC          Generic error
+*  \return	IS_AVI_ERR_INVALID_ID		The specified instance could not be found. The ID is either invalid or the 
+*										specified interface has already been destroyed by a previous call to 
+*										israw_ExitFile().
+*  \return	IS_AVI_ERR_NOT_SUPPORTED	File was opened in "ReadMode" (s. israw_InitFile)
+*  \return	IS_AVI_ERR_EXCEPTION        An exception occured
+***********************************************************************************************************/
+IDSAVIEXP israw_SetImageInfo(UINT unFileID, UINT unWidth, UINT unHeight, UINT unBitsPerPixel);
+
+/*! \brief	Returns the image info
+*
+*
+*  \param   unFileID	     Instance ID returned by israw_InitFile()
+*  \param	punWidth:		 Image width
+*  \param	punHeight:		 Image height
+*  \param	punBitsPerPixel: Image depth
+*
+*  \return	IS_AVI_NO_ERR				No error, initialisation was successful
+*  \return	IS_AVI_ERR_GENERIC          Generic error
+*  \return	IS_AVI_ERR_INVALID_ID		The specified instance could not be found. The ID is either invalid or the 
+*										specified interface has already been destroyed by a previous call to 
+*										israw_ExitFile().
+*  \return	IS_AVI_ERR_FILE_NOT_OPEN	File is not open
+*  \return	IS_AVI_ERR_EXCEPTION        An exception occured
+***********************************************************************************************************/
+IDSAVIEXP israw_GetImageInfo(UINT unFileID, UINT* punWidth, UINT* punHeight, UINT* punBitsPerPixel);
+
+/*! \brief Opens an file. 
+*
+*
+*  \param   unFileID:		Instance ID returned by israw_InitFile()
+*  \param	strFileName:	the filename - Name that should be used for the file. 
+*
+*  \return	IS_AVI_NO_ERR			 No error, initialisation was successful
+*  \return	IS_AVI_ERR_GENERIC       Generic error
+*  \return	IS_AVI_ERR_INVALID_ID	 The specified instance could not be found. The ID is either invalid or the 
+*									 specified interface has already been destroyed by a previous call to 
+*									 israw_ExitFile().
+*  \return	IS_AVI_ERR_INVALID_VALUE The user did not select a valid file name
+*  \return	IS_AVI_ERR_FILE_NOT_OPEN File could not opened
+*  \return	IS_AVI_ERR_EXCEPTION     An exception occured
+***********************************************************************************************************/
+IDSAVIEXP israw_OpenFile(UINT unFileID, const char* strFileName);
+
+/*! \brief Closes a file opened by a previous call to israw_OpenFile(). 
+*
+*
+*  \param   unFileID:		Instance ID returned by israw_InitFile()
+*
+*  \return	IS_AVI_NO_ERR			No error, initialisation was successful
+*  \return	IS_AVI_ERR_GENERIC      Generic error
+*  \return	IS_AVI_ERR_INVALID_ID	The specified instance could not be found. 
+*  \return	IS_AVI_ERR_EXCEPTION    An exception occured
+***********************************************************************************************************/
+IDSAVIEXP israw_CloseFile(UINT unFileID);
+
+/*! \brief Add a new frame to the sequence.
+*
+*
+*  \param   unFileID:        	Instance ID returned by israw_InitFile()
+*  \param	pcData:		        Pointer to data image
+*  \param	unTimestampDevice:	Timestamp of the image
+*
+*  \return	IS_AVI_NO_ERR				No error, initialisation was successful
+*  \return	IS_AVI_ERR_GENERIC          Generic error
+*  \return	IS_AVI_ERR_INVALID_ID		The specified instance could not be found. The ID is either invalid or the 
+*										specified interface has already been destroyed by a previous call to 
+*										israw_ExitFile().
+*  \return	IS_AVI_ERR_FILE_NOT_OPEN    File is not open
+*  \return	IS_AVI_ERR_NOT_SUPPORTED	File was opened in "ReadMode" (s. israw_InitFile)
+*  \return	IS_AVI_ERR_EXCEPTION        An exception occured
+***********************************************************************************************************/
+IDSAVIEXP israw_AddFrame(UINT unFileID, const char* pcData, UINT64 unTimestampDevice);
+
+/*! \brief Reads the next frame of the sequence.
+*
+*
+*  \param   unFileID:        	Instance ID returned by israw_InitFile()
+*  \param	pData:		        Pointer to data image
+*  \param	punTimestampDevice:	Timestamp of the image
+*
+*  \return	IS_AVI_NO_ERR				No error, initialisation was successful
+*  \return	IS_AVI_ERR_GENERIC          Generic error
+*  \return	IS_AVI_ERR_INVALID_ID		The specified instance could not be found. The ID is either invalid or the 
+*										specified interface has already been destroyed by a previous call to 
+*										israw_ExitFile().
+*  \return	IS_AVI_ERR_FILE_NOT_OPEN    File is not open
+*  \return	IS_AVI_ERR_NOT_SUPPORTED	File was opened in "WriteMode" (s. israw_InitFile)
+*  \return	IS_AVI_ERR_READ_FAILED    	File read failed
+*  \return	IS_AVI_ERR_EXCEPTION        An exception occured
+***********************************************************************************************************/
+IDSAVIEXP israw_GetFrame(UINT unFileID, char* pData, UINT64* punTimestampDevice);
+
+/*! \brief Seeks
+*
+*
+*  \param   unFileID:        	Instance ID returned by israw_InitFile()
+*  \param	unFrame:	        Frame to seek (null indexed)
+*
+*  \return	IS_AVI_NO_ERR				No error, initialisation was successful
+*  \return	IS_AVI_ERR_GENERIC          Generic error
+*  \return	IS_AVI_ERR_INVALID_ID		The specified instance could not be found. The ID is either invalid or the 
+*										specified interface has already been destroyed by a previous call to 
+*										israw_ExitFile().
+*  \return	IS_AVI_ERR_FILE_NOT_OPEN    File is not open
+*  \return	IS_AVI_ERR_NOT_SUPPORTED	File was opened in "WriteMode" (s. israw_InitFile)
+*  \return	IS_AVI_ERR_SEEK_FAILED    	File seek failed
+*  \return	IS_AVI_ERR_EXCEPTION        An exception occured
+***********************************************************************************************************/
+IDSAVIEXP israw_SeekFrame(UINT unFileID, UINT unFrame);
+
+/*! \brief	Gets the current file size.
+*
+*
+*  \param   unFileID:        	Instance ID returned by israw_InitFile()
+*  \param	pfSize:	            Size in Kbytes
+*
+*  \return	IS_AVI_NO_ERR				No error, initialisation was successful
+*  \return	IS_AVI_ERR_GENERIC          Generic error
+*  \return	IS_AVI_ERR_INVALID_ID		The specified instance could not be found. The ID is either invalid
+*										or the specified interface has already been destroyed by a previous 
+*										call to isavi_ExitAVI().
+*  \return	IS_AVI_ERR_FILE_NOT_OPEN    File is not open
+*  \return	IS_AVI_ERR_EXCEPTION        An exception occured
+***********************************************************************************************************/
+IDSAVIEXP israw_GetSize(UINT unFileID, float* pfSize);
 
 
 #ifdef __cplusplus

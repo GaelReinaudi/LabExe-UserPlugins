@@ -2,7 +2,7 @@
 //                                                                          //
 //	C# - Interfaceclass for uEye_tools                                      //
 //                                                                          //
-//  Copyright (C) 2005 -2012                                                //
+//  Copyright (C) 2005 - 2017                                                //
 //  IDS - Imaging Development Systems GmbH                                  //
 //  Dimbacherstr. 6-8                                                       //
 //  D-74182 Obersulm-Willsbach                                              //

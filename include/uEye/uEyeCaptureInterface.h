@@ -1,42 +1,52 @@
 // The uEye Capture Device Filter supports a range of standard interfaces.
 // These interfaces are:
-// The Filter exposes:		IAMVideoProcAmp
-//							IAMVideoControl
-//							IAMDroppedFrames
-//							IAMFilterMiscFlags
-//							IKsPropertySet
-//							IuEyeCapture		    - specific uEye interface
-//							IuEyeCaptureEx          - specific uEye interface
-//                          IuEyeAutoFeatures	    - specific uEye interface
-//							IuEyeFaceDetection      - specific uEye interface
-//							IuEyeImageStabilization - specific uEye interface
-//							IuEyeSensorAWB          - specific uEye interface
-//							IuEyeAutoContrast       - specific uEye interface
-//							IuEyeAutoBacklight      - specific uEye interface
-//							IuEyeAntiFlicker        - specific uEye interface
-//							IuEyeScenePreset        - specific uEye interface
-//							IuEyeDigitalZoom        - specific uEye interface
-//							IuEyeSaturation         - specific uEye interface
-//							IuEyeSharpness          - specific uEye interface
-//							IuEyeColorTemperature   - specific uEye interface
-//							IuEyeTriggerDebounce    - specific uEye interface
-//							IuEyePhotometry         - specific uEye interface
-//							IuEyeAutoFramerate      - specific uEye interface
-//							IuEyeFlash              - specific uEye interface
-//							IuEyeResample           - specific uEye interface
+// The Filter exposes:      IAMVideoProcAmp
+//                          IAMVideoControl
+//                          IAMDroppedFrames
+//                          IAMFilterMiscFlags
+//                          IKsPropertySet
+//                          IuEyeCapture            - specific uEye interface
+//                          IuEyeCaptureEx          - specific uEye interface
+//                          IuEyeAutoFeatures       - specific uEye interface
+//                          IuEyeFaceDetection      - specific uEye interface
+//                          IuEyeImageStabilization - specific uEye interface
+//                          IuEyeSensorAWB          - specific uEye interface
+//                          IuEyeAutoContrast       - specific uEye interface
+//                          IuEyeAutoBacklight      - specific uEye interface
+//                          IuEyeAntiFlicker        - specific uEye interface
+//                          IuEyeScenePreset        - specific uEye interface
+//                          IuEyeDigitalZoom        - specific uEye interface
+//                          IuEyeFocus              - specific uEye interface
+//                          IuEyeSaturation         - specific uEye interface
+//                          IuEyeSharpness          - specific uEye interface
+//                          IuEyeColorTemperature   - specific uEye interface
+//                          IuEyeTriggerDebounce    - specific uEye interface
+//                          IuEyePhotometry         - specific uEye interface
+//                          IuEyeAutoFramerate      - specific uEye interface
+//                          IuEyeFlash              - specific uEye interface
+//                          IuEyeResample           - specific uEye interface
 //                          IuEyeTrigger            - specific uEye interface
-//							ISpecifyPropertyPages
-// The Capture Pin exposes:	IAMCameraControl
-//							IKsPropertySet
-//							IAMStreamConfig
-//							IuEyeCapturePin		    - specific uEye interface
+//                          IuEyeConfiguration      - specific uEye interface
+//                          ISpecifyPropertyPages
+// The Capture Pin exposes: IAMCameraControl
+//                          IKsPropertySet
+//                          IAMStreamConfig
+//                          IuEyeCapturePin         - specific uEye interface
 //                          IuEyeAOI                - specific uEye interface
-//							IuEyeScaler
-//							IuEyeIO
-//							IuEyeEvent
+//                          IuEyeScaler             - specific uEye interface
+//                          IuEyeIO                 - specific uEye interface
+//                          IuEyeEvent              - specific uEye interface
+//                          IuEyeDeviceFeature      - specific uEye interface
+//                          IuEyeHotPixel           - specific uEye interface
+//                          IuEyeCameraLUT          - specific uEye interface - OBSOLETE, use IuEyeLUT instead
+//                          IuEyeEdgeEnhancement    - specific uEye interface
+//                          IuEyeAutoParameter      - specific uEye interface
+//                          IuEyeImageFormat        - specific uEye interface
+//                          IuEyeColorConverter     - specific uEye interface
+//                          IuEyeCapturePinEx       - specific uEye interface
+//                          IuEyeLUT                - specific uEye interface
 //
-
-//							ISpecifyPropertyPages
+//                          ISpecifyPropertyPages
 // Some functionalities of the cameras are not mentioned in this standards.
 // Therefore this file defines some additional interfaces, providing control
 // over the missing features.
@@ -44,10 +54,11 @@
 #ifndef _UEYE_CAPTURE_INTERFACE_
 #define _UEYE_CAPTURE_INTERFACE_
 
+#include "uEye.h"
+
 #include <initguid.h>
 
-const char uEyeCaptureInterfaceVersion[] = "3.0.3";
-
+const char uEyeCaptureInterfaceVersion[] = "3.0.18";
 
 
 // {67030826-2EE0-44e7-BE1A-6A3BDB5B47FE}
@@ -174,44 +185,76 @@ typedef struct
   char          Reserved[8];  /*!< \brief 	reserved for future use */
 } CAMERAINFO, *PCAMERAINFO;
 
-#   ifdef _SENSORINFO
-#       undef _SENSORINFO
-#   endif
-#   ifdef SENSORINFO
-#       undef SENSORINFO
-#   endif
-typedef struct _SENSORINFO
-{
-  WORD          SensorID;           /*!< \brief 	camera's sensor id e.g. IS_SENSOR_UI121X_C */
-  char          strSensorName[32];  /*!< \brief 	human readable name of the sensor e.g. "UI-121X-C" */
-  char          nColorMode;         /*!< \brief 	indicates monochrome or color camera  e.g. IS_COLORMODE_BAYER	*/
-  DWORD         nMaxWidth;          /*!< \brief 	maximum width of the sensor in pixel  e.g. 1280	*/
-  DWORD         nMaxHeight;         /*!< \brief 	maximum width of the sensor in pixel e.g. 1024	*/
-  BOOL          bMasterGain;        /*!< \brief 	does the sensor support using master gain e.g. FALSE	*/
-  BOOL          bRGain;             /*!< \brief 	does the sensor support using gain on red pixels only e.g. TRUE	*/
-  BOOL          bGGain;             /*!< \brief 	does the sensor support using gain on green pixels only e.g. TRUE	*/
-  BOOL          bBGain;             /*!< \brief 	does the sensor support using gain on blue pixels only e.g. TRUE	*/
-  BOOL          bGlobShutter;       /*!< \brief 	does the sensor support global shutter mode e.g. TRUE	*/
-  char			Reserved[16];		/*!< \brief 	reserved for future use */
-} SENSORINFO, *PSENSORINFO;
+//#   ifdef _SENSORINFO
+//#       undef _SENSORINFO
+//#   endif
+//#   ifdef SENSORINFO
+//#       undef SENSORINFO
+//#   endif
+//
+//#   ifndef _SENSORINFO
+//typedef struct _SENSORINFO
+//{
+//  WORD          SensorID;           /*!< \brief 	camera's sensor id e.g. IS_SENSOR_UI121X_C */
+//  char          strSensorName[32];  /*!< \brief 	human readable name of the sensor e.g. "UI-121X-C" */
+//  char          nColorMode;         /*!< \brief 	indicates monochrome or color camera  e.g. IS_COLORMODE_BAYER	*/
+//  DWORD         nMaxWidth;          /*!< \brief 	maximum width of the sensor in pixel  e.g. 1280	*/
+//  DWORD         nMaxHeight;         /*!< \brief 	maximum width of the sensor in pixel e.g. 1024	*/
+//  BOOL          bMasterGain;        /*!< \brief 	does the sensor support using master gain e.g. FALSE	*/
+//  BOOL          bRGain;             /*!< \brief 	does the sensor support using gain on red pixels only e.g. TRUE	*/
+//  BOOL          bGGain;             /*!< \brief 	does the sensor support using gain on green pixels only e.g. TRUE	*/
+//  BOOL          bBGain;             /*!< \brief 	does the sensor support using gain on blue pixels only e.g. TRUE	*/
+//  BOOL          bGlobShutter;       /*!< \brief 	does the sensor support global shutter mode e.g. TRUE	*/
+//  char			Reserved[16];		/*!< \brief 	reserved for future use */
+//} SENSORINFO, *PSENSORINFO;
+//#   endif
 
-#   ifdef _SENSORSCALERINFO
-#       undef _SENSORSCALERINFO
-#   endif
-#   ifdef SENSORSCALERINFO
-#       undef SENSORSCALERINFO
-#   endif
-typedef struct _SENSORSCALERINFO
-  {
-      INT       nCurrMode;
-      INT       nNumberOfSteps;
-      double    dblFactorIncrement;
-      double    dblMinFactor;
-      double    dblMaxFactor;
-      double    dblCurrFactor;
-      INT       nSupportedModes;
-      BYTE      bReserved[84];
-  } SENSORSCALERINFO;
+
+//#   ifdef _SENSORSCALERINFO
+//#       undef _SENSORSCALERINFO
+//#   endif
+//#   ifdef SENSORSCALERINFO
+//#       undef SENSORSCALERINFO
+//#   endif
+//typedef struct _SENSORSCALERINFO
+//  {
+//      INT       nCurrMode;
+//      INT       nNumberOfSteps;
+//      double    dblFactorIncrement;
+//      double    dblMinFactor;
+//      double    dblMaxFactor;
+//      double    dblCurrFactor;
+//      INT       nSupportedModes;
+//      BYTE      bReserved[84];
+//  } SENSORSCALERINFO;
+
+/* Old defines for flash */
+#define IS_GET_FLASHSTROBE_MODE             0x8000
+#define IS_GET_FLASHSTROBE_LINE             0x8001
+#define IS_GET_SUPPORTED_FLASH_IO_PORTS     0x8002
+
+#define IS_SET_FLASH_OFF                    0
+#define IS_SET_FLASH_ON                     1
+#define IS_SET_FLASH_LO_ACTIVE              IS_SET_FLASH_ON
+#define IS_SET_FLASH_HI_ACTIVE              2
+#define IS_SET_FLASH_HIGH                   3
+#define IS_SET_FLASH_LOW                    4
+#define IS_SET_FLASH_LO_ACTIVE_FREERUN      5
+#define IS_SET_FLASH_HI_ACTIVE_FREERUN      6
+#define IS_SET_FLASH_IO_1                   0x0010
+#define IS_SET_FLASH_IO_2                   0x0020
+#define IS_SET_FLASH_IO_3                   0x0040
+#define IS_SET_FLASH_IO_4                   0x0080
+#define IS_FLASH_IO_PORT_MASK               (IS_SET_FLASH_IO_1 | IS_SET_FLASH_IO_2 | IS_SET_FLASH_IO_3 | IS_SET_FLASH_IO_4)  
+
+#define IS_GET_FLASH_DELAY                  -1
+#define IS_GET_FLASH_DURATION               -2
+#define IS_GET_MAX_FLASH_DELAY              -3
+#define IS_GET_MAX_FLASH_DURATION           -4
+#define IS_GET_MIN_FLASH_DELAY              -5
+#define IS_GET_MIN_FLASH_DURATION           -6
+#define IS_GET_FLASH_DELAY_GRANULARITY      -7
+#define IS_GET_FLASH_DURATION_GRANULARITY   -8
 
 #endif  // DS_EXPORT
 
@@ -249,12 +292,12 @@ interface IuEyeCapture : public IUnknown
     STDMETHOD(SetWhiteBalanceMultipliers)(long lRed, long lGreen, long lBlue) = 0;
 
     /*!
-	* \brief	OBSOLETE: Queries the number of connected camera devices.
+	*	\brief	OBSOLETE: Queries the number of connected camera devices.
 	*/
 	STDMETHOD(GetNumberOfCameras)(long *plNr) = 0;
 
     /*!
-	* \brief 	Returns the device info for the connected camera as a pair of CAMERAINFO and SENSORINFO
+	*	\brief 	Returns the device info for the connected camera as a pair of CAMERAINFO and SENSORINFO
     *	\param 	psInfo      Receives the SENSORINFO
     *	\param 	pcInfo      Receives the CAMERAINFO
     *	\return	HRESULT     0 on success, error code otherwise.
@@ -262,7 +305,7 @@ interface IuEyeCapture : public IUnknown
 	STDMETHOD(GetDeviceInfo)(SENSORINFO *psInfo, CAMERAINFO *pcInfo) = 0;
 
 	/*!
-	* \brief	Queries the Version of the installed uEye Driver files
+	*	\brief	Queries the Version of the installed uEye Driver files
      *	\param 	pVersion    Receives the Version of connected cameras.
      *	\return	HRESULT     0 on success, error code otherwise.
      *
@@ -272,18 +315,18 @@ interface IuEyeCapture : public IUnknown
 	STDMETHOD(GetDLLVersion)(long *pVersion) = 0;
 
 	/*!
-	* \brief 	OBSOLETE: Returns a pair of lists, containing of CAMERAINFO and SENSORINFO structures, which holds
+	*	\brief 	OBSOLETE: Returns a pair of lists, containing of CAMERAINFO and SENSORINFO structures, which holds
 	*		information of the available cameras.
 	*/ 
 	STDMETHOD(GetListOfCameras)(CAMERAINFO **cInfo, SENSORINFO **sInfo, long *lNr) = 0;
 
 	/*!
-	* \brief 	OBSOLETE: Tries to connect the filter to another camera.
+	*	\brief 	OBSOLETE: Tries to connect the filter to another camera.
 	*/
 	STDMETHOD(ConnectToCamera)(long lIndex) = 0;
 
 	/*!
-	* \brief	Activates or deactivates the hot pixel correction.
+	*	\brief	Activates or deactivates the hot pixel correction.
      *	\param 	lEnable     Set to 1 to activate or 0 to deactivate correction.
      *	\return	HRESULT     0 on success, error code otherwise.
 	 *	\see    GetBadPixelCorrection
@@ -291,7 +334,7 @@ interface IuEyeCapture : public IUnknown
 	STDMETHOD(SetBadPixelCorrection)(long lEnable) = 0;
 
 	/*!	 
-	* \brief	Queries the current state of the hot pixel correction unit.
+	*	\brief	Queries the current state of the hot pixel correction unit.
      *	\param 	plEnable    Receives 1 if hot pixel correction is enabled.
      *	\return	HRESULT     0 on success, error code otherwise.
 	 *	\see    SetBadPixelCorrection
@@ -299,7 +342,7 @@ interface IuEyeCapture : public IUnknown
 	STDMETHOD(GetBadPixelCorrection)(long *plEnable) = 0;
 
 	/*!	 
-	* \brief	Configures the hot pixel correction of the sensor
+	*	\brief	Configures the hot pixel correction of the sensor
      *	\param 	nMode          Selection Mode of Hotpixel
 	 *          pParam	       Pointer to function parameter, depends
 	 *					       on the selection of nMode
@@ -380,7 +423,7 @@ interface IuEyeCaptureEx : public IuEyeCapture
     STDMETHOD(GetHardwareGamma)(long *plHWGamma) = 0;
 
 	/*!	 
-	* \brief	Load/save the parameters from/to a file or camera EEPRom userset.
+	 * \brief	Load/save the parameters from/to a file or camera EEPRom userset.
      *	\param 	nMode          Selection Mode of ParameterSet
 	 *          pParam	       Pointer to function parameter, depends
 	 *					       on the selection of nMode
@@ -409,8 +452,6 @@ interface IuEyeCaptureEx : public IuEyeCapture
     */
     STDMETHOD(SaveParameters)(const char* cszFileName) = 0;
 };
-
-
 /*!
 * \}
 */	// end of group uEyeCaptureInterface
@@ -685,114 +726,114 @@ interface IuEyeFaceDetection : public IUnknown
 {
     /*!
      * \brief Query for support of the face detection feature.
-     * \param pbSupported   output location for result.
-	* \return	HRESULT 		S_OK on success, error code otherwise.
+     * \param pbSupported		output location for result.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_IsSupported)(bool* pbSupported) = 0;
 
     /*!
      * \brief Query the current 'enabled' status of the face detection feature.
-     * \param pbEnabled output location for result.
-	* \return	HRESULT 	S_OK on success, error code otherwise.
+     * \param pbEnabled		output location for result.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_IsEnabled)(bool* pbEnabled) = 0;
 
     /*!
      * \brief Set the 'enabled' status of the face detection feature.
-     * \param bEnable   new 'enabled' status.
-	* \return	HRESULT 	S_OK on success, error code otherwise.
+     * \param bEnable		new 'enabled' status.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_Enable)(bool bEnable) = 0;
 
     /*!
      * \brief Query the current 'suspended' status of the face detection feature.
      * \param pbSuspended   output location for result.
-	* \return	HRESULT 		S_OK on success, error code otherwise.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_IsSuspended)(bool* pbSuspended) = 0;
 
     /*!
      * \brief Set the 'suspended' status of the face detection feature.
-     * \param bSuspend  new 'suspended' status.
-	* \return	HRESULT	S_OK on success, error code otherwise.
+     * \param bSuspend		new 'suspended' status.
+	 * \return	HRESULT		S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_Suspend)(bool bSuspend) = 0;
 
     /*!
      * \brief Query the current enabled status of the face detection's 'search angle' subfeature.
-     * \param pbEnabled output location for result.
-	* \return	HRESULT 	S_OK on success, error code otherwise.
+     * \param pbEnabled		output location for result.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_IsSearchAngleEnabled)(bool* pbEnabled) = 0;
 
     /*!
      * \brief Set the 'enabled' status of the face detection's 'search angle' feature.
-	* \param	bEnable  	new 'search angle enable' status.
-	* \return	HRESULT	S_OK on success, error code otherwise.
+	 * \param	bEnable  	new 'search angle enable' status.
+	 * \return	HRESULT		S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_EnableSearchAngle)(bool bEnable) = 0;
 
     /*!
      * \brief Query the current search angle.
-     * \param pulAngle  output location for result.
-	* \return	HRESULT	S_OK on success, error code otherwise.
+     * \param pulAngle		output location for result.
+	 * \return	HRESULT		S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_GetSearchAngle)(long* pulAngle) = 0;
 
     /*!
      * \brief Set the new search angle.
-     * \param ulAngle   output location for result.
-	* \return	HRESULT 	S_OK on success, error code otherwise.
+     * \param ulAngle		output location for result.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_SetSearchAngle)(long ulAngle) = 0;
 
     /*!
      * \brief Query the last determined face list.
-     * \param pFaceList output location for result: preallocated object of type \see FDT_INFO_LIST.
-     * \param ulSize    size of pFaceList in bytes.
-	* \return	HRESULT 	S_OK on success, error code otherwise.
+     * \param pFaceList		output location for result: preallocated object of type \see FDT_INFO_LIST.
+     * \param ulSize		size of pFaceList in bytes.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_GetFaceList)(void* pFaceList, unsigned long ulSize) = 0;
 
     /*!
      * \brief Query the last determined number of faces.
      * \param pulNumFaces   output location for result.
-	* \return	HRESULT		S_OK on success, error code otherwise.
+	 * \return	HRESULT		S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_GetNumFaces)(unsigned long* pulNumFaces) = 0;
 
     /*!
      * \brief Query the maximum number of faces that the feature can detect in an image.
      * \param pulMaxNumFaces    output location for result.
-	* \return	HRESULT 		S_OK on success, error code otherwise.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_GetMaxNumFaces)(unsigned long* pulMaxNumFaces) = 0;
 
     /*!
      * \brief Query the current maximum number of overlay drawings that the feature will show in an image.
-     * \param pulMaxNumOvl  output location for result.
-	* \return	HRESULT 		S_OK on success, error code otherwise.
+     * \param pulMaxNumOvl		output location for result.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_GetMaxNumOvl)(unsigned long* pulMaxNumOvl) = 0;
 
     /*!
      * \brief Set the new maximum number of overlay drawings that the feature will show in an image.
-     * \param ulMaxNumOvl   the new setting.
-	* \return	HRESULT 		S_OK on success, error code otherwise.
+     * \param ulMaxNumOvl		the new setting.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_SetMaxNumOvl)(unsigned long ulMaxNumOvl) = 0;
 
     /*!
      * \brief Query the current linewidth for the overlay drawings.
      * \param pulLineWidthOvl   output location for result.
-	* \return	HRESULT 		S_OK on success, error code otherwise.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_GetLineWidthOvl)(unsigned long* pulLineWidthOvl) = 0;
 
     /*!
      * \brief Set the new linewidth for the overlay drawings.
      * \param ulLineWidthOvl    the new setting.
-	* \return	HRESULT	S_OK on success, error code otherwise.
+	 * \return	HRESULT			S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_SetLineWidthOvl)(unsigned long ulLineWidthOvl) = 0;
 
@@ -800,7 +841,7 @@ interface IuEyeFaceDetection : public IUnknown
      * \brief Query the resolution.
      * \param pulHorzRes    output location for result horizontal resolution.
      * \param pulVertRes    output location for result vertical resolution.
-	* \return	HRESULT 	S_OK on success, error code otherwise.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
      */
     STDMETHOD(FDT_GetResolution)(unsigned long* pulHorzRes, unsigned long* pulVertRes) = 0;
 
@@ -1198,7 +1239,7 @@ interface IuEyeDigitalZoom : public IUnknown
     /*!
      * \brief Query the number of supported zoom factors used by digital zoom feature.
      * \param pulNumFactors number of supported factors
-	* \return	HRESULT 		S_OK on success, error code otherwise.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
      */
     STDMETHOD(DigitalZoom_GetNumZoomFactors)(unsigned long* pulNumFactors) = 0;
 
@@ -1206,28 +1247,216 @@ interface IuEyeDigitalZoom : public IUnknown
      * \brief Query the supported zoom factors of digital zoom feature.
      * \param pZFList   output location for result: preallocated object of type double.
      * \param ulSize    size of pZFList in bytes.
-	* \return	HRESULT 	S_OK on success, error code otherwise.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
      */
     STDMETHOD(DigitalZoom_GetZoomFactors)(void* pZFList, unsigned long ulSize) = 0;
 
     /*!
      * \brief Query the current zoom factor of digital zoom feature.
      * \param pdblZoomFactor current zoom factor.
-	* \return	HRESULT 		S_OK on success, error code otherwise.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
      */
     STDMETHOD(DigitalZoom_GetZoomFactor)(double* pdblZoomFactor) = 0;
 
     /*!
      * \brief Set the zoom factor of digital zoom feature.
      * \param dblZoomFactor zoom factor to set.
-	* \return	HRESULT 		S_OK on success, error code otherwise.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
      */
     STDMETHOD(DigitalZoom_SetZoomFactor)(double dblZoomFactor) = 0;
 
+    /*!
+     * \brief Query the default zoom factors of digital zoom feature.
+     * \param pdblDefault   Default zoom values.
+     * \return HRESULT:		S_OK on success, error code otherwise.
+     */
+	STDMETHOD(DigitalZoom_GetZoomFactorDefault)(double* pdblDefault) = 0;
+
+    /*!
+     * \brief Query the zoom factor range of digital zoom feature.
+     * \param pdblMin   minimum zoom factor.
+     * \param pdblMax   maximum zoom factor.
+     * \param pdblInc   increment of zoom factor.
+     * \return HRESULT: S_OK on success, error code otherwise.
+     */
+	STDMETHOD(DigitalZoom_GetZoomFactorRange)(double* pdblMin, double* pdblMax, double* pdblInc) = 0;
 };
 /*!
  * \}
  */	// end of group IuEyeDigitalZoom
+
+
+// ============================================================================
+/*! \defgroup IuEyeFocus Focus Interface
+*  Proprietary interface for uEye focus feature exposed by the capture filter. 
+*  Allows a DirectShow based program to control and query the digital zoom
+*  feature related parameters that are not accessible via direct show functions.
+* \{
+*/
+// ============================================================================
+
+// {300F14B1-D486-40fa-9804-9A621C193137}
+DEFINE_GUID(IID_IuEyeFocus, 
+			0x300f14b1, 0xd486, 0x40fa, 0x98, 0x4, 0x9a, 0x62, 0x1c, 0x19, 0x31, 0x37);
+
+interface IuEyeFocus : public IUnknown
+{
+    /*!
+     * \brief	Query for support of auto focus.
+     * \param	pbSupported		output location for result.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
+     */
+	STDMETHOD(Focus_IsAutoFocusSupported)(bool* pSupported) = 0;
+
+    /*!
+     * \brief	Set the auto focus.
+     * \param	bEnalbe		enables or disables the auto focus.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
+     */
+	STDMETHOD(Focus_SetAutoFocus)(bool bEnable) = 0;
+
+    /*!
+     * \brief	get the auto focus.
+     * \param	pbEnable		output location for result.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
+     */
+	STDMETHOD(Focus_GetAutoFocus)(bool* pbEnable) = 0;
+
+    /*!
+     * \brief	get the auto focus status.
+     * \param	piStatus		output location for result.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
+     */
+	STDMETHOD(Focus_GetAutoFocusStatus)(INT* piStatus) = 0;
+	
+	/*!
+     * \brief	Set enable the auto focus once.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
+     */
+	STDMETHOD(Focus_SetEnableAutoFocusOnce)(void) = 0;
+
+    /*!
+     * \brief	Set the manual focus.
+     * \param   uiManual	Set the manual focus.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
+     */
+	STDMETHOD(Focus_SetManualFocus)(UINT uiManual) = 0;
+
+    /*!
+     * \brief	get the manual focus.
+     * \param	puiManual		output location for result.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
+     */
+	STDMETHOD(Focus_GetManualFocus)(UINT* puiManual) = 0;
+
+	/*!
+     * \brief	get the manual focus range.
+     * \param	puiMin		Minimum manual focus
+     * \param	puiMax		Maximum manual focus
+	 * \param	puiInc		Increment of manual focus
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
+     */
+	STDMETHOD(Focus_GetManualFocusRange)(UINT* puiMin, UINT* puiMax, UINT* puiInc) = 0;
+
+    /*!
+     * \brief	Get the current focus zone rect.
+     * \param   pfocusZoneRect  variable of type RECT containing the focus zone.
+	 * \return	HRESULT			S_OK on success, error code otherwise.
+     */
+    STDMETHOD(Focus_GetAutoFocusZone)(RECT* pfocusZoneRect) = 0;
+
+    /*!
+     * \brief	Set the current focus zone rect.
+     * \param   focusZoneRect   variable of type RECT containing the focus zone.
+	 * \return	HRESULT			S_OK on success, error code otherwise.
+     */
+    STDMETHOD(Focus_SetAutoFocusZone)(RECT focusZoneRect) = 0;
+
+    /*!
+     * \brief	Get the default focus zone rect.
+     * \param   pfocusZoneRect  variable of type RECT containing the default focus zone.
+	 * \return	HRESULT			S_OK on success, error code otherwise.
+     */
+    STDMETHOD(Focus_GetAutoFocusZoneDefault)(RECT* pfocusZoneRectDefault) = 0;
+
+    /*!
+     * \brief	Get the minimum focus zone point.
+     * \param   pfocusZonePosMin	variable of type POINT containing the minimum focus zone pos.
+	 * \return	HRESULT				S_OK on success, error code otherwise.
+     */
+    STDMETHOD(Focus_GetAutoFocusZonePosMin)(POINT* pfocusZonePosMin) = 0;
+
+	/*!
+     * \brief	Get the maximum focus zone point.
+     * \param   pfocusZonePosMax	variable of type POINT containing the maximum focus zone pos.
+	 * \return	HRESULT				S_OK on success, error code otherwise.
+     */
+    STDMETHOD(Focus_GetAutoFocusZonePosMax)(POINT* pfocusZonePosMax) = 0;
+
+	/*!
+     * \brief	Get the increment focus zone point.
+     * \param   pfocusZonePosInc	variable of type POINT containing the increment focus zone pos.
+	 * \return	HRESULT				S_OK on success, error code otherwise.
+     */
+    STDMETHOD(Focus_GetAutoFocusZonePosInc)(POINT* pfocusZonePosInc) = 0;
+
+    /*!
+     * \brief	Get the minimum focus zone size.
+     * \param   pfocusZoneSizeMin	variable of type SIZE containing the minimum focus zone size.
+	 * \return	HRESULT				S_OK on success, error code otherwise.
+     */
+    STDMETHOD(Focus_GetAutoFocusZoneSizeMin)(SIZE* pfocusZoneSizeMin) = 0;
+
+    /*!
+     * \brief	Get the maximum focus zone size.
+     * \param   pfocusZoneSizeMax	variable of type SIZE containing the maximum focus zone size.
+	 * \return	HRESULT				S_OK on success, error code otherwise.
+     */
+    STDMETHOD(Focus_GetAutoFocusZoneSizeMax)(SIZE* pfocusZoneSizeMax) = 0;
+
+	/*!
+     * \brief	Get the increment focus zone size.
+     * \param   pfocusZoneSizeInc	variable of type SIZE containing the increment focus zone size.
+	 * \return	HRESULT				S_OK on success, error code otherwise.
+     */
+    STDMETHOD(Focus_GetAutoFocusZoneSizeInc)(SIZE* pfocusZoneSizeInc) = 0;
+
+    /*!
+     * \brief	Get the auto focus zone weight.
+     * \param	iWeightCount		number of zone count
+	 * \		piFocusZoneWeight	variable of type INT [] containing the focus zone weights.
+	 * \return	HRESULT 			S_OK on success, error code otherwise.
+     */
+	STDMETHOD (Focus_GetAutoFocusZoneWeight)(INT iWeightCount, INT* piFocusZoneWeight) = 0;
+
+    /*!
+     * \brief	Set the auto focus zone weight.
+     * \param	iWeightCount		number of zone count
+	 * \		piFocusZoneWeight	variable of type INT [] containing the focus zone weights.
+	 * \return	HRESULT 			S_OK on success, error code otherwise.
+     */
+	STDMETHOD (Focus_SetAutoFocusZoneWeight)(INT iWeightCount, INT* piFocusZoneWeight) = 0;
+
+    /*!
+     * \brief	Get the auto focus zone weight default.
+     * \param	iWeightCount				number of zone count
+	 * \		piFocusZoneWeightDefault	variable of type INT [] containing the focus zone weights.
+	 * \return	HRESULT 					S_OK on success, error code otherwise.
+     */
+	STDMETHOD (Focus_GetAutoFocusZoneWeightDefault)(INT iWeightCount, INT* piFocusZoneWeightDefault) = 0;
+
+    /*!
+     * \brief	Get the auto focus zone weight count.
+     * \param	piWeightCount		get the number of zone count
+	 * \return	HRESULT 			S_OK on success, error code otherwise.
+     */
+	STDMETHOD (Focus_GetAutoFocusZoneWeightCount)(INT* piWeightCount) = 0;
+
+};
+/*!
+ * \}
+ */	// end of group IuEyeFocus
+
 
 // ============================================================================
 /*! \defgroup IuEyeSaturation uEye Saturation Interface
@@ -1248,7 +1477,7 @@ interface IuEyeSaturation : public IUnknown
     /*!
      * \brief Query for support of sensor's saturation feature.
      * \param pbSupported   output location for result.
-	* \return	HRESULT 		S_OK on success, error code otherwise.
+	* \return	HRESULT 	S_OK on success, error code otherwise.
      */
     STDMETHOD(Saturation_IsSupported)(bool* pbSupported) = 0;
 
@@ -1429,6 +1658,35 @@ interface IuEyeColorTemperature : public IUnknown
 	* \return	HRESULT	S_OK on success, error code otherwise.
      */
     STDMETHOD(ColorTemperature_GetRange)(unsigned long* pulMin, unsigned long* pulMax, unsigned long* pulInc) = 0;
+
+    /*!
+     * \brief Set a new lens shading model 
+	 * \param ulValue	lens shading model
+	 * \return HRESULT	S_OK on success, error code otherwise.
+     */
+    STDMETHOD(ColorTemperature_SetLensShadingModel)(UINT ulValue) = 0;
+
+	/*!
+     * \brief get a new lens shading model 
+	 * \param pulValue	lens shading model
+	 * \return HRESULT	S_OK on success, error code otherwise.
+     */
+    STDMETHOD(ColorTemperature_GetLensShadingModel)(UINT* pulValue) = 0;
+
+	/*!
+     * \brief get lens shading model supported
+	 * \param pulValue	lens shading model
+	 * \return HRESULT	S_OK on success, error code otherwise.
+     */
+    STDMETHOD(ColorTemperature_GetLensShadingModelSupported)(UINT* pulValue) = 0;
+
+	/*!
+     * \brief get lens shading model default
+	 * \param pulValue	lens shading model
+	 * \return HRESULT	S_OK on success, error code otherwise.
+     */
+    STDMETHOD(ColorTemperature_GetLensShadingModelDefault)(UINT* pulValue) = 0;
+
 };
 /*!
  * \}
@@ -1580,7 +1838,35 @@ interface IuEyeTrigger : public IUnknown
      */
     STDMETHOD(Trigger_GetTriggerStatus)(long* pnMode) = 0;
 
+    /*!
+     * \brief Get burst size supported
+     * \param	pnSupported		burst size supported
+     * \return	HRESULT:		S_OK on success, error code otherwise.
+     */
+    STDMETHOD (Trigger_GetBurstSizeSupported)(UINT* pnSupported) = 0;
 
+    /*!
+     * \brief Get burst size range
+     * \param	pnMin		minimum burst size
+	 *			pnMax		maximum burst size
+	 *			pnInc		increment burst size
+     * \return	HRESULT:	S_OK on success, error code otherwise.
+     */
+    STDMETHOD (Trigger_GetBurstSizeRange)(UINT* pnMin, UINT* pnMax, UINT* pnInc) = 0;
+
+    /*!
+     * \brief Get burst size
+     * \param	pnBurstSize		burst size 
+     * \return	HRESULT:		S_OK on success, error code otherwise.
+     */
+    STDMETHOD (Trigger_GetBurstSize)(UINT* pnBurstSize) = 0;
+
+    /*!
+     * \brief Set burst size
+     * \param	nBurstSize		burst size 
+     * \return	HRESULT:		S_OK on success, error code otherwise.
+     */
+    STDMETHOD (Trigger_SetBurstSize)(UINT nBurstSize) = 0;
 };
 /*!
  * \}
@@ -1710,9 +1996,10 @@ interface IuEyePhotometry : public IUnknown
     /*!
      * \brief Query the supported modes of sensor's auto gain feature.
      * \param pulModes  bitmask containing supported modes.
-	* \return	HRESULT	S_OK on success, error code otherwise.
+	 * \return	HRESULT	S_OK on success, error code otherwise.
      */
     STDMETHOD(Photometry_GetSupportedAutoGainModes)(unsigned long* pulModes) = 0;
+
 
     /*!
      * \brief Query for support of sensor's auto shutter feature.
@@ -1762,6 +2049,20 @@ interface IuEyePhotometry : public IUnknown
 	* \return	HRESULT	S_OK on success, error code otherwise.
      */
     STDMETHOD(Photometry_GetSupportedAutoShutterModes)(unsigned long* pulModes) = 0;
+
+    /*!
+     * \brief Query for support of sensor's auto gain shutter feature.
+     * \param pbSupported   output location for result.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
+     */
+    STDMETHOD(Photometry_IsAutoGainShutterSupported)(bool* pbSupported) = 0;
+
+    /*!
+     * \brief Query the current 'enabled' status of sensor's auto gain shutter feature.
+     * \param pbEnabled output location for result.
+	 * \return	HRESULT	S_OK on success, error code otherwise.
+     */
+	STDMETHOD(Photometry_IsAutoGainShutterEnabled)(bool* pbEnabled) = 0;
 };
 /*!
  * \}
@@ -1943,7 +2244,6 @@ interface IuEyeFlash : public IUnknown
 // {7C0098F5-20BE-47f7-83FF-E7CC12246547}
 DEFINE_GUID(IID_IuEyeResample, 0x7c0098f5, 0x20be, 0x47f7, 0x83, 0xff, 0xe7, 0xcc, 0x12, 0x24, 0x65, 0x47);
         
-
 interface IuEyeResample : public IUnknown
 {
     /*!
@@ -2287,7 +2587,6 @@ interface IuEyeAOI : public IUnknown
      */
     STDMETHOD(AOI_GetMinMaxPosX)(INT* pnMin, INT* pnMax) = 0;
 
-
     /*!
      * \brief Get the minimum and maximum value of the vertical position of the AOI.
      * \param   pnMin   variable containing the smallest possible horizontal position.
@@ -2322,6 +2621,49 @@ interface IuEyeAOI : public IUnknown
      * \note the generic access function is provided for future use.
      */
     STDMETHOD(AOI_Generic)(unsigned long ulCommand, void* pParam, unsigned long ulSize) = 0;
+
+    /*!
+     * \brief Set the current image area of interest in absolute uEye coordinates.
+     * \param   rectAOI   variable of type IS_RECT containing the new AOI coordinates.
+	 * \return	HRESULT	S_OK on success, error code otherwise.
+     */
+    STDMETHOD(AOI_SetImageAOI)(IS_RECT rectAOI) = 0;
+
+    /*!
+     * \brief Get the current image area of interest in absolute uEye coordinates.
+     * \param   pRectAOI   output location containing aoi information (x, y, width, height).
+	 * \return	HRESULT	S_OK on success, error code otherwise.
+     */
+    STDMETHOD(AOI_GetImageAOI)(IS_RECT *pRectAOI) = 0;
+
+    /*!
+     * \brief Get the current area of interest used by auto exposure feature (if not set the actual image AOI is used).
+     * \param   pRectAOI   output location containing aoi information (x, y, width, height).
+	 * \return	HRESULT	S_OK on success, error code otherwise.
+     */
+    STDMETHOD (AOI_GetAutoBrightnessAOI)(IS_RECT *pRectAOI) = 0;
+
+    /*!
+     * \brief Set the current area of interest used by auto exposure feature.
+     * \param   rectAOI   variable of type IS_RECT containing the new AOI coordinates.
+	 * \return	HRESULT	S_OK on success, error code otherwise.
+     */
+    STDMETHOD(AOI_SetAutoBrightnessAOI)(IS_RECT rectAOI) = 0;
+
+    /*!
+     * \brief Get the current area of interest used by auto white balance feature (if not set the actual image AOI is used).
+     * \param   pRectAOI   output location containing aoi information (x, y, width, height).
+	 * \return	HRESULT	S_OK on success, error code otherwise.
+     */
+    STDMETHOD(AOI_GetAutoWBAOI)(IS_RECT *pRectAOI) = 0;
+
+    /*!
+     * \brief Set the current area of interest used by auto white balance feature.
+     * \param   rectAOI   variable of type IS_RECT containing the new AOI coordinates.
+	 * \return	HRESULT	S_OK on success, error code otherwise.
+     */
+    STDMETHOD(AOI_SetAutoWBAOI)(IS_RECT rectAOI) = 0;
+
 };
 /*!
  * \}
@@ -2564,6 +2906,1131 @@ interface IuEyeEvent : public IUnknown
  * \}
  */	// end of group IuEyeEvent
 
+// ============================================================================
+/*! \defgroup IuEyeDeviceFeature uEye DeviceFeature Interface
+* 
+*  Proprietary interface for controlling uEye device feature features exposed by 
+*  the capture filter. 
+*  Allows a DirectShow based program to control and query the device feature feature 
+*  related parameters that are not accessible via direct show functions.
+* \{
+*/
+// ============================================================================
+// {0F0BC8F8-D210-45a7-AA18-D1377A56E158}
+DEFINE_GUID(IID_IuEyeDeviceFeature, 0xf0bc8f8, 0xd210, 0x45a7, 0xaa, 0x18, 0xd1, 0x37, 0x7a, 0x56, 0xe1, 0x58);
+
+interface IuEyeDeviceFeature : public IUnknown
+{
+	/*!	 
+	 * \brief	get the supported device features
+     * \param 	pnCap		   supported device features
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetSupportedFeatures)(INT* pnCap) = 0;
+
+	/*!	 
+	 * \brief	set the linescan mode 
+     * \param 	nMode		linescane mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetLineScanMode)(INT nMode) = 0;
+
+	/*!	 
+	 * \brief	get the linescan mode 
+     * \param 	pnMode		linescane mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetLineScanMode)(INT* pnMode) = 0;
+
+	/*!	 
+	 * \brief	set the linescan number 
+     * \param 	nNumber		linescane number
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetLineScanNumber)(INT nNumber) = 0;
+
+	/*!	 
+	 * \brief	get the linescan number 
+     * \param 	pnNumber	linescane number
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetLineScanNumber)(INT* pnNumber) = 0;
+
+	/*!	 
+	 * \brief	set the shutter mode 
+     * \param 	nMode		shutter mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetShutterMode)(INT nMode) = 0;
+
+	/*!	 
+	 * \brief	get the shutter mode 
+     * \param 	pnMode		shutter mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetShutterMode)(INT* pnMode) = 0;
+
+	/*!	 
+	 * \brief	set the prefer XS Hs mode 
+     * \param 	nMode		prefer XS HS mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetPreferXSHSMode)(INT nMode) = 0;
+
+	/*!	 
+	 * \brief	get the prefer XS Hs mode 
+     * \param 	pnMode		prefer XS HS mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetPreferXSHSMode)(INT* pnMode) = 0;
+
+	/*!	 
+	 * \brief	get the prefer XS Hs default mode 
+     * \param 	pnDefault	prefer XS HS default mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetDefaultPreferXSHSMode)(INT* pnDefault) = 0;
+
+	/*!	 
+	 * \brief	get the default log mode 
+     * \param 	pnDefault	default log mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetDefaultLogMode)(UINT* pnDefault) = 0;
+
+	/*!	 
+	 * \brief	set the log mode 
+     * \param 	nMode		log mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetLogMode)(UINT nMode) = 0;
+
+	/*!	 
+	 * \brief	get the log mode 
+     * \param 	pnMode		log mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetLogMode)(UINT* pnMode) = 0;
+
+	/*!	 
+	 * \brief	get the log mode manual default value
+     * \param 	pnDefault	log mode manual default value
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetLogModeManualValueDefault)(UINT* pnDefault) = 0;
+
+	/*!	 
+	 * \brief	get the log mode manual value range
+     * \param 	pnMin		minimum log mode manual value
+	 * \		pnMax		maximum log mode manual value
+	 * \		pnInc		increment log mode manual value
+	 * 
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetLogModeManualValueRange)(INT* pnMin, INT* pnMax, INT* pnInc) = 0;
+
+	/*!	 
+	 * \brief	set the log mode manual value
+     * \param 	nValue		log mode manual value
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetLogModeManualValue)(UINT nValue) = 0;
+
+	/*!	 
+	 * \brief	get the log mode manual value
+     * \param 	pnValue		log mode manual value
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetLogModeManualValue)(UINT* pnValue) = 0;
+
+	/*!	 
+	 * \brief	get the log mode manual default gain
+     * \param 	pnDefault	log mode manual default gain
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetLogModeManualGainDefault)(UINT* pnDefault) = 0;
+
+	/*!	 
+	 * \brief	get the log mode manual gain range
+     * \param 	pnMin		minimum log mode manual gain
+	 * \		pnMax		maximum log mode manual gain
+	 * \		pnInc		increment log mode manual gain
+	 * 
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetLogModeManualGainRange)(INT* pnMin, INT* pnMax, INT* pnInc) = 0;
+
+	/*!	 
+	 * \brief	set the log mode manual gain
+     * \param 	nGain		log mode manual gain
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetLogModeManualGain)(UINT nGain) = 0;
+
+	/*!	 
+	 * \brief	get the log mode manual gain
+     * \param 	pnGain		log mode manual gain
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetLogModeManualGain)(UINT* pnGain) = 0;
+
+	/*!
+	 * \brief	get the vertical aoi merge mode
+	 * \param	pnMode 		vertical AOI merge mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+     */
+	STDMETHOD (DeviceFeature_GetVerticalAOIMergeMode)(INT* pnMode) = 0;		
+
+	/*!
+	 * \brief	set the vertical aoi merge mode
+	 * \param	nMode 		vertical AOI merge mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+     */
+	STDMETHOD (DeviceFeature_SetVerticalAOIMergeMode)(INT nMode) = 0;	
+
+	/*!
+	 * \brief	get the vertical aoi merge position
+	 * \param	pnPosition  vertical AOI merge position
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+     */
+	STDMETHOD (DeviceFeature_GetVerticalAOIMergePosition)(INT* pnPosition) = 0;		
+
+	/*!
+	 * \brief	set the vertical aoi merge position
+	 * \param	nPosition   vertical AOI merge position
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+     */
+	STDMETHOD (DeviceFeature_SetVerticalAOIMergePosition)(INT nPosition) = 0;	
+
+	/*!
+	 * \brief	get default FPN correction mode
+	 * \param	pnMode		get default FPN correction mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetDefaultFPNCorrectionMode)(UINT* pnMode) = 0;
+
+	/*!
+	 * \brief	get FPN correction mode
+	 * \param	pnMode		get FPN correction mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetFPNCorrectionMode)(UINT* pnMode) = 0;
+
+	/*!
+	 * \brief	set FPN correction mode
+	 * \param	nMode		set FPN correction mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetFPNCorrectionMode)(UINT nMode) = 0;
+
+	/*!
+	 * \brief	sensor source gain range
+	 * \param	pnMin		minimum sensor source gain
+	 * \		pnMax		maximum sensor source gain
+	 * \		pnInc		increment sensor source gain
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetSensorSourceGainRange)(INT* pnMin, INT* pnMax, INT* pnInc) = 0;
+
+	/*!
+	 * \brief	default sensor source gain
+	 * \param	pnGain		default sensor source gain
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetSensorSourceGainDefault)(INT* pnGain) = 0;
+
+	/*!
+	 * \brief	get sensor source gain
+	 * \param	pnGain		get sensor source gain
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetSensorSourceGain)(INT* pnGain) = 0;
+
+	/*!
+	 * \brief	set sensor source gain
+	 * \param	pnGain		set sensor source gain
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetSensorSourceGain)(INT nGain) = 0;
+
+	/*!
+	 * \brief	get black reference mode
+	 * \param	pnMode		get black reference mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetBlackReferenceMode)(UINT* pnMode) = 0;
+
+	/*!
+	 * \brief	set black reference mode
+	 * \param	nMode		set black reference mode
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetBlackReferenceMode)(UINT nMode) = 0;
+
+	/*!
+	 * \brief	get allow raw with LUT
+	 * \param	pnAllowRawWithLut	get allow raw with LUT
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetAllowRawWithLUT)(UINT* pnAllowRawWithLut) = 0;
+
+	/*!
+	 * \brief	set allow raw with LUT
+	 * \param	nAllowRawWithLut	set allow raw with LUT
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetAllowRawWithLUT)(UINT nAllowRawWithLut) = 0;
+
+	/*!
+	 * \brief	get supported sensor bit depth
+	 * \param	pnSupported		get supported sensor bit depth
+	 *
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetSensorBitDepthSupported)(UINT* pnSupported) = 0;
+
+	/*!
+	 * \brief	get default sensor bit depth
+	 * \param	pnDefault		get default sensor bit depth
+	 *
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetSensorBitDepthDefault)(UINT* pnDefault) = 0;
+
+	/*!
+	 * \brief	get sensor bit depth
+	 * \param	pnBitDepth		get sensor bit depth
+	 *
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetSensorBitDepth)(UINT* pnBitDepth) = 0;
+
+	/*!
+	 * \brief	set sensor bit depth
+	 * \param	nBitDepth		set sensor bit depth
+	 *
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetSensorBitDepth)(UINT nBitDepth) = 0;
+
+	/*!
+	 * \brief	get default image effect mode
+	 * \param	pnImageEffect	get default image effect mode
+	 *
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetImageEffectModeDefault)(INT* pnImageEffect) = 0;
+
+	/*!
+	 * \brief	get image effect mode
+	 * \param	pnImageEffect	get image effect mode
+	 *
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetImageEffectMode)(INT* pnImageEffect) = 0;
+
+	/*!
+	 * \brief	set image effect mode
+	 * \param	nImageEffect	set image effect mode
+	 *
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetImageEffectMode)(INT nImageEffect) = 0;
+
+	/*!
+	 * \brief	get JPEG compression range
+	 * \param	pnMin		minimum JPEG compression
+	 * \		pnMax		maximum JPEG compression
+	 * \		pnInc		increment JPEG compression
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetJPEGCompressionRange)(INT* pnMin, INT* pnMax, INT* pnInc) = 0;
+
+	/*!
+	 * \brief	get default JPEG compression 
+	 * \param	pnDefault	default JPEG compression value
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetJPEGCompressionDefault)(INT* pnDefault) = 0;
+
+	/*!
+	 * \brief	get JPEG compression 
+	 * \param	pnValue		get JPEG compression value
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetJPEGCompression)(INT* pnValue) = 0;
+
+	/*!
+	 * \brief	set JPEG compression 
+	 * \param	nValue		set JPEG compression value
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetJPEGCompression)(INT nValue) = 0;
+
+	/*!
+	 * \brief	get noise reduction mode default 
+	 * \param	piNoiseReductionDefault		get default noise reduction mode
+	 *
+     * \return	HRESULT						0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetNoiseReductionModeDefault)(INT* piNoiseReductionDefault) = 0;
+
+	/*!
+	 * \brief	get noise reduction mode
+	 * \param	piNoiseReduction		get noise reduction 
+	 *
+     * \return	HRESULT					0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_GetNoiseReductionMode)(INT* piNoiseReduction) = 0;
+
+	/*!
+	 * \brief	set noise reduction mode
+	 * \param	iNoiseReduction		set noise reduction 
+	 *
+     * \return	HRESULT				0 on success, error code otherwise.
+	 */
+	STDMETHOD (DeviceFeature_SetNoiseReductionMode)(INT iNoiseReduction) = 0;
+};
+
+/* 27.11.2012 */
+// ============================================================================
+/*! \defgroup IuEyeHotpixel uEye Hotpixel Interface
+* 
+*  Proprietary interface for controlling uEye hotpixel features exposed by 
+*  the capture filter. 
+*  Allows a DirectShow based program to control and query the hotpixel feature 
+*  related parameters that are not accessible via direct show functions.
+* \{
+*/
+// ============================================================================
+
+// {8916BFCA-CB66-455f-8AC3-752EBC1D76D5}
+DEFINE_GUID(IID_IuEyeHotPixel, 0x8916bfca, 0xcb66, 0x455f, 0x8a, 0xc3, 0x75, 0x2e, 0xbc, 0x1d, 0x76, 0xd5);
+
+interface IuEyeHotPixel : public IUnknown
+{
+	/*!	 
+	 * \brief	disable hotpixel correction
+     * \param 	void
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_DisableCorrection)(void) = 0;
+
+	/*!	 
+	 * \brief	enable camera hotpixel correction
+     * \param 	void
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_EnableCameraCorrection)(void) = 0;
+
+	/*!	 
+	 * \brief	enable software user hotpixel correction
+     * \param 	void
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_EnableSoftwareUserCorrection)(void) = 0;
+
+	/*!	 
+	 * \brief	enable or disable sensor hotpixel correction
+     * \param 	bEnable		enable / disable
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_SensorCorrection)(bool bEnable) = 0;
+
+	/*!	 
+	 * \brief	get hotpixel correction modes
+     * \param 	nMode		correction modes
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetCorrectionMode)(INT* pnMode) = 0;
+
+	/*!	 
+	 * \brief	get supported hotpixel correction modes
+     * \param 	nMode		correction modes
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetSupportedCorrectionModes)(INT* pnMode) = 0;
+
+	/*!	 
+	 * \brief	get software user list exist
+     * \param 	void
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetSoftwareUserListExist)(void) = 0;
+
+	/*!	 
+	 * \brief	get software user list number
+     * \param 	pnNumber	user list number
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetSoftwareUserListNumber)(INT* pnNumber) = 0;
+
+	/*!	 
+	 * \brief	get software user list 
+     * \param 	pList		user list 
+	 *			nNumber		user list number
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetSoftwareUserList)(WORD *pList, INT nNumber) = 0;
+
+	/*!	 
+	 * \brief	set software user list 
+     * \param 	pList		user list 
+	 *			nNumber		user list number
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_SetSoftwareUserList)(WORD *pList, INT nNumber) = 0;
+
+	/*!	 
+	 * \brief	save software user list to file
+     * \param 	pFile		file
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_SaveUserList)(char* pFile) = 0;
+
+	/*!	 
+	 * \brief	load software user list from file
+     * \param 	pFile		file
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_LoadUserList)(char* pFile) = 0;
+
+	/*!	 
+	 * \brief	save software user list to file
+     * \param 	pFile		file
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_SaveUserListUnicode)(wchar_t* pFile) = 0;
+
+	/*!	 
+	 * \brief	load software user list from file
+     * \param 	pFile		file
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_LoadUserListUnicode)(wchar_t* pFile) = 0;
+
+	/*!	 
+	 * \brief	get camera factory list exist
+     * \param 	void
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetCameraFactoryListExist)(void) = 0;
+
+	/*!	 
+	 * \brief	get camera factory list number
+     * \param 	pnNumber	factory list number
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetCameraFactoryListNumber)(INT* pnNumber) = 0;
+
+	/*!	 
+	 * \brief	get camera factory list 
+     * \param 	pList		factory list 
+	 *			nNumber		factory list number
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetCameraFactoryList)(WORD *pList, INT nNumber) = 0; 
+
+	/*!	 
+	 * \brief	get camera user list exist
+     * \param 	void
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetCameraUserListExist)(void) = 0;
+
+	/*!	 
+	 * \brief	get camera user list number
+     * \param 	pnNumber	user list number
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetCameraUserListNumber)(INT* pnNumber) = 0;
+
+	/*!	 
+	 * \brief	get camera user list 
+     * \param 	pList		user list 
+	 *			nNumber		user list number
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetCameraUserList)(WORD *pList, INT nNumber) = 0;
+
+	/*!	 
+	 * \brief	set camera user list 
+     * \param 	pList		user list 
+	 *			nNumber		user list number
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_SetCameraUserList)(WORD *pList, INT nNumber) = 0;
+
+	/*!	 
+	 * \brief	delete camera user list 
+     * \param 	void		
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_DeleteCameraUserList)(void) = 0;
+
+	/*!	 
+	 * \brief	get camera user list  max number
+     * \param 	pnNumber	user list number
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetCameraUserListMaxNumber)(INT* pnNumber) = 0;
+
+	/*!	 
+	 * \brief	get merged camera list number
+     * \param 	pnNumber	merged list number
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetMergedCameraListNumber)(INT* pnNumber) = 0;
+
+	/*!	 
+	 * \brief	get merged camera list
+     * \param 	pList		merged list 
+	 *			nNumber		merged list number
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (HotPixel_GetMergedCameraList)(WORD *pList, INT nNumber)= 0;
+};
+
+
+/* 16.01.2013 CameraLUT */
+// ============================================================================
+/*! \defgroup IuEyeCameraLUT uEye CameraLUT Interface
+*
+*  Proprietary interface for controlling uEye camera LUT features exposed by
+*  the capture filter.
+*  Allows a DirectShow based program to control and query the camera LUT feature
+*  related parameters that are not accessible via direct show functions.
+* \{
+*/
+// ============================================================================
+
+// {15E696DE-5D63-4ea8-AA66-9C2528544DB1}
+DEFINE_GUID(IID_IuEyeCameraLUT, 0x15e696de, 0x5d63, 0x4ea8, 0xaa, 0x66, 0x9c, 0x25, 0x28, 0x54, 0x4d, 0xb1);
+
+interface IuEyeCameraLUT : public IUnknown
+{
+	/*!	 
+	 * \brief	set camera LUT
+     * \param 	void
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (SetCameraLUT)(UINT nMode, UINT nNumberOfEntries, double* pRed_Grey, double* pGreen, double* pBlue) = 0;
+
+	/*!	 
+	 * \brief	get camera LUT
+     * \param 	void
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (GetCameraLUT)(UINT nMode, UINT nNumberOfEntries, double* pRed_Grey, double* pGreen, double* pBlue) = 0;
+};
+
+
+
+// ============================================================================
+/*! \defgroup IuEyeLUT uEye LUT Interface
+*
+*  Proprietary interface for controlling uEye LUT features exposed by
+*  the capture filter.
+*  Allows a DirectShow based program to control and query the camera LUT feature
+*  related parameters that are not accessible via direct show functions.
+* \{
+*/
+// ============================================================================
+// {B8903E98-D378-4536-85BC-0C5514F71B2B}
+DEFINE_GUID(IID_IuEyeLUT, 0xb8903e98, 0xd378, 0x4536, 0x85, 0xbc, 0xc, 0x55, 0x14, 0xf7, 0x1b, 0x2b);
+
+interface IuEyeLUT : public IUnknown
+{
+    /*!
+     * \brief   set LUT enabled state
+     * \param   enabled     use IS_LUT_ENABLED/IS_LUT_DISABLED
+     *
+     * \return  HRESULT     0 on success, error code otherwise.
+     */
+    STDMETHOD (LUT_SetEnabled)(IS_LUT_ENABLED_STATE enabled) = 0;
+
+    /*!
+     * \brief   set LUT mode
+     * \param   mode        mode to set
+     *
+     * \return  HRESULT     0 on success, error code otherwise.
+     */
+    STDMETHOD (LUT_SetMode)(IS_LUT_MODE mode) = 0;
+
+    /*!
+     * \brief   get LUT state
+     * \param   state       state of the lut configuration
+     *
+     * \return  HRESULT     0 on success, error code otherwise.
+     */
+    STDMETHOD (LUT_GetState)(IS_LUT_STATE* state) = 0;
+
+    /*!
+     * \brief   get LUT support info
+     * \param   info        things which the lut supports
+     *
+     * \return  HRESULT     0 on success, error code otherwise.
+     */
+    STDMETHOD (LUT_GetSupportInfo)(IS_LUT_SUPPORT_INFO* info) = 0;
+
+    /*!
+     * \brief   set user LUT
+     * \param   lut         lut to set
+     *
+     * \return  HRESULT     0 on success, error code otherwise.
+     */
+    STDMETHOD (LUT_SetUserLUT)(IS_LUT_CONFIGURATION_64* lut) = 0;
+
+    /*!
+     * \brief   get user LUT
+     * \param   lut         current lut
+     *
+     * \return  HRESULT     0 on success, error code otherwise.
+     */
+    STDMETHOD (LUT_GetUserLUT)(IS_LUT_CONFIGURATION_64* lut) = 0;
+
+    /*!
+     * \brief   get complete LUT
+     * \param   lut         current lut with gamma, contrast and brightness
+     *
+     * \return  HRESULT     0 on success, error code otherwise.
+     */
+    STDMETHOD (LUT_GetCompleteLUT)(IS_LUT_CONFIGURATION_64* lut) = 0;
+
+    /*!
+     * \brief   get preset LUT
+     * \param   presetID    preset ID of the lut to retrieve
+     * \param   lut         preset lut
+     *
+     * \return	HRESULT     0 on success, error code otherwise.
+     */
+    STDMETHOD (LUT_GetPresetLUT)(IS_LUT_PRESET presetID, IS_LUT_CONFIGURATION_64* lut) = 0;
+
+    /*!
+     * \brief   load LUT from file
+     * \param   fileName    file path to the lut file
+     *
+     * \return  HRESULT     0 on success, error code otherwise.
+     */
+    STDMETHOD (LUT_LoadFile)(wchar_t* fileName) = 0;
+
+    /*!
+     * \brief   save LUT to file
+     * \param   fileName    file path to the lut file
+     *
+     * \return  HRESULT     0 on success, error code otherwise.
+     */
+    STDMETHOD (LUT_SaveFile)(wchar_t* fileName) = 0;
+};
+
+// ============================================================================
+/*! \defgroup IuEyeDeviceFeature uEye EdgeEnhancement Interface
+* 
+*  Proprietary interface for controlling uEye EdgeEnhancement features exposed by 
+*  the capture filter. 
+*  Allows a DirectShow based program to control and query the device feature feature 
+*  related parameters that are not accessible via direct show functions.
+* \{
+*/
+// ============================================================================
+// {BBF3B063-81BE-4ed2-ABCA-3552B462EEBA}
+DEFINE_GUID(IID_IuEyeEdgeEnhancement, 0xbbf3b063, 0x81be, 0x4ed2, 0xab, 0xca, 0x35, 0x52, 0xb4, 0x62, 0xee, 0xba);
+
+interface IuEyeEdgeEnhancement : public IUnknown
+{
+	/*!	 
+	 * \brief	get edge enhancement range
+     * \param 	pnMin		minimum edge enhancement
+	 * \param	pnMax		maximum edge enhancement
+	 * \param	pnInc		increment edge enhancement
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (GetEdgeEnhancementRange)(UINT* pnMin, UINT* pnMax, UINT* pnInc) = 0;
+
+	/*!	 
+	 * \brief	get default edge enhancement
+     * \param 	pnDefault	default edge enhancement
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (GetEdgeEnhancementDefault)(UINT* pnDefault) = 0;
+
+	/*!	 
+	 * \brief	get edge enhancement
+     * \param 	pnEdgeEnhancement	get edge enhancement
+	 *
+     * \return	HRESULT				0 on success, error code otherwise.
+	 */
+	STDMETHOD (GetEdgeEnhancement)(UINT* pnEdgeEnhancement) = 0;
+
+	/*!	 
+	 * \brief	set edge enhancement
+     * \param 	nEdgeEnhancement	set edge enhancement
+	 *
+     * \return	HRESULT				0 on success, error code otherwise.
+	 */
+	STDMETHOD (SetEdgeEnhancement)(UINT nEdgeEnhancement) = 0;
+};
+
+
+// ============================================================================
+/*! \defgroup IuEyeAutoParameter uEye auto parameter Interface
+* 
+*  Proprietary interface for controlling uEye auto parameter features exposed by 
+*  the capture filter. 
+*  Allows a DirectShow based program to control and query the device feature feature 
+*  related parameters that are not accessible via direct show functions.
+* \{
+*/
+// ============================================================================
+// {0917C6E0-D724-4f09-98A9-57F0A5412D65}
+DEFINE_GUID(IID_IuEyeAutoParameter, 0x917c6e0, 0xd724, 0x4f09, 0x98, 0xa9, 0x57, 0xf0, 0xa5, 0x41, 0x2d, 0x65);
+
+interface IuEyeAutoParameter : public IUnknown
+{
+	/*!	 
+	 * \brief	get supported AWB types
+     * \param 	pnTypes		get supported AWB types
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (AutoParameter_GetSupportedAWBTypes)(UINT* pnTypes) = 0;
+
+	/*!	 
+	 * \brief	get AWB type
+     * \param 	pnType		get AWB type
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (AutoParameter_GetAWBType)(UINT* pnType) = 0;
+
+	/*!	 
+	 * \brief	set AWB type
+     * \param 	nType		set AWB type
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (AutoParameter_SetAWBType)(UINT nType) = 0;
+
+	/*!	 
+	 * \brief	get enable AWB
+     * \param 	pnEnable	get enable AWB
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (AutoParameter_GetEnableAWB)(UINT* pnEnable) = 0;
+
+	/*!	 
+	 * \brief	set enable AWB
+     * \param 	nEnable		set enable AWB
+	 *
+     * \return	HRESULT     0 on success, error code otherwise.
+	 */
+	STDMETHOD (AutoParameter_SetEnableAWB)(UINT nEnable) = 0;
+
+	/*!	 
+	 * \brief	get supported RGB color model AWB
+     * \param 	pnSupported		get supported RGB color model AWB
+	 *
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (AutoParameter_GetSupportedRGBColorModelAWB)(UINT* pnSupported) = 0;
+
+	/*!	 
+	 * \brief	get RGB color model AWB
+     * \param 	pnColorModel	get RGB color model AWB
+	 *
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (AutoParameter_GetRGBColorModelAWB)(UINT* pnColorModel) = 0;
+
+	/*!	 
+	 * \brief	set RGB color model AWB
+     * \param 	nColorModel		set RGB color model AWB
+	 * 
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (AutoParameter_SetRGBColorModelAWB)(UINT nColorModel) = 0;
+
+};
+
+
+// ============================================================================
+/*! \defgroup IuEyeImageFormat uEye image format Interface
+* 
+*  Proprietary interface for controlling uEye image format features exposed by 
+*  the capture filter. 
+*  Allows a DirectShow based program to control and query the device feature feature 
+*  related parameters that are not accessible via direct show functions.
+* \{
+*/
+// ============================================================================
+
+// {368F0072-66D3-406f-A715-D8128EAD9B7D}
+DEFINE_GUID(IID_IuEyeImageFormat, 
+0x368f0072, 0x66d3, 0x406f, 0xa7, 0x15, 0xd8, 0x12, 0x8e, 0xad, 0x9b, 0x7d);
+
+interface IuEyeImageFormat : public IUnknown
+{
+	/*!	 
+	 * \brief	Get the image format list
+     * \param 	pListFormats	Pointer to image format list	
+	 * \param	uiSize			Size of image format list
+	 * 
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (ImageFormat_GetList)(void* pListFormats, UINT uiSize) = 0;
+
+	/*!	 
+	 * \brief	Get the number of list elements
+     * \param 	puiNumber		Number of list elements 		
+	 * 
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (ImageFormat_GetNumberOfEntries)(UINT* puiNumber) = 0;
+
+	/*!	 
+	 * \brief	Set the ID of the the image format
+     * \param 	uiFormatID		ID of the the image format		
+	 * 
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (ImageFormat_SetFormat)(UINT uiFormatID) = 0;
+
+	/*!	 
+	 * \brief	Get the arbitratry AOI supported value
+     * \param 	puiSupported	Get the supported value		
+	 * 
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (ImageFormat_GetArbitraryAOISupported)(UINT* puiSupported) = 0;
+
+};
+
+
+// ============================================================================
+/*! \defgroup IuEyeColorConverter uEye image format Interface
+* 
+*  Proprietary interface for controlling uEye color converter features exposed by 
+*  the capture filter. 
+*  Allows a DirectShow based program to control and query the device feature feature 
+*  related parameters that are not accessible via direct show functions.
+* \{
+*/
+// ============================================================================
+
+// {3D777E6A-0F3A-4925-BA62-01BEAECAF7A0}
+DEFINE_GUID(IID_IuEyeColorConverter, 
+0x3d777e6a, 0xf3a, 0x4925, 0xba, 0x62, 0x1, 0xbe, 0xae, 0xca, 0xf7, 0xa0);
+
+interface IuEyeColorConverter : public IUnknown
+{
+	/*!	 
+	 * \brief	Set the color converter mode			
+	 * \param   iConvertMode	convert mode
+	 *
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (ColorConverter_SetMode)(INT iConvertMode) = 0;
+
+	/*!	 
+	 * \brief	Get the current color converter mode
+     * \param 	piConvertMode	convert mode			
+	 * 
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (ColorConverter_GetCurrentMode)(INT* piConvertMode) = 0;
+
+	/*!	 
+	 * \brief	Get the default color converter mode
+     * \param 	piConvertMode	convert mode			
+	 * 
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (ColorConverter_GetDefaultMode)(INT* piConvertMode) = 0;
+
+	/*!	 
+	 * \brief	Get the supported color converter modes
+     * \param 	piConvertMode	convert mode			
+	 * 
+     * \return	HRESULT			0 on success, error code otherwise.
+	 */
+	STDMETHOD (ColorConverter_GetSupportedModes)(INT* piConvertMode) = 0;
+
+};
+
+// ============================================================================
+/*! \defgroup IuEyeConfiguration
+*
+*  Proprietary interface for setting various system-wide options
+* \{
+*/
+// ============================================================================
+
+// {E3CA56E0-44BB-4135-A05C-FCD235D1DA6D}
+DEFINE_GUID(IID_IuEyeConfiguration,
+0xe3ca56e0, 0x44bb, 0x4135, 0xa0, 0x5c, 0xfc, 0xd2, 0x35, 0xd1, 0xda, 0x6d);
+
+interface IuEyeConfiguration : public IUnknown
+{
+    /*!
+     * \brief Query for support of the OpenMP setting.
+     * \param pbSupported		output location for result.
+	 * \return	HRESULT 		S_OK on success, error code otherwise.
+     */
+    STDMETHOD(OpenMP_IsSupported)(BOOL* pbSupported) = 0;
+
+    /*!
+     * \brief Query the current 'enabled' status of the OpenMP setting.
+     * \param pbEnabled		output location for result.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
+     */
+    STDMETHOD(OpenMP_IsEnabled)(BOOL* pbEnabled) = 0;
+
+    /*!
+     * \brief Set the 'enabled' status of the OpenMP setting.
+     * \param bEnable		new 'enabled' status.
+	 * \return	HRESULT 	S_OK on success, error code otherwise.
+     */
+    STDMETHOD(OpenMP_Enable)(BOOL bEnable) = 0;
+};
+
+// {8B293980-518A-4d30-9A22-1B7AF82E4F58}
+DEFINE_GUID(IID_IuEyeCapturePinEx,
+            0x8b293980, 0x518a, 0x4d30, 0x9a, 0x22, 0x1b, 0x7a, 0xf8, 0x2e, 0x4f, 0x58);
+
+interface IuEyeCapturePinEx : public IuEyeCapturePin
+{
+    /*!
+     * \brief   Queries if the longterm exposure mode of
+     *          is supported for the current camera.
+     *	\param  bEnable     Specifies the longterm exposure mode.
+     *	\return HRESULT     0 on success, error code otherwise.
+     *	\see    setEnableLongtermExposure, GetEnableLongtermExposure
+     */
+    STDMETHOD(LongtermExposure_IsSupported)(BOOL *bHasLongtermExposure) = 0;
+
+    /*!
+     * \brief   Sets the longterm exposure mode of the camera.
+     *      This function sets the longterm exposure mode for the camera
+     *      to allow a longer exposure time.
+     *	\param  bEnable     Specifies the longterm exposure mode.
+     *	\return HRESULT     0 on success, error code otherwise.
+     *	\see    setEnableLongtermExposure, GetEnableLongtermExposure
+     */
+    STDMETHOD(LongtermExposure_Enable)(BOOL bEnable) = 0;
+
+    /*!
+     * \brief   Queries the longterm exposure mode of the camera.
+     *	\param  pbEnable    Queries the longterm exposure mode (in us).
+     *	\return HRESULT     0 on success, error code otherwise.
+     *	\see    GetExposureTime, GetExposureRange
+     */
+    STDMETHOD(LongtermExposure_IsEnabled)(BOOL *pbEnable) = 0;
+
+    /*!
+     * \brief   Queries the number of pixel clock values of the camera
+     *	\param  plNum       Queries number of the pixel clock values.
+     *	\return HRESULT     0 on success, error code otherwise.
+     *	\see    SetPixelClock, GetPixelClockList, PixelClockRange_IsSupported
+     */
+    STDMETHOD(GetNumPixelClocks)(long *plNum) = 0;
+
+    /*!
+     * \brief   Queries the pixel clock list of the camera,
+     *          if the camera supports a discrete list of pixel
+                clock values.
+     *	\param  puiList     Queries the pixel clock list.
+     *	\return HRESULT     0 on success, error code otherwise.
+     *	\see    SetPixelClock, GetNumPixelClocks, PixelClockRange_IsSupported
+     */
+    STDMETHOD(GetPixelClockList)(long *plList, long lNum) = 0;
+
+    /*!
+     * \brief   Queries if the pixel clock range is supported,
+                otherwise the pixel clock list should be used
+     *	\param  puiList     Queries the pixel clock list.
+     *	\return HRESULT     0 on success, error code otherwise.
+     *	\see    SetPixelClock, GetPixelClockList, GetNumPixelClocks
+     */
+    STDMETHOD(PixelClockRange_IsSupported)(BOOL *pbSupported) = 0;
+
+   /*!
+    *\brief     Returns the min, max, increment and default value for the pixelclock.
+    *\param     plMin       Receives the minimum possible pixel clock.
+    *\param     plMax       Receives the maximum possible pixel clock.
+    *\param     plDef       Receives the default pixel clock value.
+    *\param     plInc       Receives the increment pixel clock value.
+    *\return    HRESULT     0 on success, error code otherwise.
+    *\see       GetPixelClock, SetPixelClock
+    */
+    STDMETHOD(GetPixelClockRangeEx)(long *plMin, long *plMax, long *plDefault, long *plInc) = 0;
+};
 
 // ============================================================================
 /*! \ uEye defines
@@ -2571,45 +4038,45 @@ interface IuEyeEvent : public IUnknown
 */
 // ============================================================================
 
+#ifndef __IDS_HEADER__  
 // ----------------------------------------------------------------------------
 // Hotpixel correction
 // ----------------------------------------------------------------------------
-#define IS_HOTPIXEL_DISABLE_CORRECTION                  0x0000
-#define IS_HOTPIXEL_ENABLE_SENSOR_CORRECTION            0x0001
-#define IS_HOTPIXEL_ENABLE_CAMERA_CORRECTION            0x0002
-#define IS_HOTPIXEL_ENABLE_SOFTWARE_USER_CORRECTION     0x0004
-#define IS_HOTPIXEL_DISABLE_SENSOR_CORRECTION           0x0008
+#	define IS_HOTPIXEL_DISABLE_CORRECTION                  0x0000
+#	define IS_HOTPIXEL_ENABLE_SENSOR_CORRECTION            0x0001
+#	define IS_HOTPIXEL_ENABLE_CAMERA_CORRECTION            0x0002
+#	define IS_HOTPIXEL_ENABLE_SOFTWARE_USER_CORRECTION     0x0004
+#	define IS_HOTPIXEL_DISABLE_SENSOR_CORRECTION           0x0008
 
-#define IS_HOTPIXEL_GET_CORRECTION_MODE                 0x8000
-#define IS_HOTPIXEL_GET_SUPPORTED_CORRECTION_MODES      0x8001
+#	define IS_HOTPIXEL_GET_CORRECTION_MODE                 0x8000
+#	define IS_HOTPIXEL_GET_SUPPORTED_CORRECTION_MODES      0x8001
 
-#define IS_HOTPIXEL_GET_SOFTWARE_USER_LIST_EXISTS       0x8100
-#define IS_HOTPIXEL_GET_SOFTWARE_USER_LIST_NUMBER       0x8101
-#define IS_HOTPIXEL_GET_SOFTWARE_USER_LIST              0x8102
-#define IS_HOTPIXEL_SET_SOFTWARE_USER_LIST              0x8103
-#define IS_HOTPIXEL_SAVE_SOFTWARE_USER_LIST             0x8104
-#define IS_HOTPIXEL_LOAD_SOFTWARE_USER_LIST             0x8105
+#	define IS_HOTPIXEL_GET_SOFTWARE_USER_LIST_EXISTS       0x8100
+#	define IS_HOTPIXEL_GET_SOFTWARE_USER_LIST_NUMBER       0x8101
+#	define IS_HOTPIXEL_GET_SOFTWARE_USER_LIST              0x8102
+#	define IS_HOTPIXEL_SET_SOFTWARE_USER_LIST              0x8103
+#	define IS_HOTPIXEL_SAVE_SOFTWARE_USER_LIST             0x8104
+#	define IS_HOTPIXEL_LOAD_SOFTWARE_USER_LIST             0x8105
 
-#define IS_HOTPIXEL_GET_CAMERA_FACTORY_LIST_EXISTS      0x8106
-#define IS_HOTPIXEL_GET_CAMERA_FACTORY_LIST_NUMBER      0x8107
-#define IS_HOTPIXEL_GET_CAMERA_FACTORY_LIST             0x8108
+#	define IS_HOTPIXEL_GET_CAMERA_FACTORY_LIST_EXISTS      0x8106
+#	define IS_HOTPIXEL_GET_CAMERA_FACTORY_LIST_NUMBER      0x8107
+#	define IS_HOTPIXEL_GET_CAMERA_FACTORY_LIST             0x8108
 
-#define IS_HOTPIXEL_GET_CAMERA_USER_LIST_EXISTS         0x8109
-#define IS_HOTPIXEL_GET_CAMERA_USER_LIST_NUMBER         0x810A
-#define IS_HOTPIXEL_GET_CAMERA_USER_LIST                0x810B
-#define IS_HOTPIXEL_SET_CAMERA_USER_LIST                0x810C
-#define IS_HOTPIXEL_GET_CAMERA_USER_LIST_MAX_NUMBER     0x810D
-#define IS_HOTPIXEL_DELETE_CAMERA_USER_LIST             0x810E
+#	define IS_HOTPIXEL_GET_CAMERA_USER_LIST_EXISTS         0x8109
+#	define IS_HOTPIXEL_GET_CAMERA_USER_LIST_NUMBER         0x810A
+#	define IS_HOTPIXEL_GET_CAMERA_USER_LIST                0x810B
+#	define IS_HOTPIXEL_SET_CAMERA_USER_LIST                0x810C
+#	define IS_HOTPIXEL_GET_CAMERA_USER_LIST_MAX_NUMBER     0x810D
+#	define IS_HOTPIXEL_DELETE_CAMERA_USER_LIST             0x810E
 
-#define IS_HOTPIXEL_GET_MERGED_CAMERA_LIST_NUMBER       0x810F
-#define IS_HOTPIXEL_GET_MERGED_CAMERA_LIST              0x8110
+#	define IS_HOTPIXEL_GET_MERGED_CAMERA_LIST_NUMBER       0x810F
+#	define IS_HOTPIXEL_GET_MERGED_CAMERA_LIST              0x8110
 
-#define IS_HOTPIXEL_SAVE_SOFTWARE_USER_LIST_UNICODE     0x8111
-#define IS_HOTPIXEL_LOAD_SOFTWARE_USER_LIST_UNICODE     0x8112
+#	define IS_HOTPIXEL_SAVE_SOFTWARE_USER_LIST_UNICODE     0x8111
+#	define IS_HOTPIXEL_LOAD_SOFTWARE_USER_LIST_UNICODE     0x8112
+#endif
 /*!
  * \}
  */	// end of uEye defines
-
-
 
 #endif  // #ifndef _UEYE_CAPTURE_INTERFACE_

@@ -1,29 +1,19 @@
 TEMPLATE = lib
 CONFIG += plugin
-DESTDIR = ../../../LabExe/plugins/$$TARGET
+include($$PWD/../../common.pri)
+DESTDIR = $${BINDIR}/plugins/$$TARGET
 
 QT += core gui widgets
 
 INCLUDEPATH += \
-	./../../../LabExe/src \
-	./../../include \
-	./GeneratedFiles \
-	.
-
-LIBS += \
-	-L"./../../lib" \
-	-L"./../../../LabExe/bin"
+        ./../../../LabExe/src \
+        ./../../include \
 
 CONFIG(debug, debug|release) {
-	LIBS += -llabexe_D
+    LIBS += -llabexe_D
 } else {
-	LIBS += -llabexe
+    LIBS += -llabexe
 }
-
-MOC_DIR += ./GeneratedFiles
-OBJECTS_DIR += ./GeneratedFiles/Obj
-UI_DIR += ./GeneratedFiles
-RCC_DIR += ./GeneratedFiles
 
 DEFINES += PXILABEXE_LIB
 include(PluginPxiSystem.pri)

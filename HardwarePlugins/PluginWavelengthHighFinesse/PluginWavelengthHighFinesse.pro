@@ -1,18 +1,15 @@
 TEMPLATE = lib
 CONFIG += plugin
-DESTDIR = ../../../LabExe/plugins/$$TARGET
+include($$PWD/../../common.pri)
+DESTDIR = $${BINDIR}/plugins/$$TARGET
 
 QT += core gui widgets
 
 INCLUDEPATH += \
-	./../../../LabExe/src \
-	./../../include \
-	./GeneratedFiles \
-	.
+        ./../../../LabExe/src \
+        ./../../include \
 
 LIBS += \
-	-L"./../../lib" \
-	-L"./../../../LabExe/bin" \
 	-L"./../../lib/wlm" -lwlmData
 
 CONFIG(debug, debug|release) {
@@ -20,11 +17,6 @@ CONFIG(debug, debug|release) {
 } else {
 	LIBS += -llabexe
 }
-
-MOC_DIR += ./GeneratedFiles
-OBJECTS_DIR += ./GeneratedFiles/Obj
-UI_DIR += ./GeneratedFiles
-RCC_DIR += ./GeneratedFiles
 
 DEFINES += PLUGINWAVELENGTHHIGHFINESSE_LIB
 include(PluginWavelengthHighFinesse.pri)
