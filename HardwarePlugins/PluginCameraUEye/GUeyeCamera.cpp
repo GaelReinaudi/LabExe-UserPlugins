@@ -130,7 +130,7 @@ bool GUeyeCamera::OpenCamera()
 		}
 		// 2015-06-01 Mickey and Bart: MAKE SURE GAMMA PROCESSING OFF!
 		INT nGamma = 100;//This means gamma is 1.00, which is OFF! Any other value makes camera data nonlinear with intensity. 
-		nRet = is_SetGamma(m_CamHandle,nGamma);
+		nRet = is_SetHardwareGamma(m_CamHandle,nGamma);
 		if(nRet==IS_SUCCESS){
 			qDebug() << "Camera gamma value set to unity.";
 		}
@@ -240,7 +240,7 @@ double GUeyeCamera::GetExposureMin()
 	double dblRange[3];
 	double minExpo = 1e-9, maxExpo = 1e9, incExpo = 3.1415;
 	if(IsAble()) {
-		int nRet = is_Exposure(m_CamHandle, IS_EXPOSURE_CMD_GET_EXPOSURE_RANGE, (void*)&dblRange, sizeof(dblRange));
+        is_Exposure(m_CamHandle, IS_EXPOSURE_CMD_GET_EXPOSURE_RANGE, (void*)&dblRange, sizeof(dblRange));
 		minExpo = dblRange[0];
 		maxExpo = dblRange[1];
 		incExpo = dblRange[2];
@@ -253,7 +253,7 @@ double GUeyeCamera::GetExposureMax()
 	double dblRange[3];
 	double minExpo = 1e-9, maxExpo = 1e9, incExpo = 3.1415;
 	if(IsAble()) {
-		int nRet = is_Exposure(m_CamHandle, IS_EXPOSURE_CMD_GET_EXPOSURE_RANGE, (void*)&dblRange, sizeof(dblRange));
+        is_Exposure(m_CamHandle, IS_EXPOSURE_CMD_GET_EXPOSURE_RANGE, (void*)&dblRange, sizeof(dblRange));
 		minExpo = dblRange[0];
 		maxExpo = dblRange[1];
 		incExpo = dblRange[2];
@@ -298,8 +298,11 @@ bool GUeyeCamera::SupportsExternalTrigger() const
 void GUeyeCamera::UseExternalTrigger( bool yesORno )
 {
 	int nTriggerMode = yesORno ? IS_SET_TRIGGER_LO_HI : IS_SET_TRIGGER_OFF;
-	int ret = is_SetExternalTrigger (m_CamHandle, nTriggerMode);
-//	qDebug() << "Use trigger set to" << nTriggerMode;
+    is_SetExternalTrigger (m_CamHandle, nTriggerMode);
+	qDebug() << "Use trigger set to" << nTriggerMode;
+// 	// 2011-04-04 to try to have the camera grab continuously when trigger mode is changed during acquisition.
+// 	ContinuousShot(false);
+// 	ContinuousShot(true);
 }
 
 void GUeyeCamera::ContinuousShot(bool StartOrStop)

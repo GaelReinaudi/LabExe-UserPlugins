@@ -32,7 +32,6 @@ void GPhidgetTouchRotationModule::TriggeredSensorValueChanged( int indexSensor, 
 		return;
 	}
 	// ticking up or down
-	int tick = 0;
 	if(m_lastValue == -1) {
 		m_lastValue = theValue;
 	}

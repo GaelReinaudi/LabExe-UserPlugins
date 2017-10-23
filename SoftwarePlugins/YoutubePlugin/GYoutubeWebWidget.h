@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "ui_GYoutubeWebWidget.h"
 #include <QtWebKit>
+#include <QWebFrame>
 
 class GYoutube;
 

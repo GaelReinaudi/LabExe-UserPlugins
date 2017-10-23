@@ -13,6 +13,7 @@ This plugin will register the GImage2DGaussFitter in the device manager for comp
 class FITTER2DGAUSSIANPLUGIN_EXPORT GFitter2DGaussianPlugin : public GDevicePlugin
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")
 	Q_INTERFACES(GDevicePlugin)
 	G_REGISTER_PLUGIN_PROG_DEVICE(GImage2DGaussFitter)
 

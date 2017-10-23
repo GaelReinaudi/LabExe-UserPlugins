@@ -3,7 +3,7 @@
 
 #include "device.h"
 #include "param.h"
-#include "qcustomplot.h"
+#include "QCustomPlot/qcustomplot.h"
 /////////////////////////////////////////////////////////////////////
 //! \brief The GPlot1D class implements a GProgDevice.
 /*!
@@ -59,7 +59,8 @@ private:
 	GSingleParamBucket m_InputBucketY;//! Bucket for the Y-axis input parameter. 
 	//! Output buckets (in Special tab of Settings window): 
 	GParamBucket m_OutputBucket;//! Bucket for exporting saved x&y-axis values. 
-	GParamDouble m_OutputY;//! Value exported for y-axis in bucket. 
+	GSingleParamBucket m_ExternalNBucket;//! Bucket for external N value.
+	GParamDouble m_OutputY;//! Value exported for y-axis in bucket.
 	GParamDouble m_OutputX;//! Value exported for x-axis in bucket. 
 
 	//! History of the input parameter: 
@@ -75,7 +76,6 @@ private:
 	GParamString m_LabelX;//! Label for the x axis.
 	GParamString m_LabelY;//! Label for the y axis.
 	GParamBool m_XIsTime;//! yes = use time for x-axis value; no = use number of updates (default);
-	GParamBool m_XWhichTime;//! yes = use elapsed time, no = actual time for x-axis (default).
 	GParamBool m_AllowMouseRescale;//! yes = allow mouse to rescale axes. 
 	GParamBool m_XAutoscale;//! yes = autoscale the x-axis. 
 	GParamBool m_YAutoscale;//! yes = autoscale the y-axis. 
@@ -94,11 +94,11 @@ private:
 	GParamBool m_XGridOn;//~ yes = show x-axis default grid lines.
 	GParamBool m_YGridOn;//~ yes = show Y-axis default grid lines.
 	GParamString m_XIsTimeFormat;//! Formatting instructions for when x-axis is time. 
+	GParamBool m_XWhichTime;//! yes = use elapsed time, no = actual time for x-axis (default).
 	GParamBool m_FilterY;//! yes = filter the y-axis by keeping only the N-th update.
 	GParamInt m_FilterYN;//! Keep "N"'th update of y-axis input if m_FilterY = true. Internal value. 
 	GParamInt m_ExportDelay;//! Time in ms to wait between updating values during export. 
 	GParamBool m_ExternalN;//! Use internal or external value for N?
-	GSingleParamBucket m_ExternalNBucket;//! Bucket for external N value. 
 
 	//! Settings dialog box variables:
 	QDialog* m_Dialog;

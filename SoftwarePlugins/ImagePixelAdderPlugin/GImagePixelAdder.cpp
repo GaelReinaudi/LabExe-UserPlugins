@@ -43,8 +43,8 @@ void GImagePixelAdder::ProcessImageAOIed(const GImageDouble & aoiImage)
 {
 	IncrementCountProcessed();
 	int Npix = aoiImage.size().width() * aoiImage.size().height();
-	int hei = aoiImage.size().height();
-	int wid = aoiImage.size().width();
+    //int hei = aoiImage.size().height();
+    //int wid = aoiImage.size().width();
 	GDoubleArray & zArray = aoiImage.DoubleArray();
 	double sum = 0;
 	double sumSquare = 0;

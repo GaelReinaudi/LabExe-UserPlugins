@@ -13,6 +13,7 @@ This plugin will register several GDevice classes in the device manager in order
 class PLUGINPHIDGETS_EXPORT GPluginPhidgets : public GDevicePlugin
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")
 	Q_INTERFACES(GDevicePlugin)
 	G_REGISTER_PLUGIN_HARD_DEVICE(GPhidgetManager, "Phidgets Manager")
 

@@ -1,5 +1,5 @@
 #include "GImage2DGaussFitter.h"
-#include "Alglib/src/interpolation.h"
+#include "AlgLib/src/interpolation.h"
 using namespace alglib;
 
 const QString fitFieldString("fit");
@@ -60,7 +60,8 @@ void GImage2DGaussFitter::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget )
 
 void Gaus2D_func(const real_1d_array &c, const real_1d_array &X, double &func, void *ptr) 
 {
-	const double & x = X[0];
+    Q_UNUSED(ptr);
+    const double & x = X[0];
 	const double & y = X[1];
 	const double & Offset = c[0];
 	const double & Ampl = c[1];
@@ -122,6 +123,7 @@ void Gaus2D_grad(const real_1d_array &c, const real_1d_array &X, double &func, r
 }
 void Gaus2D_hess(const real_1d_array &c, const real_1d_array &X, double &func, real_1d_array &grad, real_2d_array &hess, void *ptr) 
 {
+    Q_UNUSED(ptr);
 	const double & x = X[0];
 	const double & y = X[1];
 	const double & Offset	= c[0];
@@ -223,7 +225,9 @@ void GImage2DGaussFitter::UpdateGraphicsItem()
 
 void function_to_call_after_each_iteration(const real_1d_array &c, double func, void *ptr) 
 {
-	// is this a GImage2DGaussFitter
+    Q_UNUSED(func);
+    Q_UNUSED(ptr);
+    // is this a GImage2DGaussFitter
 	GImage2DGaussFitter* pGaussFitter = (GImage2DGaussFitter*)(ptr);
 	if(!pGaussFitter)
 		return;
@@ -289,7 +293,7 @@ void Fit( GImageDouble imageIn, GImage2DGaussFitter* ptr )
 	GDoubleArray x2Array(2 * Npix);
 	int iTot = 0;
 	for(int jLine = 0; jLine < hei; jLine++) {
-		const uchar* scanL = imageIn.constScanLine(jLine);
+//		const uchar* scanL = imageIn.constScanLine(jLine);
 		for(int iCol = 0; iCol < wid; iCol++) {
 			x2Array[2 * iTot] = double(iCol);
 			x2Array[2 * iTot + 1] = double(jLine);
@@ -378,5 +382,10 @@ void Fit( GImageDouble imageIn, GImage2DGaussFitter* ptr )
 
 void GImage2DGaussFitter::UpdateFinalResultValues( GVectorDouble finalValues ) 
 {
+	for(int i = 0; i < 6 ; i++) {
+		if(!m_FitMask[i]) {
+			finalValues[i] = m_Variables.ParamNum(i)->DoubleValue();
+		}
+	}
 	m_Variables.SetValues(finalValues, m_FitMask);
 }

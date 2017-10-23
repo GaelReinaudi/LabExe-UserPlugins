@@ -85,6 +85,7 @@ void GParamSupplier::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget )
 
 void GParamSupplier::EventSampleArrived(double newValue)
 {
+    Q_UNUSED(newValue);
 	UpdateOutput();
 }
 

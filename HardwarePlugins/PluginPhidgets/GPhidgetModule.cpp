@@ -73,7 +73,7 @@ The phidget API knows that it has to call this function because I call this Phid
 *////////////////////////////////////////////////////////////////////
 int __stdcall GModuleErrorHandler(CPhidgetHandle ADVSERVO, void *pPhiMod, int ErrorCode, const char *Description)
 {
-	qDebug() << QString("GModuleErrorHandler: %1 - %2\n").arg(ErrorCode).arg(QString(Description)).toAscii();
+	qDebug() << QString("GModuleErrorHandler: %1 - %2\n").arg(ErrorCode).arg(QString(Description)).toUtf8();
 	return 0;
 }
 

@@ -3,7 +3,7 @@
 
 #include "device.h"
 #include "param.h"
-#include "qcustomplot.h"
+#include "QCustomPlot/qcustomplot.h"
 /////////////////////////////////////////////////////////////////////
 //! \brief The GPlot1D class implements a GProgDevice.
 /*!

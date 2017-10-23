@@ -62,8 +62,9 @@ void GUeyeCameraManager::RefreshCameraList()
 					qlonglong serialCamera = strSerialCamera.toLongLong();
 					QString nameCamera = CreateUniqueCameraIdentifier(strModelCamera, strSerialCamera);
 					qDebug() << "Camera" << nameCamera 
-						<< "uEyeCameraID" << CameraID
+                        << "serialCamera" << serialCamera
 						<< "uEyeDeviceID" << DeviceID
+                        << "uEyeCameraID" << CameraID
 						;
 					// if it already exist, lets not make it again.
 					GUeyeCamera* pCamera = qobject_cast<GUeyeCamera*>(GetDeviceFromDeviceManager(nameCamera));
@@ -133,6 +134,7 @@ void GUeyeCameraManager::ResolveCameraIDs(QMap<GUeyeCamera*, ulong> &mapOfCamIds
 
 void GUeyeCameraManager::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget )
 {
+    Q_UNUSED(theDeviceWidget);
 }
 
 QString GUeyeCameraManager::CreateUniqueCameraIdentifier( QString model, QString serialCam ) const

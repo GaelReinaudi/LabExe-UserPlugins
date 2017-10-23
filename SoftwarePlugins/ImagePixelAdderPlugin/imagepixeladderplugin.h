@@ -13,6 +13,7 @@ This plugin will register the GImagePixelAdder in the device manager for computi
 class IMAGEPIXELADDERPLUGIN_EXPORT GImagePixelAdderPlugin : public GDevicePlugin
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")
 	Q_INTERFACES(GDevicePlugin)
 	G_REGISTER_PLUGIN_PROG_DEVICE(GImagePixelAdder)
 

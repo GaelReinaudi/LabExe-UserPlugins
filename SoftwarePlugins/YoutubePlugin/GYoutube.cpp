@@ -6,7 +6,7 @@ GYoutube::GYoutube(QObject *parent, QString uniqueIdentifierName /* = "" */)
 	, m_VideoUrl("Video URL", this)
 	, m_WasPlaying("playing", this)
 {
- 	m_VideoUrl = "hch3cZZywzE";
+// 	m_VideoUrl = "hch3cZZywzE";
 }
 
 GYoutube::~GYoutube()

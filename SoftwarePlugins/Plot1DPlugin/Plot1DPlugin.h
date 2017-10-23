@@ -17,6 +17,7 @@ The reset button clears the history of the parameter.
 class Plot1DPlugin_EXPORT GPlot1DPlugin : public GDevicePlugin
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")
 	Q_INTERFACES(GDevicePlugin)
 	G_REGISTER_PLUGIN_PROG_DEVICE(GPlot1D)
 

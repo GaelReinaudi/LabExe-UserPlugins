@@ -52,7 +52,7 @@ void GBasicParamSwitcher::Switch()
 		return;
 	int valTrig = pTrig->IntValue();
 	if(valTrig % 2 != 0)
-		pSwi->SetParamValue(m_SecValue.DoubleValue());
+		pSwi->SetParamValue(m_SecValue);
 	else
-		pSwi->SetParamValue(m_FirstValue.DoubleValue());
+		pSwi->SetParamValue(m_FirstValue);
 }
