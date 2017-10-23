@@ -130,7 +130,7 @@ bool GUeyeCamera::OpenCamera()
 		}
 		// 2015-06-01 Mickey and Bart: MAKE SURE GAMMA PROCESSING OFF!
 		INT nGamma = 100;//This means gamma is 1.00, which is OFF! Any other value makes camera data nonlinear with intensity. 
-		nRet = is_SetGamma(m_CamHandle,nGamma);
+		nRet = is_SetHardwareGamma(m_CamHandle,nGamma);
 		if(nRet==IS_SUCCESS){
 			qDebug() << "Camera gamma value set to unity.";
 		}
