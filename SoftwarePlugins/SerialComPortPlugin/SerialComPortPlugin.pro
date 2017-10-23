@@ -1,8 +1,9 @@
 TEMPLATE = lib
 CONFIG += plugin
-DESTDIR = ../../../LabExe/plugins/$$TARGET
 
-QT += core gui widgets webkit webkitwidgets
+QT += core gui widgets
+include($$PWD/../common.pri)
+DESTDIR = $${BINDIR}/LabExe/plugins/$$TARGET
 
 INCLUDEPATH += \
 	./../../../LabExe/src \

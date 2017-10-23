@@ -42,8 +42,8 @@ ImagePixelAdderPlugin \
 #ParamPlotterPlugin \
 #SerialComPortPlugin \
 #DropObserverPlugin \
-YoutubePlugin \
-TCO13Round1Plugin
+#YoutubePlugin \
+#TCO13Round1Plugin
 
 for(plugproj, THE_SRYBEXE_PLUGINS) {
 	exists($$plugproj) {
