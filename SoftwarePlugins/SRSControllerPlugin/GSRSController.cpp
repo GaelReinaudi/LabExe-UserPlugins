@@ -6,7 +6,7 @@
 void init_tcpip(void); 
 int sg_connect(unsigned long ip); 
 int sg_close(void); 
-int sg_write(char *str); 
+int sg_write(const char *str);
 int sg_write_bytes(const void *data, unsigned num); 
 int sg_read(char *buffer, unsigned num);
 
@@ -143,7 +143,7 @@ void GSRSController::SetModulationDev(double modDev)
 	QByteArray qModDevArray = qModDev.toUtf8();
 	char * charqModDev = qModDevArray.data();
 	sg_write(charqModDev);
-	sg_write("LCAL\n");
+    sg_write("LCAL\n");
 }
 
 void GSRSController::SetModulationRate(double modRate)
@@ -376,7 +376,7 @@ int sg_close(void)
 		return 0;
 } 
 
-int sg_write(char * str) 
+int sg_write(const char * str)
 { 
 	/* Write string to connection */
 	int result; 

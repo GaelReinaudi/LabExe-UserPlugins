@@ -1,4 +1,4 @@
-include($$PWD/../common/common.pri)
+include($$PWD/../LabExe/common.pri)
 
 INCLUDEPATH += ./include
 

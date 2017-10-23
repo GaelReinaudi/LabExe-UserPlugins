@@ -1,7 +1,6 @@
 TEMPLATE = subdirs
 
 THE_SRYBEXE_PLUGINS = \
-MonteCarloLogNormalPricerPlugin \
 Scroller2DPlugin \
 StepperPlugin \
 LowPassFilterPlugin \
@@ -31,8 +30,8 @@ LinearCombinationPlugin \
 \
 PlainTextLoggerPlugin \
 SRSControllerPlugin \
-SerialComPortPlugin \
-Pupin632MonitorPlugin \
+#SerialComPortPlugin \
+#Pupin632MonitorPlugin \
 \
 ImagePixelAdderPlugin \
 ImagePixelAdderPlugin \
@@ -44,6 +43,7 @@ ImagePixelAdderPlugin \
 #DropObserverPlugin \
 #YoutubePlugin \
 #TCO13Round1Plugin
+#MonteCarloLogNormalPricerPlugin \
 
 for(plugproj, THE_SRYBEXE_PLUGINS) {
 	exists($$plugproj) {

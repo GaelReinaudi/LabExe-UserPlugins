@@ -1,29 +1,21 @@
 TEMPLATE = lib
 CONFIG += plugin
-DESTDIR = ../../../LabExe/plugins/$$TARGET
+include($$PWD/../../common.pri)
+DESTDIR = $${BINDIR}/plugins/$$TARGET
 
 QT += core gui widgets
 
 INCLUDEPATH += \
-	./../../../LabExe/src \
-	./../../../LabExe/include \
-	./GeneratedFiles \
-	.
-
-LIBS += \
-	-L"./../../../LabExe/lib" \
-	-L"./../../../LabExe/bin"
+        ./../../../LabExe/src \
+        ./../../include \
+        ./GeneratedFiles \
+        .
 
 CONFIG(debug, debug|release) {
-	LIBS += -llabexe_D
+    LIBS += -llabexe_D
 } else {
-	LIBS += -llabexe
+    LIBS += -llabexe
 }
-
-MOC_DIR += ./GeneratedFiles
-OBJECTS_DIR += ./GeneratedFiles/Obj
-UI_DIR += ./GeneratedFiles
-RCC_DIR += ./GeneratedFiles
 
 DEFINES += SRSControllerPlugin_LIB
 include(SRSControllerPlugin.pri)
