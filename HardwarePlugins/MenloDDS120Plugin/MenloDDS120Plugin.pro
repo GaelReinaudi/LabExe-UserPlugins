@@ -23,7 +23,7 @@ CONFIG(debug, debug|release) {
 #DEF_FILE = qaxserver.def
 #RC_FILE  = qaxserver.rc
 
-DEFINES += QT_LARGEFILE_SUPPORT MenloDDS120APLUGIN_LIB
+DEFINES += QT_LARGEFILE_SUPPORT MenloDDS120PLUGIN_LIB
 
 include(MenloDDS120Plugin.pri)
 RC_FILE = MenloDDS120Plugin.rc
