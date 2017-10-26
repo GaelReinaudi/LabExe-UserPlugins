@@ -18,26 +18,26 @@ G_REGISTER_HARD_DEVICE_CLASS(GPhidgetManager)
 /*! \relates GPhidgetManager
 \brief GPhidgetManagerAttachHandler() is function called when a phidget gets attached. 
 The phidget API knows that it has to call this function because I call this Phidget-API function:
-\code CPhidgetManager_set_OnAttach_Handler(m_TheCPhidgetManager, GPhidgetManagerAttachHandler, this); \endcode
-\param:  CPhidgetHandle phid : the phidget-API needed handle to a phidget
+\code PhidgetManager_set_OnAttachHandler(m_ThePhidgetManager, GPhidgetManagerAttachHandler, this); \endcode
+\param:  PhidgetHandle phid : the phidget-API needed handle to a phidget
 \param:  void * pPhiMan : a user pointer that I happened to be the pointer to the GPhidgetManager object that fired the event.
 *////////////////////////////////////////////////////////////////////
-int __stdcall GPhidgetManagerAttachHandler(CPhidgetHandle phid, void* pPhiMan)
+int __stdcall GPhidgetManagerAttachHandler(PhidgetHandle phid, void* pPhiMan)
 {
 	int serialNo;
 	const char *name;
-	CPhidget_DeviceID id;
-	CPhidget_DeviceClass cls;
+	Phidget_DeviceID id;
+	Phidget_DeviceClass cls;
 
-	CPhidget_getDeviceName (phid, &name);
-	CPhidget_getSerialNumber(phid, &serialNo);
-	CPhidget_getDeviceClass(phid, &cls);
-	CPhidget_getDeviceID(phid, &id);
+	Phidget_getDeviceName (phid, &name);
+	Phidget_getDeviceSerialNumber(phid, &serialNo);
+	Phidget_getDeviceClass(phid, &cls);
+	Phidget_getDeviceID(phid, &id);
 
 	printf("%s %10d attached! (%d, %d) \n", name, serialNo, cls, id);
 
 	GPhidgetManager* pPhidgetManager = (GPhidgetManager*)pPhiMan;
-	if(pPhidgetManager->TheCPhidgetManager() == 0)
+	if(pPhidgetManager->ThePhidgetManager() == 0)
 		pPhidgetManager = 0;
 	if(pPhidgetManager)
 		pPhidgetManager->UpdateListPhidgetsModules();
@@ -48,21 +48,21 @@ int __stdcall GPhidgetManagerAttachHandler(CPhidgetHandle phid, void* pPhiMan)
 /*! \relates GPhidgetManager
 \brief GPhidgetManagerDettachHandler() is function called when a phidget gets dettached. 
 The phidget API knows that it has to call this function because I call this Phidget-API function:
-\code CPhidgetManager_set_OnDettach_Handler(m_TheCPhidgetManager, GPhidgetManagerDettachHandler, this); \endcode
-\param:  CPhidgetHandle phid : the phidget-API needed handle to a phidget
+\code PhidgetManager_set_OnDettachHandler(m_ThePhidgetManager, GPhidgetManagerDettachHandler, this); \endcode
+\param:  PhidgetHandle phid : the phidget-API needed handle to a phidget
 \param:  void * pPhiMan : a user pointer that I happened to be the pointer to the GPhidgetManager object that fired the event.
 *////////////////////////////////////////////////////////////////////
-int __stdcall GPhidgetManagerDetachHandler(CPhidgetHandle phid, void* pPhiMan)
+int __stdcall GPhidgetManagerDetachHandler(PhidgetHandle phid, void* pPhiMan)
 {
 	int serialNo;
 	const char *name;
 
-	CPhidget_getDeviceName (phid, &name);
-	CPhidget_getSerialNumber(phid, &serialNo);
+	Phidget_getDeviceName (phid, &name);
+	Phidget_getDeviceSerialNumber(phid, &serialNo);
 	printf("%s %10d detached!\n", name, serialNo);
 
 	GPhidgetManager* pPhidgetManager = (GPhidgetManager*)pPhiMan;
-	if(pPhidgetManager->TheCPhidgetManager() == 0)
+	if(pPhidgetManager->ThePhidgetManager() == 0)
 		pPhidgetManager = 0;
 	if(pPhidgetManager)
 		pPhidgetManager->UpdateListPhidgetsModules();
@@ -73,11 +73,11 @@ int __stdcall GPhidgetManagerDetachHandler(CPhidgetHandle phid, void* pPhiMan)
 /*! \relates GPhidgetManager
 \brief GPhidgetManagerErrorHandler() is function called when the phidget API detects an error. 
 The phidget API knows that it has to call this function because I call this Phidget-API function:
-\code CPhidgetManager_set_OnError_Handler(m_TheCPhidgetManager, GPhidgetManagerErrorHandler, this); \endcode
-\param:  CPhidgetHandle phid : the phidget-API needed handle to a phidget
+\code PhidgetManager_set_OnErrorHandler(m_ThePhidgetManager, GPhidgetManagerErrorHandler, this); \endcode
+\param:  PhidgetHandle phid : the phidget-API needed handle to a phidget
 \param:  void * pPhiMan : a user pointer that I happened to be the pointer to the GPhidgetManager object that fired the event.
 *////////////////////////////////////////////////////////////////////
-int __stdcall GPhidgetManagerErrorHandler(CPhidgetManagerHandle MAN, void *usrptr, int Code, const char *Description)
+int __stdcall GPhidgetManagerErrorHandler(PhidgetManagerHandle MAN, void *usrptr, int Code, const char *Description)
 {
 	qDebug() << "GPhidgetManagerErrorHandler: %d - %s\n", Code, Description;
 	return 0;
@@ -85,24 +85,24 @@ int __stdcall GPhidgetManagerErrorHandler(CPhidgetManagerHandle MAN, void *usrpt
 
 GPhidgetManager::GPhidgetManager(QString uniqueIdentifierName, QObject *parent)
 	: GHardDevice(uniqueIdentifierName, parent)
-	,  m_TheCPhidgetManager(0)
+	,  m_ThePhidgetManager(0)
 {
 
 	PhidgetMap_Name_Class.insert("Phidget Touch Rotation", "PhidgetTouchRotation");
 
-	CPhidget_enableLogging(PHIDGET_LOG_VERBOSE, NULL);
+	Phidget_enableLogging(PHIDGET_LOG_VERBOSE, NULL);
 	//create the Manager object
-	CPhidgetManager_create(&m_TheCPhidgetManager);
+	PhidgetManager_create(&m_ThePhidgetManager);
 	//Set the handlers to be run when the device is plugged in or opened from software, unplugged or closed from software, or generates an error.
-	CPhidgetManager_set_OnAttach_Handler(m_TheCPhidgetManager, GPhidgetManagerAttachHandler, this);
-	CPhidgetManager_set_OnDetach_Handler(m_TheCPhidgetManager, GPhidgetManagerDetachHandler, this);
-	CPhidgetManager_set_OnError_Handler(m_TheCPhidgetManager, GPhidgetManagerErrorHandler, this);
+	PhidgetManager_set_OnAttachHandler(m_ThePhidgetManager, GPhidgetManagerAttachHandler, this);
+	PhidgetManager_set_OnDetachHandler(m_ThePhidgetManager, GPhidgetManagerDetachHandler, this);
+	PhidgetManager_set_OnErrorHandler(m_ThePhidgetManager, GPhidgetManagerErrorHandler, this);
 	//open the Manager for device connections
 	//all done, cleanup in destructor
 #ifndef CONNECTION_TROUGH_IP
-	CPhidgetManager_open(m_TheCPhidgetManager);
+	PhidgetManager_open(m_ThePhidgetManager);
 #else
-	CPhidgetManager_openRemoteIP(m_TheCPhidgetManager, CONNECTION_TROUGH_IP);
+	PhidgetManager_openRemoteIP(m_ThePhidgetManager, CONNECTION_TROUGH_IP);
 #endif
 
 	// when the Phidgets list has changed, we want to create/update the corresponding GDevices.
@@ -113,8 +113,8 @@ GPhidgetManager::~GPhidgetManager()
 {
 	//...we will close the phidget and delete the object we created
 	printf("Closing...\n");
-	CPhidgetManager_close(m_TheCPhidgetManager);
-	CPhidgetManager_delete(m_TheCPhidgetManager);
+	PhidgetManager_close(m_ThePhidgetManager);
+	PhidgetManager_delete(m_ThePhidgetManager);
 }
 
 QString GPhidgetManager::CreateUniquePhidgetIdentifier(QString strType, int serial, QString PhidgetApiName) const {
@@ -139,19 +139,19 @@ void GPhidgetManager::UpdateListPhidgetsModules()
 	int serialNo, version, numDevices, i;
 	const char* deviceType;
 	const char* deviceName;
-	CPhidgetHandle *devices;
+	PhidgetHandle *devices;
 	QStringList oldList = m_ListPhidgetModules;
 
 	m_ListPhidgetModules.clear();
 	m_SerialPhidgetModules.clear();
 
-	CPhidgetManager_getAttachedDevices (m_TheCPhidgetManager, &devices, &numDevices);
+	PhidgetManager_getAttachedDevices (m_ThePhidgetManager, &devices, &numDevices);
 	for(i = 0; i < numDevices; i++)
 	{	// for each device, let's get the device information.
-		CPhidget_getDeviceType(devices[i], &deviceType);
-		CPhidget_getDeviceName(devices[i], &deviceName);
-		CPhidget_getSerialNumber(devices[i], &serialNo);
-		CPhidget_getDeviceVersion(devices[i], &version);
+		Phidget_getDeviceType(devices[i], &deviceType);
+		Phidget_getDeviceName(devices[i], &deviceName);
+		Phidget_getDeviceSerialNumber(devices[i], &serialNo);
+		Phidget_getDeviceVersion(devices[i], &version);
 
 		QString thePhidString = CreateUniquePhidgetIdentifier(deviceType, serialNo, deviceName);
 		// we add the name in the list of name of phidgets
@@ -162,7 +162,7 @@ void GPhidgetManager::UpdateListPhidgetsModules()
 		if(pDevice)
 			m_SerialPhidgetModules.insert(serialNo, pDevice);
 	}
-	CPhidgetManager_freeAttachedDevicesArray(devices);
+	PhidgetManager_freeAttachedDevicesArray(devices);
 
 	if(oldList != m_ListPhidgetModules)
 		emit ListPhidgetModulesChanged();
@@ -171,8 +171,8 @@ void GPhidgetManager::UpdateListPhidgetsModules()
 void GPhidgetManager::CreateNewlyDetectedPhidgetModules()
 {
 	QStringList strDevicesList = m_ListPhidgetModules;
-	foreach(QString strPhidgetModule, strDevicesList) { // ex: strPhidgetModule = "PhidgetAdvancedServo:99926"
-		QString CardType = GetTypeFromPhidgetIdentifier(strPhidgetModule); // ex: CardType = "PhidgetAdvancedServo"
+	foreach(QString strPhidgetModule, strDevicesList) { // ex: strPhidgetModule = "PhidgetRCServo:99926"
+		QString CardType = GetTypeFromPhidgetIdentifier(strPhidgetModule); // ex: CardType = "PhidgetRCServo"
 		int PhidgetSerial = GetSerialFromPhidgetIdentifier(strPhidgetModule);// ex: PhidgetSerial = 99926
 		// The unique name for the device here.
 		QString uniqueIdentifierNameForDevice = strPhidgetModule;
@@ -183,7 +183,7 @@ void GPhidgetManager::CreateNewlyDetectedPhidgetModules()
 			if(CardType == "PhidgetTouchRotation") {
 				pDevModule = new GPhidgetTouchRotationModule(uniqueIdentifierNameForDevice, this);
 			}
-			if(CardType == "PhidgetAdvancedServo") {
+			if(CardType == "PhidgetRCServo") {
 				pDevModule = new GPhidgetAdvancedServoModule(uniqueIdentifierNameForDevice, this);
 			}
 			else if(CardType == "PhidgetInterfaceKit") {

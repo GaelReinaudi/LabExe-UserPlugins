@@ -7,8 +7,8 @@
 class GPhidgetManager;
 class GPhidgetSensor;
 
-typedef struct _CPhidgetTemperatureSensor *CPhidgetTemperatureSensorHandle;
-typedef struct _CPhidget *CPhidgetHandle;
+typedef struct _PhidgetTemperatureSensor *PhidgetTemperatureSensorHandle;
+typedef struct _Phidget *PhidgetHandle;
 
 #define PHIDGET_SENSOR_NUMBER_SEPARATOR (QString("-S"))
 #define PHIDGET_DIGITAL_INPUT_NUMBER_SEPARATOR (QString("-DI"))
@@ -29,7 +29,7 @@ public:
 
 protected:
 	//! Reimplemented
-	CPhidgetHandle TheCPhidgetHandle() const { return (CPhidgetHandle)m_TheCPhidgetTemperatureSensor1; }
+	PhidgetHandle ThePhidgetHandle() const { return (PhidgetHandle)m_ThePhidgetTemperatureSensor1; }
 	//! Reimplemented
 	void ConfigureWhenPluggedIn();
 	//! Reimplemented
@@ -46,14 +46,14 @@ private:
 	void CreateSubDevicesSensors();
 
 private:
-	CPhidgetTemperatureSensorHandle m_TheCPhidgetTemperatureSensor1;
+	PhidgetTemperatureSensorHandle m_ThePhidgetTemperatureSensor1;
 	int m_NumberSensors;
 	GParamDouble m_Temperature;
 	GParamDouble m_AmbientTemperature;
 
 	QList<GDevice*> m_Sensors;
 
-	friend int __stdcall TemperatureChangeHandler(CPhidgetTemperatureSensorHandle IFK, void *pPhiMod, int Index, double Value);
+	friend int __stdcall TemperatureChangeHandler(PhidgetTemperatureSensorHandle IFK, void *pPhiMod, int Index, double Value);
 };
 
 #endif // GPHIDGETTemperatureSensor1MODULE_H

@@ -7,7 +7,7 @@
 
 G_REGISTER_HARD_DEVICE_CLASS(GPhidgetInterfaceKitModule)
 
-int __stdcall SensorValueChangeHandler(CPhidgetInterfaceKitHandle IFK, void *pPhiMod, int indexSensor, int Value)
+int __stdcall SensorValueChangeHandler(PhidgetInterfaceKitHandle IFK, void *pPhiMod, int indexSensor, int Value)
 {
 	GPhidgetInterfaceKitModule* pPhidgetModule = (GPhidgetInterfaceKitModule*)pPhiMod;
 	if(pPhidgetModule)// && pPhidgetModule->IsAble())
@@ -15,7 +15,7 @@ int __stdcall SensorValueChangeHandler(CPhidgetInterfaceKitHandle IFK, void *pPh
 	return 0;
 }
 
-int __stdcall DigitalInputValueChangeHandler(CPhidgetInterfaceKitHandle IFK, void *pPhiMod, int indexDigIn, int Value)
+int __stdcall DigitalInputValueChangeHandler(PhidgetInterfaceKitHandle IFK, void *pPhiMod, int indexDigIn, int Value)
 {
 	GPhidgetInterfaceKitModule* pPhidgetModule = (GPhidgetInterfaceKitModule*)pPhiMod;
 	if(pPhidgetModule)// && pPhidgetModule->IsAble())
@@ -23,7 +23,7 @@ int __stdcall DigitalInputValueChangeHandler(CPhidgetInterfaceKitHandle IFK, voi
 	return 0;
 }
 
-int __stdcall DigitalOutputValueChangeHandler(CPhidgetInterfaceKitHandle IFK, void *pPhiMod, int indexDigOut, int Value)
+int __stdcall DigitalOutputValueChangeHandler(PhidgetInterfaceKitHandle IFK, void *pPhiMod, int indexDigOut, int Value)
 {
 	GPhidgetInterfaceKitModule* pPhidgetModule = (GPhidgetInterfaceKitModule*)pPhiMod;
 	if(pPhidgetModule)// && pPhidgetModule->IsAble())
@@ -33,7 +33,7 @@ int __stdcall DigitalOutputValueChangeHandler(CPhidgetInterfaceKitHandle IFK, vo
 
 GPhidgetInterfaceKitModule::GPhidgetInterfaceKitModule(QString uniqueIdentifierName, QObject *parent)
 	: GPhidgetModule(uniqueIdentifierName, parent)
-	, m_TheCPhidgetInterfaceKit(0)
+	, m_ThePhidgetInterfaceKit(0)
 	, m_NumberSensors(0)
 	, m_NumberDigitalInputs(0)
 	, m_NumberDigitalOutputs(0)
@@ -42,37 +42,37 @@ GPhidgetInterfaceKitModule::GPhidgetInterfaceKitModule(QString uniqueIdentifierN
 	if(!m_SerialNumber)
 		return;
 	//create the advanced servo object
-	CPhidgetInterfaceKit_create(&m_TheCPhidgetInterfaceKit);
-	CPhidgetInterfaceKit_setRatiometric(m_TheCPhidgetInterfaceKit, 1);
+	PhidgetInterfaceKit_create(&m_ThePhidgetInterfaceKit);
+	PhidgetInterfaceKit_setRatiometric(m_ThePhidgetInterfaceKit, 1);
 }
 
 GPhidgetInterfaceKitModule::~GPhidgetInterfaceKitModule()
 {
-	if(!m_TheCPhidgetInterfaceKit)
+	if(!m_ThePhidgetInterfaceKit)
 		return;
 	m_Sensors.clear();
 	m_DigInputs.clear();
 	m_DigOutputs.clear();
 	//... terminate the program so we will close the phidget and delete the object we created
-	CPhidget_close(TheCPhidgetHandle());
-	CPhidget_delete(TheCPhidgetHandle());
+	Phidget_close(ThePhidgetHandle());
+	Phidget_delete(&ThePhidgetHandle());
 	//all done, exit
 }
 
 void GPhidgetInterfaceKitModule::DelayedPhidgetInitialization()
 {
-	CPhidgetInterfaceKit_set_OnSensorChange_Handler(m_TheCPhidgetInterfaceKit, SensorValueChangeHandler, this);
-	CPhidgetInterfaceKit_set_OnInputChange_Handler(m_TheCPhidgetInterfaceKit, DigitalInputValueChangeHandler, this);
-	CPhidgetInterfaceKit_set_OnOutputChange_Handler(m_TheCPhidgetInterfaceKit, DigitalOutputValueChangeHandler, this);
+	PhidgetInterfaceKit_set_OnSensorChangeHandler(m_ThePhidgetInterfaceKit, SensorValueChangeHandler, this);
+	PhidgetInterfaceKit_set_OnInputChangeHandler(m_ThePhidgetInterfaceKit, DigitalInputValueChangeHandler, this);
+	PhidgetInterfaceKit_set_OnOutputChangeHandler(m_ThePhidgetInterfaceKit, DigitalOutputValueChangeHandler, this);
 	ConfigureWhenPluggedIn();
 }
 
 void GPhidgetInterfaceKitModule::ConfigureWhenPluggedIn()
 {
 	// get the number of sensors
-	CPhidgetInterfaceKit_getSensorCount(m_TheCPhidgetInterfaceKit, &m_NumberSensors);
-	CPhidgetInterfaceKit_getInputCount(m_TheCPhidgetInterfaceKit, &m_NumberDigitalInputs);
-	CPhidgetInterfaceKit_getOutputCount(m_TheCPhidgetInterfaceKit, &m_NumberDigitalOutputs);
+	PhidgetInterfaceKit_getSensorCount(m_ThePhidgetInterfaceKit, &m_NumberSensors);
+	PhidgetInterfaceKit_getInputCount(m_ThePhidgetInterfaceKit, &m_NumberDigitalInputs);
+	PhidgetInterfaceKit_getOutputCount(m_ThePhidgetInterfaceKit, &m_NumberDigitalOutputs);
 	CreateSubDevicesSensors();
 	CreateSubDevicesDigitalInput();
 	CreateSubDevicesDigitalOutput();
@@ -80,21 +80,21 @@ void GPhidgetInterfaceKitModule::ConfigureWhenPluggedIn()
 	for(int indexSensor = 0; indexSensor < m_NumberSensors; indexSensor++) {
 		// sets the sensitivity of the device for triggering the SensorValueChangeHandler
 		// and the data rate, see the manual for more info
-		CPhidgetInterfaceKit_setSensorChangeTrigger(m_TheCPhidgetInterfaceKit, indexSensor, 0);
-		CPhidgetInterfaceKit_setDataRate(m_TheCPhidgetInterfaceKit, indexSensor, 80);
+		PhidgetInterfaceKit_setSensorChangeTrigger(m_ThePhidgetInterfaceKit, indexSensor, 0);
+		PhidgetInterfaceKit_setDataRate(m_ThePhidgetInterfaceKit, indexSensor, 80);
 
 		int theValue = 0;
-		CPhidgetInterfaceKit_getSensorValue(m_TheCPhidgetInterfaceKit, indexSensor, &theValue);
+		PhidgetInterfaceKit_getSensorValue(m_ThePhidgetInterfaceKit, indexSensor, &theValue);
 		TriggeredSensorValueChanged(indexSensor, theValue);
 		// just some info for debugging
 		int dataRate = 0;
-		CPhidgetInterfaceKit_getDataRate(m_TheCPhidgetInterfaceKit, indexSensor, &dataRate);
+		PhidgetInterfaceKit_getDataRate(m_ThePhidgetInterfaceKit, indexSensor, &dataRate);
 		qDebug() << dataRate;
 	}
 
 	for(int indexDigIn = 0; indexDigIn < m_NumberSensors; indexDigIn++) {
 		int theValue = 0;
-		CPhidgetInterfaceKit_getInputState(m_TheCPhidgetInterfaceKit, indexDigIn, &theValue);
+		PhidgetInterfaceKit_getInputState(m_ThePhidgetInterfaceKit, indexDigIn, &theValue);
 		TriggeredDigitalInputValueChanged(indexDigIn, theValue);
 	}
 
@@ -113,7 +113,7 @@ void GPhidgetInterfaceKitModule::TriggeredSensorValueChanged( int indexSensor, i
 {
 	// 	// you can querry the 12 bit value ! But on Interface kit 1018, it is only 10 bit so it doesn't make sense to use it, does it?
 	// 	int the12BitRawValue;
-	// 	CPhidgetInterfaceKit_getSensorRawValue(m_TheCPhidgetInterfaceKit, indexSensor, &the12BitRawValue);
+	// 	PhidgetInterfaceKit_getSensorRawValue(m_ThePhidgetInterfaceKit, indexSensor, &the12BitRawValue);
 
 	GPhidgetSensor* pTheSensor = Sensor(indexSensor);
 	if(pTheSensor)
@@ -195,7 +195,7 @@ void GPhidgetInterfaceKitModule::CreateSubDevicesDigitalOutput()
 bool GPhidgetInterfaceKitModule::IsAble() const
 {
 	if(GPhidgetModule::IsAble())
-		if(m_TheCPhidgetInterfaceKit)
+		if(m_ThePhidgetInterfaceKit)
 			return true;
 	return false;
 }

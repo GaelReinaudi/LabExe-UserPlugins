@@ -1,5 +1,5 @@
 HEADERS += ./GPhidget21.h \
-	./GPhidgetAdvancedServoModule.h \
+    ./GPhidgetAdvancedServoModule.h \
 	./GPhidgetTouchRotationModule.h \
     ./GPhidgetAnalogOutModule.h \
     ./GPhidgetDigitalInput.h \
@@ -15,7 +15,7 @@ HEADERS += ./GPhidget21.h \
     ./pluginphidgets.h \
     ./pluginphidgets_global.h
 SOURCES += \
-	./GPhidgetAdvancedServoModule.cpp \
+    ./GPhidgetAdvancedServoModule.cpp \
 	./GPhidgetTouchRotationModule.cpp \
     ./GPhidgetAnalogOutModule.cpp \
     ./GPhidgetDigitalInput.cpp \

@@ -4,7 +4,7 @@
 #include "Device/GHardDevice.h"
 class GPhidgetManager;
 
-typedef struct _CPhidget *CPhidgetHandle;
+typedef struct _Phidget *PhidgetHandle;
 
 /////////////////////////////////////////////////////////////////////
 //! \brief The GPhidgetModule class encapsulate a Phidget module.
@@ -12,7 +12,7 @@ typedef struct _CPhidget *CPhidgetHandle;
 It handles some phidget modules event events like:
 - GModuleAttachHandler() is function called when a phidget gets attached. The phidget API 
 knows that it has to call this function because I call this Phidget-API function:
-\code CPhidget_set_OnAttach_Handler(TheCPhidgetHandle(), GModuleAttachHandler, this); \endcode
+\code Phidget_setOnAttachHandler(ThePhidgetHandle(), GModuleAttachHandler, this); \endcode
 
 It derives from GDevice so that it can provide a gui. It also reimplements the IsAble() function that informs the workbench if the module is ready to work.
 It defines the list of sub devices defined in the derived class. It will be used for display on a GDeviceShelf.
@@ -33,8 +33,8 @@ public:
 	int SerialNumber() const { return m_SerialNumber; }
 
 protected:
-	//! Has to be reimplemented to return the CPhidgetHandle used to control the phidget from the library
-	virtual CPhidgetHandle TheCPhidgetHandle() const = 0;
+	//! Has to be reimplemented to return the PhidgetHandle used to control the phidget from the library
+	virtual PhidgetHandle ThePhidgetHandle() const = 0;
 
 protected slots:
 	//! Called whenever the module was plugged in (and the computer detects it).
@@ -52,9 +52,9 @@ protected:
 
 private:
 
-	friend int __stdcall GModuleAttachHandler(CPhidgetHandle phid, void* pPhiMod);
-	friend int __stdcall GModuleDetachHandler(CPhidgetHandle phid, void* pPhiMod);
-	friend int __stdcall GModuleErrorHandler(CPhidgetHandle phid, void* pPhiMod, int ErrorCode, const char *Description);
+	friend int __stdcall GModuleAttachHandler(PhidgetHandle phid, void* pPhiMod);
+	friend int __stdcall GModuleDetachHandler(PhidgetHandle phid, void* pPhiMod);
+	friend int __stdcall GModuleErrorHandler(PhidgetHandle phid, void* pPhiMod, int ErrorCode, const char *Description);
 };
 
 #endif // GPhidgetModule_H

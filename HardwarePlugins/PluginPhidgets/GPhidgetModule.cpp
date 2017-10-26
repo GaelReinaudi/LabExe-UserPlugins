@@ -6,26 +6,26 @@
 /*! \relates GPhidgetModule
 \brief GModuleAttachHandler() is function called when a phidget gets attached. 
 The phidget API knows that it has to call this function because I call this Phidget-API function:
-\code CPhidget_set_OnAttach_Handler(TheCPhidgetHandle(), GModuleAttachHandler, this); \endcode
-\param:  CPhidgetHandle phid : the phidget-API needed handle to a phidget
+\code Phidget_setOnAttachHandler(ThePhidgetHandle(), GModuleAttachHandler, this); \endcode
+\param:  PhidgetHandle phid : the phidget-API needed handle to a phidget
 \param:  void * pPhiMod : a user pointer that I happened to be the pointer to the GPhidgetModule object that fired the event.
 *////////////////////////////////////////////////////////////////////
-int __stdcall GModuleAttachHandler(CPhidgetHandle phid, void* pPhiMod)
+int __stdcall GModuleAttachHandler(PhidgetHandle phid, void* pPhiMod)
 {
 	int serialNo;
 	const char *name;
-	CPhidget_DeviceID id;
-	CPhidget_DeviceClass cls;
+	Phidget_DeviceID id;
+	Phidget_DeviceClass cls;
 
-	CPhidget_getDeviceName (phid, &name);
-	CPhidget_getSerialNumber(phid, &serialNo);
-	CPhidget_getDeviceClass(phid, &cls);
-	CPhidget_getDeviceID(phid, &id);
+	Phidget_getDeviceName (phid, &name);
+	Phidget_getDeviceSerialNumber(phid, &serialNo);
+	Phidget_getDeviceClass(phid, &cls);
+	Phidget_getDeviceID(phid, &id);
 
 	printf("%s %10d attached! (%d, %d) \n", name, serialNo, cls, id);
 
 	GPhidgetModule* pPhidgetModule = (GPhidgetModule*)pPhiMod;
-	if(pPhidgetModule && pPhidgetModule->TheCPhidgetHandle() == 0)
+	if(pPhidgetModule && pPhidgetModule->ThePhidgetHandle() == 0)
 		pPhidgetModule = 0;
 	if(pPhidgetModule) {
 		pPhidgetModule->m_IsAttached = true;
@@ -39,21 +39,21 @@ int __stdcall GModuleAttachHandler(CPhidgetHandle phid, void* pPhiMod)
 /*! \relates GPhidgetModule
 \brief GModuleDettachHandler() is function called when a phidget gets dettached. 
 The phidget API knows that it has to call this function because I call this Phidget-API function:
-\code CPhidget_set_OnDettach_Handler(TheCPhidgetHandle(), GModuleDettachHandler, this); \endcode
-\param:  CPhidgetHandle phid : the phidget-API needed handle to a phidget
+\code Phidget_setOnDettachHandler(ThePhidgetHandle(), GModuleDettachHandler, this); \endcode
+\param:  PhidgetHandle phid : the phidget-API needed handle to a phidget
 \param:  void * pPhiMod : a user pointer that I happened to be the pointer to the GPhidgetModule object that fired the event.
 *////////////////////////////////////////////////////////////////////
-int __stdcall GModuleDetachHandler(CPhidgetHandle phid, void* pPhiMod)
+int __stdcall GModuleDetachHandler(PhidgetHandle phid, void* pPhiMod)
 {
 	int serialNo;
 	const char *name;
 
-	CPhidget_getDeviceName (phid, &name);
-	CPhidget_getSerialNumber(phid, &serialNo);
+	Phidget_getDeviceName (phid, &name);
+	Phidget_getDeviceSerialNumber(phid, &serialNo);
 	printf("%s %10d detached!\n", name, serialNo);
 
 	GPhidgetModule* pPhidgetModule = (GPhidgetModule*)pPhiMod;
-	if(pPhidgetModule && pPhidgetModule->TheCPhidgetHandle() == 0)
+	if(pPhidgetModule && pPhidgetModule->ThePhidgetHandle() == 0)
 		pPhidgetModule = 0;
 	if(pPhidgetModule) {
 		pPhidgetModule->m_IsAttached = false;
@@ -67,11 +67,11 @@ int __stdcall GModuleDetachHandler(CPhidgetHandle phid, void* pPhiMod)
 /*! \relates GPhidgetModule
 \brief GModuleErrorHandler() is function called when the phidget API detects an error. 
 The phidget API knows that it has to call this function because I call this Phidget-API function:
-\code CPhidget_set_OnError_Handler(TheCPhidgetHandle(), GModuleErrorHandler, this); \endcode
-\param:  CPhidgetHandle phid : the phidget-API needed handle to a phidget
+\code Phidget_setOnErrorHandler(ThePhidgetHandle(), GModuleErrorHandler, this); \endcode
+\param:  PhidgetHandle phid : the phidget-API needed handle to a phidget
 \param:  void * pPhiMod : a user pointer that I happened to be the pointer to the GPhidgetModule object that fired the event.
 *////////////////////////////////////////////////////////////////////
-int __stdcall GModuleErrorHandler(CPhidgetHandle ADVSERVO, void *pPhiMod, int ErrorCode, const char *Description)
+int __stdcall GModuleErrorHandler(PhidgetHandle ADVSERVO, void *pPhiMod, const char *Description)
 {
 	qDebug() << QString("GModuleErrorHandler: %1 - %2\n").arg(ErrorCode).arg(QString(Description)).toUtf8();
 	return 0;
@@ -109,18 +109,18 @@ This is fired asynchronously from the constructor so that:
 void GPhidgetModule::CommonPhidgetInitialization()
 {
 	//Set the handlers to be run when the device is plugged in or opened from software, unplugged or closed from software, or generates an error.
-	CPhidget_set_OnAttach_Handler(TheCPhidgetHandle(), GModuleAttachHandler, this);
-	CPhidget_set_OnDetach_Handler(TheCPhidgetHandle(), GModuleDetachHandler, this);
-	CPhidget_set_OnError_Handler(TheCPhidgetHandle(), GModuleErrorHandler, this);
+	Phidget_setOnAttachHandler(ThePhidgetHandle(), GModuleAttachHandler, this);
+	Phidget_setOnDetachHandler(ThePhidgetHandle(), GModuleDetachHandler, this);
+	Phidget_setOnErrorHandler(ThePhidgetHandle(), GModuleErrorHandler, this);
 
 	//open the device for connections
 #ifndef CONNECTION_TROUGH_IP
-	CPhidget_open(TheCPhidgetHandle(), m_SerialNumber);
+	Phidget_open(ThePhidgetHandle(), m_SerialNumber);
 #else
-	CPhidget_openRemoteIP((CPhidgetHandle)m_TheCPhidgetAdvancedServo, m_SerialNumber, CONNECTION_TROUGH_IP);
+	Phidget_openRemoteIP((PhidgetHandle)m_ThePhidgetRCServo, m_SerialNumber, CONNECTION_TROUGH_IP);
 #endif
 	//get the program to wait for an advanced servo device to be attached
-	CPhidget_waitForAttachment(TheCPhidgetHandle(), 1000);
+	Phidget_waitForAttachment(ThePhidgetHandle(), 1000);
 
 	// call to the DelayedPhidgetInitialization()
 	QTimer::singleShot(0, this, SLOT(DelayedPhidgetInitialization()));

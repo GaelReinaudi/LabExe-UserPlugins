@@ -6,7 +6,7 @@
 
 G_REGISTER_HARD_DEVICE_CLASS(GPhidgetTemperatureSensor1Module)
 
-int __stdcall TemperatureChangeHandler(CPhidgetTemperatureSensorHandle IFK, void *pPhiMod, int indexSensor, double Value)
+int __stdcall TemperatureChangeHandler(PhidgetTemperatureSensorHandle IFK, void *pPhiMod, int indexSensor, double Value)
 {
 	GPhidgetTemperatureSensor1Module* pPhidgetModule = (GPhidgetTemperatureSensor1Module*)pPhiMod;
 	if(pPhidgetModule)// && pPhidgetModule->IsAble())
@@ -16,7 +16,7 @@ int __stdcall TemperatureChangeHandler(CPhidgetTemperatureSensorHandle IFK, void
 
 GPhidgetTemperatureSensor1Module::GPhidgetTemperatureSensor1Module(QString uniqueIdentifierName, QObject *parent)
 	: GPhidgetModule(uniqueIdentifierName, parent)
-	, m_TheCPhidgetTemperatureSensor1(0)
+	, m_ThePhidgetTemperatureSensor1(0)
 	, m_NumberSensors(0)
 	, m_Temperature("Probe Temp [C]", this, GParam::ReadOnly)
 	, m_AmbientTemperature("Ambient Temp [C]", this, GParam::ReadOnly)
@@ -25,16 +25,16 @@ GPhidgetTemperatureSensor1Module::GPhidgetTemperatureSensor1Module(QString uniqu
 	if(!m_SerialNumber)
 		return;
 	//create the advanced servo object
-	CPhidgetTemperatureSensor_create(&m_TheCPhidgetTemperatureSensor1);
+	PhidgetTemperatureSensor_create(&m_ThePhidgetTemperatureSensor1);
 }
 
 GPhidgetTemperatureSensor1Module::~GPhidgetTemperatureSensor1Module()
 {
-	if(!m_TheCPhidgetTemperatureSensor1)
+	if(!m_ThePhidgetTemperatureSensor1)
 		return;
 	//... terminate the program so we will close the phidget and delete the object we created
-	CPhidget_close(TheCPhidgetHandle());
-	CPhidget_delete(TheCPhidgetHandle());
+	Phidget_close(ThePhidgetHandle());
+	Phidget_delete(&ThePhidgetHandle());
 	//all done, exit
 }
 
@@ -42,29 +42,29 @@ void GPhidgetTemperatureSensor1Module::DelayedPhidgetInitialization()
 {
 	//Registers a callback that will run if the Temperature changes by more than the Temperature trigger.
 	//Requires the handle for the Temperature Sensor, the function that will be called, and a arbitrary pointer that will be supplied to the callback function (may be NULL).
-	CPhidgetTemperatureSensor_set_OnTemperatureChange_Handler(m_TheCPhidgetTemperatureSensor1, TemperatureChangeHandler, this);
+	PhidgetTemperatureSensor_set_OnTemperatureChangeHandler(m_ThePhidgetTemperatureSensor1, TemperatureChangeHandler, this);
 	ConfigureWhenPluggedIn();
 }
 
 void GPhidgetTemperatureSensor1Module::ConfigureWhenPluggedIn()
 {
 	// get the number of sensors
-	CPhidgetTemperatureSensor_getTemperatureInputCount(m_TheCPhidgetTemperatureSensor1, &m_NumberSensors);
+	PhidgetTemperatureSensor_getTemperatureInputCount(m_ThePhidgetTemperatureSensor1, &m_NumberSensors);
 	CreateSubDevicesSensors();
 //	CreateSubDevicesDigitalInput();
 //	CreateSubDevicesDigitalOutput();
 
 	double theValue = 0;
-	CPhidgetTemperatureSensor_getAmbientTemperature(m_TheCPhidgetTemperatureSensor1, &theValue);
+	PhidgetTemperatureSensor_getTemperature(m_ThePhidgetTemperatureSensor1, &theValue);
 	AmbientTemperatureChanged(theValue);
 
 	for(int indexSensor = 0; indexSensor < m_NumberSensors; indexSensor++) {
 		// sets the sensitivity of the device for triggering the TemperatureChangeHandler
 		// and the data rate, see the manual for more info
-		CPhidgetTemperatureSensor_setTemperatureChangeTrigger(m_TheCPhidgetTemperatureSensor1, indexSensor, 0.02);
-		CPhidgetTemperatureSensor_setThermocoupleType(m_TheCPhidgetTemperatureSensor1, indexSensor, PHIDGET_TEMPERATURE_SENSOR_K_TYPE);
+		PhidgetTemperatureSensor_setTemperatureChangeTrigger(m_ThePhidgetTemperatureSensor1, indexSensor, 0.02);
+		PhidgetTemperatureSensor_setThermocoupleType(m_ThePhidgetTemperatureSensor1, indexSensor, PHIDGET_TEMPERATURE_SENSOR_K_TYPE);
 
-		CPhidgetTemperatureSensor_getTemperature(m_TheCPhidgetTemperatureSensor1, indexSensor, &theValue);
+		PhidgetTemperatureSensor_getTemperature(m_ThePhidgetTemperatureSensor1, indexSensor, &theValue);
 		TemperatureChanged(indexSensor, theValue);
 	}
 
@@ -90,7 +90,7 @@ void GPhidgetTemperatureSensor1Module::TemperatureChanged( int indexSensor, doub
 	if(indexSensor == 0)
 		m_Temperature = theValue;
 
-	CPhidgetTemperatureSensor_getAmbientTemperature(m_TheCPhidgetTemperatureSensor1, &theValue);
+	PhidgetTemperatureSensor_getTemperature(m_ThePhidgetTemperatureSensor1, &theValue);
 	AmbientTemperatureChanged(theValue);
 }
 
@@ -131,7 +131,7 @@ void GPhidgetTemperatureSensor1Module::CreateSubDevicesSensors()
 bool GPhidgetTemperatureSensor1Module::IsAble() const
 {
 	if(GPhidgetModule::IsAble())
-		if(m_TheCPhidgetTemperatureSensor1)
+		if(m_ThePhidgetTemperatureSensor1)
 			return true;
 	return false;
 }

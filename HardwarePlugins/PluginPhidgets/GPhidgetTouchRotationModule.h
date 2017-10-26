@@ -14,9 +14,9 @@ public:
 	~GPhidgetTouchRotationModule();
 
 protected:
-	//! Called by the OnSensorChange_Handler.
+	//! Called by the OnSensorChangeHandler.
 	void TriggeredSensorValueChanged(int indexSensor, int theValue);
-	//! Called by the OnInputChange_Handler.
+	//! Called by the OnInputChangeHandler.
 	void TriggeredDigitalInputValueChanged(int indexDigIn, bool theValue);
 	//! Reimplemented
 	virtual void PopulateDeviceWidget(GDeviceWidget* theDeviceWidget);

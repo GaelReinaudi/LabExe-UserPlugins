@@ -1,11 +1,11 @@
-#ifndef GPHIDGETADVANCEDSERVOMODULE_H
-#define GPHIDGETADVANCEDSERVOMODULE_H
+#ifndef GPhidgetAdvancedServoMODULE_H
+#define GPhidgetAdvancedServoMODULE_H
 #include "pluginphidgets_global.h"
 
 #include "GPhidgetModule.h"
 class GPhidgetServoMotor;
 
-typedef struct _CPhidgetAdvancedServo *CPhidgetAdvancedServoHandle;
+typedef struct _PhidgetAdvancedServo *PhidgetRCServoHandle;
 
 #define PHIDGET_SERVO_NUMBER_SEPARATOR (QString("S"))
 
@@ -15,7 +15,7 @@ typedef struct _CPhidgetAdvancedServo *CPhidgetAdvancedServoHandle;
 It handles some phidget servo modules event events like:
 - GServoModulePositionChangeHandler() is function called when a phidget servo module considers a servo moved. The phidget API 
 knows that it has to call this function because I call this Phidget-API function:
-\code CPhidgetAdvancedServo_set_OnPositionChange_Handler(m_TheCPhidgetAdvancedServo, GServoModulePositionChangeHandler, this); \endcode
+\code PhidgetRCServo_setOnPositionChangeHandler(m_ThePhidgetAdvancedServo, GServoModulePositionChangeHandler, this); \endcode
 
 It defines the list of GPhidgetServoMotor sub devices defined in the derived class. 
 It will be used for display on a GDeviceShelf.
@@ -55,7 +55,7 @@ public:
 
 protected:
 	//! Reimplemented
-	CPhidgetHandle TheCPhidgetHandle() const { return (CPhidgetHandle)m_TheCPhidgetAdvancedServo; }
+	PhidgetHandle ThePhidgetHandle() const { return (PhidgetHandle)m_ThePhidgetAdvancedServo; }
 	//! reimplemented
 	void ConfigureWhenPluggedIn();
 	//! reimplemented
@@ -64,9 +64,9 @@ protected:
 	void CreateSubDevicesServos();
 	//! Reimplemented
 	virtual void PopulateDeviceWidget(GDeviceWidget* theDeviceWidget);
-	//! Called by the OnVelocityChange_Handler. IT DOESN'T GET TRIGGERED FOR SMALL TRAVELS (the handler doesn't react somehow)
+	//! Called by the OnVelocityChangeHandler. IT DOESN'T GET TRIGGERED FOR SMALL TRAVELS (the handler doesn't react somehow)
 	void TriggeredVelocityChanged(int indexServo, double theVel);
-	//! Called by the OnPositionChange_Handler.
+	//! Called by the OnPositionChangeHandler.
 	void TriggeredPositionChanged(int indexServo, double thePos, double theVelo);
 
 private:
@@ -74,12 +74,12 @@ private:
 	QString CreateUniqueServoIdentifier(int indexServo) const;
 
 private:
-	CPhidgetAdvancedServoHandle m_TheCPhidgetAdvancedServo;
+	PhidgetRCServoHandle m_ThePhidgetAdvancedServo;
 	int m_NumberMotors;
 	QList<GDevice*> m_ListServos;
 	
-	friend int __stdcall GServoModulePositionChangeHandler(CPhidgetAdvancedServoHandle ADVSERVO, void *pPhiMod, int Index, double Value);
-	friend int __stdcall GServoModuleVelocityChangeHandler(CPhidgetAdvancedServoHandle ADVSERVO, void *pPhiMod, int Index, double Value);
+	friend int __stdcall GServoModulePositionChangeHandler(PhidgetRCServoHandle ADVSERVO, void *pPhiMod, int Index, double Value);
+	friend int __stdcall GServoModuleVelocityChangeHandler(PhidgetRCServoHandle ADVSERVO, void *pPhiMod, int Index, double Value);
 };
 
-#endif // GPHIDGETADVANCEDSERVOMODULE_H
+#endif // GPhidgetAdvancedServoMODULE_H

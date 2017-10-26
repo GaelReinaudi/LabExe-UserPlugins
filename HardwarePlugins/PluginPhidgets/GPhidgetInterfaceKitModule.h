@@ -8,7 +8,7 @@ class GPhidgetSensor;
 class GPhidgetDigitalInput;
 class GPhidgetDigitalOutput;
 
-typedef struct _CPhidgetInterfaceKit *CPhidgetInterfaceKitHandle;
+typedef struct _PhidgetInterfaceKit *PhidgetInterfaceKitHandle;
 
 #define PHIDGET_SENSOR_NUMBER_SEPARATOR (QString("-S"))
 #define PHIDGET_DIGITAL_INPUT_NUMBER_SEPARATOR (QString("-DI"))
@@ -35,18 +35,18 @@ public:
 
 protected:
 	//! Reimplemented
-	CPhidgetHandle TheCPhidgetHandle() const { return (CPhidgetHandle)m_TheCPhidgetInterfaceKit; }
+	PhidgetHandle ThePhidgetHandle() const { return (PhidgetHandle)m_ThePhidgetInterfaceKit; }
 	//! Reimplemented
 	void ConfigureWhenPluggedIn();
 	//! Reimplemented
 	virtual void DelayedPhidgetInitialization();
 	//! Reimplemented
 	virtual void PopulateDeviceWidget(GDeviceWidget* theDeviceWidget);
-	//! Called by the OnSensorChange_Handler.
+	//! Called by the OnSensorChangeHandler.
 	virtual void TriggeredSensorValueChanged(int indexSensor, int theValue);
-	//! Called by the OnInputChange_Handler.
+	//! Called by the OnInputChangeHandler.
 	virtual void TriggeredDigitalInputValueChanged(int indexDigIn, bool theValue);
-	//! Called by the OnOutputChange_Handler.
+	//! Called by the OnOutputChangeHandler.
 	virtual void TriggeredDigitalOutputValueChanged(int indexDigOut, bool theValue);
 
 private:
@@ -64,7 +64,7 @@ private:
 	QString CreateUniqueDigitalOutputIdentifier( int indexDigOut );
 
 private:
-	CPhidgetInterfaceKitHandle m_TheCPhidgetInterfaceKit;
+	PhidgetInterfaceKitHandle m_ThePhidgetInterfaceKit;
 	int m_NumberSensors;
 	int m_NumberDigitalInputs;
 	int m_NumberDigitalOutputs;
@@ -72,9 +72,9 @@ private:
 	QList<GDevice*> m_DigInputs;
 	QList<GDevice*> m_DigOutputs;
 
-	friend int __stdcall SensorValueChangeHandler(CPhidgetInterfaceKitHandle IFK, void *pPhiMod, int Index, int Value);
-	friend int __stdcall DigitalInputValueChangeHandler(CPhidgetInterfaceKitHandle IFK, void *pPhiMod, int Index, int Value);
-	friend int __stdcall DigitalOutputValueChangeHandler(CPhidgetInterfaceKitHandle IFK, void *pPhiMod, int Index, int Value);
+	friend int __stdcall SensorValueChangeHandler(PhidgetInterfaceKitHandle IFK, void *pPhiMod, int Index, int Value);
+	friend int __stdcall DigitalInputValueChangeHandler(PhidgetInterfaceKitHandle IFK, void *pPhiMod, int Index, int Value);
+	friend int __stdcall DigitalOutputValueChangeHandler(PhidgetInterfaceKitHandle IFK, void *pPhiMod, int Index, int Value);
 };
 
 #endif // GPHIDGETINTERFACEKITMODULE_H

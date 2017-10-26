@@ -10,7 +10,7 @@ INCLUDEPATH += \
         ./../../include \
 
 LIBS += \
-	-L"./../../lib/phidgets/x64" -lphidget21
+    -L"./../../lib/phidgets/x64" -lphidget22
 
 CONFIG(debug, debug|release) {
 	LIBS += -llabexe_D

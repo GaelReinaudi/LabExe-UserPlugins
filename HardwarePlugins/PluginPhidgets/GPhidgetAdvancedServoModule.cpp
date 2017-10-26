@@ -19,14 +19,14 @@ QMutex m_pDebugMutex;
 /*! \relates GPhidgetAdvancedServoModule
 \brief GServoModulePositionChangeHandler() is function called when a phidget servo module considers a servo moved. 
 The phidget API knows that it has to call this function because I call this Phidget-API function:
-\code CPhidgetAdvancedServo_set_OnPositionChange_Handler(m_TheCPhidgetAdvancedServo, GServoModulePositionChangeHandler, this); \endcode
-\param:  CPhidgetAdvancedServoHandle ADVSERVO : the phidget-API needed handle to a servo module
+\code PhidgetRCServo_setOnPositionChangeHandler(m_ThePhidgetAdvancedServo, GServoModulePositionChangeHandler, this); \endcode
+\param:  PhidgetRCServoHandle ADVSERVO : the phidget-API needed handle to a servo module
 \param:  void * pPhiMod : a user pointer that I happened to be the pointer to the GPhidgetAdvancedServoModule object that fired the event.
 *////////////////////////////////////////////////////////////////////
-int __stdcall GServoModulePositionChangeHandler(CPhidgetAdvancedServoHandle ADVSERVO, void *pPhiMod, int Index, double Value)
+int __stdcall GServoModulePositionChangeHandler(PhidgetRCServoHandle ADVSERVO, void *pPhiMod, int Index, double Value)
 {
 	double vel = 0.0;
-	CPhidgetAdvancedServo_getVelocity(ADVSERVO, Index, &vel);
+	PhidgetRCServo_getVelocity(ADVSERVO, Index, &vel);
 	GPhidgetAdvancedServoModule* pPhidgetModule = (GPhidgetAdvancedServoModule*)pPhiMod;
 	if(pPhidgetModule)
 		pPhidgetModule->TriggeredPositionChanged(Index, Value, vel);
@@ -42,11 +42,11 @@ int __stdcall GServoModulePositionChangeHandler(CPhidgetAdvancedServoHandle ADVS
 /*! \relates GPhidgetAdvancedServoModule
 \brief GServoModuleVelocityChangeHandler() is function called when a phidget servo module considers a servo changed velocity. 
 The phidget API knows that it has to call this function because I call this Phidget-API function:
-\code CPhidgetAdvancedServo_set_OnVelocityChange_Handler(m_TheCPhidgetAdvancedServo, GServoModuleVelocityChangeHandler, this); \endcode
-\param:  CPhidgetAdvancedServoHandle ADVSERVO : the phidget-API needed handle to a servo module
+\code PhidgetRCServo_setOnVelocityChangeHandler(m_ThePhidgetAdvancedServo, GServoModuleVelocityChangeHandler, this); \endcode
+\param:  PhidgetRCServoHandle ADVSERVO : the phidget-API needed handle to a servo module
 \param:  void * pPhiMod : a user pointer that I happened to be the pointer to the GPhidgetAdvancedServoModule object that fired the event.
 *////////////////////////////////////////////////////////////////////
-int __stdcall GServoModuleVelocityChangeHandler(CPhidgetAdvancedServoHandle ADVSERVO, void *pPhiMod, int Index, double Value)
+int __stdcall GServoModuleVelocityChangeHandler(PhidgetRCServoHandle ADVSERVO, void *pPhiMod, int Index, double Value)
 {
 	GPhidgetAdvancedServoModule* pPhidgetModule = (GPhidgetAdvancedServoModule*)pPhiMod;
 	if(pPhidgetModule)
@@ -58,7 +58,7 @@ int __stdcall GServoModuleVelocityChangeHandler(CPhidgetAdvancedServoHandle ADVS
 /*! \relates GPhidgetAdvancedServoModule
 \brief unused for now
 *////////////////////////////////////////////////////////////////////
-int __stdcall GServoModuleCurrentChangeHandler(CPhidgetAdvancedServoHandle ADVSERVO, void *pPhiMod, int Index, double Value)
+int __stdcall GServoModuleCurrentChangeHandler(PhidgetRCServoHandle ADVSERVO, void *pPhiMod, int Index, double Value)
 {
 // 	unused for now
  	return 0;
@@ -66,7 +66,7 @@ int __stdcall GServoModuleCurrentChangeHandler(CPhidgetAdvancedServoHandle ADVSE
 
 GPhidgetAdvancedServoModule::GPhidgetAdvancedServoModule(QString uniqueIdentifierName, QObject *parent)
 	: GPhidgetModule(uniqueIdentifierName, parent)
-	, m_TheCPhidgetAdvancedServo(0)
+	, m_ThePhidgetAdvancedServo(0)
 	, m_NumberMotors(0)
 {
 	m_SerialNumber = GPhidgetManager::GetSerialFromPhidgetIdentifier(UniqueSystemID());
@@ -79,16 +79,16 @@ GPhidgetAdvancedServoModule::GPhidgetAdvancedServoModule(QString uniqueIdentifie
 #endif
 
 	//create the advanced servo object
-	CPhidgetAdvancedServo_create(&m_TheCPhidgetAdvancedServo);
+	PhidgetRCServo_create(&m_ThePhidgetAdvancedServo);
 }
 
 GPhidgetAdvancedServoModule::~GPhidgetAdvancedServoModule()
 {
-	if(!m_TheCPhidgetAdvancedServo)
+	if(!m_ThePhidgetAdvancedServo)
 		return;
 	//... terminate the program so we will close the phidget and delete the object we created
-	CPhidget_close(TheCPhidgetHandle());
-	CPhidget_delete(TheCPhidgetHandle());
+	Phidget_close(ThePhidgetHandle());
+	Phidget_delete(&ThePhidgetHandle());
 	//all done, exit
 }
 
@@ -96,9 +96,9 @@ void GPhidgetAdvancedServoModule::DelayedPhidgetInitialization()
 {
 	//Registers a callback that will run when the motor position is changed.
 	//Requires the handle for the phidget, the function that will be called, and an arbitrary pointer that will be supplied to the callback function (may be NULL).
-	CPhidgetAdvancedServo_set_OnPositionChange_Handler(m_TheCPhidgetAdvancedServo, GServoModulePositionChangeHandler, this);
-	CPhidgetAdvancedServo_set_OnVelocityChange_Handler(m_TheCPhidgetAdvancedServo, GServoModuleVelocityChangeHandler, this);
-	//	CPhidgetAdvancedServo_set_OnCurrentChange_Handler(m_TheCPhidgetAdvancedServo, GServoModuleCurrentChangeHandler, this);
+	PhidgetRCServo_setOnPositionChangeHandler(m_ThePhidgetAdvancedServo, GServoModulePositionChangeHandler, this);
+	PhidgetRCServo_setOnVelocityChangeHandler(m_ThePhidgetAdvancedServo, GServoModuleVelocityChangeHandler, this);
+	//	PhidgetRCServo_setOnCurrentChangeHandler(m_ThePhidgetAdvancedServo, GServoModuleCurrentChangeHandler, this);
 
 	ConfigureWhenPluggedIn();
 }
@@ -106,13 +106,13 @@ void GPhidgetAdvancedServoModule::DelayedPhidgetInitialization()
 void GPhidgetAdvancedServoModule::ConfigureWhenPluggedIn()
 {
 	// get the number of motors
-	CPhidgetAdvancedServo_getMotorCount(m_TheCPhidgetAdvancedServo, &m_NumberMotors);
+	PhidgetRCServo_getMotorCount(m_ThePhidgetAdvancedServo, &m_NumberMotors);
 	// create the servos object
 	CreateSubDevicesServos();
 
 	for(int indexMotor = 0; indexMotor < m_NumberMotors; indexMotor++) {
 		SetEngage(indexMotor, false);
-		CPhidgetAdvancedServo_setServoType(m_TheCPhidgetAdvancedServo, indexMotor, PHIDGET_SERVO_HITEC_HS322HD);
+		PhidgetRCServo_setServoType(m_ThePhidgetAdvancedServo, indexMotor, PHIDGET_SERVO_HITEC_HS322HD);
 		GPhidgetServoMotor* pSer = Servo(indexMotor);
 		if(pSer) {
 			SetTargetPosition(indexMotor, pSer->TargetPosition());
@@ -121,16 +121,15 @@ void GPhidgetAdvancedServoModule::ConfigureWhenPluggedIn()
 		// some values
 		double minPos = 0.0; double maxPos = 0.0; double accMin = 0.0; double accMax = 0.0; double velMin = 0.0; double velMax = 0.0; double acc = 0.0; double vel = 0.0; double velLim = 0.0;
 		// test to make the velocity small to debug some stuffs
-		CPhidgetAdvancedServo_getPositionMin(m_TheCPhidgetAdvancedServo, indexMotor, &minPos);
-		CPhidgetAdvancedServo_getPositionMax(m_TheCPhidgetAdvancedServo, indexMotor, &maxPos);
-		CPhidgetAdvancedServo_getAccelerationMin(m_TheCPhidgetAdvancedServo, indexMotor, &accMin);
-		CPhidgetAdvancedServo_getAccelerationMax(m_TheCPhidgetAdvancedServo, indexMotor, &accMax);
-		CPhidgetAdvancedServo_getVelocityMin(m_TheCPhidgetAdvancedServo, indexMotor, &velMin);
-		CPhidgetAdvancedServo_getVelocityMax(m_TheCPhidgetAdvancedServo, indexMotor, &velMax);
-		CPhidgetAdvancedServo_getVelocityLimit(m_TheCPhidgetAdvancedServo, indexMotor, &velLim);
-		CPhidgetAdvancedServo_getAcceleration(m_TheCPhidgetAdvancedServo, indexMotor, &acc);
+		PhidgetRCServo_getMinPosition(m_ThePhidgetAdvancedServo, indexMotor, &minPos);
+		PhidgetRCServo_getMaxPosition(m_ThePhidgetAdvancedServo, indexMotor, &maxPos);
+		PhidgetRCServo_getMinAcceleration(m_ThePhidgetAdvancedServo, indexMotor, &accMin);
+		PhidgetRCServo_getMaxAcceleration(m_ThePhidgetAdvancedServo, indexMotor, &accMax);
+		PhidgetRCServo_getVelocityLimit(m_ThePhidgetAdvancedServo, indexMotor, &velMax);
+		PhidgetRCServo_getVelocityLimit(m_ThePhidgetAdvancedServo, indexMotor, &velLim);
+		PhidgetRCServo_getAcceleration(m_ThePhidgetAdvancedServo, indexMotor, &acc);
 
-		CPhidgetAdvancedServo_setSpeedRampingOn(m_TheCPhidgetAdvancedServo, indexMotor, 1);
+		PhidgetRCServo_setSpeedRampingOn(m_ThePhidgetAdvancedServo, indexMotor, 1);
 
 		if(pSer->m_VelocityLimit.DoubleValue() == 0.0)
 			pSer->m_VelocityLimit = velMax;
@@ -204,7 +203,7 @@ return;
 bool GPhidgetAdvancedServoModule::IsAble() const
 {
 	if(m_IsAttached)
-		if(m_TheCPhidgetAdvancedServo)
+		if(m_ThePhidgetAdvancedServo)
 			if(m_SerialNumber)
 				if(ParentManager())
 					return true;
@@ -237,7 +236,7 @@ double GPhidgetAdvancedServoModule::GetTargetPosition( int indexServo ) const
 	//if(!IsAble())
 	//	return 0.0;
 	double theAngleFromNeutral = 0.0;
-	int result = CPhidgetAdvancedServo_getPosition (m_TheCPhidgetAdvancedServo, indexServo, &theAngleFromNeutral);
+	int result = PhidgetRCServo_getPosition (m_ThePhidgetAdvancedServo, indexServo, &theAngleFromNeutral);
 	return theAngleFromNeutral - G_PHIDGET_SERVO_NEUTRAL_ANGLE;
 }
 
@@ -246,7 +245,7 @@ void GPhidgetAdvancedServoModule::SetTargetPosition( int indexServo, double newA
 	//if(!IsAble())
 	//	return;
 	double newAngleFromNeutral = newAngle + G_PHIDGET_SERVO_NEUTRAL_ANGLE;
-	int result = CPhidgetAdvancedServo_setPosition (m_TheCPhidgetAdvancedServo, indexServo, newAngleFromNeutral);
+	int result = PhidgetRCServo_setPosition (m_ThePhidgetAdvancedServo, indexServo, newAngleFromNeutral);
 	result = 0;
 }
 
@@ -254,7 +253,7 @@ void GPhidgetAdvancedServoModule::SetEngage( int indexServo, bool doEngage )
 {	// commented some checking to gain time since it looks this function is called from other functions where the checking is done!
 	//if(!IsAble())
 	//	return;
-	CPhidgetAdvancedServo_setEngaged(m_TheCPhidgetAdvancedServo, indexServo, doEngage ? 1 : 0);
+	PhidgetRCServo_setEngaged(m_ThePhidgetAdvancedServo, indexServo, doEngage ? 1 : 0);
 }
 
 bool GPhidgetAdvancedServoModule::IsStopped(int indexServo)
@@ -262,7 +261,7 @@ bool GPhidgetAdvancedServoModule::IsStopped(int indexServo)
 	//if(!IsAble())
 	//	return true;
 	int isSt;
-	CPhidgetAdvancedServo_getStopped(m_TheCPhidgetAdvancedServo, indexServo, &isSt);
+	PhidgetRCServo_getStopped(m_ThePhidgetAdvancedServo, indexServo, &isSt);
 	return isSt != 0;
 }
 
@@ -291,12 +290,12 @@ void GPhidgetAdvancedServoModule::SetVelocityLimit( int indexServo, double newVe
 {
 	if(!IsAble())
 		return;
-	int result = CPhidgetAdvancedServo_setVelocityLimit(m_TheCPhidgetAdvancedServo, indexServo, newVelMax);
+	int result = PhidgetRCServo_setVelocityLimit(m_ThePhidgetAdvancedServo, indexServo, newVelMax);
 }
 
 void GPhidgetAdvancedServoModule::SetAccelerationLimit( int indexServo, double newAccMax )
 {
 	if(!IsAble())
 		return;
-	int result = CPhidgetAdvancedServo_setAcceleration(m_TheCPhidgetAdvancedServo, indexServo, newAccMax);
+	int result = PhidgetRCServo_setAcceleration(m_ThePhidgetAdvancedServo, indexServo, newAccMax);
 }

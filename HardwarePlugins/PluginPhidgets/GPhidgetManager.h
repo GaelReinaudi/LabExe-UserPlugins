@@ -3,7 +3,7 @@
 #include "pluginphidgets_global.h"
 
 #include "device.h"
-typedef struct _CPhidgetManager *CPhidgetManagerHandle;
+typedef struct _PhidgetManager *PhidgetManagerHandle;
 
 //#define CONNECTION_TROUGH_IP "128.59.171.181", 5800, "srybex"
 
@@ -15,10 +15,10 @@ typedef struct _CPhidgetManager *CPhidgetManagerHandle;
 It handles some phidget manager's events like:
 - GPhidgetManagerAttachHandler() is function called when a phidget gets attached. The phidget API 
 knows that it has to call this function because I call this Phidget-API function:
-\code CPhidgetManager_set_OnAttach_Handler(m_TheCPhidgetManager, GPhidgetManagerAttachHandler, this); \endcode
+\code PhidgetManager_set_OnAttachHandler(m_ThePhidgetManager, GPhidgetManagerAttachHandler, this); \endcode
 - GPhidgetManagerErrorHandler() is function called when the phidget API detects an error. The phidget API 
 knows that it has to call this function because I call this Phidget-API function:
-\code CPhidgetManager_set_OnError_Handler(m_TheCPhidgetManager, GPhidgetManagerErrorHandler, this); \endcode
+\code PhidgetManager_set_OnErrorHandler(m_ThePhidgetManager, GPhidgetManagerErrorHandler, this); \endcode
 
 It derives fron GDevice so that it can provide a widget with a list of the phidget modules.
 It defines the list of sub devices (the modules) that will be used for display on a GDeviceShelf.
@@ -31,7 +31,7 @@ public:
 	GPhidgetManager(QString uniqueIdentifierName, QObject *parent);
 	~GPhidgetManager();
 
-	CPhidgetManagerHandle TheCPhidgetManager() const { return m_TheCPhidgetManager; }
+	PhidgetManagerHandle ThePhidgetManager() const { return m_ThePhidgetManager; }
 	void UpdateListPhidgetsModules();
 	//! Reimplemented from GDevice in order to provide a special kind of widget: GPhidgetManagerWidget.
 	virtual GDeviceWidget* ProvideNewDeviceGroupBox(QWidget* inWhichWidget, QBoxLayout::Direction orientation = QBoxLayout::LeftToRight);
@@ -61,7 +61,7 @@ signals:
 	void ListPhidgetModulesChanged();
 
 private:
-	//! A function to create the name of the phidgets modules. We name the device like that for ex: "PhidgetAdvancedServo:9926"
+	//! A function to create the name of the phidgets modules. We name the device like that for ex: "PhidgetRCServo:9926"
 	QString CreateUniquePhidgetIdentifier(QString strType, int serial, QString PhidgetApiName) const;
 
 private:
@@ -69,7 +69,7 @@ private:
 	static QMap<QString, QString> PhidgetMap_Name_Class;
 
 	//! The phidget-API handle to the phidget
-	CPhidgetManagerHandle m_TheCPhidgetManager;
+	PhidgetManagerHandle m_ThePhidgetManager;
 	//! list of the modules names
 	QStringList m_ListPhidgetModules;
 	//! map from modules serial number to their name

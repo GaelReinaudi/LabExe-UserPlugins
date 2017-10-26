@@ -8,30 +8,30 @@ G_REGISTER_HARD_DEVICE_CLASS(GPhidgetAnalogOutModule)
 
 GPhidgetAnalogOutModule::GPhidgetAnalogOutModule(QString uniqueIdentifierName, QObject *parent)
 	: GPhidgetModule(uniqueIdentifierName, parent)
-	, m_TheCPhidgetAnalog(0)
+	, m_ThePhidgetAnalog(0)
 	, m_NumberOutput(0)
 {
 	m_SerialNumber = GPhidgetManager::GetSerialFromPhidgetIdentifier(UniqueSystemID());
 	if(!m_SerialNumber)
 		return;
 	//create the advanced servo object
-	CPhidgetAnalog_create(&m_TheCPhidgetAnalog);
+	PhidgetVoltageOutput_create(&m_ThePhidgetAnalog);
 }
 
 GPhidgetAnalogOutModule::~GPhidgetAnalogOutModule()
 {
-	if(!m_TheCPhidgetAnalog)
+	if(!m_ThePhidgetAnalog)
 		return;
 	//... terminate the program so we will close the phidget and delete the object we created
-	CPhidget_close(TheCPhidgetHandle());
-	CPhidget_delete(TheCPhidgetHandle());
+	Phidget_close(ThePhidgetHandle());
+	Phidget_delete(&ThePhidgetHandle());
 	//all done, exit
 }
 
 bool GPhidgetAnalogOutModule::IsAble() const
 {
 	if(GPhidgetModule::IsAble())
-		if(m_TheCPhidgetAnalog)
+		if(m_ThePhidgetAnalog)
 			return true;
 	return false;
 }
@@ -44,11 +44,11 @@ void GPhidgetAnalogOutModule::DelayedPhidgetInitialization()
 void GPhidgetAnalogOutModule::ConfigureWhenPluggedIn()
 {
 	// get the number of sensors
-	CPhidgetAnalog_getOutputCount(m_TheCPhidgetAnalog, &m_NumberOutput);
+	PhidgetVoltageOutput_getOutputCount(m_ThePhidgetAnalog, &m_NumberOutput);
 	CreateSubDevicesOutputs();
 
 	for(int indexOutput = 0; indexOutput < m_NumberOutput; indexOutput++) {
-		CPhidgetAnalog_setEnabled(m_TheCPhidgetAnalog, indexOutput, true);
+		PhidgetVoltageOutput_setEnabled(m_ThePhidgetAnalog, indexOutput, true);
 		GPhidgetOutput* pOut = Output(indexOutput);
 		if(pOut) {
 			pOut->SetOutputValue(pOut->OutputValue());
@@ -116,5 +116,5 @@ GPhidgetOutput* GPhidgetAnalogOutModule::Output( int indexOutput ) const
 
 void GPhidgetAnalogOutModule::SetNewOutputValue( int indexOutput, double newValue )
 {
-	CPhidgetAnalog_setVoltage(m_TheCPhidgetAnalog, indexOutput, newValue);
+	PhidgetVoltageOutput_setVoltage(m_ThePhidgetAnalog, indexOutput, newValue);
 }

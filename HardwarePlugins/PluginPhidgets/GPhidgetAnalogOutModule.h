@@ -6,8 +6,8 @@
 class GPhidgetManager;
 class GPhidgetOutput;
 
-typedef struct _CPhidgetAnalog *CPhidgetAnalogHandle;
-typedef struct _CPhidget *CPhidgetHandle;
+typedef struct _PhidgetAnalog *PhidgetAnalogHandle;
+typedef struct _Phidget *PhidgetHandle;
 
 #define PHIDGET_ANALOG_OUTPUT_NUMBER_SEPARATOR (QString("-A"))
 
@@ -32,7 +32,7 @@ public:
 
 protected:
 	//! Reimplemented
-	CPhidgetHandle TheCPhidgetHandle() const { return (CPhidgetHandle)m_TheCPhidgetAnalog; }
+	PhidgetHandle ThePhidgetHandle() const { return (PhidgetHandle)m_ThePhidgetAnalog; }
 	//! Reimplemented
 	virtual void DelayedPhidgetInitialization();
 	//! Reimplemented
@@ -47,7 +47,7 @@ private:
 	QString CreateUniqueOutputIdentifier(int indexOutput) const;
 
 private:
-	CPhidgetAnalogHandle m_TheCPhidgetAnalog;
+	PhidgetAnalogHandle m_ThePhidgetAnalog;
 	int m_NumberOutput;
 	QList<GDevice*> m_Outputs;
 
