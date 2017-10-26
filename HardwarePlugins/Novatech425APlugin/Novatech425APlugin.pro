@@ -20,10 +20,10 @@ CONFIG(debug, debug|release) {
     LIBS += -llabexe
 }
 
-DEF_FILE = qaxserver.def
-RC_FILE  = qaxserver.rc
+#DEF_FILE = qaxserver.def
+#RC_FILE  = qaxserver.rc
 
 DEFINES += QT_LARGEFILE_SUPPORT SERIALCOMPORTPLUGIN_LIB
 
 include(Novatech425APlugin.pri)
-win32:RC_FILE = Novatech425APlugin.rc
+RC_FILE = Novatech425APlugin.rc
