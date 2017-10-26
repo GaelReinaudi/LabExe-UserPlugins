@@ -17,8 +17,9 @@ The reset button clears the history of the parameter.
 class ThorlabsTSP01Plugin_EXPORT GThorlabsTSP01Plugin : public GDevicePlugin
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")
 	Q_INTERFACES(GDevicePlugin)
-	G_REGISTER_PLUGIN_PROG_DEVICE(GThorlabsTSP01)
+	G_REGISTER_PLUGIN_HARD_DEVICE(GThorlabsTSP01, "Thorlabs TSP01");
 
 public:
 	GThorlabsTSP01Plugin(QObject *parent = 0);

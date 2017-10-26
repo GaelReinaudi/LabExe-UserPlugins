@@ -6,8 +6,8 @@
 #define NUM_MULTI_READING	10
 
 //! [Initialize the parameters]
-GThorlabsTSP01::GThorlabsTSP01(QObject *parent, QString uniqueIdentifierName /* = "" */)
-	: GProgDevice(parent, uniqueIdentifierName)
+GThorlabsTSP01::GThorlabsTSP01(QString uniqueIdentifierName /* = "" */, QObject *parent)
+	: GHardDevice(uniqueIdentifierName, parent)
 	, m_InputBucket("Trigger", this)
 	, m_OutputT1("TSP01 Internal Sensor (F)", this, GParam::ReadOnly)
 	, m_OutputT2("TSP01 External Sensor TH1 (F)", this, GParam::ReadOnly)

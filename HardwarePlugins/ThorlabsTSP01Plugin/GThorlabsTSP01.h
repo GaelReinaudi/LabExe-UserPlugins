@@ -3,8 +3,8 @@
 
 #include "device.h"
 #include "param.h"
-#include "visa.h"
-#include "TLTSP.h"
+//#include "visa.h"
+#include "thorlabs/TLTSP.h"
 
 /////////////////////////////////////////////////////////////////////
 //! \brief The GThorlabsTSP01 class implements a GProgDevice.
@@ -16,7 +16,7 @@ If there are not yet \e n values in the past history of the parameter, the avera
 The reset button clears the history of the parameter.
 */
 //[inheritance]
-class GThorlabsTSP01 : public GProgDevice
+class GThorlabsTSP01 : public GHardDevice
 //[inheritance]
 {
 	Q_OBJECT
@@ -25,7 +25,7 @@ public:
 
 //[constructor]
 	//! Constructor
-	GThorlabsTSP01(QObject *parent, QString uniqueIdentifierName = "");
+	GThorlabsTSP01(QString uniqueIdentifierName, QObject *parent);
 //[constructor]
 	~GThorlabsTSP01();
 
