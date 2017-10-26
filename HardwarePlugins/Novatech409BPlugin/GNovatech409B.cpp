@@ -1,7 +1,5 @@
 #include "GNovatech409B.h"
 #include "GNovatech409BWidget.h"
-#include "qextserialport.h"
-#include "qextserialenumerator.h"
 #include <stdio.h>
 #include <QMutexLocker>
 #include "hled.h"
@@ -10,8 +8,8 @@
 
 //^Needed for "OnDataAvailable"
 
-GNovatech409B::GNovatech409B(QObject *parent, QString uniqueIdentifierName /* = "" */)
-	: GProgDevice(parent, uniqueIdentifierName)
+GNovatech409B::GNovatech409B(QString uniqueIdentifierName /* = "" */, QObject *parent)
+	: GHardDevice(uniqueIdentifierName, parent)
 	, m_SetComPort("Com port: ", this)
 	, m_PortName("Port name", this)
 	//, m_WriteString("Command", this)
@@ -38,19 +36,7 @@ GNovatech409B::GNovatech409B(QObject *parent, QString uniqueIdentifierName /* = 
 
 	
 {
-
-	// is this the shelved instance of the device
-	if(IsShelvedInstance())	
-	{
-
-	}
-	else 
-	{
-
-	}
 	m_pExtSerialPort = new QextSerialPort(QextSerialPort::EventDriven);
-	
-	
 }
 
 void GNovatech409B::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget )

@@ -1,12 +1,12 @@
-#ifndef GSERIALPORT_H
-#define GSERIALPORT_H
+#ifndef GNovatech409B_H
+#define GNovatech409B_H
 
 #include "device.h"
 #include "param.h"
 //#include "qExtSerialPort/qextserialport.h"
 //#include "qExtSerialPort/qextserialenumerator.h"
-#include "qextserialport.h"
-#include "qextserialenumerator.h"
+#include "qExtSerialPort/src/qextserialport.h"
+#include "qExtSerialPort/src/qextserialenumerator.h"
 #include "PortSettingsWidget.h"
 #include "hled.h"
 //#include "GNovatech409BWidget.h"
@@ -17,12 +17,12 @@
 /*!
 This prog device allows you to ..............
 */
-class GNovatech409B : public GProgDevice
+class GNovatech409B : public GHardDevice
 {
 	Q_OBJECT
 
 public:
-	GNovatech409B(QObject *parent, QString uniqueIdentifierName = "");
+	GNovatech409B(QString uniqueIdentifierName, QObject *parent);
 	~GNovatech409B();
 
 public:
@@ -111,4 +111,4 @@ private:
 	GNovatech409BWidget* m_pControllerWidget;
 };
 
-#endif // GSERIALPORT_H
+#endif // GNovatech409B_H
