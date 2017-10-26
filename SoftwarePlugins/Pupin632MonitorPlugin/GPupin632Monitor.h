@@ -2,10 +2,11 @@
 #define GPupin632Monitor_H
 
 #include "device.h"
-#include <QWebView>
-#include <QWebPage>
-#include <QWebFrame>
+#include <QWebEngineView>
+#include <QWebEnginePage>
+#include <QWebEngineFrame>
 #include "param.h"
+
 /////////////////////////////////////////////////////////////////////
 //! \brief The GPupin632Monitor class implements a GProgDevice.
 /*!
@@ -22,50 +23,60 @@ class GPupin632Monitor : public GProgDevice
 public:
 	GPupin632Monitor(QObject *parent, QString uniqueIdentifierName = "");
 
-    void StartReadingPages(QObject * parent, QString TheLabUrl, QString TheGoogleUrl);
-    double Get_SE_Temp();
-    double Get_N_Temp();
-    double Get_W_Temp();
-    double Get_AIR_Temp();
-    double Get_NYC_Temp();
-    double Get_Humidity_Setpoint();
-    double Get_Humidity_Discharge();
-    double Get_Humidity_Space();
-    void UpdateReadings();
-    //void WriteValuesToFile(QString filename = "");
+public slots:
+	//! 
+	//void Reset();
 
-    ~GPupin632Monitor();
-    public slots:
-        void GetTheHtmlCode(bool ok);
-        void UpdateMonitor();
-        //void UpdateLoadProgress(int value);
-        //void setProgressTo0();
-
-
+//![PopulateDeviceWidget]
 protected:
+	//! Re-implemented to provide a new widget adequately connected to this GPupin632Monitor.
 	void PopulateDeviceWidget(GDeviceWidget* theDeviceWidget);
+//![PopulateDeviceWidget]
 
+//! [variables]
 private:
-    QWebView* TheWebView;
-    QString Thehtml;
-    QString m_OurLabUrl;
+//! [variablesInputBucket]
+	//! the bucket for the input parameter
+	GSingleParamBucket m_InputBucket;
+	GParamBool m_EnableTrigger;
+	GParamBool m_ManualTrigger;
+	
+	QWebEngineView* TheWebView;
+	QString Thehtml;
+	QString m_OurLabUrl;
+	
+	GParamString m_UpdateStatus;//text to tell the user what's going on. 
+	GParamBool m_AmIUpdating;//bool to prevent rapid retriggering while slow webpage loading is happening. 
 
-    QWebView* TheGoogleWebView;
-    QString TheGooglehtml;
-    QString m_OurGoogleUrl;
+	GParamDouble m_tempSE;
+	GParamDouble m_tempN;
+	GParamDouble m_tempW;
+	GParamDouble m_humSet;
+	GParamDouble m_humDisch;
+	GParamDouble m_humSpace;
 
-    GParamDouble m_tempSE;
-    GParamDouble m_tempN;
-    GParamDouble m_tempW;
-    GParamDouble m_tempAIR;
-    GParamDouble m_tempNYC;
-    GParamDouble m_humSet;
-    GParamDouble m_humDisch;
-    GParamDouble m_humSpace;
+	GParamDouble m_Airflow;
+	GParamDouble m_FanSpeed;
+	GParamDouble m_tempDisch;
+	GParamDouble m_tempAvg;
+	GParamDouble m_tempSet;
+	GParamDouble m_humidifier;
+	GParamDouble m_antitemp;
+	GParamDouble m_antitempSet;
+	GParamDouble m_OAtemp;
+	GParamDouble m_OAhum;
+	GParamDouble m_RetTemp;
+	GParamDouble m_RetHum;
 
-    double m_lastTempNYC;
+//! [variablesInputBucket]
 
 private slots:
+	//! 
+	void StartUpdateOutput();
+	void UpdateOutput(bool ok);
+	void ManualTriggered();
+	void GetWebpage();
+	double ExtractValueFromWebpage(QString FieldName, int cut);
 };
 
 #endif // GPupin632Monitor_H
