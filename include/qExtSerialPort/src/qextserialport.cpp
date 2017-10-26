@@ -37,70 +37,32 @@
 #include <QtCore/QWriteLocker>
 
 /*!
-    \enum BaudRateType
-
-    baud rate values support.
-*/
-
-/*!
-    \enum DataBitsType
-*/
-
-/*!
-    \enum ParityType
-*/
-
-/*!
-    \enum StopBitsType
-
-    \value STOP_1
-    \value STOP_1_5
-    \value STOP_2
-*/
-
-/*!
-    \enum FlowType
-*/
-
-/*!
     \class PortSettings
 
     \brief The PortSettings class contain port settings
 
     Structure to contain port settings.
+
+    \code
+    BaudRateType BaudRate;
+    DataBitsType DataBits;
+    ParityType Parity;
+    StopBitsType StopBits;
+    FlowType FlowControl;
+    long Timeout_Millisec;
+    \endcode
 */
-
-
-/*
-  \class QextPortSettings
-
-    \brief The QextPortSettings class contain port settings
-
-    structure to contain port settings.
-*/
-
-QextPortSettings::QextPortSettings(BaudRateType b, DataBitsType d, ParityType p
-                                   ,StopBitsType s, FlowType f, long timeout, int customBaudRate)
-    :BaudRate(b), DataBits(d), Parity(p), StopBits(s), FlowControl(f)
-    , Timeout_Millisec(timeout), CustomBaudRate(customBaudRate)
-{
-    if (BaudRate==BAUDCustom && customBaudRate ==-1) {
-        QESP_WARNING("QextPortSettings: Wrong custom BaudRate");
-        BaudRate = BAUD9600;
-    }
-}
-
-QextPortSettings::QextPortSettings(const PortSettings &s)
-    :BaudRate(s.BaudRate), DataBits(s.DataBits), Parity(s.Parity), StopBits(s.StopBits)
-    , FlowControl(s.FlowControl), Timeout_Millisec(s.Timeout_Millisec), CustomBaudRate(-1)
-{
-
-}
 
 QextSerialPortPrivate::QextSerialPortPrivate(QextSerialPort *q)
     :lock(QReadWriteLock::Recursive), q_ptr(q)
 {
     lastErr = E_NO_ERROR;
+    settings.BaudRate = BAUD9600;
+    settings.Parity = PAR_NONE;
+    settings.FlowControl = FLOW_OFF;
+    settings.DataBits = DATA_8;
+    settings.StopBits = STOP_1;
+    settings.Timeout_Millisec = 10;
     settingsDirtyFlags = DFE_ALL;
 
     platformSpecificInit();
@@ -129,9 +91,24 @@ void QextSerialPortPrivate::setBaudRate(BaudRateType baudRate, bool update)
     case BAUD150:
     case BAUD200:
     case BAUD1800:
-#ifdef B76800
+#  ifdef B76800
     case BAUD76800:
-#endif
+#  endif
+#  if defined(B230400) && defined(B4000000)
+    case BAUD230400:
+    case BAUD460800:
+    case BAUD500000:
+    case BAUD576000:
+    case BAUD921600:
+    case BAUD1000000:
+    case BAUD1152000:
+    case BAUD1500000:
+    case BAUD2000000:
+    case BAUD2500000:
+    case BAUD3000000:
+    case BAUD3500000:
+    case BAUD4000000:
+#  endif
         QESP_PORTABILITY_WARNING()<<"QextSerialPort Portability Warning: Windows does not support baudRate:"<<baudRate;
 #endif
     case BAUD110:
@@ -145,21 +122,18 @@ void QextSerialPortPrivate::setBaudRate(BaudRateType baudRate, bool update)
     case BAUD38400:
     case BAUD57600:
     case BAUD115200:
-        Settings.BaudRate=baudRate;
+#if defined(Q_OS_WIN) || defined(Q_OS_MAC)
+    default:
+#endif
+        settings.BaudRate = baudRate;
         settingsDirtyFlags |= DFE_BaudRate;
         if (update && q_func()->isOpen())
             updatePortSettings();
         break;
-    case BAUDCustom:
-        if (Settings.CustomBaudRate != -1) {
-            Settings.BaudRate=baudRate;
-            settingsDirtyFlags |= DFE_BaudRate;
-            if (update && q_func()->isOpen())
-                updatePortSettings();
-        }
-        break;
+#if !(defined(Q_OS_WIN) || defined(Q_OS_MAC))
     default:
         QESP_WARNING()<<"QextSerialPort does not support baudRate:"<<baudRate;
+#endif
     }
 }
 
@@ -167,7 +141,7 @@ void QextSerialPortPrivate::setParity(ParityType parity, bool update)
 {
     switch (parity) {
     case PAR_SPACE:
-        if (Settings.DataBits==DATA_8) {
+        if (settings.DataBits == DATA_8) {
 #ifdef Q_OS_WIN
             QESP_PORTABILITY_WARNING("QextSerialPort Portability Warning: Space parity with 8 data bits is not supported by POSIX systems.");
 #else
@@ -191,7 +165,7 @@ void QextSerialPortPrivate::setParity(ParityType parity, bool update)
         QESP_WARNING()<<"QextSerialPort does not support Parity:" << parity;
     }
 
-    Settings.Parity=parity;
+    settings.Parity = parity;
     settingsDirtyFlags |= DFE_Parity;
     if (update && q_func()->isOpen())
         updatePortSettings();
@@ -202,50 +176,49 @@ void QextSerialPortPrivate::setDataBits(DataBitsType dataBits, bool update)
     switch(dataBits) {
 
     case DATA_5:
-        if (Settings.StopBits==STOP_2) {
+        if (settings.StopBits == STOP_2) {
             QESP_WARNING("QextSerialPort: 5 Data bits cannot be used with 2 stop bits.");
-        }
-        else {
-            Settings.DataBits=dataBits;
+        } else {
+            settings.DataBits = dataBits;
             settingsDirtyFlags |= DFE_DataBits;
         }
         break;
 
     case DATA_6:
 #ifdef Q_OS_WIN
-        if (Settings.StopBits==STOP_1_5) {
+        if (settings.StopBits == STOP_1_5) {
             QESP_WARNING("QextSerialPort: 6 Data bits cannot be used with 1.5 stop bits.");
         }
         else
 #endif
         {
-            Settings.DataBits=dataBits;
+            settings.DataBits = dataBits;
             settingsDirtyFlags |= DFE_DataBits;
         }
         break;
 
     case DATA_7:
 #ifdef Q_OS_WIN
-        if (Settings.StopBits==STOP_1_5) {
+        if (settings.StopBits == STOP_1_5) {
             QESP_WARNING("QextSerialPort: 7 Data bits cannot be used with 1.5 stop bits.");
         }
         else
 #endif
         {
-            Settings.DataBits=dataBits;
+            settings.DataBits = dataBits;
             settingsDirtyFlags |= DFE_DataBits;
         }
         break;
 
     case DATA_8:
 #ifdef Q_OS_WIN
-        if (Settings.StopBits==STOP_1_5) {
+        if (settings.StopBits == STOP_1_5) {
             QESP_WARNING("QextSerialPort: 8 Data bits cannot be used with 1.5 stop bits.");
         }
         else
 #endif
         {
-            Settings.DataBits=dataBits;
+            settings.DataBits = dataBits;
             settingsDirtyFlags |= DFE_DataBits;
         }
         break;
@@ -262,7 +235,7 @@ void QextSerialPortPrivate::setStopBits(StopBitsType stopBits, bool update)
 
         /*one stop bit*/
     case STOP_1:
-        Settings.StopBits = stopBits;
+        settings.StopBits = stopBits;
         settingsDirtyFlags |= DFE_StopBits;
         break;
 
@@ -270,11 +243,10 @@ void QextSerialPortPrivate::setStopBits(StopBitsType stopBits, bool update)
         /*1.5 stop bits*/
     case STOP_1_5:
         QESP_PORTABILITY_WARNING("QextSerialPort Portability Warning: 1.5 stop bit operation is not supported by POSIX.");
-        if (Settings.DataBits!=DATA_5) {
+        if (settings.DataBits != DATA_5) {
             QESP_WARNING("QextSerialPort: 1.5 stop bits can only be used with 5 data bits");
-        }
-        else {
-            Settings.StopBits = stopBits;
+        } else {
+            settings.StopBits = stopBits;
             settingsDirtyFlags |= DFE_StopBits;
         }
         break;
@@ -282,11 +254,10 @@ void QextSerialPortPrivate::setStopBits(StopBitsType stopBits, bool update)
 
         /*two stop bits*/
     case STOP_2:
-        if (Settings.DataBits==DATA_5) {
+        if (settings.DataBits == DATA_5) {
             QESP_WARNING("QextSerialPort: 2 stop bits cannot be used with 5 data bits");
-        }
-        else {
-            Settings.StopBits = stopBits;
+        } else {
+            settings.StopBits = stopBits;
             settingsDirtyFlags |= DFE_StopBits;
         }
         break;
@@ -299,7 +270,7 @@ void QextSerialPortPrivate::setStopBits(StopBitsType stopBits, bool update)
 
 void QextSerialPortPrivate::setFlowControl(FlowType flow, bool update)
 {
-    Settings.FlowControl=flow;
+    settings.FlowControl = flow;
     settingsDirtyFlags |= DFE_Flow;
     if (update && q_func()->isOpen())
         updatePortSettings();
@@ -307,23 +278,13 @@ void QextSerialPortPrivate::setFlowControl(FlowType flow, bool update)
 
 void QextSerialPortPrivate::setTimeout(long millisec, bool update)
 {
-    Settings.Timeout_Millisec = millisec;
+    settings.Timeout_Millisec = millisec;
     settingsDirtyFlags |= DFE_TimeOut;
     if (update && q_func()->isOpen())
         updatePortSettings();
 }
 
-void QextSerialPortPrivate::setCustomBaudRate(int customBaudRate, bool update)
-{
-    if (customBaudRate != -1)
-        Settings.BaudRate = BAUDCustom;
-    Settings.CustomBaudRate = customBaudRate;
-    settingsDirtyFlags |= DFE_BaudRate;
-    if (update && q_func()->isOpen())
-        updatePortSettings();
-}
-
-void QextSerialPortPrivate::setPortSettings(const QextPortSettings &settings, bool update)
+void QextSerialPortPrivate::setPortSettings(const PortSettings &settings, bool update)
 {
     setBaudRate(settings.BaudRate, false);
     setDataBits(settings.DataBits, false);
@@ -331,7 +292,6 @@ void QextSerialPortPrivate::setPortSettings(const QextPortSettings &settings, bo
     setParity(settings.Parity, false);
     setFlowControl(settings.FlowControl, false);
     setTimeout(settings.Timeout_Millisec, false);
-    setCustomBaudRate(settings.CustomBaudRate, false);
     settingsDirtyFlags = DFE_ALL;
     if (update && q_func()->isOpen())
         updatePortSettings();
@@ -342,7 +302,7 @@ void QextSerialPortPrivate::_q_canRead()
 {
     qint64 maxSize = bytesAvailable_sys();
     if (maxSize > 0) {
-        char * writePtr = readBuffer.reserve(size_t(maxSize));
+        char *writePtr = readBuffer.reserve(size_t(maxSize));
         qint64 bytesRead = readData_sys(writePtr, maxSize);
         if (bytesRead < maxSize)
             readBuffer.chop(maxSize - bytesRead);
@@ -362,27 +322,31 @@ void QextSerialPortPrivate::_q_canRead()
 
     \bold Example
     \code
-    QextSerialPort* port = new QextSerialPort("COM1", QextSerialPort::EventDriven);
+    QextSerialPort *port = new QextSerialPort("COM1");
     connect(port, SIGNAL(readyRead()), myClass, SLOT(onDataAvailable()));
     port->open();
 
-    void MyClass::onDataAvailable() {
-        int avail = port->bytesAvailable();
-        if( avail > 0 ) {
-            QByteArray usbdata;
-            usbdata.resize(avail);
-            int read = port->read(usbdata.data(), usbdata.size());
-            if( read > 0 ) {
-                processNewData(usbdata);
-            }
-        }
+    void MyClass::onDataAvailable()
+    {
+        QByteArray data = port->readAll();
+        processNewData(usbdata);
     }
     \endcode
 
     \section1 Compatibility
     The user will be notified of errors and possible portability conflicts at run-time
-    by default - this behavior can be turned off by defining QESP_NO_WARN
-    (to turn off all warnings) or QESP_NO_PORTABILITY_WARN (to turn off portability warnings) in the project.
+    by default.
+
+    For example, if a application has used BAUD1800, when it is runing under unix, you
+    will get following message.
+
+    \code
+    QextSerialPort Portability Warning: Windows does not support baudRate:1800
+    \endcode
+
+    This behavior can be turned off by defining macro QESP_NO_WARN (to turn off all warnings)
+    or QESP_NO_PORTABILITY_WARN (to turn off portability warnings) in the project.
+
 
     \bold Author: Stefan Sander, Michal Policht, Brandon Fosdick, Liam Staskawicz, Debao Zhang
 */
@@ -471,7 +435,7 @@ QextSerialPort::QextSerialPort(QextSerialPort::QueryMode mode, QObject *parent)
     \a name is the name of the device, which is windowsystem-specific,
     e.g."COM1" or "/dev/ttyS0". \a mode
 */
-QextSerialPort::QextSerialPort(const QString & name, QextSerialPort::QueryMode mode, QObject *parent)
+QextSerialPort::QextSerialPort(const QString &name, QextSerialPort::QueryMode mode, QObject *parent)
     : QIODevice(parent), d_ptr(new QextSerialPortPrivate(this))
 {
     setQueryMode(mode);
@@ -481,7 +445,7 @@ QextSerialPort::QextSerialPort(const QString & name, QextSerialPort::QueryMode m
 /*!
     Constructs a port with default name and specified \a settings.
 */
-QextSerialPort::QextSerialPort(const PortSettings& settings, QextSerialPort::QueryMode mode, QObject *parent)
+QextSerialPort::QextSerialPort(const PortSettings &settings, QextSerialPort::QueryMode mode, QObject *parent)
     : QIODevice(parent), d_ptr(new QextSerialPortPrivate(this))
 {
     Q_D(QextSerialPort);
@@ -492,7 +456,7 @@ QextSerialPort::QextSerialPort(const PortSettings& settings, QextSerialPort::Que
 /*!
     Constructs a port with specified \a name , \a mode and \a settings.
 */
-QextSerialPort::QextSerialPort(const QString & name, const PortSettings& settings, QextSerialPort::QueryMode mode, QObject *parent)
+QextSerialPort::QextSerialPort(const QString &name, const PortSettings &settings, QextSerialPort::QueryMode mode, QObject *parent)
     : QIODevice(parent), d_ptr(new QextSerialPortPrivate(this))
 {
     Q_D(QextSerialPort);
@@ -506,7 +470,7 @@ QextSerialPort::QextSerialPort(const QString & name, const PortSettings& setting
     Note that this function does not specify which device to open.
     Returns true if successful; otherwise returns false.This function has no effect
     if the port associated with the class is already open.  The port is also
-    configured to the current settings, as stored in the Settings structure.
+    configured to the current settings, as stored in the settings structure.
 */
 bool QextSerialPort::open(OpenMode mode)
 {
@@ -560,11 +524,19 @@ qint64 QextSerialPort::bytesAvailable() const
         if (bytes != -1) {
             return bytes + d_func()->readBuffer.size()
                     + QIODevice::bytesAvailable();
-        } else {
-            return -1;
         }
+        return -1;
     }
     return 0;
+}
+
+/*! \reimp
+
+*/
+bool QextSerialPort::canReadLine() const
+{
+    QReadLocker locker(&d_func()->lock);
+    return QIODevice::canReadLine() || d_func()->readBuffer.canReadLine();
 }
 
 /*!
@@ -593,15 +565,14 @@ void QextSerialPort::setQueryMode(QueryMode mode)
 {
     Q_D(QextSerialPort);
     QWriteLocker locker(&d->lock);
-    if (mode != d->_queryMode) {
-        d->_queryMode = mode;
-    }
+    if (mode != d->queryMode)
+        d->queryMode = mode;
 }
 
 /*!
-    Sets the name of the device associated with the object, e.g. "COM1", or "/dev/ttyS0".
+    Sets the \a name of the device associated with the object, e.g. "COM1", or "/dev/ttyS0".
 */
-void QextSerialPort::setPortName(const QString & name)
+void QextSerialPort::setPortName(const QString &name)
 {
     Q_D(QextSerialPort);
     QWriteLocker locker(&d->lock);
@@ -620,7 +591,7 @@ QString QextSerialPort::portName() const
 QextSerialPort::QueryMode QextSerialPort::queryMode() const
 {
     QReadLocker locker(&d_func()->lock);
-    return d_func()->_queryMode;
+    return d_func()->queryMode;
 }
 
 /*!
@@ -641,16 +612,7 @@ QByteArray QextSerialPort::readAll()
 BaudRateType QextSerialPort::baudRate() const
 {
     QReadLocker locker(&d_func()->lock);
-    return d_func()->Settings.BaudRate;
-}
-
-/*!
-    Returns the baud rate of the serial port.
-*/
-int QextSerialPort::customBaudRate() const
-{
-    QReadLocker locker(&d_func()->lock);
-    return baudRate()==BAUDCustom ? d_func()->Settings.CustomBaudRate : -1;
+    return d_func()->settings.BaudRate;
 }
 
 /*!
@@ -660,7 +622,7 @@ int QextSerialPort::customBaudRate() const
 DataBitsType QextSerialPort::dataBits() const
 {
     QReadLocker locker(&d_func()->lock);
-    return d_func()->Settings.DataBits;
+    return d_func()->settings.DataBits;
 }
 
 /*!
@@ -670,7 +632,7 @@ DataBitsType QextSerialPort::dataBits() const
 ParityType QextSerialPort::parity() const
 {
     QReadLocker locker(&d_func()->lock);
-    return d_func()->Settings.Parity;
+    return d_func()->settings.Parity;
 }
 
 /*!
@@ -680,7 +642,7 @@ ParityType QextSerialPort::parity() const
 StopBitsType QextSerialPort::stopBits() const
 {
     QReadLocker locker(&d_func()->lock);
-    return d_func()->Settings.StopBits;
+    return d_func()->settings.StopBits;
 }
 
 /*!
@@ -690,10 +652,11 @@ StopBitsType QextSerialPort::stopBits() const
 FlowType QextSerialPort::flowControl() const
 {
     QReadLocker locker(&d_func()->lock);
-    return d_func()->Settings.FlowControl;
+    return d_func()->settings.FlowControl;
 }
 
 /*!
+    \reimp
     Returns true if device is sequential, otherwise returns false. Serial port is sequential device
     so this function always returns true. Check QIODevice::isSequential() documentation for more
     information.
@@ -751,23 +714,44 @@ QString QextSerialPort::errorString()
     Q_D(QextSerialPort);
     QReadLocker locker(&d->lock);
     switch(d->lastErr) {
-        case E_NO_ERROR: return QLatin1String("No Error has occurred");
-        case E_INVALID_FD: return QLatin1String("Invalid file descriptor (port was not opened correctly)");
-        case E_NO_MEMORY: return QLatin1String("Unable to allocate memory tables (POSIX)");
-        case E_CAUGHT_NON_BLOCKED_SIGNAL: return QLatin1String("Caught a non-blocked signal (POSIX)");
-        case E_PORT_TIMEOUT: return QLatin1String("Operation timed out (POSIX)");
-        case E_INVALID_DEVICE: return QLatin1String("The file opened by the port is not a valid device");
-        case E_BREAK_CONDITION: return QLatin1String("The port detected a break condition");
-        case E_FRAMING_ERROR: return QLatin1String("The port detected a framing error (usually caused by incorrect baud rate settings)");
-        case E_IO_ERROR: return QLatin1String("There was an I/O error while communicating with the port");
-        case E_BUFFER_OVERRUN: return QLatin1String("Character buffer overrun");
-        case E_RECEIVE_OVERFLOW: return QLatin1String("Receive buffer overflow");
-        case E_RECEIVE_PARITY_ERROR: return QLatin1String("The port detected a parity error in the received data");
-        case E_TRANSMIT_OVERFLOW: return QLatin1String("Transmit buffer overflow");
-        case E_READ_FAILED: return QLatin1String("General read operation failure");
-    case E_WRITE_FAILED: return QLatin1String("General write operation failure");
-    case E_FILE_NOT_FOUND: return QString::fromLatin1("The %1 file doesn't exists").arg(this->portName());
-    default: return QString::fromLatin1("Unknown error: %1").arg(d->lastErr);
+    case E_NO_ERROR:
+        return tr("No Error has occurred");
+    case E_INVALID_FD:
+        return tr("Invalid file descriptor (port was not opened correctly)");
+    case E_NO_MEMORY:
+        return tr("Unable to allocate memory tables (POSIX)");
+    case E_CAUGHT_NON_BLOCKED_SIGNAL:
+        return tr("Caught a non-blocked signal (POSIX)");
+    case E_PORT_TIMEOUT:
+        return tr("Operation timed out (POSIX)");
+    case E_INVALID_DEVICE:
+        return tr("The file opened by the port is not a valid device");
+    case E_BREAK_CONDITION:
+        return tr("The port detected a break condition");
+    case E_FRAMING_ERROR:
+        return tr("The port detected a framing error (usually caused by incorrect baud rate settings)");
+    case E_IO_ERROR:
+        return tr("There was an I/O error while communicating with the port");
+    case E_BUFFER_OVERRUN:
+        return tr("Character buffer overrun");
+    case E_RECEIVE_OVERFLOW:
+        return tr("Receive buffer overflow");
+    case E_RECEIVE_PARITY_ERROR:
+        return tr("The port detected a parity error in the received data");
+    case E_TRANSMIT_OVERFLOW:
+        return tr("Transmit buffer overflow");
+    case E_READ_FAILED:
+        return tr("General read operation failure");
+    case E_WRITE_FAILED:
+        return tr("General write operation failure");
+    case E_FILE_NOT_FOUND:
+        return tr("The %1 file doesn't exists").arg(this->portName());
+    case E_PERMISSION_DENIED:
+        return tr("Permission denied");
+    case E_AGAIN:
+        return tr("Device is already locked");
+    default:
+        return tr("Unknown error: %1").arg(d->lastErr);
     }
 }
 
@@ -776,9 +760,9 @@ QString QextSerialPort::errorString()
 */
 QextSerialPort::~QextSerialPort()
 {
-    if (isOpen()) {
+    if (isOpen())
         close();
-    }
+
     delete d_ptr;
 }
 
@@ -794,7 +778,7 @@ void QextSerialPort::setFlowControl(FlowType flow)
 {
     Q_D(QextSerialPort);
     QWriteLocker locker(&d->lock);
-    if (d->Settings.FlowControl != flow)
+    if (d->settings.FlowControl != flow)
         d->setFlowControl(flow, true);
 }
 
@@ -812,7 +796,7 @@ void QextSerialPort::setParity(ParityType parity)
 {
     Q_D(QextSerialPort);
     QWriteLocker locker(&d->lock);
-    if (d->Settings.Parity != parity)
+    if (d->settings.Parity != parity)
         d->setParity(parity, true);
 }
 
@@ -837,7 +821,7 @@ void QextSerialPort::setDataBits(DataBitsType dataBits)
 {
     Q_D(QextSerialPort);
     QWriteLocker locker(&d->lock);
-    if (d->Settings.DataBits != dataBits)
+    if (d->settings.DataBits != dataBits)
         d->setDataBits(dataBits, true);
 }
 
@@ -861,7 +845,7 @@ void QextSerialPort::setStopBits(StopBitsType stopBits)
 {
     Q_D(QextSerialPort);
     QWriteLocker locker(&d->lock);
-    if (d->Settings.StopBits != stopBits)
+    if (d->settings.StopBits != stopBits)
         d->setStopBits(stopBits, true);
 }
 
@@ -895,42 +879,29 @@ void QextSerialPort::setStopBits(StopBitsType stopBits)
        BAUD76800                X       76800
       *BAUD115200          115200      115200
        BAUD128000          128000           X
+       BAUD230400               X      230400
        BAUD256000          256000           X
+       BAUD460800               X      460800
+       BAUD500000               X      500000
+       BAUD576000               X      576000
+       BAUD921600               X      921600
+       BAUD1000000              X     1000000
+       BAUD1152000              X     1152000
+       BAUD1500000              X     1500000
+       BAUD2000000              X     2000000
+       BAUD2500000              X     2500000
+       BAUD3000000              X     3000000
+       BAUD3500000              X     3500000
+       BAUD4000000              X     4000000
     \endcode
-
-    \sa setCustomBaudRate()
 */
 
 void QextSerialPort::setBaudRate(BaudRateType baudRate)
 {
     Q_D(QextSerialPort);
     QWriteLocker locker(&d->lock);
-    if (d->Settings.BaudRate != baudRate)
+    if (d->settings.BaudRate != baudRate)
         d->setBaudRate(baudRate, true);
-}
-
-/*!
-  Sets the baud rate of the serial port to \a baudRate. Be careful
-  when using this function.
-
-  Under Posix System, this value will tranfer to ::cfsetispeed(). So you can directly
-  using B1200/B1800/...
-
-  Under Windows System, this value will assigned to DCB's BaudRate member. Macros such
-  as CBR_1200/CBR_2400/... can be used directly.
-
-  \sa setBaudRate(), customBaudRate()
-*/
-void QextSerialPort::setCustomBaudRate(int baudRate)
-{
-    if (baudRate == -1) {
-        QESP_WARNING("QextSerialPort: Invalid custom baud rate");
-        return;
-    }
-    Q_D(QextSerialPort);
-    QWriteLocker locker(&d->lock);
-    if (d->Settings.CustomBaudRate != baudRate || d->Settings.BaudRate != BAUDCustom)
-        d->setCustomBaudRate(baudRate, true);
 }
 
 /*!
@@ -963,7 +934,7 @@ void QextSerialPort::setTimeout(long millisec)
 {
     Q_D(QextSerialPort);
     QWriteLocker locker(&d->lock);
-    if (d->Settings.Timeout_Millisec != millisec)
+    if (d->settings.Timeout_Millisec != millisec)
         d->setTimeout(millisec, true);
 }
 
@@ -1011,9 +982,8 @@ qint64 QextSerialPort::readData(char *data, qint64 maxSize)
             return bytesFromBuffer;
     }
     qint64 bytesFromDevice = d->readData_sys(data+bytesFromBuffer, maxSize-bytesFromBuffer);
-    if (bytesFromDevice < 0) {
+    if (bytesFromDevice < 0)
         return -1;
-    }
     return bytesFromBuffer + bytesFromDevice;
 }
 
