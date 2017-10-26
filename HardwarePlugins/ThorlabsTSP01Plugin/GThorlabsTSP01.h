@@ -3,7 +3,7 @@
 
 #include "device.h"
 #include "param.h"
-//#include "visa.h"
+#include "visa.h"
 #include "thorlabs/TLTSP.h"
 
 /////////////////////////////////////////////////////////////////////

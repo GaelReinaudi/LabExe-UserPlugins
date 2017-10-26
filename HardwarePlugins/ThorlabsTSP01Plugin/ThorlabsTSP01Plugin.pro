@@ -3,25 +3,20 @@ CONFIG += plugin
 include($$PWD/../../common.pri)
 DESTDIR = $${BINDIR}/plugins/$$TARGET
 
-QT += core gui axserver axcontainer
+QT += core gui widgets
 
 INCLUDEPATH += \
         ./../../../LabExe/src \
         ./../../include \
+        "C:/Program Files/IVI Foundation/VISA/Win64\Include" \
 
-LIBS += \
-    -lsetupapi \
-    -ladvapi32 \
-    -luser32
+LIBS += -L"./../../lib/thorlabs" -lvisa64
 
 CONFIG(debug, debug|release) {
     LIBS += -llabexe_D
 } else {
     LIBS += -llabexe
 }
-
-#DEF_FILE = qaxserver.def
-#RC_FILE  = qaxserver.rc
 
 DEFINES += QT_LARGEFILE_SUPPORT ThorlabsTSP01Plugin_LIB
 

@@ -1,6 +1,4 @@
 #include "GThorlabsTSP01.h"
-#include "visa.h"
-#include "TLTSP.h"
 
 #define TIMEOUT_MILLISEC   5000  // Communication timeout [ms]
 #define NUM_MULTI_READING	10
@@ -105,7 +103,7 @@ void GThorlabsTSP01::UpdateOutput()
 	ViChar      *rscPtr;
 	ViSession   instrHdl = VI_NULL;
 	//attempt to find device
-	if((err = find_instruments(TLTSP_FIND_PATTERN_01, &rscPtr)))  
+	if((err = find_instruments(ViString(TLTSP_FIND_PATTERN_01), &rscPtr)))
 	{	error_exit(VI_NULL, err);
 		return;
 	}
