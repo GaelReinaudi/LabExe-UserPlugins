@@ -1,5 +1,5 @@
-#ifndef GSERIALPORT_H
-#define GSERIALPORT_H
+#ifndef GNovatech425A_H
+#define GNovatech425A_H
 
 #include "device.h"
 #include "param.h"
@@ -111,4 +111,4 @@ private:
 	GNovatech425AWidget* m_pControllerWidget;
 };
 
-#endif // GSERIALPORT_H
+#endif // GNovatech425A_H

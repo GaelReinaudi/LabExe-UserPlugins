@@ -1,4 +1,4 @@
-#include "serialcomportplugin.h"
+#include "Novatech425Aplugin.h"
 
 GNovatech425APlugin::GNovatech425APlugin(QObject *parent)
 	: GDevicePlugin(parent)

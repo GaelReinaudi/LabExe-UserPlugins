@@ -1,6 +1,6 @@
-#ifndef SERIALCOMPORTPLUGIN_H
-#define SERIALCOMPORTPLUGIN_H
-#include "serialcomportplugin_global.h"
+#ifndef Novatech425APLUGIN_H
+#define Novatech425APLUGIN_H
+#include "Novatech425Aplugin_global.h"
 #include "device.h"
 
 #include "GNovatech425A.h"
@@ -10,7 +10,7 @@
 /*!
 This plugin allows you to control the serial port
 */
-class SERIALCOMPORTPLUGIN_EXPORT GNovatech425APlugin : public GDevicePlugin
+class Novatech425APLUGIN_EXPORT GNovatech425APlugin : public GDevicePlugin
 {
 	Q_OBJECT
 	Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")
@@ -25,4 +25,4 @@ private:
 
 };
 
-#endif // SERIALCOMPORTPLUGIN_H
+#endif // Novatech425APLUGIN_H

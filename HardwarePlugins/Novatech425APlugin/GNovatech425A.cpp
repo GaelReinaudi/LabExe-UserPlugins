@@ -1,7 +1,5 @@
 #include "GNovatech425A.h"
 #include "GNovatech425AWidget.h"
-#include "qExtSerialPort/src/qextserialport.h"
-#include "qExtSerialPort/src/qextserialenumerator.h"
 #include <stdio.h>
 #include <QMutexLocker>
 #include "hled.h"
@@ -35,8 +33,6 @@ GNovatech425A::GNovatech425A(QString uniqueIdentifierName, QObject *parent)
 	, m_SetExtRef("Clock source", this)	
 {
 	m_pExtSerialPort = new QextSerialPort(QextSerialPort::EventDriven);
-	
-	
 }
 
 void GNovatech425A::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget )

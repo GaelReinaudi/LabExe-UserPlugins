@@ -23,7 +23,7 @@ CONFIG(debug, debug|release) {
 #DEF_FILE = qaxserver.def
 #RC_FILE  = qaxserver.rc
 
-DEFINES += QT_LARGEFILE_SUPPORT SERIALCOMPORTPLUGIN_LIB
+DEFINES += QT_LARGEFILE_SUPPORT Novatech425APLUGIN_LIB
 
 include(Novatech425APlugin.pri)
 RC_FILE = Novatech425APlugin.rc
