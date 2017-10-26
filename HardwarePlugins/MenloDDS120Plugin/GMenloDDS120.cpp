@@ -1,7 +1,5 @@
 #include "GMenloDDS120.h"
 #include "GMenloDDS120Widget.h"
-#include "qextserialport.h"
-#include "qextserialenumerator.h"
 #include <stdio.h>
 #include <QMutexLocker>
 #include "hled.h"
@@ -10,8 +8,8 @@
 
 //^Needed for "OnDataAvailable"
 
-GMenloDDS120::GMenloDDS120(QObject *parent, QString uniqueIdentifierName /* = "" */)
-	: GProgDevice(parent, uniqueIdentifierName)
+GMenloDDS120::GMenloDDS120(QString uniqueIdentifierName, QObject *parent)
+	: GHardDevice(uniqueIdentifierName, parent)
 	, m_SetComPort("Com port: ", this)
 	, m_PortName("Port name", this)
 	//, m_WriteString("Command", this)
@@ -33,16 +31,6 @@ GMenloDDS120::GMenloDDS120(QObject *parent, QString uniqueIdentifierName /* = ""
 	, m_PortStatus("Port status", this)
 	, m_SetExtRef("Clock source", this)	
 {
-
-	// is this the shelved instance of the device
-	if(IsShelvedInstance())	
-	{
-
-	}
-	else 
-	{
-
-	}
 	m_pExtSerialPort = new QextSerialPort(QextSerialPort::EventDriven);
 	
 	//! [Extra initialization of the parameters]
@@ -52,7 +40,6 @@ GMenloDDS120::GMenloDDS120(QObject *parent, QString uniqueIdentifierName /* = ""
 	//m_FreqSine.SetParamValue(20000000);//! 20 MHz (not working?)
 	//m_PortName = "COM14";
 	m_PortStatus = -1;
-	
 }
 
 void GMenloDDS120::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget )

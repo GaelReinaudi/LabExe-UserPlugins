@@ -1,3 +1,4 @@
+TEMPLATE = lib
 CONFIG += plugin
 include($$PWD/../../common.pri)
 DESTDIR = $${BINDIR}/plugins/$$TARGET
@@ -22,7 +23,7 @@ CONFIG(debug, debug|release) {
 #DEF_FILE = qaxserver.def
 #RC_FILE  = qaxserver.rc
 
-DEFINES += QT_LARGEFILE_SUPPORT Novatech425APLUGIN_LIB
+DEFINES += QT_LARGEFILE_SUPPORT MenloDDS120APLUGIN_LIB
 
 include(MenloDDS120Plugin.pri)
-win32:RC_FILE = MenloDDS120Plugin.rc
+RC_FILE = MenloDDS120Plugin.rc

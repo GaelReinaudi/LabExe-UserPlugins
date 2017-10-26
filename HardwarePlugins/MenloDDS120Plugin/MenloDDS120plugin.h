@@ -1,6 +1,6 @@
-#ifndef SERIALCOMPORTPLUGIN_H
-#define SERIALCOMPORTPLUGIN_H
-#include "serialcomportplugin_global.h"
+#ifndef MenloDDS120PLUGIN_H
+#define MenloDDS120PLUGIN_H
+#include "MenloDDS120plugin_global.h"
 #include "device.h"
 
 #include "GMenloDDS120.h"
@@ -10,11 +10,12 @@
 /*!
 This plugin allows you to control the serial port
 */
-class SERIALCOMPORTPLUGIN_EXPORT GMenloDDS120Plugin : public GDevicePlugin
+class MenloDDS120PLUGIN_EXPORT GMenloDDS120Plugin : public GDevicePlugin
 {
 	Q_OBJECT
+	Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")
 	Q_INTERFACES(GDevicePlugin)
-	G_REGISTER_PLUGIN_PROG_DEVICE(GMenloDDS120)
+	G_REGISTER_PLUGIN_HARD_DEVICE(GMenloDDS120,  "Menlo DDS120")
 
 public:
 	GMenloDDS120Plugin(QObject *parent = 0);
@@ -24,4 +25,4 @@ private:
 
 };
 
-#endif // SERIALCOMPORTPLUGIN_H
+#endif // MenloDDS120PLUGIN_H

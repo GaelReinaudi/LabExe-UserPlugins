@@ -5,8 +5,8 @@
 #include "param.h"
 //#include "qExtSerialPort/qextserialport.h"
 //#include "qExtSerialPort/qextserialenumerator.h"
-#include "qextserialport.h"
-#include "qextserialenumerator.h"
+#include "qExtSerialPort/src/qextserialport.h"
+#include "qExtSerialPort/src/qextserialenumerator.h"
 #include "PortSettingsWidget.h"
 #include "hled.h"
 //#include "GMenloDDS120Widget.h"
@@ -17,12 +17,12 @@
 /*!
 This prog device allows you to ..............
 */
-class GMenloDDS120 : public GProgDevice
+class GMenloDDS120 : public GHardDevice
 {
 	Q_OBJECT
 
 public:
-	GMenloDDS120(QObject *parent, QString uniqueIdentifierName = "");
+	GMenloDDS120(QString uniqueIdentifierName, QObject *parent);
 	~GMenloDDS120();
 
 public:

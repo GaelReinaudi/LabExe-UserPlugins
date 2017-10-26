@@ -1,5 +1,5 @@
-#ifndef PORTSETTINGSWIDGET_H
-#define PORTSETTINGSWIDGET_H
+#ifndef PORTSETTINGSWIDGETMenloDDS120_H
+#define PORTSETTINGSWIDGETMenloDDS120_H
 
 #include <QWidget>
 #include "ui_portsettingswidget.h"
@@ -17,4 +17,4 @@ private:
 	friend class GMenloDDS120;
 };
 
-#endif // PORTSETTINGSWIDGET_H
+#endif // PORTSETTINGSWIDGETMenloDDS120_H

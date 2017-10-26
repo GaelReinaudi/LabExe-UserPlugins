@@ -1,23 +1,23 @@
 
-HEADERS += ./GSerialPortController.h \
-    ./GSerialPortControllerWidget.h \
+HEADERS += ./GMenloDDS120.h \
+    ./GMenloDDS120Widget.h \
     ./hled.h \
     ./PortSettingsWidget.h \
-    ./qextserialport/src/qextserialenumerator.h \
-    ./qextserialport/src/qextserialenumerator_p.h \
-    ./qextserialport/src/qextserialport.h \
-    ./qextserialport/src/qextserialport_global.h \
-    ./qextserialport/src/qextserialport_p.h \
-    ./serialcomportplugin.h \
-    ./serialcomportplugin_global.h
-SOURCES += ./GSerialPortController.cpp \
-    ./GSerialPortControllerWidget.cpp \
+    ../../include/qextserialport/src/qextserialenumerator.h \
+    ../../include/qextserialport/src/qextserialenumerator_p.h \
+    ../../include/qextserialport/src/qextserialport.h \
+    ../../include/qextserialport/src/qextserialport_global.h \
+    ../../include/qextserialport/src/qextserialport_p.h \
+    ./MenloDDS120plugin.h \
+    ./MenloDDS120plugin_global.h
+SOURCES += ./GMenloDDS120.cpp \
+    ./GMenloDDS120Widget.cpp \
     ./hled.cpp \
     ./PortSettingsWidget.cpp \
-    ./qextserialport/src/qextserialenumerator.cpp \
-    ./qextserialport/src/qextserialenumerator_win.cpp \
-    ./qextserialport/src/qextserialport.cpp \
-    ./qextserialport/src/qextserialport_win.cpp \
-    ./serialcomportplugin.cpp
-FORMS += ./GSerialPortControllerWidget.ui \
+    ../../include/qextserialport/src/qextserialenumerator.cpp \
+    ../../include/qextserialport/src/qextserialenumerator_win.cpp \
+    ../../include/qextserialport/src/qextserialport.cpp \
+    ../../include/qextserialport/src/qextserialport_win.cpp \
+    ./MenloDDS120plugin.cpp
+FORMS += ./GMenloDDS120Widget.ui \
     ./PortSettingsWidget.ui

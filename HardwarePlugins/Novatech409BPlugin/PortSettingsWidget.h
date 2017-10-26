@@ -1,5 +1,5 @@
-#ifndef PORTSETTINGSWIDGET_H
-#define PORTSETTINGSWIDGET_H
+#ifndef PORTSETTINGSWIDGETNovatech409B_H
+#define PORTSETTINGSWIDGETNovatech409B_H
 
 #include <QWidget>
 #include "ui_portsettingswidget.h"
@@ -17,4 +17,4 @@ private:
 	friend class GNovatech409B;
 };
 
-#endif // PORTSETTINGSWIDGET_H
+#endif // PORTSETTINGSWIDGETNovatech409B_H
