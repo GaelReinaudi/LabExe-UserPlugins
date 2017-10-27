@@ -4,10 +4,6 @@
 #include <QMutexLocker>
 #include "hled.h"
 
-//Needed for "OnDataAvailable"
-
-//^Needed for "OnDataAvailable"
-
 GNovatech425A::GNovatech425A(QString uniqueIdentifierName, QObject *parent)
 	: GHardDevice(uniqueIdentifierName, parent)
 	, m_SetComPort("Com port: ", this)
@@ -57,7 +53,6 @@ GNovatech425A::~GNovatech425A()
 
 }
 
-
 void GNovatech425A::LatterInitialization()
 {
 	//emit StatusUpdate("NovaTech Com Port Settings:\n***(confirm these)***\n19.2 kBaud\nSoftware flow control\nNo Parity\n8 Data Bits\n1 Stop Bit\n");
@@ -95,7 +90,6 @@ void GNovatech425A::LatterInitialization()
 }
 
 void GNovatech425A::ConnectToPort()
-
 {	
 	//if(m_pExtSerialPort)
 	//{
@@ -127,7 +121,7 @@ void GNovatech425A::ConnectToPort()
 	}
 	else 
 	{
-		emit StatusUpdate("device failed to open:"+m_pExtSerialPort->errorString());
+		emit StatusUpdate("GNovatech425A device failed to open:"+m_pExtSerialPort->errorString());
 	}
 
 	setNewBaudRate();
@@ -142,12 +136,9 @@ void GNovatech425A::ConnectToPort()
 	setNewStopBits();
 	//m_pExtSerialPort->setStopBits(STOP_1);//Changed from STOP_2 to STOP_1, the NovaTech default.
 
-
 	connect(&m_FreqSine, SIGNAL(ValueUpdated(double)), this, SLOT(SetNovaTechFreq0(double)));
 	connect(&m_Settings, SIGNAL(ValueUpdated(bool)), this, SLOT(QueryCurrentSettings()));
 }
-
-
 
 void GNovatech425A::setNewFlowControl()
 {
@@ -167,7 +158,6 @@ void GNovatech425A::setNewFlowControl()
 		break;
 	}
 }
-
 
 void GNovatech425A::setNewBaudRate()
 {
@@ -278,9 +268,6 @@ void GNovatech425A::setNewStopBits()
 	}
 }
 
-
-
-
 void GNovatech425A::ResetNovaTech()
 {
 	//qDebug() << "ResetNovaTech";
@@ -295,8 +282,6 @@ void GNovatech425A::ResetNovaTech()
 	}
 	m_SetExtRef = 1;
 }
-
-
 
 void GNovatech425A::SetClockSource(bool clockSource)
 {
@@ -315,18 +300,12 @@ void GNovatech425A::SetClockSource(bool clockSource)
 			emit StatusUpdate("Setting clock to External (10 MHz)...\n");
 			SetNovaTechFreq0(m_FreqSine);//Fix the fact that the frequency will change when the clock source changes
 		}
-
 	}
 	else
 	{
 		emit StatusUpdate("No command sent - there's no m_pExtSerialPort yet!");
 	}
 }
-
-
-
-
-
 
 void GNovatech425A::ShowPortSettings()
 {
@@ -339,9 +318,7 @@ void GNovatech425A::PortListCall()
 {
 	//qDebug() << "PortListCall";
 	PortList();
-
 }
-
 
 void GNovatech425A::QueryCurrentSettings()
 {
@@ -427,9 +404,7 @@ void GNovatech425A::ReadCurrentSettings(QByteArray settings)
 	m_DisplaySettings=0;
 
 	m_pExtSerialPort->flush();
-	
 }
-
 
 void GNovatech425A::SetNovaTechFreq0(double freqSine)
 {
@@ -455,8 +430,6 @@ void GNovatech425A::SetNovaTechFreq0(double freqSine)
 	//m_pExtSerialPort->write("CLR\n");
 	m_pExtSerialPort->write(charqFreq0);
 }
-
-
 
 void GNovatech425A::SetPortName(QString portName)
 {
