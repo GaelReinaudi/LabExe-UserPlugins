@@ -47,7 +47,7 @@ ImagePixelAdderPlugin \
 
 for(plugproj, THE_SRYBEXE_PLUGINS) {
 	exists($$plugproj) {
-	SUBDIRS += $$plugproj
+        SUBDIRS += $$plugproj
 	}
 }
 

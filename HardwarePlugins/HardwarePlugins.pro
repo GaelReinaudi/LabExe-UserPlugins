@@ -1,15 +1,20 @@
 TEMPLATE = subdirs
 
-SUBDIRS += \
-	../HardwarePlugins\PluginCameraUEye \
-#    ../HardwarePlugins\PluginPhidgets \
-#    ../HardwarePlugins\ThorlabsTSP01Plugin \
-    ../HardwarePlugins\MenloDDS120Plugin \
-    ../HardwarePlugins\Novatech409BPlugin \
-    ../HardwarePlugins\Novatech425APlugin \
-#	../HardwarePlugins\PluginWavelengthHighFinesse \
-#	../HardwarePlugins\PluginPxiSystem
+THE_SRYBEXE_HARD_PLUGINS = \
+PluginCameraUEye \
+#PluginPhidgets \
+#ThorlabsTSP01Plugin \
+MenloDDS120Plugin \
+Novatech409BPlugin \
+Novatech425APlugin \
+#PluginWavelengthHighFinesse \
+#PluginPxiSystem
 
 
+for(plugproj, THE_SRYBEXE_HARD_PLUGINS) {
+    exists($$plugproj) {
+        SUBDIRS += $$plugproj
+    }
+}
 
 
