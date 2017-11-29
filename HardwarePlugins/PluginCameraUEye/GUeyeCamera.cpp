@@ -298,7 +298,7 @@ bool GUeyeCamera::SupportsExternalTrigger() const
 void GUeyeCamera::UseExternalTrigger( bool yesORno )
 {
 	int nTriggerMode = yesORno ? IS_SET_TRIGGER_LO_HI : IS_SET_TRIGGER_OFF;
-    is_SetExternalTrigger (m_CamHandle, nTriggerMode);
+	is_SetExternalTrigger (m_CamHandle, nTriggerMode);
 	qDebug() << "Use trigger set to" << nTriggerMode;
 // 	// 2011-04-04 to try to have the camera grab continuously when trigger mode is changed during acquisition.
 // 	ContinuousShot(false);

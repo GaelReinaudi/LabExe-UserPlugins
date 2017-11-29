@@ -165,13 +165,9 @@ void GMenloDDS120::ConnectToPort()
 	}
 	else 
 	{
-		emit StatusUpdate("device failed to open:"+m_pExtSerialPort->errorString());
+		emit StatusUpdate("GMenloDDS120 device failed to open:"+m_pExtSerialPort->errorString());
 	}
-
-	
 }
-
-
 
 void GMenloDDS120::setNewFlowControl()
 {

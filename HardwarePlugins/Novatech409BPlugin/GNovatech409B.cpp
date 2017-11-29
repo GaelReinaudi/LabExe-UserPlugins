@@ -4,10 +4,6 @@
 #include <QMutexLocker>
 #include "hled.h"
 
-//Needed for "OnDataAvailable"
-
-//^Needed for "OnDataAvailable"
-
 GNovatech409B::GNovatech409B(QString uniqueIdentifierName /* = "" */, QObject *parent)
 	: GHardDevice(uniqueIdentifierName, parent)
 	, m_SetComPort("Com port: ", this)
@@ -31,10 +27,6 @@ GNovatech409B::GNovatech409B(QString uniqueIdentifierName /* = "" */, QObject *p
 	, m_ListPorts("List Available Ports", this)
 
 	, m_FirstTime("First Time", this)
-
-
-
-	
 {
 	m_pExtSerialPort = new QextSerialPort(QextSerialPort::EventDriven);
 }
@@ -54,15 +46,12 @@ void GNovatech409B::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget )
 	m_SettingsWidget.ui.stopBox->setCurrentIndex(0);
 
 	connect(&m_SetComPort, SIGNAL(ValueUpdated(QString)), this, SLOT(ConnectToPort()));
-
-	
 }
 
 GNovatech409B::~GNovatech409B()
 {
 
 }
-
 
 void GNovatech409B::LatterInitialization()
 {
@@ -97,9 +86,7 @@ void GNovatech409B::LatterInitialization()
 }
 
 void GNovatech409B::ConnectToPort()
-
 {	
-
 	//if(m_pExtSerialPort)
 	//{
 	//	m_pExtSerialPort->flush();
@@ -130,7 +117,7 @@ void GNovatech409B::ConnectToPort()
 	}
 	else 
 	{
-		emit StatusUpdate("device failed to open:"+m_pExtSerialPort->errorString());
+		emit StatusUpdate("GNovatech409B device failed to open:"+m_pExtSerialPort->errorString());
 	}
 
 	setNewBaudRate();
@@ -145,20 +132,12 @@ void GNovatech409B::ConnectToPort()
 	setNewStopBits();
 	//m_pExtSerialPort->setStopBits(STOP_1);//Changed from STOP_2 to STOP_1, the NovaTech default.
 
-
-
-
 	connect(&m_Freq0, SIGNAL(ValueUpdated(double)), this, SLOT(SetNovaTechFreq0(double)));
 	connect(&m_Freq1, SIGNAL(ValueUpdated(double)), this, SLOT(SetNovaTechFreq1(double)));
 	connect(&m_Freq2, SIGNAL(ValueUpdated(double)), this, SLOT(SetNovaTechFreq2(double)));
 	connect(&m_Freq3, SIGNAL(ValueUpdated(double)), this, SLOT(SetNovaTechFreq3(double)));
 	connect(&m_Settings, SIGNAL(ValueUpdated(bool)), this, SLOT(QueryCurrentSettings()));
-
-
-
-
 }
-
 
 void GNovatech409B::setNewFlowControl()
 {
@@ -178,7 +157,6 @@ void GNovatech409B::setNewFlowControl()
 		break;
 	}
 }
-
 
 void GNovatech409B::setNewBaudRate()
 {
@@ -289,9 +267,6 @@ void GNovatech409B::setNewStopBits()
 	}
 }
 
-
-
-
 void GNovatech409B::ResetNovaTech()
 {
 	if(m_pExtSerialPort)
@@ -310,13 +285,11 @@ void GNovatech409B::ShowPortSettings()
 	m_SettingsWidget.show();
 }
 
-
 void GNovatech409B::PortListCall()
 {
 	PortList();
 
 }
-
 
 void GNovatech409B::QueryCurrentSettings()
 {
