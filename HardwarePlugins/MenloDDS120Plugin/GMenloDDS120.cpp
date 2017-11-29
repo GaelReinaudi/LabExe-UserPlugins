@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <QMutexLocker>
 #include "hled.h"
+#include "strgchar.h"
 
 //Needed for "OnDataAvailable"
 
@@ -340,7 +341,7 @@ void GMenloDDS120::GetFrequency()
 	//Test if serial port is open...
 	if(m_pExtSerialPort->lineStatus()!=0)
 	{	//qDebug() << "GetFrequency OK";
-		m_pExtSerialPort->write("GF");
+		m_pExtSerialPort->write(CHAR0x01 "GF" CHAR0x01);
 		//The DDS120 responds, which is captured and processed by onReadyRead() below.
 	}
 	else
@@ -367,8 +368,8 @@ void GMenloDDS120::SetNovaTechFreq0(double freqSine)
 			qFreq0 = qFreq0.number(freqSine*100000, 'f', 0);//units uHz, no decimals
 			qFreq0.prepend("00000000000000");//add zeros to front (missing from previous operation)
 			qFreq0.remove(0,qFreq0.length()-14);//truncate front zeros until size is 14 characters.
-			qFreq0.prepend("SF");
-			qFreq0.append("");
+			qFreq0.prepend(CHAR0x01 "SF");
+			qFreq0.append("" CHAR0x01);
 			//qDebug() << "Writing to DDS120: "<<qFreq0;
 			QByteArray qFreq0Array = qFreq0.toUtf8();
 			char * charqFreq0 = qFreq0Array.data();
@@ -411,7 +412,7 @@ void GMenloDDS120::onReadyRead()
 	//qDebug() << "DDS120 says:\n" << m_Bytes;
 	
 	//Test if captured single, full message from DDS120
-	if(m_Bytes.startsWith("")&&m_Bytes.endsWith("")&&(m_Bytes.count("")==1)&&(m_Bytes.count("")==1))
+	if(m_Bytes.startsWith(CHAR0x01 "")&&m_Bytes.endsWith("" CHAR0x01)&&(m_Bytes.count(CHAR0x01 "")==1)&&(m_Bytes.count("" CHAR0x01)==1))
 	{	//Message should be OK. DDS120 always starts with SOH and ends with ETX characters. Any duplication of those characters means an error too. 
 
 		if(m_Bytes.contains("OK"))

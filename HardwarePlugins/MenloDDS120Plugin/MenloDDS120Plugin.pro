@@ -27,3 +27,6 @@ DEFINES += QT_LARGEFILE_SUPPORT MenloDDS120PLUGIN_LIB
 
 include(MenloDDS120Plugin.pri)
 RC_FILE = MenloDDS120Plugin.rc
+
+HEADERS += \
+    strgchar.h
