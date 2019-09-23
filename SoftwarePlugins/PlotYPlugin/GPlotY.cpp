@@ -416,7 +416,7 @@ void GPlotY::Clear()
 	m_TimeAtClear = QDateTime::currentDateTime().toMSecsSinceEpoch()/1000.0;
 
 	//Update the graph: 
-	m_Plot->graph(0)->clearData();
+    m_Plot->graph(0)->data()->clear();
 	UpdateGraphData();//This replots the graph.  
 }
 
@@ -450,7 +450,7 @@ void GPlotY::EventNewValueY(double newValueY)
 		// If the histories are too long, then drop their last entry until OK: 
 		while((m_HistoryY.size() > m_MaxHistory) && (m_HistoryY.size() > 0))
 		{	//Remove old data points from the graph, while deleting last X value from history:
-			m_Plot->graph(0)->removeData(m_HistoryX.takeLast());
+            m_Plot->graph(0)->data()->remove(m_HistoryX.takeLast());
 			//Delete last Y value from the history:
 			m_HistoryY.removeLast();
 			
@@ -476,14 +476,17 @@ void GPlotY::UpdateGraphAll()
     m_Plot->xAxis->grid()->setPen(QPen(QColor(m_XGridColor), 1, Qt::DotLine));//Grid colors
     m_Plot->yAxis->grid()->setPen(QPen(QColor(m_YGridColor), 1, Qt::DotLine));
 
-	if(m_XIsTime)
-	{	// Configure bottom axis to show date and time instead of number:
-		m_Plot->xAxis->setTickLabelType(QCPAxis::ltDateTime);
-		m_Plot->xAxis->setDateTimeFormat(m_XIsTimeFormat.StringValue());// formatting of displayed time values. 
-	}
-	else
-	{	m_Plot->xAxis->setTickLabelType(QCPAxis::ltNumber);
-	}
+    if(m_XIsTime)
+    {	// Configure bottom axis to show date and time instead of number:
+        QSharedPointer<QCPAxisTickerDateTime> dtTicker(new QCPAxisTickerDateTime);
+        dtTicker->setDateTimeFormat(m_XIsTimeFormat.StringValue());
+        m_Plot->xAxis->setTicker(dtTicker);
+    }
+    else
+    {
+        QSharedPointer<QCPAxisTicker> numTicker(new QCPAxisTicker);
+        m_Plot->xAxis->setTicker(numTicker);
+    }
 
 	if(m_AllowMouseRescale)
 	{	// Make axis range moveable by mouse interaction (click and drag):
@@ -491,8 +494,8 @@ void GPlotY::UpdateGraphAll()
         m_Plot->axisRect()->setRangeZoom(Qt::Horizontal | Qt::Vertical);
 	}
 	else
-    {	m_Plot->axisRect()->setRangeDrag(0 | 0);
-        m_Plot->axisRect()->setRangeZoom(0 | 0);
+    {	m_Plot->axisRect()->setRangeDrag(0);
+        m_Plot->axisRect()->setRangeZoom(0);
 	}
 
 	//Things that used to be in UpdateGraphData()

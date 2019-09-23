@@ -8,4 +8,4 @@ HEADERS += \
 SOURCES += \
 	GPlotY.cpp \
 	PlotYPlugin.cpp \
-	../../include/QCustomPlot/qcustomplot.cpp
+#	../../include/QCustomPlot/qcustomplot.cpp

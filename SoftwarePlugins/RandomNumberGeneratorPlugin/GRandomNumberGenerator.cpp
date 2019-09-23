@@ -6,7 +6,7 @@ GRandomNumberGenerator::GRandomNumberGenerator(QObject *parent, QString uniqueId
 	, m_MaxUniformValue("max", this)
 	, m_LastOut("out", this, GParam::ReadOnly)
 	, m_DoGenerate("Generate", this)
-	, m_pTimer(0)
+    , m_pTimer(nullptr)
 {
 	// put initialization code here
 	m_MaxUniformValue = 1.0;

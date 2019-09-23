@@ -21,7 +21,7 @@ DEFINES += Plot1DPlugin_LIB
 include(Plot1DPlugin.pri)
 
 HEADERS += \
-	../../include/QCustomPlot/qcustomplot.h
+        ../../include/QCustomPlot/qcustomplot.h
 
 SOURCES += \
-	../../include/QCustomPlot/qcustomplot.cpp
+        ../../include/QCustomPlot/qcustomplot.cpp

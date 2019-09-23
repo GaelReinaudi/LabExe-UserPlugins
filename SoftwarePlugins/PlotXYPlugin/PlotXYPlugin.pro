@@ -24,4 +24,4 @@ HEADERS += \
 	../../include/QCustomPlot/qcustomplot.h
 
 SOURCES += \
-	../../include/QCustomPlot/qcustomplot.cpp
+        ../../include/QCustomPlot/qcustomplot.cpp
