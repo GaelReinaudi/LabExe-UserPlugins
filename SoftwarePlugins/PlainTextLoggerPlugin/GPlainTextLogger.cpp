@@ -7,22 +7,22 @@
 
 GPlainTextLogger::GPlainTextLogger(QObject *parent, QString uniqueIdentifierName /* = "" */)
 	: GProgDevice(parent, uniqueIdentifierName)
-	, m_FolderPath("Folder", this/*, GParam::ReadOnly*/)
-	, m_FileName("File name", this)
-	, m_ShouldLogOnUpdate("On update?", this)
+    , m_Bucket("Data", this)
+    , m_BucketColNames("Col Names", this)
+    , m_ShouldLogOnUpdate("On update?", this)
 	, m_ShouldLogOnTimer("On timer?", this)
 	, m_SecondTimer("Delay [s]:", this)
-	, m_Bucket("Data", this)
-	, m_BucketColNames("Col Names", this)
+    , m_FolderPath("Folder", this/*, GParam::ReadOnly*/)
+    , m_FileName("File name", this)
+    , m_FirstColName("Col. name:", this)
+    , m_FirstColFormula("Formula (use i,t,tu,tm):", this)
+    , m_FirstColValue("=", this, GParam::ReadOnly)
 	, m_UpdateCount(0)
 	, m_SecUpdate("Elapsed time (s):", this, GParam::ReadOnly)
 	, m_SecMidnight("sec mid", this, GParam::ReadOnly)
 	, m_SecEpoch("sec epoch", this, GParam::ReadOnly)
 	, m_CurrentIndexUpdate("Update #:", this, GParam::ReadOnly)
-	, m_pNotePadProcess(0)
-	, m_FirstColName("Col. name:", this)
-	, m_FirstColFormula("Formula (use i,t,tu,tm):", this)
-	, m_FirstColValue("=", this, GParam::ReadOnly)
+    , m_pNotePadProcess(nullptr)
 {
 	connect(&m_Bucket, SIGNAL(BucketUpdatedValues()), this, SLOT(EventBucketUpdated()));
 	connect(&m_Timer, SIGNAL(timeout()), this, SLOT(EventTimerFired()));
@@ -62,7 +62,7 @@ void GPlainTextLogger::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget )
 void GPlainTextLogger::ChooseFolder(QString folderPath /*= ""*/)
 {
 	if(folderPath.isEmpty()) {
-		QFileDialog* pDialog = new QFileDialog(0, "Select folder", m_FolderPath);
+        QFileDialog* pDialog = new QFileDialog(nullptr, "Select folder", m_FolderPath);
 		pDialog->setFileMode(QFileDialog::Directory);
 		pDialog->setOption(QFileDialog::ShowDirsOnly);
 		pDialog->show();
@@ -245,7 +245,7 @@ void GPlainTextLogger::RenameLogFile( QString newFileName /*= ""*/ )
 	bool ok = true;
 	// if we don't provide a newFileName, a dialog asks for it
 	if(newFileName == "")
-		newFileName = QInputDialog::getText(0, tr("Rename file"), tr("This will overwrite any existing file with the same name:"), QLineEdit::Normal, "new name", &ok);
+        newFileName = QInputDialog::getText(nullptr, tr("Rename file"), tr("This will overwrite any existing file with the same name:"), QLineEdit::Normal, "new name", &ok);
 
 	if(!ok || newFileName.isEmpty() || baseName.isEmpty())
 		return;
@@ -281,7 +281,7 @@ QWidget* GPlainTextLogger::ProvideNewExtraSettingsWidget( QWidget* parentWidget 
 
 void GPlainTextLogger::ShowExtraSettingsWidget()
 {
-	QWidget* pWid = ProvideNewExtraSettingsWidget(0);
+    QWidget* pWid = ProvideNewExtraSettingsWidget(nullptr);
 	// for clean-up
 	pWid->setAttribute(Qt::WA_DeleteOnClose, true);
 	pWid->setWindowFlags(Qt::Popup);

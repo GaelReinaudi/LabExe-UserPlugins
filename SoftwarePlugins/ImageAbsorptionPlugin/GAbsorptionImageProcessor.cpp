@@ -2,9 +2,9 @@
 
 GAbsorptionImageProcessor::GAbsorptionImageProcessor(QObject *parent, QString uniqueIdentifierName /*= ""*/)
 	: GImageProcessor(parent, uniqueIdentifierName)
-	, m_BatchTimeOut_ms(500)
 	, m_CurrentImageType(Suspicious)
-	, m_DisplayRailDown("Disp-min", this)
+    , m_BatchTimeOut_ms(500)
+    , m_DisplayRailDown("Disp-min", this)
 	, m_DisplayRailUp("Disp-max", this)
 {
 	// this is an image provider

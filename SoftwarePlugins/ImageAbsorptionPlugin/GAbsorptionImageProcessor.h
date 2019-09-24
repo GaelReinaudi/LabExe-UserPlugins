@@ -17,7 +17,7 @@ class IMAGEABSORPTIONPLUGIN_EXPORT GAbsorptionImageProcessor : public GImageProc
 	Q_OBJECT
 
 	//! The different type of images that can be considered.
-	typedef enum e_ImageType {Atom, Beam, Back, Calc, Suspicious} ImageType;
+    typedef enum e_ImageType {Atom, Beam, Back, Suspicious} ImageType;
 
 public:
 	GAbsorptionImageProcessor(QObject *parent, QString uniqueIdentifierName = "");
