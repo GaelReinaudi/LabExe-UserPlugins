@@ -5,9 +5,9 @@ GLabNotesLogger::GLabNotesLogger(QObject *parent, QString uniqueIdentifierName /
 	: GProgDevice(parent, uniqueIdentifierName)
 	, m_Destination("Destination", this, GParam::ReadOnly)
 	, m_Path("Path", this, GParam::ReadOnly)
-	, m_ExptParams("Experimental parameters to print", this, GParam::ReadOnly)
 	, m_NewNote("New Note", this)
 	, m_OldNotes("Old Notes", this, GParam::ReadOnly)
+	, m_ExptParams("Experimental parameters to print", this, GParam::ReadOnly)
 	, m_CurrentDirectory("Current Directory", this, GParam::ReadOnly)
 	, m_CurrDirBucket("Current Directory Bucket", this, GParam::ReadOnly)
 {

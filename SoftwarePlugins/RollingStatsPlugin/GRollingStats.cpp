@@ -3,11 +3,11 @@
 //! [Initialize the parameters]
 GRollingStats::GRollingStats(QObject *parent, QString uniqueIdentifierName /* = "" */)
 	: GProgDevice(parent, uniqueIdentifierName)
-	, m_SampleSize("num. samples", this)
 	, m_InputBucket("input", this)
 	, m_Mean("Mean", this, GParam::ReadOnly)
 	, m_StdDev("Std Dev", this, GParam::ReadOnly)
 	, m_NormalStdDev("Std Dev / Mean", this, GParam::ReadOnly)
+	, m_SampleSize("num. samples", this)
 	, m_Reset("Reset", this)
 {
 //! [Initialize the parameters]

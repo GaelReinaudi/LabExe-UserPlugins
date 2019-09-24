@@ -6,8 +6,8 @@ GParamSupplier::GParamSupplier(QObject *parent, QString uniqueIdentifierName /* 
 	, m_InputBucket("input", this)
 	, m_SuppliedBucket("supplied", this)
 	, m_ActiveParamIndex("index", this)
-	, m_DoWrap("wrap", this)
 	, m_AbsoluteSupply("absolute", this)
+	, m_DoWrap("wrap", this)
 	, m_DoBinary("bit-wise selection", this)
 {
 //! [Initialize the parameters]

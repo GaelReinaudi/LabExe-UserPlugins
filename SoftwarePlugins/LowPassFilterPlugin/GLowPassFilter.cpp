@@ -3,9 +3,9 @@
 //! [Initialize the parameters]
 GLowPassFilter::GLowPassFilter(QObject *parent, QString uniqueIdentifierName /* = "" */)
 	: GProgDevice(parent, uniqueIdentifierName)
-	, m_SampleSize("num. samples", this)
 	, m_InputBucket("input", this)
 	, m_Output("out", this, GParam::ReadOnly)
+	, m_SampleSize("num. samples", this)
 	, m_Reset("Reset", this)
 	, m_DoTimeLapse("Do time lapse", this)
 	, m_TimeLapse("Lapse [s]", this)
