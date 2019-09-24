@@ -7,21 +7,21 @@ const QString fitFieldString("fit");
 GImage2DGaussFitter::GImage2DGaussFitter(QObject *parent, QString uniqueIdentifierName /*= ""*/)
 	: GImageProcessor(parent, uniqueIdentifierName)
 	, m_pEllipse(new QGraphicsEllipseItem(0.0, 0.0, 0.0, 0.0, m_pAoiItem))
-	, m_Offset("Offset", this)
+    , m_Variables("variables", this, GParam::ReadOnly)//, &m_Offset, &m_Ampl, &m_X0, &m_Y0, &m_SigmaX, &m_SigmaY)
+    , m_InitialValues("fitted", nullptr, GParam::ReadOnly)//, &m_IniOffset, &m_IniAmpl, &m_IniX0, &m_IniY0, &m_IniSigmaX, &m_IniSigmaY)
+    , m_Offset("Offset", this)
 	, m_Ampl("Ampl", this)
-	, m_SigmaX("sigX", this)
+    , m_X0("X0", this)
+    , m_Y0("Y0", this)
+    , m_SigmaX("sigX", this)
 	, m_SigmaY("sigY", this)
-	, m_X0("X0", this)
-	, m_Y0("Y0", this)
-	, m_IniOffset("iniOffset", this)
+    , m_FitMask(6)
+    , m_IniOffset("iniOffset", this)
 	, m_IniAmpl("iniAmpl", this)
-	, m_IniSigmaX("iniSigX", this)
-	, m_IniSigmaY("iniSigY", this)
 	, m_IniX0("iniX0", this)
 	, m_IniY0("iniY0", this)
-	, m_Variables("variables", this, GParam::ReadOnly)//, &m_Offset, &m_Ampl, &m_X0, &m_Y0, &m_SigmaX, &m_SigmaY)
-	, m_InitialValues("fitted", 0, GParam::ReadOnly)//, &m_IniOffset, &m_IniAmpl, &m_IniX0, &m_IniY0, &m_IniSigmaX, &m_IniSigmaY)
-	, m_FitMask(6)
+    , m_IniSigmaX("iniSigX", this)
+    , m_IniSigmaY("iniSigY", this)
 {
 	m_Variables.RemoveExtraField("trig");
 	m_Variables.AddExtraFieldBool(fitFieldString);
@@ -60,7 +60,7 @@ void GImage2DGaussFitter::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget )
 
 void Gaus2D_func(const real_1d_array &c, const real_1d_array &X, double &func, void *ptr) 
 {
-    Q_UNUSED(ptr);
+    Q_UNUSED(ptr)
     const double & x = X[0];
 	const double & y = X[1];
 	const double & Offset = c[0];
@@ -84,7 +84,7 @@ void Gaus2D_func(const real_1d_array &c, const real_1d_array &X, double &func, v
 void Gaus2D_grad(const real_1d_array &c, const real_1d_array &X, double &func, real_1d_array &grad, void *ptr) 
 {
 	// is this a GImage2DGaussFitter
-	GImage2DGaussFitter* pGaussFitter = (GImage2DGaussFitter*)(ptr);
+    GImage2DGaussFitter* pGaussFitter = static_cast<GImage2DGaussFitter*>(ptr);
 	if(!pGaussFitter)
 		return;
 	const double & x = X[0];
@@ -123,7 +123,7 @@ void Gaus2D_grad(const real_1d_array &c, const real_1d_array &X, double &func, r
 }
 void Gaus2D_hess(const real_1d_array &c, const real_1d_array &X, double &func, real_1d_array &grad, real_2d_array &hess, void *ptr) 
 {
-    Q_UNUSED(ptr);
+    Q_UNUSED(ptr)
 	const double & x = X[0];
 	const double & y = X[1];
 	const double & Offset	= c[0];
@@ -225,10 +225,10 @@ void GImage2DGaussFitter::UpdateGraphicsItem()
 
 void function_to_call_after_each_iteration(const real_1d_array &c, double func, void *ptr) 
 {
-    Q_UNUSED(func);
-    Q_UNUSED(ptr);
+    Q_UNUSED(func)
+    Q_UNUSED(ptr)
     // is this a GImage2DGaussFitter
-	GImage2DGaussFitter* pGaussFitter = (GImage2DGaussFitter*)(ptr);
+    GImage2DGaussFitter* pGaussFitter = static_cast<GImage2DGaussFitter*>(ptr);
 	if(!pGaussFitter)
 		return;
 	if(pGaussFitter->m_FitMask[0])

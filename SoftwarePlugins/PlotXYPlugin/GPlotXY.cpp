@@ -5,20 +5,20 @@ GPlotXY::GPlotXY(QObject *parent, QString uniqueIdentifierName /* = "" */)
 	: GProgDevice(parent, uniqueIdentifierName)
 	, m_InputBucketY("Y-axis input", this)
 	, m_InputBucketX("X-axis input", this)
-	, m_ExternalNBucket("External N bucket", this)
-	, m_UpdateOnY("Update on Y", this)
+    , m_OutputBucket("Output bucket", this)
+    , m_OutputY("Y-axis output", this, GParam::ReadOnly)
+    , m_OutputX("X-axis output", this, GParam::ReadOnly)
+    , m_OutputNumUpdates("NumUpdates output", this, GParam::ReadOnly)
+    , m_UpdateOnY("Update on Y", this)
 	, m_UpdateOnX("Update on X", this)
-	, m_DisableX("Disable X", this)
-	, m_OutputBucket("Output bucket", this)
-	, m_OutputY("Y-axis output", this, GParam::ReadOnly)
-	, m_OutputX("X-axis output", this, GParam::ReadOnly)
-	, m_OutputNumUpdates("NumUpdates output", this, GParam::ReadOnly)
+    , m_DisableX("Disable X", this)
 	, m_MaxHistory("MaxHistory", this)
 	, m_Title("Title", this)
 	, m_LabelX("LabelX", this)
 	, m_LabelY("LabelY", this)
 	, m_XIsTime("XIsTime", this)
-	, m_AllowMouseRescale("AllowMouseRescale", this)
+    , m_XWhichTime("XWhichTime", this)
+    , m_AllowMouseRescale("AllowMouseRescale", this)
 	, m_XAutoscale("XAutoscale", this)
 	, m_YAutoscale("YAutoscale", this)
 	, m_YIncludeZero("YIncludeZero", this)
@@ -33,16 +33,16 @@ GPlotXY::GPlotXY(QObject *parent, QString uniqueIdentifierName /* = "" */)
 	, m_YColor("YColor", this)
 	, m_XGridColor("XGridColor", this)
 	, m_YGridColor("YGridColor", this)
-	, m_XGridOn("XGridOn", this)
+    , m_NoLine("No Line", this)
+    , m_XGridOn("XGridOn", this)
 	, m_YGridOn("YGridOn", this)
-	, m_NoLine("No Line", this)
-	, m_DotSize("Dot Size", this)
-	, m_XIsTimeFormat("XIsTimeFormat", this)
-	, m_XWhichTime("XWhichTime", this)
+    , m_XIsTimeFormat("XIsTimeFormat", this)
 	, m_FilterY("Filter Y", this)
 	, m_FilterYN("Filter Y N", this)
 	, m_ExportDelay("Export Delay", this)
 	, m_ExternalN("External N", this)
+    , m_ExternalNBucket("External N bucket", this)
+    , m_DotSize("Dot Size", this)
 {
 //! [Initialize the parameters]
 /*
@@ -583,8 +583,8 @@ void GPlotXY::UpdateGraphAll()
         m_Plot->axisRect()->setRangeZoom(Qt::Horizontal | Qt::Vertical);
 	}
 	else
-    {	m_Plot->axisRect()->setRangeDrag(0);
-        m_Plot->axisRect()->setRangeZoom(0);
+    {	m_Plot->axisRect()->setRangeDrag(nullptr);
+        m_Plot->axisRect()->setRangeZoom(nullptr);
 	}
 
 	//Things that used to be in UpdateGraphData()
@@ -823,7 +823,7 @@ void GPlotXY::setXGridColor()
 void GPlotXY::Export()
 {	//Push saved values in history to export GParamBucket values.
 	//Ordering: starts with oldest, ends with newest values. 
-	ulong msDelay = m_ExportDelay.IntValue();
+    auto msDelay = static_cast<ulong>(m_ExportDelay.IntValue());
 	for (int i=m_HistoryX.size()-1; i>=0 ; i--)
 	{	m_OutputX.SetParamValue(m_HistoryX.at(i));
 		m_OutputY.SetParamValue(m_HistoryY.at(i));

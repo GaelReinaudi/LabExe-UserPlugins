@@ -1,10 +1,11 @@
 /*************************************************************************
+ALGLIB 3.15.0 (source code generated 2019-02-20)
 Copyright (c) Sergey Bochkanov (ALGLIB project).
 
 >>> SOURCE LICENSE >>>
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation (www.fsf.org); either version 2 of the
+the Free Software Foundation (www.fsf.org); either version 2 of the 
 License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
@@ -20,6 +21,7 @@ http://www.fsf.org/licensing/licenses
 #define _integration_pkg_h
 #include "ap.h"
 #include "alglibinternal.h"
+#include "alglibmisc.h"
 #include "linalg.h"
 #include "specialfunctions.h"
 
@@ -30,6 +32,11 @@ http://www.fsf.org/licensing/licenses
 /////////////////////////////////////////////////////////////////////////
 namespace alglib_impl
 {
+#if defined(AE_COMPILE_GQ) || !defined(AE_PARTIAL_BUILD)
+#endif
+#if defined(AE_COMPILE_GKQ) || !defined(AE_PARTIAL_BUILD)
+#endif
+#if defined(AE_COMPILE_AUTOGK) || !defined(AE_PARTIAL_BUILD)
 typedef struct
 {
     ae_int_t terminationtype;
@@ -79,6 +86,7 @@ typedef struct
     ae_int_t nfev;
     ae_int_t nintervals;
 } autogkstate;
+#endif
 
 }
 
@@ -90,6 +98,15 @@ typedef struct
 namespace alglib
 {
 
+#if defined(AE_COMPILE_GQ) || !defined(AE_PARTIAL_BUILD)
+
+#endif
+
+#if defined(AE_COMPILE_GKQ) || !defined(AE_PARTIAL_BUILD)
+
+#endif
+
+#if defined(AE_COMPILE_AUTOGK) || !defined(AE_PARTIAL_BUILD)
 /*************************************************************************
 Integration report:
 * TerminationType = completetion code:
@@ -162,139 +179,9 @@ public:
     double &f;
 
 };
+#endif
 
-/*************************************************************************
-Integration of a smooth function F(x) on a finite interval [a,b].
-
-Fast-convergent algorithm based on a Gauss-Kronrod formula is used. Result
-is calculated with accuracy close to the machine precision.
-
-Algorithm works well only with smooth integrands.  It  may  be  used  with
-continuous non-smooth integrands, but with  less  performance.
-
-It should never be used with integrands which have integrable singularities
-at lower or upper limits - algorithm may crash. Use AutoGKSingular in such
-cases.
-
-INPUT PARAMETERS:
-    A, B    -   interval boundaries (A<B, A=B or A>B)
-
-OUTPUT PARAMETERS
-    State   -   structure which stores algorithm state
-
-SEE ALSO
-    AutoGKSmoothW, AutoGKSingular, AutoGKResults.
-
-
-  -- ALGLIB --
-     Copyright 06.05.2009 by Bochkanov Sergey
-*************************************************************************/
-void autogksmooth(const double a, const double b, autogkstate &state);
-
-
-/*************************************************************************
-Integration of a smooth function F(x) on a finite interval [a,b].
-
-This subroutine is same as AutoGKSmooth(), but it guarantees that interval
-[a,b] is partitioned into subintervals which have width at most XWidth.
-
-Subroutine  can  be  used  when  integrating nearly-constant function with
-narrow "bumps" (about XWidth wide). If "bumps" are too narrow, AutoGKSmooth
-subroutine can overlook them.
-
-INPUT PARAMETERS:
-    A, B    -   interval boundaries (A<B, A=B or A>B)
-
-OUTPUT PARAMETERS
-    State   -   structure which stores algorithm state
-
-SEE ALSO
-    AutoGKSmooth, AutoGKSingular, AutoGKResults.
-
-
-  -- ALGLIB --
-     Copyright 06.05.2009 by Bochkanov Sergey
-*************************************************************************/
-void autogksmoothw(const double a, const double b, const double xwidth, autogkstate &state);
-
-
-/*************************************************************************
-Integration on a finite interval [A,B].
-Integrand have integrable singularities at A/B.
-
-F(X) must diverge as "(x-A)^alpha" at A, as "(B-x)^beta" at B,  with known
-alpha/beta (alpha>-1, beta>-1).  If alpha/beta  are  not known,  estimates
-from below can be used (but these estimates should be greater than -1 too).
-
-One  of  alpha/beta variables (or even both alpha/beta) may be equal to 0,
-which means than function F(x) is non-singular at A/B. Anyway (singular at
-bounds or not), function F(x) is supposed to be continuous on (A,B).
-
-Fast-convergent algorithm based on a Gauss-Kronrod formula is used. Result
-is calculated with accuracy close to the machine precision.
-
-INPUT PARAMETERS:
-    A, B    -   interval boundaries (A<B, A=B or A>B)
-    Alpha   -   power-law coefficient of the F(x) at A,
-                Alpha>-1
-    Beta    -   power-law coefficient of the F(x) at B,
-                Beta>-1
-
-OUTPUT PARAMETERS
-    State   -   structure which stores algorithm state
-
-SEE ALSO
-    AutoGKSmooth, AutoGKSmoothW, AutoGKResults.
-
-
-  -- ALGLIB --
-     Copyright 06.05.2009 by Bochkanov Sergey
-*************************************************************************/
-void autogksingular(const double a, const double b, const double alpha, const double beta, autogkstate &state);
-
-
-/*************************************************************************
-This function provides reverse communication interface
-Reverse communication interface is not documented or recommended to use.
-See below for functions which provide better documented API
-*************************************************************************/
-bool autogkiteration(const autogkstate &state);
-
-
-/*************************************************************************
-This function is used to launcn iterations of the 1-dimensional integrator
-
-It accepts following parameters:
-    func    -   callback which calculates f(x) for given x
-    ptr     -   optional pointer which is passed to func; can be NULL
-
-
-  -- ALGLIB --
-     Copyright 07.05.2009 by Bochkanov Sergey
-
-*************************************************************************/
-void autogkintegrate(autogkstate &state,
-    void (*func)(double x, double xminusa, double bminusx, double &y, void *ptr),
-    void *ptr = NULL);
-
-
-/*************************************************************************
-Adaptive integration results
-
-Called after AutoGKIteration returned False.
-
-Input parameters:
-    State   -   algorithm state (used by AutoGKIteration).
-
-Output parameters:
-    V       -   integral(f(x)dx,a,b)
-    Rep     -   optimization report (see AutoGKReport description)
-
-  -- ALGLIB --
-     Copyright 14.11.2007 by Bochkanov Sergey
-*************************************************************************/
-void autogkresults(const autogkstate &state, double &v, autogkreport &rep);
-
+#if defined(AE_COMPILE_GQ) || !defined(AE_PARTIAL_BUILD)
 /*************************************************************************
 Computation of nodes and weights for a Gauss quadrature formula
 
@@ -311,12 +198,12 @@ and zeroth moment Mu0
 Mu0 = integral(W(x)dx,a,b)
 
 INPUT PARAMETERS:
-    Alpha   –   array[0..N-1], alpha coefficients
-    Beta    –   array[0..N-1], beta coefficients
+    Alpha   -   array[0..N-1], alpha coefficients
+    Beta    -   array[0..N-1], beta coefficients
                 Zero-indexed element is not used and may be arbitrary.
                 Beta[I]>0.
-    Mu0     –   zeroth moment of the weight function.
-    N       –   number of nodes of the quadrature formula, N>=1
+    Mu0     -   zeroth moment of the weight function.
+    N       -   number of nodes of the quadrature formula, N>=1
 
 OUTPUT PARAMETERS:
     Info    -   error code:
@@ -331,7 +218,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 2005-2009 by Bochkanov Sergey
 *************************************************************************/
-void gqgeneraterec(const real_1d_array &alpha, const real_1d_array &beta, const double mu0, const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &w);
+void gqgeneraterec(const real_1d_array &alpha, const real_1d_array &beta, const double mu0, const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &w, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -350,14 +237,14 @@ and zeroth moment Mu0
 Mu0 = integral(W(x)dx,a,b)
 
 INPUT PARAMETERS:
-    Alpha   –   array[0..N-2], alpha coefficients
-    Beta    –   array[0..N-2], beta coefficients.
+    Alpha   -   array[0..N-2], alpha coefficients
+    Beta    -   array[0..N-2], beta coefficients.
                 Zero-indexed element is not used, may be arbitrary.
                 Beta[I]>0
-    Mu0     –   zeroth moment of the weighting function.
-    A       –   left boundary of the integration interval.
-    B       –   right boundary of the integration interval.
-    N       –   number of nodes of the quadrature formula, N>=3
+    Mu0     -   zeroth moment of the weighting function.
+    A       -   left boundary of the integration interval.
+    B       -   right boundary of the integration interval.
+    N       -   number of nodes of the quadrature formula, N>=3
                 (including the left and right boundary nodes).
 
 OUTPUT PARAMETERS:
@@ -373,7 +260,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 2005-2009 by Bochkanov Sergey
 *************************************************************************/
-void gqgenerategausslobattorec(const real_1d_array &alpha, const real_1d_array &beta, const double mu0, const double a, const double b, const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &w);
+void gqgenerategausslobattorec(const real_1d_array &alpha, const real_1d_array &beta, const double mu0, const double a, const double b, const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &w, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -392,13 +279,13 @@ and zeroth moment Mu0
 Mu0 = integral(W(x)dx,a,b)
 
 INPUT PARAMETERS:
-    Alpha   –   array[0..N-2], alpha coefficients.
-    Beta    –   array[0..N-1], beta coefficients
+    Alpha   -   array[0..N-2], alpha coefficients.
+    Beta    -   array[0..N-1], beta coefficients
                 Zero-indexed element is not used.
                 Beta[I]>0
-    Mu0     –   zeroth moment of the weighting function.
-    A       –   left boundary of the integration interval.
-    N       –   number of nodes of the quadrature formula, N>=2
+    Mu0     -   zeroth moment of the weighting function.
+    A       -   left boundary of the integration interval.
+    N       -   number of nodes of the quadrature formula, N>=2
                 (including the left boundary node).
 
 OUTPUT PARAMETERS:
@@ -415,7 +302,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 2005-2009 by Bochkanov Sergey
 *************************************************************************/
-void gqgenerategaussradaurec(const real_1d_array &alpha, const real_1d_array &beta, const double mu0, const double a, const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &w);
+void gqgenerategaussradaurec(const real_1d_array &alpha, const real_1d_array &beta, const double mu0, const double a, const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &w, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -442,7 +329,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 12.05.2009 by Bochkanov Sergey
 *************************************************************************/
-void gqgenerategausslegendre(const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &w);
+void gqgenerategausslegendre(const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &w, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -472,7 +359,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 12.05.2009 by Bochkanov Sergey
 *************************************************************************/
-void gqgenerategaussjacobi(const ae_int_t n, const double alpha, const double beta, ae_int_t &info, real_1d_array &x, real_1d_array &w);
+void gqgenerategaussjacobi(const ae_int_t n, const double alpha, const double beta, ae_int_t &info, real_1d_array &x, real_1d_array &w, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -501,7 +388,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 12.05.2009 by Bochkanov Sergey
 *************************************************************************/
-void gqgenerategausslaguerre(const ae_int_t n, const double alpha, ae_int_t &info, real_1d_array &x, real_1d_array &w);
+void gqgenerategausslaguerre(const ae_int_t n, const double alpha, ae_int_t &info, real_1d_array &x, real_1d_array &w, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -527,8 +414,10 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 12.05.2009 by Bochkanov Sergey
 *************************************************************************/
-void gqgenerategausshermite(const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &w);
+void gqgenerategausshermite(const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &w, const xparams _xparams = alglib::xdefault);
+#endif
 
+#if defined(AE_COMPILE_GKQ) || !defined(AE_PARTIAL_BUILD)
 /*************************************************************************
 Computation of nodes and weights of a Gauss-Kronrod quadrature formula
 
@@ -546,12 +435,12 @@ and zero moment Mu0
 
 
 INPUT PARAMETERS:
-    Alpha       –   alpha coefficients, array[0..floor(3*K/2)].
-    Beta        –   beta coefficients,  array[0..ceil(3*K/2)].
+    Alpha       -   alpha coefficients, array[0..floor(3*K/2)].
+    Beta        -   beta coefficients,  array[0..ceil(3*K/2)].
                     Beta[0] is not used and may be arbitrary.
                     Beta[I]>0.
-    Mu0         –   zeroth moment of the weight function.
-    N           –   number of nodes of the Gauss-Kronrod quadrature formula,
+    Mu0         -   zeroth moment of the weight function.
+    N           -   number of nodes of the Gauss-Kronrod quadrature formula,
                     N >= 3,
                     N =  2*K+1.
 
@@ -575,7 +464,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 08.05.2009 by Bochkanov Sergey
 *************************************************************************/
-void gkqgeneraterec(const real_1d_array &alpha, const real_1d_array &beta, const double mu0, const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &wkronrod, real_1d_array &wgauss);
+void gkqgeneraterec(const real_1d_array &alpha, const real_1d_array &beta, const double mu0, const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &wkronrod, real_1d_array &wgauss, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -607,7 +496,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 12.05.2009 by Bochkanov Sergey
 *************************************************************************/
-void gkqgenerategausslegendre(const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &wkronrod, real_1d_array &wgauss);
+void gkqgenerategausslegendre(const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &wkronrod, real_1d_array &wgauss, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -646,7 +535,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 12.05.2009 by Bochkanov Sergey
 *************************************************************************/
-void gkqgenerategaussjacobi(const ae_int_t n, const double alpha, const double beta, ae_int_t &info, real_1d_array &x, real_1d_array &wkronrod, real_1d_array &wgauss);
+void gkqgenerategaussjacobi(const ae_int_t n, const double alpha, const double beta, ae_int_t &info, real_1d_array &x, real_1d_array &wkronrod, real_1d_array &wgauss, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -675,7 +564,7 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 12.05.2009 by Bochkanov Sergey
 *************************************************************************/
-void gkqlegendrecalc(const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &wkronrod, real_1d_array &wgauss);
+void gkqlegendrecalc(const ae_int_t n, ae_int_t &info, real_1d_array &x, real_1d_array &wkronrod, real_1d_array &wgauss, const xparams _xparams = alglib::xdefault);
 
 
 /*************************************************************************
@@ -700,7 +589,142 @@ OUTPUT PARAMETERS:
   -- ALGLIB --
      Copyright 12.05.2009 by Bochkanov Sergey
 *************************************************************************/
-void gkqlegendretbl(const ae_int_t n, real_1d_array &x, real_1d_array &wkronrod, real_1d_array &wgauss, double &eps);
+void gkqlegendretbl(const ae_int_t n, real_1d_array &x, real_1d_array &wkronrod, real_1d_array &wgauss, double &eps, const xparams _xparams = alglib::xdefault);
+#endif
+
+#if defined(AE_COMPILE_AUTOGK) || !defined(AE_PARTIAL_BUILD)
+/*************************************************************************
+Integration of a smooth function F(x) on a finite interval [a,b].
+
+Fast-convergent algorithm based on a Gauss-Kronrod formula is used. Result
+is calculated with accuracy close to the machine precision.
+
+Algorithm works well only with smooth integrands.  It  may  be  used  with
+continuous non-smooth integrands, but with  less  performance.
+
+It should never be used with integrands which have integrable singularities
+at lower or upper limits - algorithm may crash. Use AutoGKSingular in such
+cases.
+
+INPUT PARAMETERS:
+    A, B    -   interval boundaries (A<B, A=B or A>B)
+
+OUTPUT PARAMETERS
+    State   -   structure which stores algorithm state
+
+SEE ALSO
+    AutoGKSmoothW, AutoGKSingular, AutoGKResults.
+
+
+  -- ALGLIB --
+     Copyright 06.05.2009 by Bochkanov Sergey
+*************************************************************************/
+void autogksmooth(const double a, const double b, autogkstate &state, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+Integration of a smooth function F(x) on a finite interval [a,b].
+
+This subroutine is same as AutoGKSmooth(), but it guarantees that interval
+[a,b] is partitioned into subintervals which have width at most XWidth.
+
+Subroutine  can  be  used  when  integrating nearly-constant function with
+narrow "bumps" (about XWidth wide). If "bumps" are too narrow, AutoGKSmooth
+subroutine can overlook them.
+
+INPUT PARAMETERS:
+    A, B    -   interval boundaries (A<B, A=B or A>B)
+
+OUTPUT PARAMETERS
+    State   -   structure which stores algorithm state
+
+SEE ALSO
+    AutoGKSmooth, AutoGKSingular, AutoGKResults.
+
+
+  -- ALGLIB --
+     Copyright 06.05.2009 by Bochkanov Sergey
+*************************************************************************/
+void autogksmoothw(const double a, const double b, const double xwidth, autogkstate &state, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+Integration on a finite interval [A,B].
+Integrand have integrable singularities at A/B.
+
+F(X) must diverge as "(x-A)^alpha" at A, as "(B-x)^beta" at B,  with known
+alpha/beta (alpha>-1, beta>-1).  If alpha/beta  are  not known,  estimates
+from below can be used (but these estimates should be greater than -1 too).
+
+One  of  alpha/beta variables (or even both alpha/beta) may be equal to 0,
+which means than function F(x) is non-singular at A/B. Anyway (singular at
+bounds or not), function F(x) is supposed to be continuous on (A,B).
+
+Fast-convergent algorithm based on a Gauss-Kronrod formula is used. Result
+is calculated with accuracy close to the machine precision.
+
+INPUT PARAMETERS:
+    A, B    -   interval boundaries (A<B, A=B or A>B)
+    Alpha   -   power-law coefficient of the F(x) at A,
+                Alpha>-1
+    Beta    -   power-law coefficient of the F(x) at B,
+                Beta>-1
+
+OUTPUT PARAMETERS
+    State   -   structure which stores algorithm state
+
+SEE ALSO
+    AutoGKSmooth, AutoGKSmoothW, AutoGKResults.
+
+
+  -- ALGLIB --
+     Copyright 06.05.2009 by Bochkanov Sergey
+*************************************************************************/
+void autogksingular(const double a, const double b, const double alpha, const double beta, autogkstate &state, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This function provides reverse communication interface
+Reverse communication interface is not documented or recommended to use.
+See below for functions which provide better documented API
+*************************************************************************/
+bool autogkiteration(const autogkstate &state, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+This function is used to launcn iterations of the 1-dimensional integrator
+
+It accepts following parameters:
+    func    -   callback which calculates f(x) for given x
+    ptr     -   optional pointer which is passed to func; can be NULL
+
+
+  -- ALGLIB --
+     Copyright 07.05.2009 by Bochkanov Sergey
+
+*************************************************************************/
+void autogkintegrate(autogkstate &state,
+    void (*func)(double x, double xminusa, double bminusx, double &y, void *ptr),
+    void *ptr = NULL, const xparams _xparams = alglib::xdefault);
+
+
+/*************************************************************************
+Adaptive integration results
+
+Called after AutoGKIteration returned False.
+
+Input parameters:
+    State   -   algorithm state (used by AutoGKIteration).
+
+Output parameters:
+    V       -   integral(f(x)dx,a,b)
+    Rep     -   optimization report (see AutoGKReport description)
+
+  -- ALGLIB --
+     Copyright 14.11.2007 by Bochkanov Sergey
+*************************************************************************/
+void autogkresults(const autogkstate &state, double &v, autogkreport &rep, const xparams _xparams = alglib::xdefault);
+#endif
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -710,35 +734,7 @@ void gkqlegendretbl(const ae_int_t n, real_1d_array &x, real_1d_array &wkronrod,
 /////////////////////////////////////////////////////////////////////////
 namespace alglib_impl
 {
-void autogksmooth(double a,
-     double b,
-     autogkstate* state,
-     ae_state *_state);
-void autogksmoothw(double a,
-     double b,
-     double xwidth,
-     autogkstate* state,
-     ae_state *_state);
-void autogksingular(double a,
-     double b,
-     double alpha,
-     double beta,
-     autogkstate* state,
-     ae_state *_state);
-ae_bool autogkiteration(autogkstate* state, ae_state *_state);
-void autogkresults(autogkstate* state,
-     double* v,
-     autogkreport* rep,
-     ae_state *_state);
-ae_bool _autogkreport_init(autogkreport* p, ae_state *_state, ae_bool make_automatic);
-ae_bool _autogkreport_init_copy(autogkreport* dst, autogkreport* src, ae_state *_state, ae_bool make_automatic);
-void _autogkreport_clear(autogkreport* p);
-ae_bool _autogkinternalstate_init(autogkinternalstate* p, ae_state *_state, ae_bool make_automatic);
-ae_bool _autogkinternalstate_init_copy(autogkinternalstate* dst, autogkinternalstate* src, ae_state *_state, ae_bool make_automatic);
-void _autogkinternalstate_clear(autogkinternalstate* p);
-ae_bool _autogkstate_init(autogkstate* p, ae_state *_state, ae_bool make_automatic);
-ae_bool _autogkstate_init_copy(autogkstate* dst, autogkstate* src, ae_state *_state, ae_bool make_automatic);
-void _autogkstate_clear(autogkstate* p);
+#if defined(AE_COMPILE_GQ) || !defined(AE_PARTIAL_BUILD)
 void gqgeneraterec(/* Real    */ ae_vector* alpha,
      /* Real    */ ae_vector* beta,
      double mu0,
@@ -789,6 +785,8 @@ void gqgenerategausshermite(ae_int_t n,
      /* Real    */ ae_vector* x,
      /* Real    */ ae_vector* w,
      ae_state *_state);
+#endif
+#if defined(AE_COMPILE_GKQ) || !defined(AE_PARTIAL_BUILD)
 void gkqgeneraterec(/* Real    */ ae_vector* alpha,
      /* Real    */ ae_vector* beta,
      double mu0,
@@ -824,6 +822,41 @@ void gkqlegendretbl(ae_int_t n,
      /* Real    */ ae_vector* wgauss,
      double* eps,
      ae_state *_state);
+#endif
+#if defined(AE_COMPILE_AUTOGK) || !defined(AE_PARTIAL_BUILD)
+void autogksmooth(double a,
+     double b,
+     autogkstate* state,
+     ae_state *_state);
+void autogksmoothw(double a,
+     double b,
+     double xwidth,
+     autogkstate* state,
+     ae_state *_state);
+void autogksingular(double a,
+     double b,
+     double alpha,
+     double beta,
+     autogkstate* state,
+     ae_state *_state);
+ae_bool autogkiteration(autogkstate* state, ae_state *_state);
+void autogkresults(autogkstate* state,
+     double* v,
+     autogkreport* rep,
+     ae_state *_state);
+void _autogkreport_init(void* _p, ae_state *_state, ae_bool make_automatic);
+void _autogkreport_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _autogkreport_clear(void* _p);
+void _autogkreport_destroy(void* _p);
+void _autogkinternalstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
+void _autogkinternalstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _autogkinternalstate_clear(void* _p);
+void _autogkinternalstate_destroy(void* _p);
+void _autogkstate_init(void* _p, ae_state *_state, ae_bool make_automatic);
+void _autogkstate_init_copy(void* _dst, void* _src, ae_state *_state, ae_bool make_automatic);
+void _autogkstate_clear(void* _p);
+void _autogkstate_destroy(void* _p);
+#endif
 
 }
 #endif
