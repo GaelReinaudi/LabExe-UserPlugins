@@ -1,6 +1,6 @@
 #include "GExpressionDisplay.h"
 
-GExpressionDisplay::GExpressionDisplay( QObject* parent /*=NULL*/ )
+GExpressionDisplay::GExpressionDisplay( QObject* parent /*=nullptr*/ )
 	: GWebDisplay(parent)
 {
 }

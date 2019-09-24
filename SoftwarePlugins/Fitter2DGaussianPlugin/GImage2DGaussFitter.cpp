@@ -327,7 +327,7 @@ void Fit( GImageDouble imageIn, GImage2DGaussFitter* ptr )
 	c[4] = ptr->m_FitMask[4] ? ptr->m_IniSigmaX	: ptr->m_SigmaX;
 	c[5] = ptr->m_FitMask[5] ? ptr->m_IniSigmaY	: ptr->m_SigmaY;
 
-	double epsf = 0.0001;
+//	double epsf = 0.0001;
 	double epsx = 0.0001;
 	ae_int_t maxits = 100;
 	ae_int_t info;
@@ -343,28 +343,28 @@ void Fit( GImageDouble imageIn, GImage2DGaussFitter* ptr )
 	{
 	case 1:
 		lsfitcreatewf(x, y, w, c, Npix, 2, 6, diffstep, state);
-		lsfitsetcond(state, epsf, epsx, maxits);
+        lsfitsetcond(state, epsx, maxits);
 		lsfitsetxrep(state, true);
 		lsfitfit(state, Gaus2D_func, function_to_call_after_each_iteration, ptr);
 		lsfitresults(state, info, c, rep);
 		break;
 	case 2:
 		lsfitcreatewfg(x, y, w, c, Npix, 2, 6, false, state);
-		lsfitsetcond(state, epsf, epsx, maxits);
+        lsfitsetcond(state, epsx, maxits);
 		lsfitsetxrep(state, true);
 		lsfitfit(state, Gaus2D_func, Gaus2D_grad, function_to_call_after_each_iteration, ptr);
 		lsfitresults(state, info, c, rep);
 		break;
 	case 3:
 		lsfitcreatewfg(x, y, w, c, Npix, 2, 6, true, state);
-		lsfitsetcond(state, epsf, epsx, maxits);
+        lsfitsetcond(state, epsx, maxits);
 		lsfitsetxrep(state, true);
 		lsfitfit(state, Gaus2D_func, Gaus2D_grad, function_to_call_after_each_iteration, ptr);
 		lsfitresults(state, info, c, rep);
 		break;
 	case 4:
 		lsfitcreatewfgh(x, y, w, c, Npix, 2, 6, state);
-		lsfitsetcond(state, epsf, epsx, maxits);
+        lsfitsetcond(state, epsx, maxits);
 		lsfitsetxrep(state, true);
 		lsfitfit(state, Gaus2D_func, Gaus2D_grad, Gaus2D_hess, function_to_call_after_each_iteration, ptr);
 		lsfitresults(state, info, c, rep);

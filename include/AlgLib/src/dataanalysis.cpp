@@ -458,12 +458,12 @@ _modelerrors_owner::_modelerrors_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_modelerrors_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -472,7 +472,7 @@ _modelerrors_owner::_modelerrors_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::modelerrors*)alglib_impl::ae_malloc(sizeof(alglib_impl::modelerrors), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::modelerrors));
     alglib_impl::_modelerrors_init(p_struct, &_state, ae_false);
@@ -487,12 +487,12 @@ _modelerrors_owner::_modelerrors_owner(const _modelerrors_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_modelerrors_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -501,8 +501,8 @@ _modelerrors_owner::_modelerrors_owner(const _modelerrors_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: modelerrors copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: modelerrors copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::modelerrors*)alglib_impl::ae_malloc(sizeof(alglib_impl::modelerrors), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::modelerrors));
     alglib_impl::_modelerrors_init_copy(p_struct, const_cast<alglib_impl::modelerrors*>(rhs.p_struct), &_state, ae_false);
@@ -527,8 +527,8 @@ _modelerrors_owner& _modelerrors_owner::operator=(const _modelerrors_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: modelerrors assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: modelerrors assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: modelerrors assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: modelerrors assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_modelerrors_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::modelerrors));
     alglib_impl::_modelerrors_init_copy(p_struct, const_cast<alglib_impl::modelerrors*>(rhs.p_struct), &_state, ae_false);
@@ -538,7 +538,7 @@ _modelerrors_owner& _modelerrors_owner::operator=(const _modelerrors_owner &rhs)
 
 _modelerrors_owner::~_modelerrors_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_modelerrors_destroy(p_struct);
         ae_free(p_struct);
@@ -586,12 +586,12 @@ _multilayerperceptron_owner::_multilayerperceptron_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_multilayerperceptron_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -600,7 +600,7 @@ _multilayerperceptron_owner::_multilayerperceptron_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::multilayerperceptron*)alglib_impl::ae_malloc(sizeof(alglib_impl::multilayerperceptron), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::multilayerperceptron));
     alglib_impl::_multilayerperceptron_init(p_struct, &_state, ae_false);
@@ -615,12 +615,12 @@ _multilayerperceptron_owner::_multilayerperceptron_owner(const _multilayerpercep
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_multilayerperceptron_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -629,8 +629,8 @@ _multilayerperceptron_owner::_multilayerperceptron_owner(const _multilayerpercep
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: multilayerperceptron copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: multilayerperceptron copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::multilayerperceptron*)alglib_impl::ae_malloc(sizeof(alglib_impl::multilayerperceptron), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::multilayerperceptron));
     alglib_impl::_multilayerperceptron_init_copy(p_struct, const_cast<alglib_impl::multilayerperceptron*>(rhs.p_struct), &_state, ae_false);
@@ -655,8 +655,8 @@ _multilayerperceptron_owner& _multilayerperceptron_owner::operator=(const _multi
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: multilayerperceptron assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: multilayerperceptron assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: multilayerperceptron assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: multilayerperceptron assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_multilayerperceptron_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::multilayerperceptron));
     alglib_impl::_multilayerperceptron_init_copy(p_struct, const_cast<alglib_impl::multilayerperceptron*>(rhs.p_struct), &_state, ae_false);
@@ -666,7 +666,7 @@ _multilayerperceptron_owner& _multilayerperceptron_owner::operator=(const _multi
 
 _multilayerperceptron_owner::~_multilayerperceptron_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_multilayerperceptron_destroy(p_struct);
         ae_free(p_struct);
@@ -3832,12 +3832,12 @@ _ssamodel_owner::_ssamodel_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_ssamodel_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -3846,7 +3846,7 @@ _ssamodel_owner::_ssamodel_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::ssamodel*)alglib_impl::ae_malloc(sizeof(alglib_impl::ssamodel), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::ssamodel));
     alglib_impl::_ssamodel_init(p_struct, &_state, ae_false);
@@ -3861,12 +3861,12 @@ _ssamodel_owner::_ssamodel_owner(const _ssamodel_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_ssamodel_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -3875,8 +3875,8 @@ _ssamodel_owner::_ssamodel_owner(const _ssamodel_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: ssamodel copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: ssamodel copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::ssamodel*)alglib_impl::ae_malloc(sizeof(alglib_impl::ssamodel), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::ssamodel));
     alglib_impl::_ssamodel_init_copy(p_struct, const_cast<alglib_impl::ssamodel*>(rhs.p_struct), &_state, ae_false);
@@ -3901,8 +3901,8 @@ _ssamodel_owner& _ssamodel_owner::operator=(const _ssamodel_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: ssamodel assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: ssamodel assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: ssamodel assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: ssamodel assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_ssamodel_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::ssamodel));
     alglib_impl::_ssamodel_init_copy(p_struct, const_cast<alglib_impl::ssamodel*>(rhs.p_struct), &_state, ae_false);
@@ -3912,7 +3912,7 @@ _ssamodel_owner& _ssamodel_owner::operator=(const _ssamodel_owner &rhs)
 
 _ssamodel_owner::~_ssamodel_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_ssamodel_destroy(p_struct);
         ae_free(p_struct);
@@ -5948,12 +5948,12 @@ _linearmodel_owner::_linearmodel_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_linearmodel_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -5962,7 +5962,7 @@ _linearmodel_owner::_linearmodel_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::linearmodel*)alglib_impl::ae_malloc(sizeof(alglib_impl::linearmodel), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::linearmodel));
     alglib_impl::_linearmodel_init(p_struct, &_state, ae_false);
@@ -5977,12 +5977,12 @@ _linearmodel_owner::_linearmodel_owner(const _linearmodel_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_linearmodel_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -5991,8 +5991,8 @@ _linearmodel_owner::_linearmodel_owner(const _linearmodel_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: linearmodel copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: linearmodel copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::linearmodel*)alglib_impl::ae_malloc(sizeof(alglib_impl::linearmodel), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::linearmodel));
     alglib_impl::_linearmodel_init_copy(p_struct, const_cast<alglib_impl::linearmodel*>(rhs.p_struct), &_state, ae_false);
@@ -6017,8 +6017,8 @@ _linearmodel_owner& _linearmodel_owner::operator=(const _linearmodel_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: linearmodel assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: linearmodel assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: linearmodel assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: linearmodel assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_linearmodel_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::linearmodel));
     alglib_impl::_linearmodel_init_copy(p_struct, const_cast<alglib_impl::linearmodel*>(rhs.p_struct), &_state, ae_false);
@@ -6028,7 +6028,7 @@ _linearmodel_owner& _linearmodel_owner::operator=(const _linearmodel_owner &rhs)
 
 _linearmodel_owner::~_linearmodel_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_linearmodel_destroy(p_struct);
         ae_free(p_struct);
@@ -6090,12 +6090,12 @@ _lrreport_owner::_lrreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_lrreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -6104,7 +6104,7 @@ _lrreport_owner::_lrreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::lrreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::lrreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::lrreport));
     alglib_impl::_lrreport_init(p_struct, &_state, ae_false);
@@ -6119,12 +6119,12 @@ _lrreport_owner::_lrreport_owner(const _lrreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_lrreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -6133,8 +6133,8 @@ _lrreport_owner::_lrreport_owner(const _lrreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: lrreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: lrreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::lrreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::lrreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::lrreport));
     alglib_impl::_lrreport_init_copy(p_struct, const_cast<alglib_impl::lrreport*>(rhs.p_struct), &_state, ae_false);
@@ -6159,8 +6159,8 @@ _lrreport_owner& _lrreport_owner::operator=(const _lrreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: lrreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: lrreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: lrreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: lrreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_lrreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::lrreport));
     alglib_impl::_lrreport_init_copy(p_struct, const_cast<alglib_impl::lrreport*>(rhs.p_struct), &_state, ae_false);
@@ -6170,7 +6170,7 @@ _lrreport_owner& _lrreport_owner::operator=(const _lrreport_owner &rhs)
 
 _lrreport_owner::~_lrreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_lrreport_destroy(p_struct);
         ae_free(p_struct);
@@ -6952,12 +6952,12 @@ _logitmodel_owner::_logitmodel_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_logitmodel_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -6966,7 +6966,7 @@ _logitmodel_owner::_logitmodel_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::logitmodel*)alglib_impl::ae_malloc(sizeof(alglib_impl::logitmodel), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::logitmodel));
     alglib_impl::_logitmodel_init(p_struct, &_state, ae_false);
@@ -6981,12 +6981,12 @@ _logitmodel_owner::_logitmodel_owner(const _logitmodel_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_logitmodel_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -6995,8 +6995,8 @@ _logitmodel_owner::_logitmodel_owner(const _logitmodel_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: logitmodel copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: logitmodel copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::logitmodel*)alglib_impl::ae_malloc(sizeof(alglib_impl::logitmodel), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::logitmodel));
     alglib_impl::_logitmodel_init_copy(p_struct, const_cast<alglib_impl::logitmodel*>(rhs.p_struct), &_state, ae_false);
@@ -7021,8 +7021,8 @@ _logitmodel_owner& _logitmodel_owner::operator=(const _logitmodel_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: logitmodel assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: logitmodel assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: logitmodel assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: logitmodel assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_logitmodel_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::logitmodel));
     alglib_impl::_logitmodel_init_copy(p_struct, const_cast<alglib_impl::logitmodel*>(rhs.p_struct), &_state, ae_false);
@@ -7032,7 +7032,7 @@ _logitmodel_owner& _logitmodel_owner::operator=(const _logitmodel_owner &rhs)
 
 _logitmodel_owner::~_logitmodel_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_logitmodel_destroy(p_struct);
         ae_free(p_struct);
@@ -7082,12 +7082,12 @@ _mnlreport_owner::_mnlreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mnlreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -7096,7 +7096,7 @@ _mnlreport_owner::_mnlreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::mnlreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::mnlreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mnlreport));
     alglib_impl::_mnlreport_init(p_struct, &_state, ae_false);
@@ -7111,12 +7111,12 @@ _mnlreport_owner::_mnlreport_owner(const _mnlreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mnlreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -7125,8 +7125,8 @@ _mnlreport_owner::_mnlreport_owner(const _mnlreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mnlreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mnlreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::mnlreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::mnlreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mnlreport));
     alglib_impl::_mnlreport_init_copy(p_struct, const_cast<alglib_impl::mnlreport*>(rhs.p_struct), &_state, ae_false);
@@ -7151,8 +7151,8 @@ _mnlreport_owner& _mnlreport_owner::operator=(const _mnlreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: mnlreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mnlreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: mnlreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mnlreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_mnlreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::mnlreport));
     alglib_impl::_mnlreport_init_copy(p_struct, const_cast<alglib_impl::mnlreport*>(rhs.p_struct), &_state, ae_false);
@@ -7162,7 +7162,7 @@ _mnlreport_owner& _mnlreport_owner::operator=(const _mnlreport_owner &rhs)
 
 _mnlreport_owner::~_mnlreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_mnlreport_destroy(p_struct);
         ae_free(p_struct);
@@ -7624,12 +7624,12 @@ _mcpdstate_owner::_mcpdstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mcpdstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -7638,7 +7638,7 @@ _mcpdstate_owner::_mcpdstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::mcpdstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::mcpdstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mcpdstate));
     alglib_impl::_mcpdstate_init(p_struct, &_state, ae_false);
@@ -7653,12 +7653,12 @@ _mcpdstate_owner::_mcpdstate_owner(const _mcpdstate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mcpdstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -7667,8 +7667,8 @@ _mcpdstate_owner::_mcpdstate_owner(const _mcpdstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mcpdstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mcpdstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::mcpdstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::mcpdstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mcpdstate));
     alglib_impl::_mcpdstate_init_copy(p_struct, const_cast<alglib_impl::mcpdstate*>(rhs.p_struct), &_state, ae_false);
@@ -7693,8 +7693,8 @@ _mcpdstate_owner& _mcpdstate_owner::operator=(const _mcpdstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: mcpdstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mcpdstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: mcpdstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mcpdstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_mcpdstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::mcpdstate));
     alglib_impl::_mcpdstate_init_copy(p_struct, const_cast<alglib_impl::mcpdstate*>(rhs.p_struct), &_state, ae_false);
@@ -7704,7 +7704,7 @@ _mcpdstate_owner& _mcpdstate_owner::operator=(const _mcpdstate_owner &rhs)
 
 _mcpdstate_owner::~_mcpdstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_mcpdstate_destroy(p_struct);
         ae_free(p_struct);
@@ -7764,12 +7764,12 @@ _mcpdreport_owner::_mcpdreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mcpdreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -7778,7 +7778,7 @@ _mcpdreport_owner::_mcpdreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::mcpdreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::mcpdreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mcpdreport));
     alglib_impl::_mcpdreport_init(p_struct, &_state, ae_false);
@@ -7793,12 +7793,12 @@ _mcpdreport_owner::_mcpdreport_owner(const _mcpdreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mcpdreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -7807,8 +7807,8 @@ _mcpdreport_owner::_mcpdreport_owner(const _mcpdreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mcpdreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mcpdreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::mcpdreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::mcpdreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mcpdreport));
     alglib_impl::_mcpdreport_init_copy(p_struct, const_cast<alglib_impl::mcpdreport*>(rhs.p_struct), &_state, ae_false);
@@ -7833,8 +7833,8 @@ _mcpdreport_owner& _mcpdreport_owner::operator=(const _mcpdreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: mcpdreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mcpdreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: mcpdreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mcpdreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_mcpdreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::mcpdreport));
     alglib_impl::_mcpdreport_init_copy(p_struct, const_cast<alglib_impl::mcpdreport*>(rhs.p_struct), &_state, ae_false);
@@ -7844,7 +7844,7 @@ _mcpdreport_owner& _mcpdreport_owner::operator=(const _mcpdreport_owner &rhs)
 
 _mcpdreport_owner::~_mcpdreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_mcpdreport_destroy(p_struct);
         ae_free(p_struct);
@@ -8916,12 +8916,12 @@ _mlpensemble_owner::_mlpensemble_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mlpensemble_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -8930,7 +8930,7 @@ _mlpensemble_owner::_mlpensemble_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::mlpensemble*)alglib_impl::ae_malloc(sizeof(alglib_impl::mlpensemble), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mlpensemble));
     alglib_impl::_mlpensemble_init(p_struct, &_state, ae_false);
@@ -8945,12 +8945,12 @@ _mlpensemble_owner::_mlpensemble_owner(const _mlpensemble_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mlpensemble_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -8959,8 +8959,8 @@ _mlpensemble_owner::_mlpensemble_owner(const _mlpensemble_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mlpensemble copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mlpensemble copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::mlpensemble*)alglib_impl::ae_malloc(sizeof(alglib_impl::mlpensemble), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mlpensemble));
     alglib_impl::_mlpensemble_init_copy(p_struct, const_cast<alglib_impl::mlpensemble*>(rhs.p_struct), &_state, ae_false);
@@ -8985,8 +8985,8 @@ _mlpensemble_owner& _mlpensemble_owner::operator=(const _mlpensemble_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: mlpensemble assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mlpensemble assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: mlpensemble assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mlpensemble assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_mlpensemble_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::mlpensemble));
     alglib_impl::_mlpensemble_init_copy(p_struct, const_cast<alglib_impl::mlpensemble*>(rhs.p_struct), &_state, ae_false);
@@ -8996,7 +8996,7 @@ _mlpensemble_owner& _mlpensemble_owner::operator=(const _mlpensemble_owner &rhs)
 
 _mlpensemble_owner::~_mlpensemble_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_mlpensemble_destroy(p_struct);
         ae_free(p_struct);
@@ -9914,12 +9914,12 @@ _mlpreport_owner::_mlpreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mlpreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -9928,7 +9928,7 @@ _mlpreport_owner::_mlpreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::mlpreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::mlpreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mlpreport));
     alglib_impl::_mlpreport_init(p_struct, &_state, ae_false);
@@ -9943,12 +9943,12 @@ _mlpreport_owner::_mlpreport_owner(const _mlpreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mlpreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -9957,8 +9957,8 @@ _mlpreport_owner::_mlpreport_owner(const _mlpreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mlpreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mlpreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::mlpreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::mlpreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mlpreport));
     alglib_impl::_mlpreport_init_copy(p_struct, const_cast<alglib_impl::mlpreport*>(rhs.p_struct), &_state, ae_false);
@@ -9983,8 +9983,8 @@ _mlpreport_owner& _mlpreport_owner::operator=(const _mlpreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: mlpreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mlpreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: mlpreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mlpreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_mlpreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::mlpreport));
     alglib_impl::_mlpreport_init_copy(p_struct, const_cast<alglib_impl::mlpreport*>(rhs.p_struct), &_state, ae_false);
@@ -9994,7 +9994,7 @@ _mlpreport_owner& _mlpreport_owner::operator=(const _mlpreport_owner &rhs)
 
 _mlpreport_owner::~_mlpreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_mlpreport_destroy(p_struct);
         ae_free(p_struct);
@@ -10042,12 +10042,12 @@ _mlpcvreport_owner::_mlpcvreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mlpcvreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -10056,7 +10056,7 @@ _mlpcvreport_owner::_mlpcvreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::mlpcvreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::mlpcvreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mlpcvreport));
     alglib_impl::_mlpcvreport_init(p_struct, &_state, ae_false);
@@ -10071,12 +10071,12 @@ _mlpcvreport_owner::_mlpcvreport_owner(const _mlpcvreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mlpcvreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -10085,8 +10085,8 @@ _mlpcvreport_owner::_mlpcvreport_owner(const _mlpcvreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mlpcvreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mlpcvreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::mlpcvreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::mlpcvreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mlpcvreport));
     alglib_impl::_mlpcvreport_init_copy(p_struct, const_cast<alglib_impl::mlpcvreport*>(rhs.p_struct), &_state, ae_false);
@@ -10111,8 +10111,8 @@ _mlpcvreport_owner& _mlpcvreport_owner::operator=(const _mlpcvreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: mlpcvreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mlpcvreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: mlpcvreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mlpcvreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_mlpcvreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::mlpcvreport));
     alglib_impl::_mlpcvreport_init_copy(p_struct, const_cast<alglib_impl::mlpcvreport*>(rhs.p_struct), &_state, ae_false);
@@ -10122,7 +10122,7 @@ _mlpcvreport_owner& _mlpcvreport_owner::operator=(const _mlpcvreport_owner &rhs)
 
 _mlpcvreport_owner::~_mlpcvreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_mlpcvreport_destroy(p_struct);
         ae_free(p_struct);
@@ -10173,12 +10173,12 @@ _mlptrainer_owner::_mlptrainer_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mlptrainer_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -10187,7 +10187,7 @@ _mlptrainer_owner::_mlptrainer_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::mlptrainer*)alglib_impl::ae_malloc(sizeof(alglib_impl::mlptrainer), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mlptrainer));
     alglib_impl::_mlptrainer_init(p_struct, &_state, ae_false);
@@ -10202,12 +10202,12 @@ _mlptrainer_owner::_mlptrainer_owner(const _mlptrainer_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mlptrainer_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -10216,8 +10216,8 @@ _mlptrainer_owner::_mlptrainer_owner(const _mlptrainer_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mlptrainer copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mlptrainer copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::mlptrainer*)alglib_impl::ae_malloc(sizeof(alglib_impl::mlptrainer), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mlptrainer));
     alglib_impl::_mlptrainer_init_copy(p_struct, const_cast<alglib_impl::mlptrainer*>(rhs.p_struct), &_state, ae_false);
@@ -10242,8 +10242,8 @@ _mlptrainer_owner& _mlptrainer_owner::operator=(const _mlptrainer_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: mlptrainer assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mlptrainer assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: mlptrainer assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mlptrainer assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_mlptrainer_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::mlptrainer));
     alglib_impl::_mlptrainer_init_copy(p_struct, const_cast<alglib_impl::mlptrainer*>(rhs.p_struct), &_state, ae_false);
@@ -10253,7 +10253,7 @@ _mlptrainer_owner& _mlptrainer_owner::operator=(const _mlptrainer_owner &rhs)
 
 _mlptrainer_owner::~_mlptrainer_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_mlptrainer_destroy(p_struct);
         ae_free(p_struct);
@@ -11430,12 +11430,12 @@ _clusterizerstate_owner::_clusterizerstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_clusterizerstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -11444,7 +11444,7 @@ _clusterizerstate_owner::_clusterizerstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::clusterizerstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::clusterizerstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::clusterizerstate));
     alglib_impl::_clusterizerstate_init(p_struct, &_state, ae_false);
@@ -11459,12 +11459,12 @@ _clusterizerstate_owner::_clusterizerstate_owner(const _clusterizerstate_owner &
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_clusterizerstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -11473,8 +11473,8 @@ _clusterizerstate_owner::_clusterizerstate_owner(const _clusterizerstate_owner &
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: clusterizerstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: clusterizerstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::clusterizerstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::clusterizerstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::clusterizerstate));
     alglib_impl::_clusterizerstate_init_copy(p_struct, const_cast<alglib_impl::clusterizerstate*>(rhs.p_struct), &_state, ae_false);
@@ -11499,8 +11499,8 @@ _clusterizerstate_owner& _clusterizerstate_owner::operator=(const _clusterizerst
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: clusterizerstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: clusterizerstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: clusterizerstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: clusterizerstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_clusterizerstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::clusterizerstate));
     alglib_impl::_clusterizerstate_init_copy(p_struct, const_cast<alglib_impl::clusterizerstate*>(rhs.p_struct), &_state, ae_false);
@@ -11510,7 +11510,7 @@ _clusterizerstate_owner& _clusterizerstate_owner::operator=(const _clusterizerst
 
 _clusterizerstate_owner::~_clusterizerstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_clusterizerstate_destroy(p_struct);
         ae_free(p_struct);
@@ -11657,12 +11657,12 @@ _ahcreport_owner::_ahcreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_ahcreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -11671,7 +11671,7 @@ _ahcreport_owner::_ahcreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::ahcreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::ahcreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::ahcreport));
     alglib_impl::_ahcreport_init(p_struct, &_state, ae_false);
@@ -11686,12 +11686,12 @@ _ahcreport_owner::_ahcreport_owner(const _ahcreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_ahcreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -11700,8 +11700,8 @@ _ahcreport_owner::_ahcreport_owner(const _ahcreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: ahcreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: ahcreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::ahcreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::ahcreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::ahcreport));
     alglib_impl::_ahcreport_init_copy(p_struct, const_cast<alglib_impl::ahcreport*>(rhs.p_struct), &_state, ae_false);
@@ -11726,8 +11726,8 @@ _ahcreport_owner& _ahcreport_owner::operator=(const _ahcreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: ahcreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: ahcreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: ahcreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: ahcreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_ahcreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::ahcreport));
     alglib_impl::_ahcreport_init_copy(p_struct, const_cast<alglib_impl::ahcreport*>(rhs.p_struct), &_state, ae_false);
@@ -11737,7 +11737,7 @@ _ahcreport_owner& _ahcreport_owner::operator=(const _ahcreport_owner &rhs)
 
 _ahcreport_owner::~_ahcreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_ahcreport_destroy(p_struct);
         ae_free(p_struct);
@@ -11818,12 +11818,12 @@ _kmeansreport_owner::_kmeansreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_kmeansreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -11832,7 +11832,7 @@ _kmeansreport_owner::_kmeansreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::kmeansreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::kmeansreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::kmeansreport));
     alglib_impl::_kmeansreport_init(p_struct, &_state, ae_false);
@@ -11847,12 +11847,12 @@ _kmeansreport_owner::_kmeansreport_owner(const _kmeansreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_kmeansreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -11861,8 +11861,8 @@ _kmeansreport_owner::_kmeansreport_owner(const _kmeansreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: kmeansreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: kmeansreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::kmeansreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::kmeansreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::kmeansreport));
     alglib_impl::_kmeansreport_init_copy(p_struct, const_cast<alglib_impl::kmeansreport*>(rhs.p_struct), &_state, ae_false);
@@ -11887,8 +11887,8 @@ _kmeansreport_owner& _kmeansreport_owner::operator=(const _kmeansreport_owner &r
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: kmeansreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: kmeansreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: kmeansreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: kmeansreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_kmeansreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::kmeansreport));
     alglib_impl::_kmeansreport_init_copy(p_struct, const_cast<alglib_impl::kmeansreport*>(rhs.p_struct), &_state, ae_false);
@@ -11898,7 +11898,7 @@ _kmeansreport_owner& _kmeansreport_owner::operator=(const _kmeansreport_owner &r
 
 _kmeansreport_owner::~_kmeansreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_kmeansreport_destroy(p_struct);
         ae_free(p_struct);
@@ -12827,12 +12827,12 @@ _decisionforestbuilder_owner::_decisionforestbuilder_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_decisionforestbuilder_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -12841,7 +12841,7 @@ _decisionforestbuilder_owner::_decisionforestbuilder_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::decisionforestbuilder*)alglib_impl::ae_malloc(sizeof(alglib_impl::decisionforestbuilder), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::decisionforestbuilder));
     alglib_impl::_decisionforestbuilder_init(p_struct, &_state, ae_false);
@@ -12856,12 +12856,12 @@ _decisionforestbuilder_owner::_decisionforestbuilder_owner(const _decisionforest
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_decisionforestbuilder_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -12870,8 +12870,8 @@ _decisionforestbuilder_owner::_decisionforestbuilder_owner(const _decisionforest
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: decisionforestbuilder copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: decisionforestbuilder copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::decisionforestbuilder*)alglib_impl::ae_malloc(sizeof(alglib_impl::decisionforestbuilder), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::decisionforestbuilder));
     alglib_impl::_decisionforestbuilder_init_copy(p_struct, const_cast<alglib_impl::decisionforestbuilder*>(rhs.p_struct), &_state, ae_false);
@@ -12896,8 +12896,8 @@ _decisionforestbuilder_owner& _decisionforestbuilder_owner::operator=(const _dec
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: decisionforestbuilder assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: decisionforestbuilder assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: decisionforestbuilder assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: decisionforestbuilder assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_decisionforestbuilder_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::decisionforestbuilder));
     alglib_impl::_decisionforestbuilder_init_copy(p_struct, const_cast<alglib_impl::decisionforestbuilder*>(rhs.p_struct), &_state, ae_false);
@@ -12907,7 +12907,7 @@ _decisionforestbuilder_owner& _decisionforestbuilder_owner::operator=(const _dec
 
 _decisionforestbuilder_owner::~_decisionforestbuilder_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_decisionforestbuilder_destroy(p_struct);
         ae_free(p_struct);
@@ -12959,12 +12959,12 @@ _decisionforestbuffer_owner::_decisionforestbuffer_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_decisionforestbuffer_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -12973,7 +12973,7 @@ _decisionforestbuffer_owner::_decisionforestbuffer_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::decisionforestbuffer*)alglib_impl::ae_malloc(sizeof(alglib_impl::decisionforestbuffer), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::decisionforestbuffer));
     alglib_impl::_decisionforestbuffer_init(p_struct, &_state, ae_false);
@@ -12988,12 +12988,12 @@ _decisionforestbuffer_owner::_decisionforestbuffer_owner(const _decisionforestbu
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_decisionforestbuffer_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -13002,8 +13002,8 @@ _decisionforestbuffer_owner::_decisionforestbuffer_owner(const _decisionforestbu
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: decisionforestbuffer copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: decisionforestbuffer copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::decisionforestbuffer*)alglib_impl::ae_malloc(sizeof(alglib_impl::decisionforestbuffer), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::decisionforestbuffer));
     alglib_impl::_decisionforestbuffer_init_copy(p_struct, const_cast<alglib_impl::decisionforestbuffer*>(rhs.p_struct), &_state, ae_false);
@@ -13028,8 +13028,8 @@ _decisionforestbuffer_owner& _decisionforestbuffer_owner::operator=(const _decis
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: decisionforestbuffer assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: decisionforestbuffer assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: decisionforestbuffer assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: decisionforestbuffer assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_decisionforestbuffer_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::decisionforestbuffer));
     alglib_impl::_decisionforestbuffer_init_copy(p_struct, const_cast<alglib_impl::decisionforestbuffer*>(rhs.p_struct), &_state, ae_false);
@@ -13039,7 +13039,7 @@ _decisionforestbuffer_owner& _decisionforestbuffer_owner::operator=(const _decis
 
 _decisionforestbuffer_owner::~_decisionforestbuffer_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_decisionforestbuffer_destroy(p_struct);
         ae_free(p_struct);
@@ -13087,12 +13087,12 @@ _decisionforest_owner::_decisionforest_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_decisionforest_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -13101,7 +13101,7 @@ _decisionforest_owner::_decisionforest_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::decisionforest*)alglib_impl::ae_malloc(sizeof(alglib_impl::decisionforest), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::decisionforest));
     alglib_impl::_decisionforest_init(p_struct, &_state, ae_false);
@@ -13116,12 +13116,12 @@ _decisionforest_owner::_decisionforest_owner(const _decisionforest_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_decisionforest_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -13130,8 +13130,8 @@ _decisionforest_owner::_decisionforest_owner(const _decisionforest_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: decisionforest copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: decisionforest copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::decisionforest*)alglib_impl::ae_malloc(sizeof(alglib_impl::decisionforest), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::decisionforest));
     alglib_impl::_decisionforest_init_copy(p_struct, const_cast<alglib_impl::decisionforest*>(rhs.p_struct), &_state, ae_false);
@@ -13156,8 +13156,8 @@ _decisionforest_owner& _decisionforest_owner::operator=(const _decisionforest_ow
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: decisionforest assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: decisionforest assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: decisionforest assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: decisionforest assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_decisionforest_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::decisionforest));
     alglib_impl::_decisionforest_init_copy(p_struct, const_cast<alglib_impl::decisionforest*>(rhs.p_struct), &_state, ae_false);
@@ -13167,7 +13167,7 @@ _decisionforest_owner& _decisionforest_owner::operator=(const _decisionforest_ow
 
 _decisionforest_owner::~_decisionforest_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_decisionforest_destroy(p_struct);
         ae_free(p_struct);
@@ -13230,12 +13230,12 @@ _dfreport_owner::_dfreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_dfreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -13244,7 +13244,7 @@ _dfreport_owner::_dfreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::dfreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::dfreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::dfreport));
     alglib_impl::_dfreport_init(p_struct, &_state, ae_false);
@@ -13259,12 +13259,12 @@ _dfreport_owner::_dfreport_owner(const _dfreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_dfreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -13273,8 +13273,8 @@ _dfreport_owner::_dfreport_owner(const _dfreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: dfreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: dfreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::dfreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::dfreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::dfreport));
     alglib_impl::_dfreport_init_copy(p_struct, const_cast<alglib_impl::dfreport*>(rhs.p_struct), &_state, ae_false);
@@ -13299,8 +13299,8 @@ _dfreport_owner& _dfreport_owner::operator=(const _dfreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: dfreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: dfreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: dfreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: dfreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_dfreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::dfreport));
     alglib_impl::_dfreport_init_copy(p_struct, const_cast<alglib_impl::dfreport*>(rhs.p_struct), &_state, ae_false);
@@ -13310,7 +13310,7 @@ _dfreport_owner& _dfreport_owner::operator=(const _dfreport_owner &rhs)
 
 _dfreport_owner::~_dfreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_dfreport_destroy(p_struct);
         ae_free(p_struct);
@@ -14555,12 +14555,12 @@ _knnbuffer_owner::_knnbuffer_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_knnbuffer_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -14569,7 +14569,7 @@ _knnbuffer_owner::_knnbuffer_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::knnbuffer*)alglib_impl::ae_malloc(sizeof(alglib_impl::knnbuffer), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::knnbuffer));
     alglib_impl::_knnbuffer_init(p_struct, &_state, ae_false);
@@ -14584,12 +14584,12 @@ _knnbuffer_owner::_knnbuffer_owner(const _knnbuffer_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_knnbuffer_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -14598,8 +14598,8 @@ _knnbuffer_owner::_knnbuffer_owner(const _knnbuffer_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: knnbuffer copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: knnbuffer copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::knnbuffer*)alglib_impl::ae_malloc(sizeof(alglib_impl::knnbuffer), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::knnbuffer));
     alglib_impl::_knnbuffer_init_copy(p_struct, const_cast<alglib_impl::knnbuffer*>(rhs.p_struct), &_state, ae_false);
@@ -14624,8 +14624,8 @@ _knnbuffer_owner& _knnbuffer_owner::operator=(const _knnbuffer_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: knnbuffer assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: knnbuffer assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: knnbuffer assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: knnbuffer assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_knnbuffer_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::knnbuffer));
     alglib_impl::_knnbuffer_init_copy(p_struct, const_cast<alglib_impl::knnbuffer*>(rhs.p_struct), &_state, ae_false);
@@ -14635,7 +14635,7 @@ _knnbuffer_owner& _knnbuffer_owner::operator=(const _knnbuffer_owner &rhs)
 
 _knnbuffer_owner::~_knnbuffer_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_knnbuffer_destroy(p_struct);
         ae_free(p_struct);
@@ -14684,12 +14684,12 @@ _knnbuilder_owner::_knnbuilder_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_knnbuilder_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -14698,7 +14698,7 @@ _knnbuilder_owner::_knnbuilder_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::knnbuilder*)alglib_impl::ae_malloc(sizeof(alglib_impl::knnbuilder), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::knnbuilder));
     alglib_impl::_knnbuilder_init(p_struct, &_state, ae_false);
@@ -14713,12 +14713,12 @@ _knnbuilder_owner::_knnbuilder_owner(const _knnbuilder_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_knnbuilder_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -14727,8 +14727,8 @@ _knnbuilder_owner::_knnbuilder_owner(const _knnbuilder_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: knnbuilder copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: knnbuilder copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::knnbuilder*)alglib_impl::ae_malloc(sizeof(alglib_impl::knnbuilder), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::knnbuilder));
     alglib_impl::_knnbuilder_init_copy(p_struct, const_cast<alglib_impl::knnbuilder*>(rhs.p_struct), &_state, ae_false);
@@ -14753,8 +14753,8 @@ _knnbuilder_owner& _knnbuilder_owner::operator=(const _knnbuilder_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: knnbuilder assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: knnbuilder assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: knnbuilder assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: knnbuilder assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_knnbuilder_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::knnbuilder));
     alglib_impl::_knnbuilder_init_copy(p_struct, const_cast<alglib_impl::knnbuilder*>(rhs.p_struct), &_state, ae_false);
@@ -14764,7 +14764,7 @@ _knnbuilder_owner& _knnbuilder_owner::operator=(const _knnbuilder_owner &rhs)
 
 _knnbuilder_owner::~_knnbuilder_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_knnbuilder_destroy(p_struct);
         ae_free(p_struct);
@@ -14812,12 +14812,12 @@ _knnmodel_owner::_knnmodel_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_knnmodel_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -14826,7 +14826,7 @@ _knnmodel_owner::_knnmodel_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::knnmodel*)alglib_impl::ae_malloc(sizeof(alglib_impl::knnmodel), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::knnmodel));
     alglib_impl::_knnmodel_init(p_struct, &_state, ae_false);
@@ -14841,12 +14841,12 @@ _knnmodel_owner::_knnmodel_owner(const _knnmodel_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_knnmodel_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -14855,8 +14855,8 @@ _knnmodel_owner::_knnmodel_owner(const _knnmodel_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: knnmodel copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: knnmodel copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::knnmodel*)alglib_impl::ae_malloc(sizeof(alglib_impl::knnmodel), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::knnmodel));
     alglib_impl::_knnmodel_init_copy(p_struct, const_cast<alglib_impl::knnmodel*>(rhs.p_struct), &_state, ae_false);
@@ -14881,8 +14881,8 @@ _knnmodel_owner& _knnmodel_owner::operator=(const _knnmodel_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: knnmodel assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: knnmodel assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: knnmodel assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: knnmodel assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_knnmodel_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::knnmodel));
     alglib_impl::_knnmodel_init_copy(p_struct, const_cast<alglib_impl::knnmodel*>(rhs.p_struct), &_state, ae_false);
@@ -14892,7 +14892,7 @@ _knnmodel_owner& _knnmodel_owner::operator=(const _knnmodel_owner &rhs)
 
 _knnmodel_owner::~_knnmodel_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_knnmodel_destroy(p_struct);
         ae_free(p_struct);
@@ -14953,12 +14953,12 @@ _knnreport_owner::_knnreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_knnreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -14967,7 +14967,7 @@ _knnreport_owner::_knnreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::knnreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::knnreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::knnreport));
     alglib_impl::_knnreport_init(p_struct, &_state, ae_false);
@@ -14982,12 +14982,12 @@ _knnreport_owner::_knnreport_owner(const _knnreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_knnreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -14996,8 +14996,8 @@ _knnreport_owner::_knnreport_owner(const _knnreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: knnreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: knnreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::knnreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::knnreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::knnreport));
     alglib_impl::_knnreport_init_copy(p_struct, const_cast<alglib_impl::knnreport*>(rhs.p_struct), &_state, ae_false);
@@ -15022,8 +15022,8 @@ _knnreport_owner& _knnreport_owner::operator=(const _knnreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: knnreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: knnreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: knnreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: knnreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_knnreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::knnreport));
     alglib_impl::_knnreport_init_copy(p_struct, const_cast<alglib_impl::knnreport*>(rhs.p_struct), &_state, ae_false);
@@ -15033,7 +15033,7 @@ _knnreport_owner& _knnreport_owner::operator=(const _knnreport_owner &rhs)
 
 _knnreport_owner::~_knnreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_knnreport_destroy(p_struct);
         ae_free(p_struct);
@@ -23105,7 +23105,7 @@ void mlpgradbatch(multilayerperceptron* network,
     mlpproperties(network, &nin, &nout, &wcount, _state);
     rvectorsetlengthatleast(grad, wcount, _state);
     ae_shared_pool_first_recycled(&network->gradbuf, &_sgrad, _state);
-    while(sgrad!=NULL)
+    while(sgrad!=nullptr)
     {
         sgrad->f = 0.0;
         for(i=0; i<=wcount-1; i++)
@@ -23121,7 +23121,7 @@ void mlpgradbatch(multilayerperceptron* network,
         grad->ptr.p_double[i] = 0.0;
     }
     ae_shared_pool_first_recycled(&network->gradbuf, &_sgrad, _state);
-    while(sgrad!=NULL)
+    while(sgrad!=nullptr)
     {
         *e = *e+sgrad->f;
         for(i=0; i<=wcount-1; i++)
@@ -23202,7 +23202,7 @@ void mlpgradbatchsparse(multilayerperceptron* network,
     mlpproperties(network, &nin, &nout, &wcount, _state);
     rvectorsetlengthatleast(grad, wcount, _state);
     ae_shared_pool_first_recycled(&network->gradbuf, &_sgrad, _state);
-    while(sgrad!=NULL)
+    while(sgrad!=nullptr)
     {
         sgrad->f = 0.0;
         for(i=0; i<=wcount-1; i++)
@@ -23218,7 +23218,7 @@ void mlpgradbatchsparse(multilayerperceptron* network,
         grad->ptr.p_double[i] = 0.0;
     }
     ae_shared_pool_first_recycled(&network->gradbuf, &_sgrad, _state);
-    while(sgrad!=NULL)
+    while(sgrad!=nullptr)
     {
         *e = *e+sgrad->f;
         for(i=0; i<=wcount-1; i++)
@@ -23329,7 +23329,7 @@ void mlpgradbatchsubset(multilayerperceptron* network,
     mlpproperties(network, &nin, &nout, &wcount, _state);
     rvectorsetlengthatleast(grad, wcount, _state);
     ae_shared_pool_first_recycled(&network->gradbuf, &_sgrad, _state);
-    while(sgrad!=NULL)
+    while(sgrad!=nullptr)
     {
         sgrad->f = 0.0;
         for(i=0; i<=wcount-1; i++)
@@ -23345,7 +23345,7 @@ void mlpgradbatchsubset(multilayerperceptron* network,
         grad->ptr.p_double[i] = 0.0;
     }
     ae_shared_pool_first_recycled(&network->gradbuf, &_sgrad, _state);
-    while(sgrad!=NULL)
+    while(sgrad!=nullptr)
     {
         *e = *e+sgrad->f;
         for(i=0; i<=wcount-1; i++)
@@ -23462,7 +23462,7 @@ void mlpgradbatchsparsesubset(multilayerperceptron* network,
     mlpproperties(network, &nin, &nout, &wcount, _state);
     rvectorsetlengthatleast(grad, wcount, _state);
     ae_shared_pool_first_recycled(&network->gradbuf, &_sgrad, _state);
-    while(sgrad!=NULL)
+    while(sgrad!=nullptr)
     {
         sgrad->f = 0.0;
         for(i=0; i<=wcount-1; i++)
@@ -23478,7 +23478,7 @@ void mlpgradbatchsparsesubset(multilayerperceptron* network,
         grad->ptr.p_double[i] = 0.0;
     }
     ae_shared_pool_first_recycled(&network->gradbuf, &_sgrad, _state);
-    while(sgrad!=NULL)
+    while(sgrad!=nullptr)
     {
         *e = *e+sgrad->f;
         for(i=0; i<=wcount-1; i++)
@@ -37700,7 +37700,7 @@ void mlpkfoldcv(mlptrainer* s,
      * Calculate value for NGrad
      */
     ae_shared_pool_first_recycled(&pooldatacv, &_sdatacv, _state);
-    while(sdatacv!=NULL)
+    while(sdatacv!=nullptr)
     {
         rep->ngrad = rep->ngrad+sdatacv->ngrad;
         ae_shared_pool_next_recycled(&pooldatacv, &_sdatacv, _state);
@@ -39357,7 +39357,7 @@ static void mlptrain_mlptrainnetworkx(mlptrainer* s,
          */
         bestrmserror = ae_maxrealnumber;
         ae_shared_pool_first_recycled(sessions, &_psession, _state);
-        while(psession!=NULL)
+        while(psession!=nullptr)
         {
             if( ae_fp_less(psession->bestrmserror,bestrmserror) )
             {
@@ -40459,7 +40459,7 @@ static void mlptrain_initmlptrnsessions(multilayerperceptron* networktrained,
          * Clear sessions stored in the pool.
          */
         ae_shared_pool_first_recycled(sessions, &_p, _state);
-        while(p!=NULL)
+        while(p!=nullptr)
         {
             ae_assert(mlpsamearchitecture(&p->network, networktrained, _state), "InitMLPTrnSessions: internal consistency error", _state);
             p->bestrmserror = ae_maxrealnumber;
@@ -46865,7 +46865,7 @@ static void dforest_mergetrees(decisionforestbuilder* s,
     df->bufsize = 0;
     df->ntrees = 0;
     ae_shared_pool_first_recycled(&s->treepool, &_tree, _state);
-    while(tree!=NULL)
+    while(tree!=nullptr)
     {
         df->bufsize = df->bufsize+ae_round(tree->treebuf.ptr.p_double[0], _state);
         df->ntrees = df->ntrees+1;
@@ -46874,7 +46874,7 @@ static void dforest_mergetrees(decisionforestbuilder* s,
     ae_vector_set_length(&df->trees, df->bufsize, _state);
     ae_shared_pool_first_recycled(&s->treepool, &_tree, _state);
     offs = 0;
-    while(tree!=NULL)
+    while(tree!=nullptr)
     {
         cursize = ae_round(tree->treebuf.ptr.p_double[0], _state);
         for(i=0; i<=cursize-1; i++)
@@ -46954,7 +46954,7 @@ static void dforest_processvotingresults(decisionforestbuilder* s,
      * Merge voting arrays
      */
     ae_shared_pool_first_recycled(&s->votepool, &_vote, _state);
-    while(vote!=NULL)
+    while(vote!=nullptr)
     {
         for(i=0; i<=npoints*nclasses-1; i++)
         {

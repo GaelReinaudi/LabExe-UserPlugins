@@ -11,7 +11,7 @@ class GNumericalExpressionSettingsWidget : public QWidget
 	Q_OBJECT
 
 public:
-	GNumericalExpressionSettingsWidget(GNumericalExpression* numericalExpression, QObject* parent = NULL);
+	GNumericalExpressionSettingsWidget(GNumericalExpression* numericalExpression, QObject* parent = nullptr);
 	~GNumericalExpressionSettingsWidget();
 
 private slots:

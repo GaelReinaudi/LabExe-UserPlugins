@@ -56,12 +56,12 @@ _odesolverstate_owner::_odesolverstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_odesolverstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -70,7 +70,7 @@ _odesolverstate_owner::_odesolverstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::odesolverstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::odesolverstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::odesolverstate));
     alglib_impl::_odesolverstate_init(p_struct, &_state, ae_false);
@@ -85,12 +85,12 @@ _odesolverstate_owner::_odesolverstate_owner(const _odesolverstate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_odesolverstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -99,8 +99,8 @@ _odesolverstate_owner::_odesolverstate_owner(const _odesolverstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: odesolverstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: odesolverstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::odesolverstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::odesolverstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::odesolverstate));
     alglib_impl::_odesolverstate_init_copy(p_struct, const_cast<alglib_impl::odesolverstate*>(rhs.p_struct), &_state, ae_false);
@@ -125,8 +125,8 @@ _odesolverstate_owner& _odesolverstate_owner::operator=(const _odesolverstate_ow
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: odesolverstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: odesolverstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: odesolverstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: odesolverstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_odesolverstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::odesolverstate));
     alglib_impl::_odesolverstate_init_copy(p_struct, const_cast<alglib_impl::odesolverstate*>(rhs.p_struct), &_state, ae_false);
@@ -136,7 +136,7 @@ _odesolverstate_owner& _odesolverstate_owner::operator=(const _odesolverstate_ow
 
 _odesolverstate_owner::~_odesolverstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_odesolverstate_destroy(p_struct);
         ae_free(p_struct);
@@ -184,12 +184,12 @@ _odesolverreport_owner::_odesolverreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_odesolverreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -198,7 +198,7 @@ _odesolverreport_owner::_odesolverreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::odesolverreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::odesolverreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::odesolverreport));
     alglib_impl::_odesolverreport_init(p_struct, &_state, ae_false);
@@ -213,12 +213,12 @@ _odesolverreport_owner::_odesolverreport_owner(const _odesolverreport_owner &rhs
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_odesolverreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -227,8 +227,8 @@ _odesolverreport_owner::_odesolverreport_owner(const _odesolverreport_owner &rhs
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: odesolverreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: odesolverreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::odesolverreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::odesolverreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::odesolverreport));
     alglib_impl::_odesolverreport_init_copy(p_struct, const_cast<alglib_impl::odesolverreport*>(rhs.p_struct), &_state, ae_false);
@@ -253,8 +253,8 @@ _odesolverreport_owner& _odesolverreport_owner::operator=(const _odesolverreport
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: odesolverreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: odesolverreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: odesolverreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: odesolverreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_odesolverreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::odesolverreport));
     alglib_impl::_odesolverreport_init_copy(p_struct, const_cast<alglib_impl::odesolverreport*>(rhs.p_struct), &_state, ae_false);
@@ -264,7 +264,7 @@ _odesolverreport_owner& _odesolverreport_owner::operator=(const _odesolverreport
 
 _odesolverreport_owner::~_odesolverreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_odesolverreport_destroy(p_struct);
         ae_free(p_struct);
@@ -485,7 +485,7 @@ void odesolversolve(odesolverstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(diff!=NULL, "ALGLIB: error in 'odesolversolve()' (diff is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(diff!=nullptr, "ALGLIB: error in 'odesolversolve()' (diff is nullptr)", &_alglib_env_state);
     while( alglib_impl::odesolveriteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN

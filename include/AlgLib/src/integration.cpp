@@ -713,12 +713,12 @@ _autogkreport_owner::_autogkreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_autogkreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -727,7 +727,7 @@ _autogkreport_owner::_autogkreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::autogkreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::autogkreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::autogkreport));
     alglib_impl::_autogkreport_init(p_struct, &_state, ae_false);
@@ -742,12 +742,12 @@ _autogkreport_owner::_autogkreport_owner(const _autogkreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_autogkreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -756,8 +756,8 @@ _autogkreport_owner::_autogkreport_owner(const _autogkreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: autogkreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: autogkreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::autogkreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::autogkreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::autogkreport));
     alglib_impl::_autogkreport_init_copy(p_struct, const_cast<alglib_impl::autogkreport*>(rhs.p_struct), &_state, ae_false);
@@ -782,8 +782,8 @@ _autogkreport_owner& _autogkreport_owner::operator=(const _autogkreport_owner &r
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: autogkreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: autogkreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: autogkreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: autogkreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_autogkreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::autogkreport));
     alglib_impl::_autogkreport_init_copy(p_struct, const_cast<alglib_impl::autogkreport*>(rhs.p_struct), &_state, ae_false);
@@ -793,7 +793,7 @@ _autogkreport_owner& _autogkreport_owner::operator=(const _autogkreport_owner &r
 
 _autogkreport_owner::~_autogkreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_autogkreport_destroy(p_struct);
         ae_free(p_struct);
@@ -847,12 +847,12 @@ _autogkstate_owner::_autogkstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_autogkstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -861,7 +861,7 @@ _autogkstate_owner::_autogkstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::autogkstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::autogkstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::autogkstate));
     alglib_impl::_autogkstate_init(p_struct, &_state, ae_false);
@@ -876,12 +876,12 @@ _autogkstate_owner::_autogkstate_owner(const _autogkstate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_autogkstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -890,8 +890,8 @@ _autogkstate_owner::_autogkstate_owner(const _autogkstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: autogkstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: autogkstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::autogkstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::autogkstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::autogkstate));
     alglib_impl::_autogkstate_init_copy(p_struct, const_cast<alglib_impl::autogkstate*>(rhs.p_struct), &_state, ae_false);
@@ -916,8 +916,8 @@ _autogkstate_owner& _autogkstate_owner::operator=(const _autogkstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: autogkstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: autogkstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: autogkstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: autogkstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_autogkstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::autogkstate));
     alglib_impl::_autogkstate_init_copy(p_struct, const_cast<alglib_impl::autogkstate*>(rhs.p_struct), &_state, ae_false);
@@ -927,7 +927,7 @@ _autogkstate_owner& _autogkstate_owner::operator=(const _autogkstate_owner &rhs)
 
 _autogkstate_owner::~_autogkstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_autogkstate_destroy(p_struct);
         ae_free(p_struct);
@@ -1156,7 +1156,7 @@ void autogkintegrate(autogkstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(func!=NULL, "ALGLIB: error in 'autogkintegrate()' (func is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(func!=nullptr, "ALGLIB: error in 'autogkintegrate()' (func is nullptr)", &_alglib_env_state);
     while( alglib_impl::autogkiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN

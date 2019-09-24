@@ -233,12 +233,12 @@ _optguardreport_owner::_optguardreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_optguardreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -247,7 +247,7 @@ _optguardreport_owner::_optguardreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::optguardreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::optguardreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::optguardreport));
     alglib_impl::_optguardreport_init(p_struct, &_state, ae_false);
@@ -262,12 +262,12 @@ _optguardreport_owner::_optguardreport_owner(const _optguardreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_optguardreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -276,8 +276,8 @@ _optguardreport_owner::_optguardreport_owner(const _optguardreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: optguardreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: optguardreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::optguardreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::optguardreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::optguardreport));
     alglib_impl::_optguardreport_init_copy(p_struct, const_cast<alglib_impl::optguardreport*>(rhs.p_struct), &_state, ae_false);
@@ -302,8 +302,8 @@ _optguardreport_owner& _optguardreport_owner::operator=(const _optguardreport_ow
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: optguardreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: optguardreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: optguardreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: optguardreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_optguardreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::optguardreport));
     alglib_impl::_optguardreport_init_copy(p_struct, const_cast<alglib_impl::optguardreport*>(rhs.p_struct), &_state, ae_false);
@@ -313,7 +313,7 @@ _optguardreport_owner& _optguardreport_owner::operator=(const _optguardreport_ow
 
 _optguardreport_owner::~_optguardreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_optguardreport_destroy(p_struct);
         ae_free(p_struct);
@@ -404,12 +404,12 @@ _optguardnonc1test0report_owner::_optguardnonc1test0report_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_optguardnonc1test0report_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -418,7 +418,7 @@ _optguardnonc1test0report_owner::_optguardnonc1test0report_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::optguardnonc1test0report*)alglib_impl::ae_malloc(sizeof(alglib_impl::optguardnonc1test0report), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::optguardnonc1test0report));
     alglib_impl::_optguardnonc1test0report_init(p_struct, &_state, ae_false);
@@ -433,12 +433,12 @@ _optguardnonc1test0report_owner::_optguardnonc1test0report_owner(const _optguard
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_optguardnonc1test0report_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -447,8 +447,8 @@ _optguardnonc1test0report_owner::_optguardnonc1test0report_owner(const _optguard
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: optguardnonc1test0report copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: optguardnonc1test0report copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::optguardnonc1test0report*)alglib_impl::ae_malloc(sizeof(alglib_impl::optguardnonc1test0report), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::optguardnonc1test0report));
     alglib_impl::_optguardnonc1test0report_init_copy(p_struct, const_cast<alglib_impl::optguardnonc1test0report*>(rhs.p_struct), &_state, ae_false);
@@ -473,8 +473,8 @@ _optguardnonc1test0report_owner& _optguardnonc1test0report_owner::operator=(cons
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: optguardnonc1test0report assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: optguardnonc1test0report assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: optguardnonc1test0report assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: optguardnonc1test0report assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_optguardnonc1test0report_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::optguardnonc1test0report));
     alglib_impl::_optguardnonc1test0report_init_copy(p_struct, const_cast<alglib_impl::optguardnonc1test0report*>(rhs.p_struct), &_state, ae_false);
@@ -484,7 +484,7 @@ _optguardnonc1test0report_owner& _optguardnonc1test0report_owner::operator=(cons
 
 _optguardnonc1test0report_owner::~_optguardnonc1test0report_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_optguardnonc1test0report_destroy(p_struct);
         ae_free(p_struct);
@@ -586,12 +586,12 @@ _optguardnonc1test1report_owner::_optguardnonc1test1report_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_optguardnonc1test1report_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -600,7 +600,7 @@ _optguardnonc1test1report_owner::_optguardnonc1test1report_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::optguardnonc1test1report*)alglib_impl::ae_malloc(sizeof(alglib_impl::optguardnonc1test1report), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::optguardnonc1test1report));
     alglib_impl::_optguardnonc1test1report_init(p_struct, &_state, ae_false);
@@ -615,12 +615,12 @@ _optguardnonc1test1report_owner::_optguardnonc1test1report_owner(const _optguard
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_optguardnonc1test1report_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -629,8 +629,8 @@ _optguardnonc1test1report_owner::_optguardnonc1test1report_owner(const _optguard
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: optguardnonc1test1report copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: optguardnonc1test1report copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::optguardnonc1test1report*)alglib_impl::ae_malloc(sizeof(alglib_impl::optguardnonc1test1report), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::optguardnonc1test1report));
     alglib_impl::_optguardnonc1test1report_init_copy(p_struct, const_cast<alglib_impl::optguardnonc1test1report*>(rhs.p_struct), &_state, ae_false);
@@ -655,8 +655,8 @@ _optguardnonc1test1report_owner& _optguardnonc1test1report_owner::operator=(cons
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: optguardnonc1test1report assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: optguardnonc1test1report assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: optguardnonc1test1report assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: optguardnonc1test1report assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_optguardnonc1test1report_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::optguardnonc1test1report));
     alglib_impl::_optguardnonc1test1report_init_copy(p_struct, const_cast<alglib_impl::optguardnonc1test1report*>(rhs.p_struct), &_state, ae_false);
@@ -666,7 +666,7 @@ _optguardnonc1test1report_owner& _optguardnonc1test1report_owner::operator=(cons
 
 _optguardnonc1test1report_owner::~_optguardnonc1test1report_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_optguardnonc1test1report_destroy(p_struct);
         ae_free(p_struct);
@@ -731,12 +731,12 @@ _minlbfgsstate_owner::_minlbfgsstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minlbfgsstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -745,7 +745,7 @@ _minlbfgsstate_owner::_minlbfgsstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minlbfgsstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minlbfgsstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minlbfgsstate));
     alglib_impl::_minlbfgsstate_init(p_struct, &_state, ae_false);
@@ -760,12 +760,12 @@ _minlbfgsstate_owner::_minlbfgsstate_owner(const _minlbfgsstate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minlbfgsstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -774,8 +774,8 @@ _minlbfgsstate_owner::_minlbfgsstate_owner(const _minlbfgsstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minlbfgsstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minlbfgsstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minlbfgsstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minlbfgsstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minlbfgsstate));
     alglib_impl::_minlbfgsstate_init_copy(p_struct, const_cast<alglib_impl::minlbfgsstate*>(rhs.p_struct), &_state, ae_false);
@@ -800,8 +800,8 @@ _minlbfgsstate_owner& _minlbfgsstate_owner::operator=(const _minlbfgsstate_owner
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minlbfgsstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minlbfgsstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minlbfgsstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minlbfgsstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minlbfgsstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minlbfgsstate));
     alglib_impl::_minlbfgsstate_init_copy(p_struct, const_cast<alglib_impl::minlbfgsstate*>(rhs.p_struct), &_state, ae_false);
@@ -811,7 +811,7 @@ _minlbfgsstate_owner& _minlbfgsstate_owner::operator=(const _minlbfgsstate_owner
 
 _minlbfgsstate_owner::~_minlbfgsstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minlbfgsstate_destroy(p_struct);
         ae_free(p_struct);
@@ -880,12 +880,12 @@ _minlbfgsreport_owner::_minlbfgsreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minlbfgsreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -894,7 +894,7 @@ _minlbfgsreport_owner::_minlbfgsreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minlbfgsreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minlbfgsreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minlbfgsreport));
     alglib_impl::_minlbfgsreport_init(p_struct, &_state, ae_false);
@@ -909,12 +909,12 @@ _minlbfgsreport_owner::_minlbfgsreport_owner(const _minlbfgsreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minlbfgsreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -923,8 +923,8 @@ _minlbfgsreport_owner::_minlbfgsreport_owner(const _minlbfgsreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minlbfgsreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minlbfgsreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minlbfgsreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minlbfgsreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minlbfgsreport));
     alglib_impl::_minlbfgsreport_init_copy(p_struct, const_cast<alglib_impl::minlbfgsreport*>(rhs.p_struct), &_state, ae_false);
@@ -949,8 +949,8 @@ _minlbfgsreport_owner& _minlbfgsreport_owner::operator=(const _minlbfgsreport_ow
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minlbfgsreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minlbfgsreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minlbfgsreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minlbfgsreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minlbfgsreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minlbfgsreport));
     alglib_impl::_minlbfgsreport_init_copy(p_struct, const_cast<alglib_impl::minlbfgsreport*>(rhs.p_struct), &_state, ae_false);
@@ -960,7 +960,7 @@ _minlbfgsreport_owner& _minlbfgsreport_owner::operator=(const _minlbfgsreport_ow
 
 _minlbfgsreport_owner::~_minlbfgsreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minlbfgsreport_destroy(p_struct);
         ae_free(p_struct);
@@ -1682,7 +1682,7 @@ void minlbfgsoptimize(minlbfgsstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(func!=NULL, "ALGLIB: error in 'minlbfgsoptimize()' (func is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(func!=nullptr, "ALGLIB: error in 'minlbfgsoptimize()' (func is nullptr)", &_alglib_env_state);
     while( alglib_impl::minlbfgsiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -1693,7 +1693,7 @@ void minlbfgsoptimize(minlbfgsstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -1729,7 +1729,7 @@ void minlbfgsoptimize(minlbfgsstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(grad!=NULL, "ALGLIB: error in 'minlbfgsoptimize()' (grad is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(grad!=nullptr, "ALGLIB: error in 'minlbfgsoptimize()' (grad is nullptr)", &_alglib_env_state);
     while( alglib_impl::minlbfgsiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -1740,7 +1740,7 @@ void minlbfgsoptimize(minlbfgsstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -2425,12 +2425,12 @@ _minbleicstate_owner::_minbleicstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minbleicstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -2439,7 +2439,7 @@ _minbleicstate_owner::_minbleicstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minbleicstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minbleicstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minbleicstate));
     alglib_impl::_minbleicstate_init(p_struct, &_state, ae_false);
@@ -2454,12 +2454,12 @@ _minbleicstate_owner::_minbleicstate_owner(const _minbleicstate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minbleicstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -2468,8 +2468,8 @@ _minbleicstate_owner::_minbleicstate_owner(const _minbleicstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minbleicstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minbleicstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minbleicstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minbleicstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minbleicstate));
     alglib_impl::_minbleicstate_init_copy(p_struct, const_cast<alglib_impl::minbleicstate*>(rhs.p_struct), &_state, ae_false);
@@ -2494,8 +2494,8 @@ _minbleicstate_owner& _minbleicstate_owner::operator=(const _minbleicstate_owner
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minbleicstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minbleicstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minbleicstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minbleicstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minbleicstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minbleicstate));
     alglib_impl::_minbleicstate_init_copy(p_struct, const_cast<alglib_impl::minbleicstate*>(rhs.p_struct), &_state, ae_false);
@@ -2505,7 +2505,7 @@ _minbleicstate_owner& _minbleicstate_owner::operator=(const _minbleicstate_owner
 
 _minbleicstate_owner::~_minbleicstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minbleicstate_destroy(p_struct);
         ae_free(p_struct);
@@ -2584,12 +2584,12 @@ _minbleicreport_owner::_minbleicreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minbleicreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -2598,7 +2598,7 @@ _minbleicreport_owner::_minbleicreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minbleicreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minbleicreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minbleicreport));
     alglib_impl::_minbleicreport_init(p_struct, &_state, ae_false);
@@ -2613,12 +2613,12 @@ _minbleicreport_owner::_minbleicreport_owner(const _minbleicreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minbleicreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -2627,8 +2627,8 @@ _minbleicreport_owner::_minbleicreport_owner(const _minbleicreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minbleicreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minbleicreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minbleicreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minbleicreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minbleicreport));
     alglib_impl::_minbleicreport_init_copy(p_struct, const_cast<alglib_impl::minbleicreport*>(rhs.p_struct), &_state, ae_false);
@@ -2653,8 +2653,8 @@ _minbleicreport_owner& _minbleicreport_owner::operator=(const _minbleicreport_ow
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minbleicreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minbleicreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minbleicreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minbleicreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minbleicreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minbleicreport));
     alglib_impl::_minbleicreport_init_copy(p_struct, const_cast<alglib_impl::minbleicreport*>(rhs.p_struct), &_state, ae_false);
@@ -2664,7 +2664,7 @@ _minbleicreport_owner& _minbleicreport_owner::operator=(const _minbleicreport_ow
 
 _minbleicreport_owner::~_minbleicreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minbleicreport_destroy(p_struct);
         ae_free(p_struct);
@@ -3533,7 +3533,7 @@ void minbleicoptimize(minbleicstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(func!=NULL, "ALGLIB: error in 'minbleicoptimize()' (func is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(func!=nullptr, "ALGLIB: error in 'minbleicoptimize()' (func is nullptr)", &_alglib_env_state);
     while( alglib_impl::minbleiciteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -3544,7 +3544,7 @@ void minbleicoptimize(minbleicstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -3580,7 +3580,7 @@ void minbleicoptimize(minbleicstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(grad!=NULL, "ALGLIB: error in 'minbleicoptimize()' (grad is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(grad!=nullptr, "ALGLIB: error in 'minbleicoptimize()' (grad is nullptr)", &_alglib_env_state);
     while( alglib_impl::minbleiciteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -3591,7 +3591,7 @@ void minbleicoptimize(minbleicstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -4274,12 +4274,12 @@ _minqpstate_owner::_minqpstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minqpstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -4288,7 +4288,7 @@ _minqpstate_owner::_minqpstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minqpstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minqpstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minqpstate));
     alglib_impl::_minqpstate_init(p_struct, &_state, ae_false);
@@ -4303,12 +4303,12 @@ _minqpstate_owner::_minqpstate_owner(const _minqpstate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minqpstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -4317,8 +4317,8 @@ _minqpstate_owner::_minqpstate_owner(const _minqpstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minqpstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minqpstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minqpstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minqpstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minqpstate));
     alglib_impl::_minqpstate_init_copy(p_struct, const_cast<alglib_impl::minqpstate*>(rhs.p_struct), &_state, ae_false);
@@ -4343,8 +4343,8 @@ _minqpstate_owner& _minqpstate_owner::operator=(const _minqpstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minqpstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minqpstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minqpstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minqpstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minqpstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minqpstate));
     alglib_impl::_minqpstate_init_copy(p_struct, const_cast<alglib_impl::minqpstate*>(rhs.p_struct), &_state, ae_false);
@@ -4354,7 +4354,7 @@ _minqpstate_owner& _minqpstate_owner::operator=(const _minqpstate_owner &rhs)
 
 _minqpstate_owner::~_minqpstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minqpstate_destroy(p_struct);
         ae_free(p_struct);
@@ -4429,12 +4429,12 @@ _minqpreport_owner::_minqpreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minqpreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -4443,7 +4443,7 @@ _minqpreport_owner::_minqpreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minqpreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minqpreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minqpreport));
     alglib_impl::_minqpreport_init(p_struct, &_state, ae_false);
@@ -4458,12 +4458,12 @@ _minqpreport_owner::_minqpreport_owner(const _minqpreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minqpreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -4472,8 +4472,8 @@ _minqpreport_owner::_minqpreport_owner(const _minqpreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minqpreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minqpreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minqpreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minqpreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minqpreport));
     alglib_impl::_minqpreport_init_copy(p_struct, const_cast<alglib_impl::minqpreport*>(rhs.p_struct), &_state, ae_false);
@@ -4498,8 +4498,8 @@ _minqpreport_owner& _minqpreport_owner::operator=(const _minqpreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minqpreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minqpreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minqpreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minqpreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minqpreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minqpreport));
     alglib_impl::_minqpreport_init_copy(p_struct, const_cast<alglib_impl::minqpreport*>(rhs.p_struct), &_state, ae_false);
@@ -4509,7 +4509,7 @@ _minqpreport_owner& _minqpreport_owner::operator=(const _minqpreport_owner &rhs)
 
 _minqpreport_owner::~_minqpreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minqpreport_destroy(p_struct);
         ae_free(p_struct);
@@ -5817,12 +5817,12 @@ _minlpstate_owner::_minlpstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minlpstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -5831,7 +5831,7 @@ _minlpstate_owner::_minlpstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minlpstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minlpstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minlpstate));
     alglib_impl::_minlpstate_init(p_struct, &_state, ae_false);
@@ -5846,12 +5846,12 @@ _minlpstate_owner::_minlpstate_owner(const _minlpstate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minlpstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -5860,8 +5860,8 @@ _minlpstate_owner::_minlpstate_owner(const _minlpstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minlpstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minlpstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minlpstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minlpstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minlpstate));
     alglib_impl::_minlpstate_init_copy(p_struct, const_cast<alglib_impl::minlpstate*>(rhs.p_struct), &_state, ae_false);
@@ -5886,8 +5886,8 @@ _minlpstate_owner& _minlpstate_owner::operator=(const _minlpstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minlpstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minlpstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minlpstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minlpstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minlpstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minlpstate));
     alglib_impl::_minlpstate_init_copy(p_struct, const_cast<alglib_impl::minlpstate*>(rhs.p_struct), &_state, ae_false);
@@ -5897,7 +5897,7 @@ _minlpstate_owner& _minlpstate_owner::operator=(const _minlpstate_owner &rhs)
 
 _minlpstate_owner::~_minlpstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minlpstate_destroy(p_struct);
         ae_free(p_struct);
@@ -5968,12 +5968,12 @@ _minlpreport_owner::_minlpreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minlpreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -5982,7 +5982,7 @@ _minlpreport_owner::_minlpreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minlpreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minlpreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minlpreport));
     alglib_impl::_minlpreport_init(p_struct, &_state, ae_false);
@@ -5997,12 +5997,12 @@ _minlpreport_owner::_minlpreport_owner(const _minlpreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minlpreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -6011,8 +6011,8 @@ _minlpreport_owner::_minlpreport_owner(const _minlpreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minlpreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minlpreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minlpreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minlpreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minlpreport));
     alglib_impl::_minlpreport_init_copy(p_struct, const_cast<alglib_impl::minlpreport*>(rhs.p_struct), &_state, ae_false);
@@ -6037,8 +6037,8 @@ _minlpreport_owner& _minlpreport_owner::operator=(const _minlpreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minlpreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minlpreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minlpreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minlpreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minlpreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minlpreport));
     alglib_impl::_minlpreport_init_copy(p_struct, const_cast<alglib_impl::minlpreport*>(rhs.p_struct), &_state, ae_false);
@@ -6048,7 +6048,7 @@ _minlpreport_owner& _minlpreport_owner::operator=(const _minlpreport_owner &rhs)
 
 _minlpreport_owner::~_minlpreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minlpreport_destroy(p_struct);
         ae_free(p_struct);
@@ -6887,12 +6887,12 @@ _minnlcstate_owner::_minnlcstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minnlcstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -6901,7 +6901,7 @@ _minnlcstate_owner::_minnlcstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minnlcstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minnlcstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minnlcstate));
     alglib_impl::_minnlcstate_init(p_struct, &_state, ae_false);
@@ -6916,12 +6916,12 @@ _minnlcstate_owner::_minnlcstate_owner(const _minnlcstate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minnlcstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -6930,8 +6930,8 @@ _minnlcstate_owner::_minnlcstate_owner(const _minnlcstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minnlcstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minnlcstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minnlcstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minnlcstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minnlcstate));
     alglib_impl::_minnlcstate_init_copy(p_struct, const_cast<alglib_impl::minnlcstate*>(rhs.p_struct), &_state, ae_false);
@@ -6956,8 +6956,8 @@ _minnlcstate_owner& _minnlcstate_owner::operator=(const _minnlcstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minnlcstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minnlcstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minnlcstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minnlcstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minnlcstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minnlcstate));
     alglib_impl::_minnlcstate_init_copy(p_struct, const_cast<alglib_impl::minnlcstate*>(rhs.p_struct), &_state, ae_false);
@@ -6967,7 +6967,7 @@ _minnlcstate_owner& _minnlcstate_owner::operator=(const _minnlcstate_owner &rhs)
 
 _minnlcstate_owner::~_minnlcstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minnlcstate_destroy(p_struct);
         ae_free(p_struct);
@@ -7062,12 +7062,12 @@ _minnlcreport_owner::_minnlcreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minnlcreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -7076,7 +7076,7 @@ _minnlcreport_owner::_minnlcreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minnlcreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minnlcreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minnlcreport));
     alglib_impl::_minnlcreport_init(p_struct, &_state, ae_false);
@@ -7091,12 +7091,12 @@ _minnlcreport_owner::_minnlcreport_owner(const _minnlcreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minnlcreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -7105,8 +7105,8 @@ _minnlcreport_owner::_minnlcreport_owner(const _minnlcreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minnlcreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minnlcreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minnlcreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minnlcreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minnlcreport));
     alglib_impl::_minnlcreport_init_copy(p_struct, const_cast<alglib_impl::minnlcreport*>(rhs.p_struct), &_state, ae_false);
@@ -7131,8 +7131,8 @@ _minnlcreport_owner& _minnlcreport_owner::operator=(const _minnlcreport_owner &r
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minnlcreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minnlcreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minnlcreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minnlcreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minnlcreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minnlcreport));
     alglib_impl::_minnlcreport_init_copy(p_struct, const_cast<alglib_impl::minnlcreport*>(rhs.p_struct), &_state, ae_false);
@@ -7142,7 +7142,7 @@ _minnlcreport_owner& _minnlcreport_owner::operator=(const _minnlcreport_owner &r
 
 _minnlcreport_owner::~_minnlcreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minnlcreport_destroy(p_struct);
         ae_free(p_struct);
@@ -8558,7 +8558,7 @@ void minnlcoptimize(minnlcstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(fvec!=NULL, "ALGLIB: error in 'minnlcoptimize()' (fvec is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(fvec!=nullptr, "ALGLIB: error in 'minnlcoptimize()' (fvec is nullptr)", &_alglib_env_state);
     while( alglib_impl::minnlciteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -8569,7 +8569,7 @@ void minnlcoptimize(minnlcstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -8605,7 +8605,7 @@ void minnlcoptimize(minnlcstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(jac!=NULL,  "ALGLIB: error in 'minnlcoptimize()' (jac is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(jac!=nullptr,  "ALGLIB: error in 'minnlcoptimize()' (jac is nullptr)", &_alglib_env_state);
     while( alglib_impl::minnlciteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -8616,7 +8616,7 @@ void minnlcoptimize(minnlcstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -9318,12 +9318,12 @@ _minbcstate_owner::_minbcstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minbcstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -9332,7 +9332,7 @@ _minbcstate_owner::_minbcstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minbcstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minbcstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minbcstate));
     alglib_impl::_minbcstate_init(p_struct, &_state, ae_false);
@@ -9347,12 +9347,12 @@ _minbcstate_owner::_minbcstate_owner(const _minbcstate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minbcstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -9361,8 +9361,8 @@ _minbcstate_owner::_minbcstate_owner(const _minbcstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minbcstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minbcstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minbcstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minbcstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minbcstate));
     alglib_impl::_minbcstate_init_copy(p_struct, const_cast<alglib_impl::minbcstate*>(rhs.p_struct), &_state, ae_false);
@@ -9387,8 +9387,8 @@ _minbcstate_owner& _minbcstate_owner::operator=(const _minbcstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minbcstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minbcstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minbcstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minbcstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minbcstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minbcstate));
     alglib_impl::_minbcstate_init_copy(p_struct, const_cast<alglib_impl::minbcstate*>(rhs.p_struct), &_state, ae_false);
@@ -9398,7 +9398,7 @@ _minbcstate_owner& _minbcstate_owner::operator=(const _minbcstate_owner &rhs)
 
 _minbcstate_owner::~_minbcstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minbcstate_destroy(p_struct);
         ae_free(p_struct);
@@ -9466,12 +9466,12 @@ _minbcreport_owner::_minbcreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minbcreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -9480,7 +9480,7 @@ _minbcreport_owner::_minbcreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minbcreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minbcreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minbcreport));
     alglib_impl::_minbcreport_init(p_struct, &_state, ae_false);
@@ -9495,12 +9495,12 @@ _minbcreport_owner::_minbcreport_owner(const _minbcreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minbcreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -9509,8 +9509,8 @@ _minbcreport_owner::_minbcreport_owner(const _minbcreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minbcreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minbcreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minbcreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minbcreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minbcreport));
     alglib_impl::_minbcreport_init_copy(p_struct, const_cast<alglib_impl::minbcreport*>(rhs.p_struct), &_state, ae_false);
@@ -9535,8 +9535,8 @@ _minbcreport_owner& _minbcreport_owner::operator=(const _minbcreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minbcreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minbcreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minbcreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minbcreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minbcreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minbcreport));
     alglib_impl::_minbcreport_init_copy(p_struct, const_cast<alglib_impl::minbcreport*>(rhs.p_struct), &_state, ae_false);
@@ -9546,7 +9546,7 @@ _minbcreport_owner& _minbcreport_owner::operator=(const _minbcreport_owner &rhs)
 
 _minbcreport_owner::~_minbcreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minbcreport_destroy(p_struct);
         ae_free(p_struct);
@@ -10270,7 +10270,7 @@ void minbcoptimize(minbcstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(func!=NULL, "ALGLIB: error in 'minbcoptimize()' (func is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(func!=nullptr, "ALGLIB: error in 'minbcoptimize()' (func is nullptr)", &_alglib_env_state);
     while( alglib_impl::minbciteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -10281,7 +10281,7 @@ void minbcoptimize(minbcstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -10317,7 +10317,7 @@ void minbcoptimize(minbcstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(grad!=NULL, "ALGLIB: error in 'minbcoptimize()' (grad is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(grad!=nullptr, "ALGLIB: error in 'minbcoptimize()' (grad is nullptr)", &_alglib_env_state);
     while( alglib_impl::minbciteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -10328,7 +10328,7 @@ void minbcoptimize(minbcstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -11005,12 +11005,12 @@ _minnsstate_owner::_minnsstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minnsstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -11019,7 +11019,7 @@ _minnsstate_owner::_minnsstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minnsstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minnsstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minnsstate));
     alglib_impl::_minnsstate_init(p_struct, &_state, ae_false);
@@ -11034,12 +11034,12 @@ _minnsstate_owner::_minnsstate_owner(const _minnsstate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minnsstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -11048,8 +11048,8 @@ _minnsstate_owner::_minnsstate_owner(const _minnsstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minnsstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minnsstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minnsstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minnsstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minnsstate));
     alglib_impl::_minnsstate_init_copy(p_struct, const_cast<alglib_impl::minnsstate*>(rhs.p_struct), &_state, ae_false);
@@ -11074,8 +11074,8 @@ _minnsstate_owner& _minnsstate_owner::operator=(const _minnsstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minnsstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minnsstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minnsstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minnsstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minnsstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minnsstate));
     alglib_impl::_minnsstate_init_copy(p_struct, const_cast<alglib_impl::minnsstate*>(rhs.p_struct), &_state, ae_false);
@@ -11085,7 +11085,7 @@ _minnsstate_owner& _minnsstate_owner::operator=(const _minnsstate_owner &rhs)
 
 _minnsstate_owner::~_minnsstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minnsstate_destroy(p_struct);
         ae_free(p_struct);
@@ -11157,12 +11157,12 @@ _minnsreport_owner::_minnsreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minnsreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -11171,7 +11171,7 @@ _minnsreport_owner::_minnsreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minnsreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minnsreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minnsreport));
     alglib_impl::_minnsreport_init(p_struct, &_state, ae_false);
@@ -11186,12 +11186,12 @@ _minnsreport_owner::_minnsreport_owner(const _minnsreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minnsreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -11200,8 +11200,8 @@ _minnsreport_owner::_minnsreport_owner(const _minnsreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minnsreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minnsreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minnsreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minnsreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minnsreport));
     alglib_impl::_minnsreport_init_copy(p_struct, const_cast<alglib_impl::minnsreport*>(rhs.p_struct), &_state, ae_false);
@@ -11226,8 +11226,8 @@ _minnsreport_owner& _minnsreport_owner::operator=(const _minnsreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minnsreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minnsreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minnsreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minnsreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minnsreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minnsreport));
     alglib_impl::_minnsreport_init_copy(p_struct, const_cast<alglib_impl::minnsreport*>(rhs.p_struct), &_state, ae_false);
@@ -11237,7 +11237,7 @@ _minnsreport_owner& _minnsreport_owner::operator=(const _minnsreport_owner &rhs)
 
 _minnsreport_owner::~_minnsreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minnsreport_destroy(p_struct);
         ae_free(p_struct);
@@ -12212,7 +12212,7 @@ void minnsoptimize(minnsstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(fvec!=NULL, "ALGLIB: error in 'minnsoptimize()' (fvec is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(fvec!=nullptr, "ALGLIB: error in 'minnsoptimize()' (fvec is nullptr)", &_alglib_env_state);
     while( alglib_impl::minnsiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -12223,7 +12223,7 @@ void minnsoptimize(minnsstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -12259,7 +12259,7 @@ void minnsoptimize(minnsstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(jac!=NULL,  "ALGLIB: error in 'minnsoptimize()' (jac is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(jac!=nullptr,  "ALGLIB: error in 'minnsoptimize()' (jac is nullptr)", &_alglib_env_state);
     while( alglib_impl::minnsiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -12270,7 +12270,7 @@ void minnsoptimize(minnsstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -12416,12 +12416,12 @@ _minasastate_owner::_minasastate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minasastate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -12430,7 +12430,7 @@ _minasastate_owner::_minasastate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minasastate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minasastate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minasastate));
     alglib_impl::_minasastate_init(p_struct, &_state, ae_false);
@@ -12445,12 +12445,12 @@ _minasastate_owner::_minasastate_owner(const _minasastate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minasastate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -12459,8 +12459,8 @@ _minasastate_owner::_minasastate_owner(const _minasastate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minasastate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minasastate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minasastate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minasastate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minasastate));
     alglib_impl::_minasastate_init_copy(p_struct, const_cast<alglib_impl::minasastate*>(rhs.p_struct), &_state, ae_false);
@@ -12485,8 +12485,8 @@ _minasastate_owner& _minasastate_owner::operator=(const _minasastate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minasastate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minasastate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minasastate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minasastate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minasastate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minasastate));
     alglib_impl::_minasastate_init_copy(p_struct, const_cast<alglib_impl::minasastate*>(rhs.p_struct), &_state, ae_false);
@@ -12496,7 +12496,7 @@ _minasastate_owner& _minasastate_owner::operator=(const _minasastate_owner &rhs)
 
 _minasastate_owner::~_minasastate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minasastate_destroy(p_struct);
         ae_free(p_struct);
@@ -12544,12 +12544,12 @@ _minasareport_owner::_minasareport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minasareport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -12558,7 +12558,7 @@ _minasareport_owner::_minasareport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minasareport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minasareport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minasareport));
     alglib_impl::_minasareport_init(p_struct, &_state, ae_false);
@@ -12573,12 +12573,12 @@ _minasareport_owner::_minasareport_owner(const _minasareport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minasareport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -12587,8 +12587,8 @@ _minasareport_owner::_minasareport_owner(const _minasareport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minasareport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minasareport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minasareport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minasareport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minasareport));
     alglib_impl::_minasareport_init_copy(p_struct, const_cast<alglib_impl::minasareport*>(rhs.p_struct), &_state, ae_false);
@@ -12613,8 +12613,8 @@ _minasareport_owner& _minasareport_owner::operator=(const _minasareport_owner &r
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minasareport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minasareport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minasareport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minasareport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minasareport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minasareport));
     alglib_impl::_minasareport_init_copy(p_struct, const_cast<alglib_impl::minasareport*>(rhs.p_struct), &_state, ae_false);
@@ -12624,7 +12624,7 @@ _minasareport_owner& _minasareport_owner::operator=(const _minasareport_owner &r
 
 _minasareport_owner::~_minasareport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minasareport_destroy(p_struct);
         ae_free(p_struct);
@@ -12997,7 +12997,7 @@ void minasaoptimize(minasastate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(grad!=NULL, "ALGLIB: error in 'minasaoptimize()' (grad is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(grad!=nullptr, "ALGLIB: error in 'minasaoptimize()' (grad is nullptr)", &_alglib_env_state);
     while( alglib_impl::minasaiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -13008,7 +13008,7 @@ void minasaoptimize(minasastate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -13126,12 +13126,12 @@ _mincgstate_owner::_mincgstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mincgstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -13140,7 +13140,7 @@ _mincgstate_owner::_mincgstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::mincgstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::mincgstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mincgstate));
     alglib_impl::_mincgstate_init(p_struct, &_state, ae_false);
@@ -13155,12 +13155,12 @@ _mincgstate_owner::_mincgstate_owner(const _mincgstate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mincgstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -13169,8 +13169,8 @@ _mincgstate_owner::_mincgstate_owner(const _mincgstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mincgstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mincgstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::mincgstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::mincgstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mincgstate));
     alglib_impl::_mincgstate_init_copy(p_struct, const_cast<alglib_impl::mincgstate*>(rhs.p_struct), &_state, ae_false);
@@ -13195,8 +13195,8 @@ _mincgstate_owner& _mincgstate_owner::operator=(const _mincgstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: mincgstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mincgstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: mincgstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mincgstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_mincgstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::mincgstate));
     alglib_impl::_mincgstate_init_copy(p_struct, const_cast<alglib_impl::mincgstate*>(rhs.p_struct), &_state, ae_false);
@@ -13206,7 +13206,7 @@ _mincgstate_owner& _mincgstate_owner::operator=(const _mincgstate_owner &rhs)
 
 _mincgstate_owner::~_mincgstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_mincgstate_destroy(p_struct);
         ae_free(p_struct);
@@ -13275,12 +13275,12 @@ _mincgreport_owner::_mincgreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mincgreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -13289,7 +13289,7 @@ _mincgreport_owner::_mincgreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::mincgreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::mincgreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mincgreport));
     alglib_impl::_mincgreport_init(p_struct, &_state, ae_false);
@@ -13304,12 +13304,12 @@ _mincgreport_owner::_mincgreport_owner(const _mincgreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_mincgreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -13318,8 +13318,8 @@ _mincgreport_owner::_mincgreport_owner(const _mincgreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mincgreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mincgreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::mincgreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::mincgreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::mincgreport));
     alglib_impl::_mincgreport_init_copy(p_struct, const_cast<alglib_impl::mincgreport*>(rhs.p_struct), &_state, ae_false);
@@ -13344,8 +13344,8 @@ _mincgreport_owner& _mincgreport_owner::operator=(const _mincgreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: mincgreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: mincgreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: mincgreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: mincgreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_mincgreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::mincgreport));
     alglib_impl::_mincgreport_init_copy(p_struct, const_cast<alglib_impl::mincgreport*>(rhs.p_struct), &_state, ae_false);
@@ -13355,7 +13355,7 @@ _mincgreport_owner& _mincgreport_owner::operator=(const _mincgreport_owner &rhs)
 
 _mincgreport_owner::~_mincgreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_mincgreport_destroy(p_struct);
         ae_free(p_struct);
@@ -14083,7 +14083,7 @@ void mincgoptimize(mincgstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(func!=NULL, "ALGLIB: error in 'mincgoptimize()' (func is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(func!=nullptr, "ALGLIB: error in 'mincgoptimize()' (func is nullptr)", &_alglib_env_state);
     while( alglib_impl::mincgiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -14094,7 +14094,7 @@ void mincgoptimize(mincgstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -14130,7 +14130,7 @@ void mincgoptimize(mincgstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(grad!=NULL, "ALGLIB: error in 'mincgoptimize()' (grad is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(grad!=nullptr, "ALGLIB: error in 'mincgoptimize()' (grad is nullptr)", &_alglib_env_state);
     while( alglib_impl::mincgiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -14141,7 +14141,7 @@ void mincgoptimize(mincgstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -14822,12 +14822,12 @@ _minlmstate_owner::_minlmstate_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minlmstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -14836,7 +14836,7 @@ _minlmstate_owner::_minlmstate_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minlmstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minlmstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minlmstate));
     alglib_impl::_minlmstate_init(p_struct, &_state, ae_false);
@@ -14851,12 +14851,12 @@ _minlmstate_owner::_minlmstate_owner(const _minlmstate_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minlmstate_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -14865,8 +14865,8 @@ _minlmstate_owner::_minlmstate_owner(const _minlmstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minlmstate copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minlmstate copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minlmstate*)alglib_impl::ae_malloc(sizeof(alglib_impl::minlmstate), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minlmstate));
     alglib_impl::_minlmstate_init_copy(p_struct, const_cast<alglib_impl::minlmstate*>(rhs.p_struct), &_state, ae_false);
@@ -14891,8 +14891,8 @@ _minlmstate_owner& _minlmstate_owner::operator=(const _minlmstate_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minlmstate assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minlmstate assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minlmstate assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minlmstate assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minlmstate_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minlmstate));
     alglib_impl::_minlmstate_init_copy(p_struct, const_cast<alglib_impl::minlmstate*>(rhs.p_struct), &_state, ae_false);
@@ -14902,7 +14902,7 @@ _minlmstate_owner& _minlmstate_owner::operator=(const _minlmstate_owner &rhs)
 
 _minlmstate_owner::~_minlmstate_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minlmstate_destroy(p_struct);
         ae_free(p_struct);
@@ -14972,12 +14972,12 @@ _minlmreport_owner::_minlmreport_owner()
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minlmreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -14986,7 +14986,7 @@ _minlmreport_owner::_minlmreport_owner()
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
+    p_struct = nullptr;
     p_struct = (alglib_impl::minlmreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minlmreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minlmreport));
     alglib_impl::_minlmreport_init(p_struct, &_state, ae_false);
@@ -15001,12 +15001,12 @@ _minlmreport_owner::_minlmreport_owner(const _minlmreport_owner &rhs)
     alglib_impl::ae_state_init(&_state);
     if( setjmp(_break_jump) )
     {
-        if( p_struct!=NULL )
+        if( p_struct!=nullptr )
         {
             alglib_impl::_minlmreport_destroy(p_struct);
             alglib_impl::ae_free(p_struct);
         }
-        p_struct = NULL;
+        p_struct = nullptr;
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
@@ -15015,8 +15015,8 @@ _minlmreport_owner::_minlmreport_owner(const _minlmreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    p_struct = NULL;
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minlmreport copy constructor failure (source is not initialized)", &_state);
+    p_struct = nullptr;
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minlmreport copy constructor failure (source is not initialized)", &_state);
     p_struct = (alglib_impl::minlmreport*)alglib_impl::ae_malloc(sizeof(alglib_impl::minlmreport), &_state);
     memset(p_struct, 0, sizeof(alglib_impl::minlmreport));
     alglib_impl::_minlmreport_init_copy(p_struct, const_cast<alglib_impl::minlmreport*>(rhs.p_struct), &_state, ae_false);
@@ -15041,8 +15041,8 @@ _minlmreport_owner& _minlmreport_owner::operator=(const _minlmreport_owner &rhs)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(p_struct!=NULL, "ALGLIB: minlmreport assignment constructor failure (destination is not initialized)", &_state);
-    alglib_impl::ae_assert(rhs.p_struct!=NULL, "ALGLIB: minlmreport assignment constructor failure (source is not initialized)", &_state);
+    alglib_impl::ae_assert(p_struct!=nullptr, "ALGLIB: minlmreport assignment constructor failure (destination is not initialized)", &_state);
+    alglib_impl::ae_assert(rhs.p_struct!=nullptr, "ALGLIB: minlmreport assignment constructor failure (source is not initialized)", &_state);
     alglib_impl::_minlmreport_destroy(p_struct);
     memset(p_struct, 0, sizeof(alglib_impl::minlmreport));
     alglib_impl::_minlmreport_init_copy(p_struct, const_cast<alglib_impl::minlmreport*>(rhs.p_struct), &_state, ae_false);
@@ -15052,7 +15052,7 @@ _minlmreport_owner& _minlmreport_owner::operator=(const _minlmreport_owner &rhs)
 
 _minlmreport_owner::~_minlmreport_owner()
 {
-    if( p_struct!=NULL )
+    if( p_struct!=nullptr )
     {
         alglib_impl::_minlmreport_destroy(p_struct);
         ae_free(p_struct);
@@ -16063,7 +16063,7 @@ void minlmoptimize(minlmstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(fvec!=NULL, "ALGLIB: error in 'minlmoptimize()' (fvec is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(fvec!=nullptr, "ALGLIB: error in 'minlmoptimize()' (fvec is nullptr)", &_alglib_env_state);
     while( alglib_impl::minlmiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -16074,7 +16074,7 @@ void minlmoptimize(minlmstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -16111,8 +16111,8 @@ void minlmoptimize(minlmstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(fvec!=NULL, "ALGLIB: error in 'minlmoptimize()' (fvec is NULL)", &_alglib_env_state);
-    alglib_impl::ae_assert(jac!=NULL,  "ALGLIB: error in 'minlmoptimize()' (jac is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(fvec!=nullptr, "ALGLIB: error in 'minlmoptimize()' (fvec is nullptr)", &_alglib_env_state);
+    alglib_impl::ae_assert(jac!=nullptr,  "ALGLIB: error in 'minlmoptimize()' (jac is nullptr)", &_alglib_env_state);
     while( alglib_impl::minlmiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -16128,7 +16128,7 @@ void minlmoptimize(minlmstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -16166,9 +16166,9 @@ void minlmoptimize(minlmstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(func!=NULL, "ALGLIB: error in 'minlmoptimize()' (func is NULL)", &_alglib_env_state);
-    alglib_impl::ae_assert(grad!=NULL, "ALGLIB: error in 'minlmoptimize()' (grad is NULL)", &_alglib_env_state);
-    alglib_impl::ae_assert(hess!=NULL, "ALGLIB: error in 'minlmoptimize()' (hess is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(func!=nullptr, "ALGLIB: error in 'minlmoptimize()' (func is nullptr)", &_alglib_env_state);
+    alglib_impl::ae_assert(grad!=nullptr, "ALGLIB: error in 'minlmoptimize()' (grad is nullptr)", &_alglib_env_state);
+    alglib_impl::ae_assert(hess!=nullptr, "ALGLIB: error in 'minlmoptimize()' (hess is nullptr)", &_alglib_env_state);
     while( alglib_impl::minlmiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -16189,7 +16189,7 @@ void minlmoptimize(minlmstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -16226,8 +16226,8 @@ void minlmoptimize(minlmstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(func!=NULL, "ALGLIB: error in 'minlmoptimize()' (func is NULL)", &_alglib_env_state);
-    alglib_impl::ae_assert(jac!=NULL,  "ALGLIB: error in 'minlmoptimize()' (jac is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(func!=nullptr, "ALGLIB: error in 'minlmoptimize()' (func is nullptr)", &_alglib_env_state);
+    alglib_impl::ae_assert(jac!=nullptr,  "ALGLIB: error in 'minlmoptimize()' (jac is nullptr)", &_alglib_env_state);
     while( alglib_impl::minlmiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -16243,7 +16243,7 @@ void minlmoptimize(minlmstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }
@@ -16281,9 +16281,9 @@ void minlmoptimize(minlmstate &state,
     ae_state_set_break_jump(&_alglib_env_state, &_break_jump);
     if( _xparams.flags!=0x0 )
         ae_state_set_flags(&_alglib_env_state, _xparams.flags);
-    alglib_impl::ae_assert(func!=NULL, "ALGLIB: error in 'minlmoptimize()' (func is NULL)", &_alglib_env_state);
-    alglib_impl::ae_assert(grad!=NULL, "ALGLIB: error in 'minlmoptimize()' (grad is NULL)", &_alglib_env_state);
-    alglib_impl::ae_assert(jac!=NULL,  "ALGLIB: error in 'minlmoptimize()' (jac is NULL)", &_alglib_env_state);
+    alglib_impl::ae_assert(func!=nullptr, "ALGLIB: error in 'minlmoptimize()' (func is nullptr)", &_alglib_env_state);
+    alglib_impl::ae_assert(grad!=nullptr, "ALGLIB: error in 'minlmoptimize()' (grad is nullptr)", &_alglib_env_state);
+    alglib_impl::ae_assert(jac!=nullptr,  "ALGLIB: error in 'minlmoptimize()' (jac is nullptr)", &_alglib_env_state);
     while( alglib_impl::minlmiteration(state.c_ptr(), &_alglib_env_state) )
     {
         _ALGLIB_CALLBACK_EXCEPTION_GUARD_BEGIN
@@ -16304,7 +16304,7 @@ void minlmoptimize(minlmstate &state,
                 }
         if( state.xupdated )
         {
-            if( rep!=NULL )
+            if( rep!=nullptr )
                 rep(state.x, state.f, ptr);
             continue;
         }

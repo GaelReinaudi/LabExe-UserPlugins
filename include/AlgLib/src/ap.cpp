@@ -239,8 +239,8 @@ ae_int_t    _malloc_failure_after = 0;
 #endif
 static ae_int_t         sm_page_size = 0;
 static ae_int_t         sm_page_cnt  = 0;
-static ae_int_t         *sm_page_tbl = NULL;
-static unsigned char    *sm_mem      = NULL;
+static ae_int_t         *sm_page_tbl = nullptr;
+static unsigned char    *sm_mem      = nullptr;
 #endif
 
 /*
@@ -504,7 +504,7 @@ void  ae_optional_atomic_add_i(ae_int_t *p, ae_int_t v)
         u.iptr = p;
     
         /* atomic read for initial value */
-        PVOID v0 = InterlockedCompareExchangePointer(u.ptr, NULL, NULL);
+        PVOID v0 = InterlockedCompareExchangePointer(u.ptr, nullptr, nullptr);
     
         /* increment cached value and store */
         if( InterlockedCompareExchangePointer(u.ptr, (PVOID)(((char*)v0)+v), v0)==v0 )
@@ -546,7 +546,7 @@ void  ae_optional_atomic_sub_i(ae_int_t *p, ae_int_t v)
         u.iptr = p;
         
         /* atomic read for initial value, convert it to 1-byte pointer */
-        PVOID v0 = InterlockedCompareExchangePointer(u.ptr, NULL, NULL);
+        PVOID v0 = InterlockedCompareExchangePointer(u.ptr, nullptr, nullptr);
     
         /* increment cached value and store */
         if( InterlockedCompareExchangePointer(u.ptr, (PVOID)(((char*)v0)-v), v0)==v0 )
@@ -561,26 +561,26 @@ void  ae_optional_atomic_sub_i(ae_int_t *p, ae_int_t v)
 /*************************************************************************
 This function abnormally aborts program, using one of several ways:
 
-* for state!=NULL and state->break_jump being initialized with  call  to
+* for state!=nullptr and state->break_jump being initialized with  call  to
   ae_state_set_break_jump() - it performs longjmp() to return site.
 * otherwise, abort() is called
   
-In   all  cases,  for  state!=NULL  function  sets  state->last_error  and
+In   all  cases,  for  state!=nullptr  function  sets  state->last_error  and
 state->error_msg fields. It also clears state with ae_state_clear().
   
-If state is not NULL and state->thread_exception_handler  is  set,  it  is
+If state is not nullptr and state->thread_exception_handler  is  set,  it  is
 called prior to handling error and clearing state.
 *************************************************************************/
 void ae_break(ae_state *state, ae_error_type error_type, const char *msg)
 {
-    if( state!=NULL )
+    if( state!=nullptr )
     {
-        if( state->thread_exception_handler!=NULL )
+        if( state->thread_exception_handler!=nullptr )
             state->thread_exception_handler(state);
         ae_state_clear(state);
         state->last_error = error_type;
         state->error_msg = msg;
-        if( state->break_jump!=NULL )
+        if( state->break_jump!=nullptr )
             longjmp(*(state->break_jump), 1);
         else
             abort();
@@ -597,8 +597,8 @@ void set_memory_pool(void *ptr, size_t size)
      */
     AE_CRITICAL_ASSERT(sm_page_size==0);
     AE_CRITICAL_ASSERT(sm_page_cnt==0);
-    AE_CRITICAL_ASSERT(sm_page_tbl==NULL);
-    AE_CRITICAL_ASSERT(sm_mem==NULL);
+    AE_CRITICAL_ASSERT(sm_page_tbl==nullptr);
+    AE_CRITICAL_ASSERT(sm_mem==nullptr);
     AE_CRITICAL_ASSERT(size>0);
     
     /*
@@ -630,13 +630,13 @@ void* ae_static_malloc(size_t size, size_t alignment)
     AE_CRITICAL_ASSERT(size>=0);
     AE_CRITICAL_ASSERT(sm_page_size>0);
     AE_CRITICAL_ASSERT(sm_page_cnt>0);
-    AE_CRITICAL_ASSERT(sm_page_tbl!=NULL);
-    AE_CRITICAL_ASSERT(sm_mem!=NULL);
+    AE_CRITICAL_ASSERT(sm_page_tbl!=nullptr);
+    AE_CRITICAL_ASSERT(sm_mem!=nullptr);
     
     if( size==0 )
-        return NULL;
+        return nullptr;
     if( _force_malloc_failure )
-        return NULL;
+        return nullptr;
     
     /* check that page alignment and requested alignment match each other */
     AE_CRITICAL_ASSERT(alignment<=sm_page_size);
@@ -682,13 +682,13 @@ void* ae_static_malloc(size_t size, size_t alignment)
         /* next element */
         i++;
     }
-    return NULL;
+    return nullptr;
 }
 
 void ae_static_free(void *block)
 {
     ae_int_t page_idx, page_cnt, i;
-    if( block==NULL )
+    if( block==nullptr )
         return;
     page_idx = (unsigned char*)block-sm_mem;
     AE_CRITICAL_ASSERT(page_idx>=0);
@@ -711,8 +711,8 @@ void memory_pool_stats(ae_int_t *bytes_used, ae_int_t *bytes_free)
     
     AE_CRITICAL_ASSERT(sm_page_size>0);
     AE_CRITICAL_ASSERT(sm_page_cnt>0);
-    AE_CRITICAL_ASSERT(sm_page_tbl!=NULL);
-    AE_CRITICAL_ASSERT(sm_mem!=NULL);
+    AE_CRITICAL_ASSERT(sm_page_tbl!=nullptr);
+    AE_CRITICAL_ASSERT(sm_mem!=nullptr);
     
     /* scan page table */
     *bytes_used = 0;
@@ -741,14 +741,14 @@ void* aligned_malloc(size_t size, size_t alignment)
 #if AE_MALLOC==AE_BASIC_STATIC_MALLOC
     return ae_static_malloc(size, alignment);
 #else
-    char *result = NULL;
+    char *result = nullptr;
     
     if( size==0 )
-        return NULL;
+        return nullptr;
     if( _force_malloc_failure )
-        return NULL;
+        return nullptr;
     if( _malloc_failure_after>0 && _alloc_counter_total>=_malloc_failure_after )
-        return NULL;
+        return nullptr;
     
     /* allocate */
     if( alignment<=1 )
@@ -757,8 +757,8 @@ void* aligned_malloc(size_t size, size_t alignment)
         void *block;
         void **p; ;
         block = malloc(sizeof(void*)+size);
-        if( block==NULL )
-            return NULL;
+        if( block==nullptr )
+            return nullptr;
         p = (void**)block;
         *p = block;
         result = (char*)((char*)block+sizeof(void*));
@@ -768,8 +768,8 @@ void* aligned_malloc(size_t size, size_t alignment)
         /* align */
         void *block;
         block = malloc(alignment-1+sizeof(void*)+size);
-        if( block==NULL )
-            return NULL;
+        if( block==nullptr )
+            return nullptr;
         result = (char*)block+sizeof(void*);
         /*if( (result-(char*)0)%alignment!=0 )
             result += alignment - (result-(char*)0)%alignment;*/
@@ -794,10 +794,10 @@ void* aligned_malloc(size_t size, size_t alignment)
 void* aligned_extract_ptr(void *block)
 {
 #if AE_MALLOC==AE_BASIC_STATIC_MALLOC
-    return NULL;
+    return nullptr;
 #else
-    if( block==NULL )
-        return NULL;
+    if( block==nullptr )
+        return nullptr;
     return *((void**)((char*)block-sizeof(void*)));
 #endif
 }
@@ -808,7 +808,7 @@ void aligned_free(void *block)
     ae_static_free(block);
 #else
     void *p;
-    if( block==NULL )
+    if( block==nullptr )
         return;
     p = aligned_extract_ptr(block);
     free(p);
@@ -820,35 +820,35 @@ void aligned_free(void *block)
 void* eternal_malloc(size_t size)
 {
     if( size==0 )
-        return NULL;
+        return nullptr;
     if( _force_malloc_failure )
-        return NULL;
+        return nullptr;
     return malloc(size);
 }
 
 /************************************************************************
 Allocate memory with automatic alignment.
 
-Returns NULL when zero size is specified.
+Returns nullptr when zero size is specified.
 
 Error handling:
-* if state is NULL, returns NULL on allocation error
-* if state is not NULL, calls ae_break() on allocation error
+* if state is nullptr, returns nullptr on allocation error
+* if state is not nullptr, calls ae_break() on allocation error
 ************************************************************************/
 void* ae_malloc(size_t size, ae_state *state)
 {
     void *result;
     if( size==0 )
-        return NULL;
+        return nullptr;
     result = aligned_malloc(size,AE_DATA_ALIGN);
-    if( result==NULL && state!=NULL)
+    if( result==nullptr && state!=nullptr)
         ae_break(state, ERR_OUT_OF_MEMORY, "ae_malloc(): out of memory");
     return result;
 }
 
 void ae_free(void *p)
 {
-    if( p!=NULL )
+    if( p!=nullptr )
         aligned_free(p);
 }
 
@@ -875,7 +875,7 @@ void ae_matrix_update_row_pointers(ae_matrix *dst, void *storage)
             pp_ptr[i] = p_base;
     }
     else
-        dst->ptr.pp_void = NULL;
+        dst->ptr.pp_void = nullptr;
 }
 
 /************************************************************************
@@ -976,14 +976,14 @@ void ae_state_init(ae_state *state)
      * p_next points to itself because:
      * * correct program should be able to detect end of the list
      *   by looking at the ptr field.
-     * * NULL p_next may be used to distinguish automatic blocks
+     * * nullptr p_next may be used to distinguish automatic blocks
      *   (in the list) from non-automatic (not in the list)
      */
     state->last_block.p_next = &(state->last_block);
-    state->last_block.deallocator = NULL;
+    state->last_block.deallocator = nullptr;
     state->last_block.ptr = DYN_BOTTOM;
     state->p_top_block = &(state->last_block);
-    state->break_jump = NULL;
+    state->break_jump = nullptr;
     state->error_msg = "";
     
     /*
@@ -1020,9 +1020,9 @@ void ae_state_init(ae_state *state)
     /*
      * set threading information
      */
-    state->worker_thread = NULL;
-    state->parent_task = NULL;
-    state->thread_exception_handler = NULL;
+    state->worker_thread = nullptr;
+    state->parent_task = nullptr;
+    state->thread_exception_handler = nullptr;
 }
 
 
@@ -1040,7 +1040,7 @@ void ae_state_clear(ae_state *state)
 /************************************************************************
 This function sets jump buffer for error handling.
 
-buf may be NULL.
+buf may be nullptr.
 ************************************************************************/
 void ae_state_set_break_jump(ae_state *state, jmp_buf *buf)
 {
@@ -1051,7 +1051,7 @@ void ae_state_set_break_jump(ae_state *state, jmp_buf *buf)
 /************************************************************************
 This function sets flags member of the ae_state structure
 
-buf may be NULL.
+buf may be nullptr.
 ************************************************************************/
 void ae_state_set_flags(ae_state *state, ae_uint64_t flags)
 {
@@ -1071,7 +1071,7 @@ variable (local is even better).
 void ae_frame_make(ae_state *state, ae_frame *tmp)
 {
     tmp->db_marker.p_next = state->p_top_block;
-    tmp->db_marker.deallocator = NULL;
+    tmp->db_marker.deallocator = nullptr;
     tmp->db_marker.ptr = DYN_FRAME;
     state->p_top_block = &tmp->db_marker;
 }
@@ -1085,7 +1085,7 @@ void ae_frame_leave(ae_state *state)
 {
     while( state->p_top_block->ptr!=DYN_FRAME && state->p_top_block->ptr!=DYN_BOTTOM)
     {
-        if( state->p_top_block->ptr!=NULL && state->p_top_block->deallocator!=NULL)
+        if( state->p_top_block->ptr!=nullptr && state->p_top_block->deallocator!=nullptr)
             ((ae_deallocator)(state->p_top_block->deallocator))(state->p_top_block->ptr);
         state->p_top_block = state->p_top_block->p_next;
     }
@@ -1116,7 +1116,7 @@ This function initializes dynamic block:
 
 block               destination block, MUST be zero-filled on entry
 size                size (in bytes), >=0.
-state               ALGLIB environment state, non-NULL
+state               ALGLIB environment state, non-nullptr
 make_automatic      if true, vector is added to the dynamic block list
 
 block is assumed to be uninitialized, its fields are ignored. You may
@@ -1134,7 +1134,7 @@ NOTE: no memory allocation is performed for initialization with size=0
 ************************************************************************/
 void ae_db_init(ae_dyn_block *block, ae_int_t size, ae_state *state, ae_bool make_automatic)
 {
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     AE_CRITICAL_ASSERT(ae_check_zeros(block,sizeof(*block)));
     
     /*
@@ -1143,14 +1143,14 @@ void ae_db_init(ae_dyn_block *block, ae_int_t size, ae_state *state, ae_bool mak
      *       memory allocation.
      */
     ae_assert(size>=0, "ae_db_init(): negative size", state);
-    block->ptr = NULL;
-    block->valgrind_hint = NULL;
+    block->ptr = nullptr;
+    block->valgrind_hint = nullptr;
     ae_touch_ptr(block->ptr);
     ae_touch_ptr(block->valgrind_hint);
     if( make_automatic )
         ae_db_attach(block, state);
     else
-        block->p_next = NULL;
+        block->p_next = nullptr;
     if( size!=0 )
     {
         block->ptr = ae_malloc((size_t)size, state);
@@ -1181,7 +1181,7 @@ NOTES:
 ************************************************************************/
 void ae_db_realloc(ae_dyn_block *block, ae_int_t size, ae_state *state)
 {
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     
     /*
      * NOTE: these strange dances around block->ptr are necessary
@@ -1189,11 +1189,11 @@ void ae_db_realloc(ae_dyn_block *block, ae_int_t size, ae_state *state)
      *       memory allocation.
      */
     ae_assert(size>=0, "ae_db_realloc(): negative size", state);
-    if( block->ptr!=NULL )
+    if( block->ptr!=nullptr )
     {
         ((ae_deallocator)block->deallocator)(block->ptr);
-        block->ptr = NULL;
-        block->valgrind_hint = NULL;
+        block->ptr = nullptr;
+        block->valgrind_hint = nullptr;
     }
     block->ptr = ae_malloc((size_t)size, state);
     block->valgrind_hint = aligned_extract_ptr(block->ptr);
@@ -1213,10 +1213,10 @@ NOTES:
 ************************************************************************/
 void ae_db_free(ae_dyn_block *block)
 {
-    if( block->ptr!=NULL )
+    if( block->ptr!=nullptr )
         ((ae_deallocator)block->deallocator)(block->ptr);
-    block->ptr = NULL;
-    block->valgrind_hint = NULL;
+    block->ptr = nullptr;
+    block->valgrind_hint = nullptr;
     block->deallocator = ae_free;
 }
 
@@ -1230,7 +1230,7 @@ NOTES:
 ************************************************************************/
 void ae_db_swap(ae_dyn_block *block1, ae_dyn_block *block2)
 {
-    void (*deallocator)(void*) = NULL;
+    void (*deallocator)(void*) = nullptr;
     void * volatile ptr;
     void * valgrind_hint;
     
@@ -1257,7 +1257,7 @@ dst                 destination vector, MUST be zero-filled (we  check  it
                     without zero-filling).
 size                vector size, may be zero
 datatype            guess what...
-state               pointer to current state structure. Can not be NULL.
+state               pointer to current state structure. Can not be nullptr.
                     used for exception handling (say, allocation error results
                     in longjmp call).
 make_automatic      if true, vector will be registered in the current frame
@@ -1270,13 +1270,13 @@ void ae_vector_init(ae_vector *dst, ae_int_t size, ae_datatype datatype, ae_stat
     /*
      * Integrity checks
      */
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
     ae_assert(size>=0, "ae_vector_init(): negative size", state);
     
     /* prepare for possible errors during allocation */
     dst->cnt = 0;
-    dst->ptr.p_ptr = NULL;
+    dst->ptr.p_ptr = nullptr;
     
     /* init */
     ae_db_init(&dst->data, size*ae_sizeof(datatype), state, make_automatic);
@@ -1296,7 +1296,7 @@ dst                 destination vector, MUST be zero-filled (we  check  it
                     that we can not correctly handle errors in constructors
                     without zero-filling).
 src                 well, it is source
-state               pointer to current state structure. Can not be NULL.
+state               pointer to current state structure. Can not be nullptr.
                     used for exception handling (say, allocation error results
                     in longjmp call).
 make_automatic      if true, vector will be registered in the current frame
@@ -1306,7 +1306,7 @@ dst is assumed to be uninitialized, its fields are ignored.
 ************************************************************************/
 void ae_vector_init_copy(ae_vector *dst, ae_vector *src, ae_state *state, ae_bool make_automatic)
 {
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     
     ae_vector_init(dst, src->cnt, src->datatype, state, make_automatic);
     if( src->cnt!=0 )
@@ -1324,7 +1324,7 @@ dst                 destination vector, MUST be zero-filled (we  check  it
                     that we can not correctly handle errors in constructors
                     without zero-filling).
 src                 well, it is source
-state               pointer to current state structure. Can not be NULL.
+state               pointer to current state structure. Can not be nullptr.
                     used for exception handling (say, allocation error results
                     in longjmp call).
 make_automatic      if true, vector will be registered in the current frame
@@ -1334,7 +1334,7 @@ dst is assumed to be uninitialized, its fields are ignored.
 ************************************************************************/
 void ae_vector_init_from_x(ae_vector *dst, x_vector *src, ae_state *state, ae_bool make_automatic)
 {
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     
     ae_vector_init(dst, (ae_int_t)src->cnt, (ae_datatype)src->datatype, state, make_automatic);
     if( src->cnt>0 )
@@ -1357,7 +1357,7 @@ NOTE: is_attached field is set  to  ae_true  in  order  to  indicate  that
 
 dst                 destination vector
 src                 well, it is source
-state               pointer to current state structure. Can not be NULL.
+state               pointer to current state structure. Can not be nullptr.
                     used for exception handling (say, allocation error results
                     in longjmp call).
 make_automatic      if true, vector will be registered in the current frame
@@ -1369,7 +1369,7 @@ void ae_vector_init_attach_to_x(ae_vector *dst, x_vector *src, ae_state *state, 
 {
     volatile ae_int_t cnt;
     
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
     
     cnt = (ae_int_t)src->cnt;
@@ -1380,7 +1380,7 @@ void ae_vector_init_attach_to_x(ae_vector *dst, x_vector *src, ae_state *state, 
     
     /* prepare for possible errors during allocation */
     dst->cnt = 0;
-    dst->ptr.p_ptr = NULL;
+    dst->ptr.p_ptr = nullptr;
     dst->datatype = (ae_datatype)src->datatype;
     
     /* zero-size init in order to correctly register in the frame */
@@ -1397,7 +1397,7 @@ This function changes length of ae_vector.
 
 dst                 destination vector
 newsize             vector size, may be zero
-state               ALGLIB environment state, can not be NULL
+state               ALGLIB environment state, can not be nullptr
 
 Error handling: calls ae_break() on allocation error
 
@@ -1408,14 +1408,14 @@ NOTES:
 ************************************************************************/
 void ae_vector_set_length(ae_vector *dst, ae_int_t newsize, ae_state *state)
 {
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     ae_assert(newsize>=0, "ae_vector_set_length(): negative size", state);
     if( dst->cnt==newsize )
         return;
     
     /* realloc, being ready for exception during reallocation (cnt=ptr=0 on entry) */
     dst->cnt = 0;
-    dst->ptr.p_ptr = NULL;
+    dst->ptr.p_ptr = nullptr;
     ae_db_realloc(&dst->data, newsize*ae_sizeof(dst->datatype), state);
     dst->cnt = newsize;
     dst->ptr.p_ptr = dst->data.ptr;
@@ -1468,8 +1468,8 @@ void ae_swap_vectors(ae_vector *vec1, ae_vector *vec2)
     ae_datatype datatype;
     void *p_ptr;
     
-    ae_assert(!vec1->is_attached, "ALGLIB: internal error, attempt to swap vectors attached to X-object", NULL);
-    ae_assert(!vec2->is_attached, "ALGLIB: internal error, attempt to swap vectors attached to X-object", NULL);
+    ae_assert(!vec1->is_attached, "ALGLIB: internal error, attempt to swap vectors attached to X-object", nullptr);
+    ae_assert(!vec2->is_attached, "ALGLIB: internal error, attempt to swap vectors attached to X-object", nullptr);
     
     ae_db_swap(&vec1->data, &vec2->data);
     
@@ -1494,7 +1494,7 @@ dst                 destination matrix, must be zero-filled
 rows                rows count
 cols                cols count
 datatype            element type
-state               pointer to current state structure. Can not be NULL.
+state               pointer to current state structure. Can not be nullptr.
                     used for exception handling (say, allocation error results
                     in longjmp call).
 make_automatic      if true, matrix will be registered in the current frame
@@ -1506,7 +1506,7 @@ NOTE: no memory allocation is performed for initialization with rows=cols=0
 ************************************************************************/
 void ae_matrix_init(ae_matrix *dst, ae_int_t rows, ae_int_t cols, ae_datatype datatype, ae_state *state, ae_bool make_automatic)
 {
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
     
     ae_assert(rows>=0 && cols>=0, "ae_matrix_init(): negative length", state);
@@ -1517,18 +1517,18 @@ void ae_matrix_init(ae_matrix *dst, ae_int_t rows, ae_int_t cols, ae_datatype da
         dst->rows = 0;
         dst->cols = 0;
         dst->is_attached = ae_false;
-        dst->ptr.pp_void = NULL;
+        dst->ptr.pp_void = nullptr;
         dst->stride = 0;
         dst->datatype = datatype;
         ae_db_init(&dst->data, 0, state, make_automatic);
         return;
     }
 
-    /* init, being ready for exception during allocation (rows=cols=ptr=NULL on entry) */
+    /* init, being ready for exception during allocation (rows=cols=ptr=nullptr on entry) */
     dst->is_attached = ae_false;
     dst->rows = 0;
     dst->cols = 0;
-    dst->ptr.pp_void = NULL;
+    dst->ptr.pp_void = nullptr;
     dst->stride = cols;
     while( dst->stride*ae_sizeof(datatype)%AE_DATA_ALIGN!=0 )
         dst->stride++;
@@ -1545,7 +1545,7 @@ This function creates copy of ae_matrix. A new copy of the data is created.
 
 dst                 destination matrix, must be zero-filled
 src                 well, it is source
-state               pointer to current state structure. Can not be NULL.
+state               pointer to current state structure. Can not be nullptr.
                     used for exception handling (say, allocation error results
                     in longjmp call).
 make_automatic      if true, matrix will be registered in the current frame
@@ -1576,7 +1576,7 @@ this call.
 
 dst                 destination matrix, must be zero-filled
 src                 well, it is source
-state               pointer to current state structure. Can not be NULL.
+state               pointer to current state structure. Can not be nullptr.
                     used for exception handling (say, allocation error results
                     in longjmp call).
 make_automatic      if true, matrix will be registered in the current frame
@@ -1590,7 +1590,7 @@ void ae_matrix_init_from_x(ae_matrix *dst, x_matrix *src, ae_state *state, ae_bo
     char *p_dst_row;
     ae_int_t row_size;
     ae_int_t i;
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     ae_matrix_init(dst, (ae_int_t)src->rows, (ae_int_t)src->cols, (ae_datatype)src->datatype, state, make_automatic);
     if( src->rows!=0 && src->cols!=0 )
     {
@@ -1616,7 +1616,7 @@ New matrix is attached to source:
 
 dst                 destination matrix, must be zero-filled
 src                 well, it is source
-state               pointer to current state structure. Can not be NULL.
+state               pointer to current state structure. Can not be nullptr.
                     used for exception handling (say, allocation error results
                     in longjmp call).
 make_automatic      if true, matrix will be registered in the current frame
@@ -1628,7 +1628,7 @@ void ae_matrix_init_attach_to_x(ae_matrix *dst, x_matrix *src, ae_state *state, 
 {
     ae_int_t rows, cols;
     
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
     
     rows = (ae_int_t)src->rows;
@@ -1655,7 +1655,7 @@ void ae_matrix_init_attach_to_x(ae_matrix *dst, x_matrix *src, ae_state *state, 
     dst->cols = 0;
     dst->stride = cols;
     dst->datatype = (ae_datatype)src->datatype;
-    dst->ptr.pp_void = NULL;
+    dst->ptr.pp_void = nullptr;
     ae_db_init(&dst->data, rows*(ae_int_t)sizeof(void*), state, make_automatic);
     dst->rows = rows;
     dst->cols = cols;
@@ -1684,8 +1684,8 @@ cols                size, may be zero
 state               ALGLIB environment state
 
 Error handling:
-* if state is NULL, returns ae_false on allocation error
-* if state is not NULL, calls ae_break() on allocation error
+* if state is nullptr, returns ae_false on allocation error
+* if state is not nullptr, calls ae_break() on allocation error
 * returns ae_true on success
 
 NOTES:
@@ -1695,7 +1695,7 @@ NOTES:
 ************************************************************************/
 void ae_matrix_set_length(ae_matrix *dst, ae_int_t rows, ae_int_t cols, ae_state *state)
 {
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     ae_assert(rows>=0 && cols>=0, "ae_matrix_set_length(): negative length", state);
     if( dst->rows==rows && dst->cols==cols )
         return;
@@ -1708,7 +1708,7 @@ void ae_matrix_set_length(ae_matrix *dst, ae_int_t rows, ae_int_t cols, ae_state
     /* realloc, being ready for an exception during reallocation (rows=cols=0 on entry) */
     dst->rows = 0;
     dst->cols = 0;
-    dst->ptr.pp_void = NULL;
+    dst->ptr.pp_void = nullptr;
     ae_db_realloc(&dst->data, rows*((ae_int_t)sizeof(void*)+dst->stride*ae_sizeof(dst->datatype))+AE_DATA_ALIGN-1, state);
     dst->rows = rows;
     dst->cols = cols;
@@ -1769,8 +1769,8 @@ void ae_swap_matrices(ae_matrix *mat1, ae_matrix *mat2)
     ae_datatype datatype;
     void *p_ptr;
 
-    ae_assert(!mat1->is_attached, "ALGLIB: internal error, attempt to swap matrices attached to X-object", NULL);
-    ae_assert(!mat2->is_attached, "ALGLIB: internal error, attempt to swap matrices attached to X-object", NULL);
+    ae_assert(!mat1->is_attached, "ALGLIB: internal error, attempt to swap matrices attached to X-object", nullptr);
+    ae_assert(!mat2->is_attached, "ALGLIB: internal error, attempt to swap matrices attached to X-object", nullptr);
     
     ae_db_swap(&mat1->data, &mat2->data);
     
@@ -1800,26 +1800,26 @@ This function creates smart pointer structure.
 dst                 destination smart pointer, must be zero-filled
 subscriber          pointer to pointer which receives updates in the
                     internal object stored in ae_smart_ptr. Any update to
-                    dst->ptr is translated to subscriber. Can be NULL.
-state               pointer to current state structure. Can not be NULL.
+                    dst->ptr is translated to subscriber. Can be nullptr.
+state               pointer to current state structure. Can not be nullptr.
                     used for exception handling (say, allocation error results
                     in longjmp call).
 make_automatic      if true, pointer will be registered in the current frame
                     of the state structure;
                       
 Error handling:
-* on failure calls ae_break() with NULL state pointer. Usually it  results
+* on failure calls ae_break() with nullptr state pointer. Usually it  results
   in abort() call.
 
-After initialization, smart pointer stores NULL pointer.
+After initialization, smart pointer stores nullptr pointer.
 ************************************************************************/
 void ae_smart_ptr_init(ae_smart_ptr *dst, void **subscriber, ae_state *state, ae_bool make_automatic)
 {
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
     dst->subscriber = subscriber;
-    dst->ptr = NULL;
-    if( dst->subscriber!=NULL )
+    dst->ptr = nullptr;
+    if( dst->subscriber!=nullptr )
         *(dst->subscriber) = dst->ptr;
     dst->is_owner = ae_false;
     dst->is_dynamic = ae_false;
@@ -1835,14 +1835,14 @@ This function clears smart pointer structure.
 
 dst                 destination smart pointer.
 
-After call to this function smart pointer contains NULL reference,  which
-is  propagated  to  its  subscriber  (in  cases  non-NULL  subscruber was
+After call to this function smart pointer contains nullptr reference,  which
+is  propagated  to  its  subscriber  (in  cases  non-nullptr  subscruber was
 specified during pointer creation).
 ************************************************************************/
 void ae_smart_ptr_clear(void *_dst)
 {
     ae_smart_ptr *dst = (ae_smart_ptr*)_dst;
-    if( dst->is_owner && dst->ptr!=NULL )
+    if( dst->is_owner && dst->ptr!=nullptr )
     {
         dst->destroy(dst->ptr);
         if( dst->is_dynamic )
@@ -1850,10 +1850,10 @@ void ae_smart_ptr_clear(void *_dst)
     }
     dst->is_owner = ae_false;
     dst->is_dynamic = ae_false;
-    dst->ptr = NULL;
-    dst->destroy = NULL;
-    if( dst->subscriber!=NULL )
-        *(dst->subscriber) = NULL;
+    dst->ptr = nullptr;
+    dst->destroy = nullptr;
+    if( dst->subscriber!=nullptr )
+        *(dst->subscriber) = nullptr;
 }
 
 
@@ -1879,23 +1879,23 @@ is_dynamic          whether object is dynamic - clearing such object
                     ae_free() for memory occupied by object.
 destroy             destructor function
 
-In case smart pointer already contains non-NULL value and owns this value,
+In case smart pointer already contains non-nullptr value and owns this value,
 it is freed before assigning new pointer.
 
-Changes in pointer are propagated to its  subscriber  (in  case  non-NULL
+Changes in pointer are propagated to its  subscriber  (in  case  non-nullptr
 subscriber was specified during pointer creation).
 
-You can specify NULL new_ptr, in which case is_owner/destroy are ignored.
+You can specify nullptr new_ptr, in which case is_owner/destroy are ignored.
 ************************************************************************/
 void ae_smart_ptr_assign(ae_smart_ptr *dst, void *new_ptr, ae_bool is_owner, ae_bool is_dynamic, void (*destroy)(void*))
 {
-    if( dst->is_owner && dst->ptr!=NULL )
+    if( dst->is_owner && dst->ptr!=nullptr )
     {
         dst->destroy(dst->ptr);
         if( dst->is_dynamic )
             ae_free(dst->ptr);
     }
-    if( new_ptr!=NULL )
+    if( new_ptr!=nullptr )
     {
         dst->ptr = new_ptr;
         dst->is_owner = is_owner;
@@ -1904,23 +1904,23 @@ void ae_smart_ptr_assign(ae_smart_ptr *dst, void *new_ptr, ae_bool is_owner, ae_
     }
     else
     {
-        dst->ptr = NULL;
+        dst->ptr = nullptr;
         dst->is_owner = ae_false;
         dst->is_dynamic = ae_false;
-        dst->destroy = NULL;
+        dst->destroy = nullptr;
     }
-    if( dst->subscriber!=NULL )
+    if( dst->subscriber!=nullptr )
         *(dst->subscriber) = dst->ptr;
 }
 
 
 /************************************************************************
 This function releases pointer owned by ae_smart_ptr structure:
-* all internal fields are set to NULL
+* all internal fields are set to nullptr
 * destructor function for internal pointer is NOT called even when we own
   this pointer. After this call ae_smart_ptr releases  ownership  of  its
   pointer and passes it to caller.
-* changes in pointer are propagated to its subscriber (in  case  non-NULL
+* changes in pointer are propagated to its subscriber (in  case  non-nullptr
   subscriber was specified during pointer creation).
 
 dst                 destination smart pointer.
@@ -1929,10 +1929,10 @@ void ae_smart_ptr_release(ae_smart_ptr *dst)
 {
     dst->is_owner = ae_false;
     dst->is_dynamic = ae_false;
-    dst->ptr = NULL;
-    dst->destroy = NULL;
-    if( dst->subscriber!=NULL )
-        *(dst->subscriber) = NULL;
+    dst->ptr = nullptr;
+    dst->destroy = nullptr;
+    if( dst->subscriber!=nullptr )
+        *(dst->subscriber) = nullptr;
 }
 
 /************************************************************************
@@ -1973,7 +1973,7 @@ void ae_x_set_vector(x_vector *dst, ae_vector *src, ae_state *state)
         if( dst->owner==OWN_AE )
             ae_free(dst->x_ptr.p_ptr);
         dst->x_ptr.p_ptr = ae_malloc((size_t)(src->cnt*ae_sizeof(src->datatype)), state);
-        if( src->cnt!=0 && dst->x_ptr.p_ptr==NULL )
+        if( src->cnt!=0 && dst->x_ptr.p_ptr==nullptr )
             ae_break(state, ERR_OUT_OF_MEMORY, "ae_malloc(): out of memory");
         dst->last_action = ACT_NEW_LOCATION;
         dst->cnt = src->cnt;
@@ -2027,7 +2027,7 @@ void ae_x_set_matrix(x_matrix *dst, ae_matrix *src, ae_state *state)
     char *p_dst_row;
     ae_int_t i;
     ae_int_t row_size;
-    if( src->ptr.pp_void!=NULL && src->ptr.pp_void[0] == dst->x_ptr.p_ptr )
+    if( src->ptr.pp_void!=nullptr && src->ptr.pp_void[0] == dst->x_ptr.p_ptr )
     {
         /* src->ptr points to the beginning of dst, attached matrices, no need to copy */
         return;
@@ -2041,7 +2041,7 @@ void ae_x_set_matrix(x_matrix *dst, ae_matrix *src, ae_state *state)
         dst->stride = src->cols;
         dst->datatype = src->datatype;
         dst->x_ptr.p_ptr = ae_malloc((size_t)(dst->rows*((ae_int_t)dst->stride)*ae_sizeof(src->datatype)), state);
-        if( dst->rows!=0 && dst->stride!=0 && dst->x_ptr.p_ptr==NULL )
+        if( dst->rows!=0 && dst->stride!=0 && dst->x_ptr.p_ptr==nullptr )
             ae_break(state, ERR_OUT_OF_MEMORY, "ae_malloc(): out of memory");
         dst->last_action = ACT_NEW_LOCATION;
         dst->owner = OWN_AE;
@@ -2131,17 +2131,17 @@ void x_vector_clear(x_vector *dst)
 {
     if( dst->owner==OWN_AE )
         aligned_free(dst->x_ptr.p_ptr);
-    dst->x_ptr.p_ptr = NULL;
+    dst->x_ptr.p_ptr = nullptr;
     dst->cnt = 0;
 }
 
 /************************************************************************
 Assertion
 
-For  non-NULL  state  it  allows  to  gracefully  leave  ALGLIB  session,
+For  non-nullptr  state  it  allows  to  gracefully  leave  ALGLIB  session,
 removing all frames and deallocating registered dynamic data structure.
 
-For NULL state it just abort()'s program.
+For nullptr state it just abort()'s program.
 
 IMPORTANT: this function ALWAYS evaluates its argument.  It  can  not  be
            replaced by macro which does nothing. So, you may place actual
@@ -3680,7 +3680,7 @@ void _ae_init_lock_raw(_lock *p)
     p->p_lock = (ae_int_t*)ae_align((void*)(&p->buf),AE_LOCK_ALIGNMENT);
     p->p_lock[0] = 0;
 #elif AE_OS==AE_POSIX
-    pthread_mutex_init(&p->mutex, NULL);
+    pthread_mutex_init(&p->mutex, nullptr);
 #else
     p->is_locked = ae_false;
 #endif
@@ -3773,7 +3773,7 @@ INPUT PARAMETERS:
     make_automatic      -   if true, lock object is added to automatic
                             memory management list.
 
-NOTE: as a special exception, this function allows you  to  specify  NULL
+NOTE: as a special exception, this function allows you  to  specify  nullptr
       state pointer. In this case all exception arising during construction
       are handled as critical failures, with abort() being called.
       make_automatic must be false on such calls.
@@ -3782,7 +3782,7 @@ void ae_init_lock(ae_lock *lock, ae_state *state, ae_bool make_automatic)
 {
     _lock *p;
     AE_CRITICAL_ASSERT(ae_check_zeros(lock,sizeof(*lock)));
-    if(state==NULL)
+    if(state==nullptr)
     {
         ae_state _tmp_state;
         AE_CRITICAL_ASSERT(!make_automatic);
@@ -3809,7 +3809,7 @@ INPUT PARAMETERS:
     lock                -   pointer to lock structure, must be zero-filled
     state               -   pointer to state structure, used for exception
                             handling and management of automatic objects;
-                            non-NULL.
+                            non-nullptr.
     make_automatic      -   if true, lock object is added to automatic
                             memory management list.
 ************************************************************************/
@@ -3855,7 +3855,7 @@ void ae_free_lock(ae_lock *lock)
     _lock *p;
     AE_CRITICAL_ASSERT(!lock->eternal);
     p = (_lock*)lock->lock_ptr;
-    if( p!=NULL )
+    if( p!=nullptr )
         _ae_free_lock_raw(p);
     ae_db_free(&lock->db);
 }
@@ -3866,14 +3866,14 @@ This function creates ae_shared_pool structure.
 
 dst                 destination shared pool, must be zero-filled
                     already allocated, but not initialized.
-state               pointer to current state structure. Can not be NULL.
+state               pointer to current state structure. Can not be nullptr.
                     used for exception handling (say, allocation error results
                     in longjmp call).
 make_automatic      if true, vector will be registered in the current frame
                     of the state structure;
                       
 Error handling:
-* on failure calls ae_break() with NULL state pointer. Usually it  results
+* on failure calls ae_break() with nullptr state pointer. Usually it  results
   in abort() call.
 
 dst is assumed to be uninitialized, its fields are ignored.
@@ -3882,19 +3882,19 @@ void ae_shared_pool_init(void *_dst, ae_state *state, ae_bool make_automatic)
 {
     ae_shared_pool *dst;
     
-    AE_CRITICAL_ASSERT(state!=NULL);
+    AE_CRITICAL_ASSERT(state!=nullptr);
     dst = (ae_shared_pool*)_dst;
     AE_CRITICAL_ASSERT(ae_check_zeros(dst,sizeof(*dst)));
     
     /* init */
-    dst->seed_object = NULL;
-    dst->recycled_objects = NULL;
-    dst->recycled_entries = NULL;
-    dst->enumeration_counter = NULL;
+    dst->seed_object = nullptr;
+    dst->recycled_objects = nullptr;
+    dst->recycled_entries = nullptr;
+    dst->enumeration_counter = nullptr;
     dst->size_of_object = 0;
-    dst->init = NULL;
-    dst->init_copy = NULL;
-    dst->destroy = NULL;
+    dst->init = nullptr;
+    dst->init_copy = nullptr;
+    dst->destroy = nullptr;
     dst->frame_entry.deallocator = ae_shared_pool_destroy;
     dst->frame_entry.ptr = dst;
     if( make_automatic )
@@ -3914,15 +3914,15 @@ static void ae_shared_pool_internalclear(ae_shared_pool *dst)
     ae_shared_pool_entry *ptr, *tmp;
     
     /* destroy seed */
-    if( dst->seed_object!=NULL )
+    if( dst->seed_object!=nullptr )
     {
         dst->destroy((void*)dst->seed_object);
         ae_free((void*)dst->seed_object);
-        dst->seed_object = NULL;
+        dst->seed_object = nullptr;
     }
     
     /* destroy recycled objects */
-    for(ptr=dst->recycled_objects; ptr!=NULL;)
+    for(ptr=dst->recycled_objects; ptr!=nullptr;)
     {
         tmp = (ae_shared_pool_entry*)ptr->next_entry;
         dst->destroy(ptr->obj);
@@ -3930,16 +3930,16 @@ static void ae_shared_pool_internalclear(ae_shared_pool *dst)
         ae_free(ptr);
         ptr = tmp;
     }
-    dst->recycled_objects = NULL;
+    dst->recycled_objects = nullptr;
     
     /* destroy recycled entries */
-    for(ptr=dst->recycled_entries; ptr!=NULL;)
+    for(ptr=dst->recycled_entries; ptr!=nullptr;)
     {
         tmp = (ae_shared_pool_entry*)ptr->next_entry;
         ae_free(ptr);
         ptr = tmp;
     }
-    dst->recycled_entries = NULL;
+    dst->recycled_entries = nullptr;
 }
 
 
@@ -3948,7 +3948,7 @@ This function creates copy of ae_shared_pool.
 
 dst                 destination pool, must be zero-filled
 src                 source pool
-state               pointer to current state structure. Can not be NULL.
+state               pointer to current state structure. Can not be nullptr.
                     used for exception handling (say, allocation error results
                     in longjmp call).
 make_automatic      if true, vector will be registered in the current frame
@@ -3964,8 +3964,8 @@ void ae_shared_pool_init_copy(void *_dst, void *_src, ae_state *state, ae_bool m
     ae_shared_pool *dst, *src;
     ae_shared_pool_entry *ptr;
     
-    /* state!=NULL, allocation errors result in exception */
-    /* AE_CRITICAL_ASSERT(state!=NULL); */
+    /* state!=nullptr, allocation errors result in exception */
+    /* AE_CRITICAL_ASSERT(state!=nullptr); */
     
     dst = (ae_shared_pool*)_dst;
     src = (ae_shared_pool*)_src;
@@ -3978,7 +3978,7 @@ void ae_shared_pool_init_copy(void *_dst, void *_src, ae_state *state, ae_bool m
     dst->destroy = src->destroy;
     
     /* copy seed object */
-    if( src->seed_object!=NULL )
+    if( src->seed_object!=nullptr )
     {
         dst->seed_object = ae_malloc(dst->size_of_object, state);
         memset(dst->seed_object, 0, dst->size_of_object);
@@ -3986,8 +3986,8 @@ void ae_shared_pool_init_copy(void *_dst, void *_src, ae_state *state, ae_bool m
     }
     
     /* copy recycled objects */
-    dst->recycled_objects = NULL;
-    for(ptr=src->recycled_objects; ptr!=NULL; ptr=(ae_shared_pool_entry*)ptr->next_entry)
+    dst->recycled_objects = nullptr;
+    for(ptr=src->recycled_objects; ptr!=nullptr; ptr=(ae_shared_pool_entry*)ptr->next_entry)
     {
         ae_shared_pool_entry *tmp;
         
@@ -4005,10 +4005,10 @@ void ae_shared_pool_init_copy(void *_dst, void *_src, ae_state *state, ae_bool m
     }
     
     /* recycled entries are not copied because they do not store any information */
-    dst->recycled_entries = NULL;
+    dst->recycled_entries = nullptr;
     
     /* enumeration counter is reset on copying */
-    dst->enumeration_counter = NULL;
+    dst->enumeration_counter = nullptr;
     
     /* initialize frame record */
     dst->frame_entry.deallocator = ae_shared_pool_destroy;
@@ -4030,14 +4030,14 @@ void ae_shared_pool_clear(void *_dst)
     ae_shared_pool_internalclear(dst);
     
     /* clear fields */
-    dst->seed_object = NULL;
-    dst->recycled_objects = NULL;
-    dst->recycled_entries = NULL;
-    dst->enumeration_counter = NULL;
+    dst->seed_object = nullptr;
+    dst->recycled_objects = nullptr;
+    dst->recycled_entries = nullptr;
+    dst->enumeration_counter = nullptr;
     dst->size_of_object = 0;
-    dst->init = NULL;
-    dst->init_copy = NULL;
-    dst->destroy = NULL;
+    dst->init = nullptr;
+    dst->init_copy = nullptr;
+    dst->destroy = nullptr;
 }
 
 void ae_shared_pool_destroy(void *_dst)
@@ -4060,7 +4060,7 @@ NOTE: this function is NOT thread-safe. It does not acquire pool lock, so
 ae_bool ae_shared_pool_is_initialized(void *_dst)
 {
     ae_shared_pool *dst = (ae_shared_pool*)_dst;
-    return dst->seed_object!=NULL;
+    return dst->seed_object!=nullptr;
 }
 
 
@@ -4088,8 +4088,8 @@ void ae_shared_pool_set_seed(
     void            (*destroy)(void* ptr),
     ae_state        *state)
 {
-    /* state!=NULL, allocation errors result in exception */
-    AE_CRITICAL_ASSERT(state!=NULL);
+    /* state!=nullptr, allocation errors result in exception */
+    AE_CRITICAL_ASSERT(state!=nullptr);
     
     /* destroy internal objects */
     ae_shared_pool_internalclear(dst);
@@ -4111,7 +4111,7 @@ void ae_shared_pool_set_seed(
 This  function  retrieves  a  copy  of  the seed object from the pool and
 stores it to target smart pointer ptr.
 
-In case target pointer owns non-NULL  value,  it  is  deallocated  before
+In case target pointer owns non-nullptr  value,  it  is  deallocated  before
 storing value retrieved from pool. Target pointer becomes  owner  of  the
 value which was retrieved from pool.
 
@@ -4129,12 +4129,12 @@ void ae_shared_pool_retrieve(
 {
     void *new_obj;
     
-    /* state!=NULL, allocation errors are handled by throwing exception from ae_malloc() */
-    AE_CRITICAL_ASSERT(state!=NULL);
+    /* state!=nullptr, allocation errors are handled by throwing exception from ae_malloc() */
+    AE_CRITICAL_ASSERT(state!=nullptr);
     
     /* assert that pool was seeded */
     ae_assert(
-        pool->seed_object!=NULL,
+        pool->seed_object!=nullptr,
         "ALGLIB: shared pool is not seeded, PoolRetrieve() failed",
         state);
     
@@ -4142,7 +4142,7 @@ void ae_shared_pool_retrieve(
     ae_acquire_lock(&pool->pool_lock);
     
     /* try to reuse recycled objects */
-    if( pool->recycled_objects!=NULL )
+    if( pool->recycled_objects!=nullptr )
     {
         ae_shared_pool_entry *result;
         
@@ -4150,7 +4150,7 @@ void ae_shared_pool_retrieve(
         result = pool->recycled_objects;
         pool->recycled_objects = (ae_shared_pool_entry*)pool->recycled_objects->next_entry;
         new_obj = result->obj;
-        result->obj = NULL;
+        result->obj = nullptr;
         
         /* move entry to list of recycled entries */
         result->next_entry = pool->recycled_entries;
@@ -4182,7 +4182,7 @@ void ae_shared_pool_retrieve(
 This function recycles object owned by smart  pointer  by  moving  it  to
 internal storage of the shared pool.
 
-Source pointer must own the object. After function is over, it owns NULL
+Source pointer must own the object. After function is over, it owns nullptr
 pointer.
 
 pool                pool
@@ -4199,24 +4199,24 @@ void ae_shared_pool_recycle(
 {
     ae_shared_pool_entry *new_entry;
     
-    /* state!=NULL, allocation errors are handled by throwing exception from ae_malloc() */
-    AE_CRITICAL_ASSERT(state!=NULL);
+    /* state!=nullptr, allocation errors are handled by throwing exception from ae_malloc() */
+    AE_CRITICAL_ASSERT(state!=nullptr);
     
     /* assert that pool was seeded */
     ae_assert(
-        pool->seed_object!=NULL,
+        pool->seed_object!=nullptr,
         "ALGLIB: shared pool is not seeded, PoolRecycle() failed",
         state);
     
     /* assert that pointer non-null and owns the object */
     ae_assert(pptr->is_owner,  "ALGLIB: pptr in ae_shared_pool_recycle() does not own its pointer", state);
-    ae_assert(pptr->ptr!=NULL, "ALGLIB: pptr in ae_shared_pool_recycle() is NULL", state);
+    ae_assert(pptr->ptr!=nullptr, "ALGLIB: pptr in ae_shared_pool_recycle() is nullptr", state);
     
     /* acquire lock */
     ae_acquire_lock(&pool->pool_lock);
     
     /* acquire shared pool entry (reuse one from recycled_entries or allocate new one) */
-    if( pool->recycled_entries!=NULL )
+    if( pool->recycled_entries!=nullptr )
     {
         /* reuse previously allocated entry */
         new_entry = pool->recycled_entries;
@@ -4265,7 +4265,7 @@ void ae_shared_pool_clear_recycled(
     ae_shared_pool_entry *ptr, *tmp;
     
     /* clear recycled objects */
-    for(ptr=pool->recycled_objects; ptr!=NULL;)
+    for(ptr=pool->recycled_objects; ptr!=nullptr;)
     {
         tmp = (ae_shared_pool_entry*)ptr->next_entry;
         pool->destroy(ptr->obj);
@@ -4273,7 +4273,7 @@ void ae_shared_pool_clear_recycled(
         ae_free(ptr);
         ptr = tmp;
     }
-    pool->recycled_objects = NULL;
+    pool->recycled_objects = nullptr;
 }
 
 
@@ -4282,15 +4282,15 @@ This function allows to enumerate recycled elements of the  shared  pool.
 It stores pointer to the first recycled object in the smart pointer.
 
 IMPORTANT:
-* in case target pointer owns non-NULL  value,  it  is deallocated before
+* in case target pointer owns non-nullptr  value,  it  is deallocated before
   storing value retrieved from pool.
 * recycled object IS NOT removed from pool
 * target pointer DOES NOT become owner of the new value
 * this function IS NOT thread-safe
 * you SHOULD NOT modify shared pool during enumeration (although you  can
   modify state of the objects retrieved from pool)
-* in case there is no recycled objects in the pool, NULL is stored to pptr
-* in case pool is not seeded, NULL is stored to pptr
+* in case there is no recycled objects in the pool, nullptr is stored to pptr
+* in case pool is not seeded, nullptr is stored to pptr
 
 pool                pool
 pptr                pointer to ae_smart_ptr structure
@@ -4305,9 +4305,9 @@ void ae_shared_pool_first_recycled(
     pool->enumeration_counter = pool->recycled_objects;
     
     /* exit on empty list */
-    if( pool->enumeration_counter==NULL )
+    if( pool->enumeration_counter==nullptr )
     {
-        ae_smart_ptr_assign(pptr, NULL, ae_false, ae_false, NULL);
+        ae_smart_ptr_assign(pptr, nullptr, ae_false, ae_false, nullptr);
         return;
     }
     
@@ -4321,15 +4321,15 @@ This function allows to enumerate recycled elements of the  shared  pool.
 It stores pointer to the next recycled object in the smart pointer.
 
 IMPORTANT:
-* in case target pointer owns non-NULL  value,  it  is deallocated before
+* in case target pointer owns non-nullptr  value,  it  is deallocated before
   storing value retrieved from pool.
 * recycled object IS NOT removed from pool
 * target pointer DOES NOT become owner of the new value
 * this function IS NOT thread-safe
 * you SHOULD NOT modify shared pool during enumeration (although you  can
   modify state of the objects retrieved from pool)
-* in case there is no recycled objects left in the pool, NULL is stored.
-* in case pool is not seeded, NULL is stored.
+* in case there is no recycled objects left in the pool, nullptr is stored.
+* in case pool is not seeded, nullptr is stored.
 
 pool                pool
 pptr                pointer to ae_smart_ptr structure
@@ -4341,9 +4341,9 @@ void ae_shared_pool_next_recycled(
     ae_state        *state)
 {   
     /* exit on end of list */
-    if( pool->enumeration_counter==NULL )
+    if( pool->enumeration_counter==nullptr )
     {
-        ae_smart_ptr_assign(pptr, NULL, ae_false, ae_false, NULL);
+        ae_smart_ptr_assign(pptr, nullptr, ae_false, ae_false, nullptr);
         return;
     }
     
@@ -4351,9 +4351,9 @@ void ae_shared_pool_next_recycled(
     pool->enumeration_counter = (ae_shared_pool_entry*)pool->enumeration_counter->next_entry;
     
     /* exit on empty list */
-    if( pool->enumeration_counter==NULL )
+    if( pool->enumeration_counter==nullptr )
     {
-        ae_smart_ptr_assign(pptr, NULL, ae_false, ae_false, NULL);
+        ae_smart_ptr_assign(pptr, nullptr, ae_false, ae_false, nullptr);
         return;
     }
     
@@ -4381,14 +4381,14 @@ void ae_shared_pool_reset(
     ae_shared_pool_internalclear(pool);
     
     /* clear fields */
-    pool->seed_object = NULL;
-    pool->recycled_objects = NULL;
-    pool->recycled_entries = NULL;
-    pool->enumeration_counter = NULL;
+    pool->seed_object = nullptr;
+    pool->recycled_objects = nullptr;
+    pool->recycled_entries = nullptr;
+    pool->enumeration_counter = nullptr;
     pool->size_of_object = 0;
-    pool->init = NULL;
-    pool->init_copy = NULL;
-    pool->destroy = NULL;
+    pool->init = nullptr;
+    pool->init_copy = nullptr;
+    pool->destroy = nullptr;
 }
 
 
@@ -5803,7 +5803,7 @@ int _tickcount()
 {
     struct timeval now;
     ae_int64_t r, v;
-    gettimeofday(&now, NULL);
+    gettimeofday(&now, nullptr);
     v = now.tv_sec;
     r = v*1000;
     v = now.tv_usec/1000;
@@ -5860,7 +5860,7 @@ const double alglib::fp_nan         =  alglib::get_aenv_nan();
 const double alglib::fp_posinf      =  alglib::get_aenv_posinf();
 const double alglib::fp_neginf      =  alglib::get_aenv_neginf();
 #if defined(AE_NO_EXCEPTIONS)
-static const char *_alglib_last_error = NULL;
+static const char *_alglib_last_error = nullptr;
 #endif
 static const alglib_impl::ae_uint64_t _i64_xdefault  = 0x0;
 static const alglib_impl::ae_uint64_t _i64_xserial   = _ALGLIB_FLG_THREADING_SERIAL;
@@ -5898,23 +5898,23 @@ void alglib::ap_error::make_assertion(bool bClause, const char *p_msg)
 #else
 void alglib::set_error_flag(const char *s)
 {
-    if( s==NULL )
+    if( s==nullptr )
         s = "ALGLIB: unknown error";
     _alglib_last_error = s;
 }
 
 bool alglib::get_error_flag(const char **p_msg)
 {
-    if( _alglib_last_error==NULL )
+    if( _alglib_last_error==nullptr )
         return false;
-    if( p_msg!=NULL )
+    if( p_msg!=nullptr )
         *p_msg = _alglib_last_error;
     return true;
 }
 
 void alglib::clear_error_flag()
 {
-    _alglib_last_error = NULL;
+    _alglib_last_error = nullptr;
 }
 #endif
 
@@ -7106,13 +7106,13 @@ Matrices and vectors
 ********************************************************************/
 alglib::ae_vector_wrapper::ae_vector_wrapper(alglib_impl::ae_vector *e_ptr, alglib_impl::ae_datatype datatype)
 {
-    if( e_ptr==NULL || e_ptr->datatype!=datatype )
+    if( e_ptr==nullptr || e_ptr->datatype!=datatype )
     {
         const char *msg = "ALGLIB: ae_vector_wrapper datatype check failed";
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(msg);
 #else
-        ptr = NULL;
+        ptr = nullptr;
         is_frozen_proxy = false;
         _ALGLIB_SET_ERROR_FLAG(msg);
         return;
@@ -7133,7 +7133,7 @@ alglib::ae_vector_wrapper::ae_vector_wrapper(alglib_impl::ae_datatype datatype)
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
-        ptr = NULL;
+        ptr = nullptr;
         is_frozen_proxy = false;
         _ALGLIB_SET_ERROR_FLAG(_state.error_msg);
         return;
@@ -7158,14 +7158,14 @@ alglib::ae_vector_wrapper::ae_vector_wrapper(const ae_vector_wrapper &rhs, algli
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
-        ptr = NULL;
+        ptr = nullptr;
         is_frozen_proxy = false;
         _ALGLIB_SET_ERROR_FLAG(_state.error_msg);
         return;
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(rhs.ptr!=NULL, "ALGLIB: ae_vector_wrapper source is not initialized", &_state);
+    alglib_impl::ae_assert(rhs.ptr!=nullptr, "ALGLIB: ae_vector_wrapper source is not initialized", &_state);
     alglib_impl::ae_assert(rhs.ptr->datatype==datatype, "ALGLIB: ae_vector_wrapper datatype check failed", &_state);
     ptr = &inner_vec;
     is_frozen_proxy = false;
@@ -7195,7 +7195,7 @@ void alglib::ae_vector_wrapper::setlength(ae_int_t iLen)
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(ptr!=NULL, "ALGLIB: setlength() error, ptr==NULL (array was not correctly initialized)", &_state);
+    alglib_impl::ae_assert(ptr!=nullptr, "ALGLIB: setlength() error, ptr==nullptr (array was not correctly initialized)", &_state);
     alglib_impl::ae_assert(!is_frozen_proxy, "ALGLIB: setlength() error, ptr is frozen proxy array", &_state);
     alglib_impl::ae_vector_set_length(ptr, iLen, &_state);
     alglib_impl::ae_state_clear(&_state);
@@ -7203,7 +7203,7 @@ void alglib::ae_vector_wrapper::setlength(ae_int_t iLen)
 
 alglib::ae_int_t alglib::ae_vector_wrapper::length() const
 {
-    if( ptr==NULL )
+    if( ptr==nullptr )
         return 0;
     return ptr->cnt;
 }
@@ -7235,8 +7235,8 @@ const alglib::ae_vector_wrapper& alglib::ae_vector_wrapper::assign(const alglib:
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    ae_assert(ptr!=NULL, "ALGLIB: incorrect assignment (uninitialized destination)", &_state);
-    ae_assert(rhs.ptr!=NULL, "ALGLIB: incorrect assignment (uninitialized source)", &_state);
+    ae_assert(ptr!=nullptr, "ALGLIB: incorrect assignment (uninitialized destination)", &_state);
+    ae_assert(rhs.ptr!=nullptr, "ALGLIB: incorrect assignment (uninitialized source)", &_state);
     ae_assert(rhs.ptr->datatype==ptr->datatype, "ALGLIB: incorrect assignment to array (types do not match)", &_state);
     if( is_frozen_proxy )
         ae_assert(rhs.ptr->cnt==ptr->cnt, "ALGLIB: incorrect assignment to proxy array (sizes do not match)", &_state);
@@ -7263,7 +7263,7 @@ alglib::ae_vector_wrapper::ae_vector_wrapper(const char *s, alglib_impl::ae_data
     std::vector<const char*> svec;
     size_t i;
     char *p = filter_spaces(s);
-    if( p==NULL )
+    if( p==nullptr )
         _ALGLIB_CPP_EXCEPTION("ALGLIB: allocation error");
     try
     {
@@ -7353,7 +7353,7 @@ void alglib::boolean_1d_array::setcontent(ae_int_t iLen, const bool *pContent )
     
     // setlength, with exception-free error handling fallback code
     setlength(iLen);
-    if( ptr==NULL || ptr->cnt!=iLen )
+    if( ptr==nullptr || ptr->cnt!=iLen )
         return;
     
     // copy
@@ -7431,7 +7431,7 @@ void alglib::integer_1d_array::setcontent(ae_int_t iLen, const ae_int_t *pConten
     
     // setlength(), handle possible exception-free errors
     setlength(iLen);
-    if( ptr==NULL || ptr->cnt!=iLen )
+    if( ptr==nullptr || ptr->cnt!=iLen )
         return;
     
     // copy
@@ -7509,7 +7509,7 @@ void alglib::real_1d_array::setcontent(ae_int_t iLen, const double *pContent )
     
     // setlength(), handle possible exception-free errors
     setlength(iLen);
-    if( ptr==NULL || ptr->cnt!=iLen )
+    if( ptr==nullptr || ptr->cnt!=iLen )
         return;
     
     // copy
@@ -7529,7 +7529,7 @@ void alglib::real_1d_array::attach_to_ptr(ae_int_t iLen, double *pContent ) // T
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
-        ptr = NULL;
+        ptr = nullptr;
         is_frozen_proxy = false;
         _ALGLIB_SET_ERROR_FLAG(_state.error_msg);
         return;
@@ -7617,7 +7617,7 @@ void alglib::complex_1d_array::setcontent(ae_int_t iLen, const alglib::complex *
     
     // setlength(), handle possible exception-free errors
     setlength(iLen);
-    if( ptr==NULL || ptr->cnt!=iLen  )
+    if( ptr==nullptr || ptr->cnt!=iLen  )
         return;
     
     // copy
@@ -7659,7 +7659,7 @@ alglib::ae_matrix_wrapper::ae_matrix_wrapper(alglib_impl::ae_matrix *e_ptr, algl
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(msg);
 #else
-        ptr = NULL;
+        ptr = nullptr;
         is_frozen_proxy = false;
         _ALGLIB_SET_ERROR_FLAG(msg);
         return;
@@ -7680,7 +7680,7 @@ alglib::ae_matrix_wrapper::ae_matrix_wrapper(alglib_impl::ae_datatype datatype)
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
-        ptr = NULL;
+        ptr = nullptr;
         is_frozen_proxy = false;
         _ALGLIB_SET_ERROR_FLAG(_state.error_msg);
         return;
@@ -7706,7 +7706,7 @@ alglib::ae_matrix_wrapper::ae_matrix_wrapper(const ae_matrix_wrapper &rhs, algli
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
-        ptr = NULL;
+        ptr = nullptr;
         is_frozen_proxy = false;
         _ALGLIB_SET_ERROR_FLAG(_state.error_msg);
         return;
@@ -7714,9 +7714,9 @@ alglib::ae_matrix_wrapper::ae_matrix_wrapper(const ae_matrix_wrapper &rhs, algli
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
     is_frozen_proxy = false;
-    ptr = NULL;
+    ptr = nullptr;
     alglib_impl::ae_assert(rhs.ptr->datatype==datatype, "ALGLIB: ae_matrix_wrapper datatype check failed", &_state);
-    if( rhs.ptr!=NULL )
+    if( rhs.ptr!=nullptr )
     {
         ptr = &inner_mat;
         memset(ptr, 0, sizeof(*ptr));
@@ -7737,7 +7737,7 @@ alglib::ae_matrix_wrapper::ae_matrix_wrapper(const char *s, alglib_impl::ae_data
     std::vector< std::vector<const char*> > smat;
     size_t i, j;
     char *p = filter_spaces(s);
-    if( p==NULL )
+    if( p==nullptr )
         _ALGLIB_CPP_EXCEPTION("ALGLIB: allocation error");
     try
     {
@@ -7784,7 +7784,7 @@ alglib::ae_matrix_wrapper::ae_matrix_wrapper(const char *s, alglib_impl::ae_data
 }
 #endif
 
-void alglib::ae_matrix_wrapper::setlength(ae_int_t rows, ae_int_t cols) // TODO: automatic allocation of NULL ptr!!!!!
+void alglib::ae_matrix_wrapper::setlength(ae_int_t rows, ae_int_t cols) // TODO: automatic allocation of nullptr ptr!!!!!
 {   
     jmp_buf _break_jump;
     alglib_impl::ae_state _state;
@@ -7799,7 +7799,7 @@ void alglib::ae_matrix_wrapper::setlength(ae_int_t rows, ae_int_t cols) // TODO:
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    alglib_impl::ae_assert(ptr!=NULL, "ALGLIB: setlength() error, p_mat==NULL (array was not correctly initialized)", &_state);
+    alglib_impl::ae_assert(ptr!=nullptr, "ALGLIB: setlength() error, p_mat==nullptr (array was not correctly initialized)", &_state);
     alglib_impl::ae_assert(!is_frozen_proxy, "ALGLIB: setlength() error, attempt to resize proxy array", &_state);
     alglib_impl::ae_matrix_set_length(ptr, rows, cols, &_state);
     alglib_impl::ae_state_clear(&_state);
@@ -7807,14 +7807,14 @@ void alglib::ae_matrix_wrapper::setlength(ae_int_t rows, ae_int_t cols) // TODO:
 
 alglib::ae_int_t alglib::ae_matrix_wrapper::rows() const
 {
-    if( ptr==NULL )
+    if( ptr==nullptr )
         return 0;
     return ptr->rows;
 }
 
 alglib::ae_int_t alglib::ae_matrix_wrapper::cols() const
 {
-    if( ptr==NULL )
+    if( ptr==nullptr )
         return 0;
     return ptr->cols;
 }
@@ -7826,7 +7826,7 @@ bool alglib::ae_matrix_wrapper::isempty() const
 
 alglib::ae_int_t alglib::ae_matrix_wrapper::getstride() const
 {
-    if( ptr==NULL )
+    if( ptr==nullptr )
         return 0;
     return ptr->stride;
 }
@@ -7859,8 +7859,8 @@ const alglib::ae_matrix_wrapper& alglib::ae_matrix_wrapper::assign(const alglib:
 #endif
     }
     alglib_impl::ae_state_set_break_jump(&_state, &_break_jump);
-    ae_assert(ptr!=NULL, "ALGLIB: incorrect assignment to matrix (uninitialized destination)", &_state);
-    ae_assert(rhs.ptr!=NULL, "ALGLIB: incorrect assignment to array (uninitialized source)", &_state);
+    ae_assert(ptr!=nullptr, "ALGLIB: incorrect assignment to matrix (uninitialized destination)", &_state);
+    ae_assert(rhs.ptr!=nullptr, "ALGLIB: incorrect assignment to array (uninitialized source)", &_state);
     ae_assert(rhs.ptr->datatype==ptr->datatype, "ALGLIB: incorrect assignment to array (types dont match)", &_state);
     if( is_frozen_proxy )
     {
@@ -7932,7 +7932,7 @@ void alglib::boolean_2d_array::setcontent(ae_int_t irows, ae_int_t icols, const 
     
     // setlength(), handle possible exception-free errors
     setlength(irows, icols);
-    if( ptr==NULL || ptr->rows!=irows || ptr->cols!=icols )
+    if( ptr==nullptr || ptr->rows!=irows || ptr->cols!=icols )
         return;
     
     // copy
@@ -8011,7 +8011,7 @@ void alglib::integer_2d_array::setcontent(ae_int_t irows, ae_int_t icols, const 
     
     // setlength(), handle possible exception-free errors
     setlength(irows, icols);
-    if( ptr==NULL || ptr->rows!=irows || ptr->cols!=icols )
+    if( ptr==nullptr || ptr->rows!=irows || ptr->cols!=icols )
         return;
     
     // copy
@@ -8090,7 +8090,7 @@ void alglib::real_2d_array::setcontent(ae_int_t irows, ae_int_t icols, const dou
     
     // setlength(), handle possible exception-free errors
     setlength(irows, icols);
-    if( ptr==NULL || ptr->rows!=irows || ptr->cols!=icols )
+    if( ptr==nullptr || ptr->rows!=irows || ptr->cols!=icols )
         return;
     
     // copy
@@ -8110,7 +8110,7 @@ void alglib::real_2d_array::attach_to_ptr(ae_int_t irows, ae_int_t icols, double
 #if !defined(AE_NO_EXCEPTIONS)
         _ALGLIB_CPP_EXCEPTION(_state.error_msg);
 #else
-        ptr = NULL;
+        ptr = nullptr;
         is_frozen_proxy = false;
         _ALGLIB_SET_ERROR_FLAG(_state.error_msg);
         return;
@@ -8200,7 +8200,7 @@ void alglib::complex_2d_array::setcontent(ae_int_t irows, ae_int_t icols, const 
     
     // setlength(), handle possible exception-free errors
     setlength(irows, icols);
-    if( ptr==NULL || ptr->rows!=irows || ptr->cols!=icols )
+    if( ptr==nullptr || ptr->rows!=irows || ptr->cols!=icols )
         return;
     
     // copy
@@ -8275,11 +8275,11 @@ alglib::ae_int_t alglib::my_stricmp(const char *s1, const char *s2)
     //
     // handle special cases
     //
-    if(s1==NULL && s2!=NULL)
+    if(s1==nullptr && s2!=nullptr)
         return -1;
-    if(s1!=NULL && s2==NULL)
+    if(s1!=nullptr && s2==nullptr)
         return +1;
-    if(s1==NULL && s2==NULL)
+    if(s1==nullptr && s2==nullptr)
         return 0;
 
     //
@@ -8308,7 +8308,7 @@ alglib::ae_int_t alglib::my_stricmp(const char *s1, const char *s2)
 //
 // This function filters out all spaces from the string.
 // It returns string allocated with ae_malloc().
-// On allocaction failure returns NULL.
+// On allocaction failure returns nullptr.
 //
 char* alglib::filter_spaces(const char *s)
 {
@@ -8316,8 +8316,8 @@ char* alglib::filter_spaces(const char *s)
     char *r;
     char *r0;
     n = strlen(s);
-    r = (char*)alglib_impl::ae_malloc(n+1,NULL);
-    if( r==NULL )
+    r = (char*)alglib_impl::ae_malloc(n+1,nullptr);
+    if( r==nullptr )
         return r;
     for(i=0,r0=r; i<=n; i++,s++)
         if( !isspace(*s) )
@@ -8384,7 +8384,7 @@ void alglib::str_matrix_create(const char *src, std::vector< std::vector<const c
         if( p_mat->back().size()==0 || p_mat->back().size()!=(*p_mat)[0].size() )
             _ALGLIB_CPP_EXCEPTION("Incorrect initializer for matrix");
         src = strchr(src, ']');
-        if( src==NULL )
+        if( src==nullptr )
             _ALGLIB_CPP_EXCEPTION("Incorrect initializer for matrix");
         src++;
         if( *src==',' )
@@ -8412,7 +8412,7 @@ ae_bool alglib::parse_bool_delim(const char *s, const char *delim)
     strncpy(buf, s, strlen(p));
     if( my_stricmp(buf, p)==0 )
     {
-        if( s[strlen(p)]==0 || strchr(delim,s[strlen(p)])==NULL )
+        if( s[strlen(p)]==0 || strchr(delim,s[strlen(p)])==nullptr )
             _ALGLIB_CPP_EXCEPTION("Cannot parse value");
         return ae_false;
     }
@@ -8423,7 +8423,7 @@ ae_bool alglib::parse_bool_delim(const char *s, const char *delim)
     strncpy(buf, s, strlen(p));
     if( my_stricmp(buf, p)==0 )
     {
-        if( s[strlen(p)]==0 || strchr(delim,s[strlen(p)])==NULL )
+        if( s[strlen(p)]==0 || strchr(delim,s[strlen(p)])==nullptr )
             _ALGLIB_CPP_EXCEPTION("Cannot parse value");
         return ae_true;
     }
@@ -8448,11 +8448,11 @@ alglib::ae_int_t alglib::parse_int_delim(const char *s, const char *delim)
     //
     if( *s=='-' || *s=='+' )
         s++;
-    if( *s==0 || strchr("1234567890",*s)==NULL)
+    if( *s==0 || strchr("1234567890",*s)==nullptr)
         _ALGLIB_CPP_EXCEPTION("Cannot parse value");
-    while( *s!=0 && strchr("1234567890",*s)!=NULL )
+    while( *s!=0 && strchr("1234567890",*s)!=nullptr )
         s++;
-    if( *s==0 || strchr(delim,*s)==NULL )
+    if( *s==0 || strchr(delim,*s)==nullptr )
         _ALGLIB_CPP_EXCEPTION("Cannot parse value");
 
     // convert and ensure that value fits into ae_int_t
@@ -8492,18 +8492,18 @@ bool alglib::_parse_real_delim(const char *s, const char *delim, double *result,
         // [sign] [ddd] [.] [ddd] [e|E[sign]ddd]
         //
         has_digits = false;
-        if( *s!=0 && strchr("1234567890",*s)!=NULL )
+        if( *s!=0 && strchr("1234567890",*s)!=nullptr )
         {
             has_digits = true;
-            while( *s!=0 && strchr("1234567890",*s)!=NULL )
+            while( *s!=0 && strchr("1234567890",*s)!=nullptr )
                 s++;
         }
         if( *s=='.' )
             s++;
-        if( *s!=0 && strchr("1234567890",*s)!=NULL )
+        if( *s!=0 && strchr("1234567890",*s)!=nullptr )
         {
             has_digits = true;
-            while( *s!=0 && strchr("1234567890",*s)!=NULL )
+            while( *s!=0 && strchr("1234567890",*s)!=nullptr )
                 s++;
         }
         if (!has_digits )
@@ -8513,12 +8513,12 @@ bool alglib::_parse_real_delim(const char *s, const char *delim, double *result,
             s++;
             if( *s=='-' || *s=='+' )
                 s++;
-            if( *s==0 || strchr("1234567890",*s)==NULL )
+            if( *s==0 || strchr("1234567890",*s)==nullptr )
                 return false;
-            while( *s!=0 && strchr("1234567890",*s)!=NULL )
+            while( *s!=0 && strchr("1234567890",*s)!=nullptr )
                 s++;
         }   
-        if( *s==0 || strchr(delim,*s)==NULL )
+        if( *s==0 || strchr(delim,*s)==nullptr )
             return false;
         *new_s = s;
 
@@ -8531,7 +8531,7 @@ bool alglib::_parse_real_delim(const char *s, const char *delim, double *result,
         buf[*new_s-p] = 0;
         loc = localeconv();
         t = strchr(buf,'.');
-        if( t!=NULL )
+        if( t!=nullptr )
             *t = *loc->decimal_point;
         *result = atof(buf);
         return true;
@@ -8542,7 +8542,7 @@ bool alglib::_parse_real_delim(const char *s, const char *delim, double *result,
         // check delimiter and update *new_s
         //
         s += 3;
-        if( *s==0 || strchr(delim,*s)==NULL )
+        if( *s==0 || strchr(delim,*s)==nullptr )
             return false;
         *new_s = s;
 
@@ -8583,7 +8583,7 @@ alglib::complex alglib::parse_complex_delim(const char *s, const char *delim)
         if( !_parse_real_delim(s, "i", &c_result.y, &new_s) )
             _ALGLIB_CPP_EXCEPTION("Cannot parse value");
         s = new_s+1;
-        if( *s==0 || strchr(delim,*s)==NULL )
+        if( *s==0 || strchr(delim,*s)==nullptr )
             _ALGLIB_CPP_EXCEPTION("Cannot parse value");
         return c_result;
     }
@@ -8594,12 +8594,12 @@ alglib::complex alglib::parse_complex_delim(const char *s, const char *delim)
         s = new_s+1;
         if( *s==0 )
             _ALGLIB_CPP_EXCEPTION("Cannot parse value");
-        if( strchr(delim,*s)!=NULL )
+        if( strchr(delim,*s)!=nullptr )
         {
             c_result.x = 0;
             return c_result;
         }
-        if( strchr("+-",*s)!=NULL )
+        if( strchr("+-",*s)!=nullptr )
         {
             if( !_parse_real_delim(s, delim, &c_result.x, &new_s) )
                 _ALGLIB_CPP_EXCEPTION("Cannot parse value");
@@ -8849,7 +8849,7 @@ void alglib::read_csv(const char *filename, char separator, int flags, alglib::r
     // Open file, determine size, read contents
     //
     FILE *f_in = fopen(filename, "rb");
-    if( f_in==NULL )
+    if( f_in==nullptr )
         _ALGLIB_CPP_EXCEPTION("read_csv: unable to open input file");
     flag = fseek(f_in, 0, SEEK_END);
     AE_CRITICAL_ASSERT(flag==0);
@@ -9570,7 +9570,7 @@ IMPORTANT:
 * Y may be referenced by cy (pointer to ae_complex) or
   dy (pointer to array of double precision pair) depending on what type of 
   output you wish. Pass pointer to Y as one of these parameters,
-  AND SET OTHER PARAMETER TO NULL.
+  AND SET OTHER PARAMETER TO nullptr.
 * both A and x must be aligned; y may be non-aligned.
 *************************************************************************/
 void _ialglib_cmv(ae_int_t m, ae_int_t n, const double *a, const double *x, ae_complex *cy, double *dy, ae_int_t stride, ae_complex alpha, ae_complex beta)
@@ -9594,7 +9594,7 @@ void _ialglib_cmv(ae_int_t m, ae_int_t n, const double *a, const double *x, ae_c
             pa  += 2;
             pb  += 2;
         }
-        if( cy!=NULL )
+        if( cy!=nullptr )
         {
             double tx = (beta.x*cy->x-beta.y*cy->y)+(alpha.x*v0-alpha.y*v1);
             double ty = (beta.x*cy->y+beta.y*cy->x)+(alpha.x*v1+alpha.y*v0);
@@ -9635,7 +9635,7 @@ IMPORTANT:
 * Y may be referenced by cy (pointer to ae_complex) or
   dy (pointer to array of double precision pair) depending on what type of 
   output you wish. Pass pointer to Y as one of these parameters,
-  AND SET OTHER PARAMETER TO NULL.
+  AND SET OTHER PARAMETER TO nullptr.
 * both A and x must be aligned; y may be non-aligned.
 
 This function supports SSE2; it can be used when:
@@ -9659,10 +9659,10 @@ void _ialglib_cmv_sse2(ae_int_t m, ae_int_t n, const double *a, const double *x,
     
     m2 = m/2;
     parow = a;
-    if( cy!=NULL )
+    if( cy!=nullptr )
     {
         dy = (double*)cy;
-        cy = NULL;
+        cy = nullptr;
     }
     vbeta = _mm_loadh_pd(_mm_load_sd(&beta.x),&beta.y);
     vbetax = _mm_unpacklo_pd(vbeta,vbeta);
@@ -10432,7 +10432,7 @@ ae_bool _ialglib_cmatrixgemm(ae_int_t m,
         }
         if( beta.x==0 && beta.y==0 )
             _ialglib_vzero_complex(n, crow, 1);
-        cmv(n, k, b, abuf, crow, NULL, 1, alpha, beta);
+        cmv(n, k, b, abuf, crow, nullptr, 1, alpha, beta);
         crow += _c_stride;
     }
     return ae_true;
@@ -10511,7 +10511,7 @@ ae_bool _ialglib_cmatrixrighttrsm(ae_int_t m,
             alpha.x = -beta.x;
             alpha.y = -beta.y;
             _ialglib_vcopy_dcomplex(i, abuf+2*i, alglib_c_block, tmpbuf, 1, "No conj");
-            cmv(m, i, xbuf, tmpbuf, NULL, xbuf+2*i, alglib_c_block, alpha, beta);
+            cmv(m, i, xbuf, tmpbuf, nullptr, xbuf+2*i, alglib_c_block, alpha, beta);
         }
         _ialglib_mcopyunblock_complex(m, n, xbuf, 0, _x, _x_stride);
     }
@@ -10528,7 +10528,7 @@ ae_bool _ialglib_cmatrixrighttrsm(ae_int_t m,
             alpha.x = -beta.x;
             alpha.y = -beta.y;
             _ialglib_vcopy_dcomplex(n-1-i, pdiag+2*alglib_c_block, alglib_c_block, tmpbuf, 1, "No conj");
-            cmv(m, n-1-i, xbuf+2*(i+1), tmpbuf, NULL, xbuf+2*i, alglib_c_block, alpha, beta);
+            cmv(m, n-1-i, xbuf+2*(i+1), tmpbuf, nullptr, xbuf+2*i, alglib_c_block, alpha, beta);
         }
         _ialglib_mcopyunblock_complex(m, n, xbuf, 0, _x, _x_stride);
     }
@@ -10693,7 +10693,7 @@ ae_bool _ialglib_cmatrixlefttrsm(ae_int_t m,
             alpha.x = -beta.x;
             alpha.y = -beta.y;
             _ialglib_vcopy_dcomplex(m-1-i, pdiag+2, 1, tmpbuf, 1, "No conj");
-            cmv(n, m-1-i, xbuf+2*(i+1), tmpbuf, NULL, xbuf+2*i, alglib_c_block, alpha, beta);
+            cmv(n, m-1-i, xbuf+2*(i+1), tmpbuf, nullptr, xbuf+2*i, alglib_c_block, alpha, beta);
         }
         _ialglib_mcopyunblock_complex(m, n, xbuf, 1, _x, _x_stride);
     }
@@ -10709,7 +10709,7 @@ ae_bool _ialglib_cmatrixlefttrsm(ae_int_t m,
             alpha.x = -beta.x;
             alpha.y = -beta.y;
             _ialglib_vcopy_dcomplex(i, arow, 1, tmpbuf, 1, "No conj");
-            cmv(n, i, xbuf, tmpbuf, NULL, xbuf+2*i, alglib_c_block, alpha, beta);
+            cmv(n, i, xbuf, tmpbuf, nullptr, xbuf+2*i, alglib_c_block, alpha, beta);
         }
         _ialglib_mcopyunblock_complex(m, n, xbuf, 1, _x, _x_stride);
     }
@@ -10871,7 +10871,7 @@ ae_bool _ialglib_cmatrixherk(ae_int_t n,
         for(i=0,arow=abuf,crow=cbuf; i<n; i++,arow+=2*alglib_c_block,crow+=2*alglib_c_block)
         {
             _ialglib_vcopy_dcomplex(k, arow, 1, tmpbuf, 1, "Conj");
-            _ialglib_cmv(n-i, k, arow, tmpbuf, NULL, crow+2*i, 1, c_alpha, c_beta);
+            _ialglib_cmv(n-i, k, arow, tmpbuf, nullptr, crow+2*i, 1, c_alpha, c_beta);
         }
     }
     else
@@ -10879,7 +10879,7 @@ ae_bool _ialglib_cmatrixherk(ae_int_t n,
         for(i=0,arow=abuf,crow=cbuf; i<n; i++,arow+=2*alglib_c_block,crow+=2*alglib_c_block)
         {
             _ialglib_vcopy_dcomplex(k, arow, 1, tmpbuf, 1, "Conj");
-            _ialglib_cmv(i+1, k, abuf, tmpbuf, NULL, crow, 1, c_alpha, c_beta);
+            _ialglib_cmv(i+1, k, abuf, tmpbuf, nullptr, crow, 1, c_alpha, c_beta);
         }
     }
 
@@ -11432,7 +11432,7 @@ col0 and col1 and stride src_stride and moves it into contiguous row-
 by-row storage given by dst.
 
 It can handle following special cases:
-* col1==NULL    in this case second column of A is filled by zeros
+* col1==nullptr    in this case second column of A is filled by zeros
 ********************************************************************/
 void _ialglib_pack_n2(
     double *col0,
@@ -11446,7 +11446,7 @@ void _ialglib_pack_n2(
     /*
      * handle special case
      */
-    if( col1==NULL )
+    if( col1==nullptr )
     {
         for(j=0; j<n; j++)
         {
@@ -11488,7 +11488,7 @@ storage given by dst.
 dst must be aligned, col0 and col1 may be non-aligned.
 
 It can handle following special cases:
-* col1==NULL        in this case second column of A is filled by zeros
+* col1==nullptr        in this case second column of A is filled by zeros
 * src_stride==1     efficient SSE-based code is used
 * col1-col0==1      efficient SSE-based code is used
 
@@ -11511,9 +11511,9 @@ void _ialglib_pack_n2_sse2(
     ae_int_t n2, j, stride2;
     
     /*
-     * handle special case: col1==NULL
+     * handle special case: col1==nullptr
      */
-    if( col1==NULL )
+    if( col1==nullptr )
     {
         for(j=0; j<n; j++)
         {

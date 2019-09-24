@@ -10,7 +10,7 @@
 #include <QVBoxLayout>
 #include "GNumericalExpression.h"
 
-GNumericalExpressionSettingsWidget::GNumericalExpressionSettingsWidget( GNumericalExpression* numericalExpression, QObject* parent /*= NULL*/)	
+GNumericalExpressionSettingsWidget::GNumericalExpressionSettingsWidget( GNumericalExpression* numericalExpression, QObject* parent /*= nullptr*/)	
 {
     Q_UNUSED(parent);
 	m_NumericalExpression = numericalExpression;
