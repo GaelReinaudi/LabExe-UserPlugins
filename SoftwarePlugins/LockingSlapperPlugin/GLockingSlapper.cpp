@@ -6,7 +6,7 @@ GLockingSlapper::GLockingSlapper(QObject *parent, QString uniqueIdentifierName /
 	, m_InputBucket("Input", this)
 	, m_OutputBucket("Output", this)
 	, m_Gain("Gain", this)
-	, m_MaxSlapSize("Max. slap size", this)
+    , m_MaxSlapSize("Max. slap size", this)
 	, m_ErrorSignal("Error signal", this, GParam::ReadOnly)
 	, m_Enable("Enable", this)
 {

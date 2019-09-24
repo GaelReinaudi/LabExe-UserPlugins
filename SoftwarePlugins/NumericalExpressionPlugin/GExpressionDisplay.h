@@ -9,7 +9,7 @@ class GExpressionDisplay : public GWebDisplay
 	Q_OBJECT
 
 public:
-	GExpressionDisplay(QObject* parent = NULL);
+    GExpressionDisplay(QObject* parent = nullptr);
 	~GExpressionDisplay();
 
 public slots:

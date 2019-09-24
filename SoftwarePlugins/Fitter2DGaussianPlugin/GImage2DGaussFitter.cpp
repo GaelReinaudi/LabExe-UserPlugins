@@ -247,7 +247,7 @@ void function_to_call_after_each_iteration(const real_1d_array &c, double func, 
 	QTimer::singleShot(0, pGaussFitter, SLOT(UpdateGraphicsItem()));
 }
 
-void GImage2DGaussFitter::InputImage(QImage imageIn )
+void GImage2DGaussFitter::InputImage(QImage)
 {
 return;
 }

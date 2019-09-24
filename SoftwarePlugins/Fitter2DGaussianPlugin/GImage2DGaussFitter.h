@@ -28,7 +28,7 @@ public:
 	virtual void UpdateGraphicsItem();
 
 public:
-	void InputImage(QImage imageIn);
+    void InputImage(QImage);
 
 public slots:
 	//! Function executed in the main thread in order to update, all at once, the output result of the fit. This is to prevent race conditions that could arise from the direct connection of the ValueUpdated signals (They could behave like Qt::QueuedConnection).

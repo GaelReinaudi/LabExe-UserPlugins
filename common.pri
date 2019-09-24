@@ -4,5 +4,5 @@ INCLUDEPATH += ./include
 
 LIBS += \
 -L$$PWD/lib \
--L$$PWD/bin
+#-L$$PWD/bin
 
