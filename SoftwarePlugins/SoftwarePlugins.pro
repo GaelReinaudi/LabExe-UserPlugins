@@ -33,10 +33,6 @@ PlainTextLoggerPlugin \
 #SerialComPortPlugin \
 #Pupin632MonitorPlugin \
 \
-ImagePixelAdderPlugin \
-ImagePixelAdderPlugin \
-ImagePixelAdderPlugin \
- \
 #\
 #ParamPlotterPlugin \
 #SerialComPortPlugin \
