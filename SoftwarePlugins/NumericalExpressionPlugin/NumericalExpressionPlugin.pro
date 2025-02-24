@@ -3,7 +3,7 @@ CONFIG += plugin
 include($$PWD/../../common.pri)
 DESTDIR = $${BINDIR}/plugins/$$TARGET
 
-QT += core gui widgets script
+QT += core gui widgets qml
 
 INCLUDEPATH += \
         ./../../../LabExe/src \
@@ -16,7 +16,6 @@ CONFIG(debug, debug|release) {
 } else {
     LIBS += -llabexe
 }
-
 
 DEFINES += NUMERICALEXPRESSIONPLUGIN_LIB
 include(NumericalExpressionPlugin.pri)

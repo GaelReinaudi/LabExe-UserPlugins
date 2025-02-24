@@ -1,4 +1,4 @@
-#include "stdafx.h"
+// #include "StdAfx.h"
 #include "linearcombinationplugin.h"
 
 GLinearCombinationPlugin::GLinearCombinationPlugin(QObject *parent)

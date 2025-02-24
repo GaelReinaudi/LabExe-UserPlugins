@@ -3,9 +3,9 @@
 //! [Initialize the parameters]
 GImageStacker::GImageStacker(QObject *parent, QString uniqueIdentifierName /* = "" */)
 	: GImageProcessor(parent, uniqueIdentifierName)
-	, m_SampleSize("num. samples", this)
-	, m_InputBucket("input", this)
-	, m_Output("out", this, GParam::ReadOnly)
+    , m_InputBucket("input", this)
+    , m_Output("out", this, GParam::ReadOnly)
+    , m_SampleSize("num. samples", this)
 	, m_Reset("Reset", this)
 	, m_DisplayRailDown("Disp-min", this)
 	, m_DisplayRailUp("Disp-max", this)
@@ -146,7 +146,7 @@ GImageDouble GImageStacker::StackUp( double RailDownForDisplay, double RailUp255
 
 	m_ImageMutex.lock();
 	QSize imSize = m_History.first().size();
-	QLinkedList<GImageDouble> copyHistory(m_History);
+    QList<GImageDouble> copyHistory(m_History);
 	int copyPictureSinceLast = m_PicturesPutInHistorySinceLastStart;
 	m_PicturesPutInHistorySinceLastStart = 0;
 	m_ImageMutex.unlock();
@@ -157,7 +157,7 @@ GImageDouble GImageStacker::StackUp( double RailDownForDisplay, double RailUp255
 
 // 	m_ImageMutex.lock();
 	// we average until we have enough samples
-	QLinkedList<GImageDouble>::const_iterator im;
+    QList<GImageDouble>::const_iterator im;
 	for(im = copyHistory.constBegin(); im != copyHistory.constEnd(); ++im) {
 		if(im->format() == QImage::Format_Invalid) {
 			qWarning() << "The image seems to be invalid. 9115441";

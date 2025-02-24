@@ -159,7 +159,7 @@ void GPlainTextLogger::AppendLine()
 	}
 	QDateTime thedatetime = QDateTime::currentDateTime();// local system clock time. 
 	qint64 msSinceStart = m_OriginTime.msecsTo(thedatetime);
-	qint64 msSinceMidnight = QDateTime(m_OriginTime.date()).msecsTo(thedatetime);
+    qint64 msSinceMidnight = QDateTime(m_OriginTime.date(), QTime(0, 0)).msecsTo(thedatetime);
 	qint64 msSinceEpoch = thedatetime.toMSecsSinceEpoch(); //UTC time in ms, but might have time zone adjust? 
 	//qDebug() << thedatetime.toMSecsSinceEpoch();//UTC in ms, such as 1460992218058. 
 	//qDebug() << thedatetime.toTime_t();//UTC in s, such as 1460992218. 
@@ -174,7 +174,7 @@ void GPlainTextLogger::AppendLine()
 // 	firstColumnEngine.globalObject().setProperty("tm", double(m_SecMidnight));
 // 	firstColumnEngine.globalObject().setProperty("t", double(m_SecEpoch));
 // 	firstColumnEngine.globalObject().setProperty("i", int(m_CurrentIndexUpdate));
-// 	QScriptValue theValue = firstColumnEngine.evaluate(m_FirstColFormula);
+// 	QJSValue theValue = firstColumnEngine.evaluate(m_FirstColFormula);
 // 	if(!m_FirstColFormula.StringValue().isEmpty())
 // 		m_FirstColValue = theValue.toNumber();
 // 

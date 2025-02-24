@@ -1,4 +1,5 @@
 #include "GRandomNumberGenerator.h"
+#include <QRandomGenerator>
 
 GRandomNumberGenerator::GRandomNumberGenerator(QObject *parent, QString uniqueIdentifierName /* = "" */)
 	: GProgDevice(parent, uniqueIdentifierName)
@@ -41,13 +42,13 @@ void GRandomNumberGenerator::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget
 
 double GRandomNumberGenerator::GenerateRandom()
 {
-	m_LastOut = double(qrand()) / double(RAND_MAX) * m_MaxUniformValue;
-	return m_LastOut;
+    m_LastOut = QRandomGenerator::global()->generateDouble() * m_MaxUniformValue;
+    return m_LastOut;
 }
 
 void GRandomNumberGenerator::SetSeed()
 {
-	qsrand(m_Seed);
+    srand(m_Seed);
 }
 
 void GRandomNumberGenerator::Activate(bool doGenerate)

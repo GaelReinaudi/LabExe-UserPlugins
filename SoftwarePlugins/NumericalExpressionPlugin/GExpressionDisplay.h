@@ -2,7 +2,7 @@
 #define GEQUATIONDISPLAY_H
 
 #include "GWebDisplay.h"
-#include "param/GParamString.h"
+#include "Param/GParamString.h"
 
 class GExpressionDisplay : public GWebDisplay
 {

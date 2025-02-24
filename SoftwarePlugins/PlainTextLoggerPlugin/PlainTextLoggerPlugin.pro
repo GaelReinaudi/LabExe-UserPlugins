@@ -3,7 +3,7 @@ CONFIG += plugin
 include($$PWD/../../common.pri)
 DESTDIR = $${BINDIR}/plugins/$$TARGET
 
-QT += core gui widgets script
+QT += core gui widgets qml
 
 INCLUDEPATH += \
         ./../../../LabExe/src \

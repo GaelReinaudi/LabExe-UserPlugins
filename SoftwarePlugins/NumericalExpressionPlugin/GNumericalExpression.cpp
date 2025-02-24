@@ -35,7 +35,7 @@ void GNumericalExpression::ReCalculate(int debugInfo /*= -1*/)
 {
     Q_UNUSED(debugInfo);
 	// Evaluate and display the result.
-	QScriptValue scriptResult = m_pScriptEngine->Evaluate();
+    QJSValue scriptResult = m_pScriptEngine->Evaluate();
 }
 
 void GNumericalExpression::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget)
