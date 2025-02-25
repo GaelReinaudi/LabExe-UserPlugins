@@ -7,21 +7,21 @@ const QString fitFieldString("fit");
 GImage2DGaussFitter::GImage2DGaussFitter(QObject *parent, QString uniqueIdentifierName /*= ""*/)
 	: GImageProcessor(parent, uniqueIdentifierName)
 	, m_pEllipse(new QGraphicsEllipseItem(0.0, 0.0, 0.0, 0.0, m_pAoiItem))
-	, m_Offset("Offset", this)
-	, m_Ampl("Ampl", this)
-	, m_SigmaX("sigX", this)
-	, m_SigmaY("sigY", this)
+    , m_Variables("variables", this, GParam::ReadOnly)
+    , m_InitialValues("fitted", 0, GParam::ReadOnly)
+    , m_Offset("Offset", this)
+    , m_Ampl("Ampl", this)
 	, m_X0("X0", this)
 	, m_Y0("Y0", this)
-	, m_IniOffset("iniOffset", this)
-	, m_IniAmpl("iniAmpl", this)
-	, m_IniSigmaX("iniSigX", this)
-	, m_IniSigmaY("iniSigY", this)
-	, m_IniX0("iniX0", this)
-	, m_IniY0("iniY0", this)
-	, m_Variables("variables", this, GParam::ReadOnly)//, &m_Offset, &m_Ampl, &m_X0, &m_Y0, &m_SigmaX, &m_SigmaY)
-	, m_InitialValues("fitted", 0, GParam::ReadOnly)//, &m_IniOffset, &m_IniAmpl, &m_IniX0, &m_IniY0, &m_IniSigmaX, &m_IniSigmaY)
-	, m_FitMask(6)
+    , m_SigmaX("sigX", this)
+    , m_SigmaY("sigY", this)
+    , m_FitMask(6)
+    , m_IniOffset("iniOffset", this)
+    , m_IniAmpl("iniAmpl", this)
+    , m_IniX0("iniX0", this)
+    , m_IniY0("iniY0", this)//, &m_Offset, &m_Ampl, &m_X0, &m_Y0, &m_SigmaX, &m_SigmaY)
+    , m_IniSigmaX("iniSigX", this)//, &m_IniOffset, &m_IniAmpl, &m_IniX0, &m_IniY0, &m_IniSigmaX, &m_IniSigmaY)
+    , m_IniSigmaY("iniSigY", this)
 {
 	m_Variables.RemoveExtraField("trig");
 	m_Variables.AddExtraFieldBool(fitFieldString);
@@ -249,7 +249,8 @@ void function_to_call_after_each_iteration(const real_1d_array &c, double func, 
 
 void GImage2DGaussFitter::InputImage(QImage imageIn )
 {
-return;
+    Q_UNUSED(imageIn);
+    return;
 }
 
 void GImage2DGaussFitter::ProcessImageAOIed(const GImageDouble & aoiImage)

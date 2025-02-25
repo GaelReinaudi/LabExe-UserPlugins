@@ -45,7 +45,7 @@ private:
 	GParamBool m_Reset;
 	//! the history of the values of the parameters
 // 	QList<double> m_History;
-	QLinkedList<GImageDouble> m_History;
+    QList<GImageDouble> m_History;
 // 	QMap<double, GImageDouble> m_ImageIn;
 	//! Date and time of the creation of the last picture received
 	QDateTime m_LastReceivedPictureCreationDate;

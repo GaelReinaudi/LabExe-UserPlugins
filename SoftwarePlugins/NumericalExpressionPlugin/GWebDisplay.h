@@ -2,7 +2,8 @@
 #define GWEBDISPLAY_H
 #include "labexe_global.h"
 
-#include "device/GProgDevice.h"
+#include "Device/GProgDevice.h"
+#include "qobject.h"
 // #include <QWebElement>
 // #include <QWebFrame>
 // #include <QWebPage>

@@ -120,7 +120,7 @@ void GTimer::UserChangeStatus()
 		
 		//Error checking: 
 		if(q_Delay.isValid())
-		{	int msecDelay = QTime::QTime(0,0,0,0).msecsTo(q_Delay);//ms
+        {	int msecDelay = QTime(0,0,0,0).msecsTo(q_Delay);//ms
 			if((msecDelay >= 100)&&(msecDelay < 24*60*60*1000))//Hard limits, 0.1s to 1day.
 			{	
 				//Start timer: 

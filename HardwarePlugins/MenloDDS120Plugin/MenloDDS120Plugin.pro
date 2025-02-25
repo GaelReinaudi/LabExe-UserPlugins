@@ -1,7 +1,7 @@
 TEMPLATE = lib
 CONFIG += plugin
 include($$PWD/../../common.pri)
-DESTDIR = $${BINDIR}/plugins/$$TARGET
+DESTDIR = $${BUILD_ROOT}/plugins/$$TARGET
 
 QT += core gui axserver axcontainer
 

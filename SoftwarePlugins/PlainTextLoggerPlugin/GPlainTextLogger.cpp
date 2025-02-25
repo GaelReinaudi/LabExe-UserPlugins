@@ -7,22 +7,22 @@
 
 GPlainTextLogger::GPlainTextLogger(QObject *parent, QString uniqueIdentifierName /* = "" */)
 	: GProgDevice(parent, uniqueIdentifierName)
-	, m_FolderPath("Folder", this/*, GParam::ReadOnly*/)
-	, m_FileName("File name", this)
+    , m_Bucket("Data", this)
+    , m_BucketColNames("Col Names", this)
 	, m_ShouldLogOnUpdate("On update?", this)
 	, m_ShouldLogOnTimer("On timer?", this)
 	, m_SecondTimer("Delay [s]:", this)
-	, m_Bucket("Data", this)
-	, m_BucketColNames("Col Names", this)
-	, m_UpdateCount(0)
-	, m_SecUpdate("Elapsed time (s):", this, GParam::ReadOnly)
-	, m_SecMidnight("sec mid", this, GParam::ReadOnly)
-	, m_SecEpoch("sec epoch", this, GParam::ReadOnly)
-	, m_CurrentIndexUpdate("Update #:", this, GParam::ReadOnly)
-	, m_pNotePadProcess(0)
-	, m_FirstColName("Col. name:", this)
-	, m_FirstColFormula("Formula (use i,t,tu,tm):", this)
-	, m_FirstColValue("=", this, GParam::ReadOnly)
+    , m_FolderPath("Folder", this/*, GParam::ReadOnly*/)
+    , m_FileName("File name", this)
+    , m_FirstColName("Col. name:", this)
+    , m_FirstColFormula("Formula (use i,t,tu,tm):", this)
+    , m_FirstColValue("=", this, GParam::ReadOnly)
+    , m_UpdateCount(0)
+    , m_SecUpdate("Elapsed time (s):", this, GParam::ReadOnly)
+    , m_SecMidnight("sec mid", this, GParam::ReadOnly)
+    , m_SecEpoch("sec epoch", this, GParam::ReadOnly)
+    , m_CurrentIndexUpdate("Update #:", this, GParam::ReadOnly)
+    , m_pNotePadProcess(0)
 {
 	connect(&m_Bucket, SIGNAL(BucketUpdatedValues()), this, SLOT(EventBucketUpdated()));
 	connect(&m_Timer, SIGNAL(timeout()), this, SLOT(EventTimerFired()));
@@ -159,7 +159,7 @@ void GPlainTextLogger::AppendLine()
 	}
 	QDateTime thedatetime = QDateTime::currentDateTime();// local system clock time. 
 	qint64 msSinceStart = m_OriginTime.msecsTo(thedatetime);
-	qint64 msSinceMidnight = QDateTime(m_OriginTime.date()).msecsTo(thedatetime);
+    qint64 msSinceMidnight = QDateTime(m_OriginTime.date(), QTime(0, 0)).msecsTo(thedatetime);
 	qint64 msSinceEpoch = thedatetime.toMSecsSinceEpoch(); //UTC time in ms, but might have time zone adjust? 
 	//qDebug() << thedatetime.toMSecsSinceEpoch();//UTC in ms, such as 1460992218058. 
 	//qDebug() << thedatetime.toTime_t();//UTC in s, such as 1460992218. 
@@ -174,7 +174,7 @@ void GPlainTextLogger::AppendLine()
 // 	firstColumnEngine.globalObject().setProperty("tm", double(m_SecMidnight));
 // 	firstColumnEngine.globalObject().setProperty("t", double(m_SecEpoch));
 // 	firstColumnEngine.globalObject().setProperty("i", int(m_CurrentIndexUpdate));
-// 	QScriptValue theValue = firstColumnEngine.evaluate(m_FirstColFormula);
+// 	QJSValue theValue = firstColumnEngine.evaluate(m_FirstColFormula);
 // 	if(!m_FirstColFormula.StringValue().isEmpty())
 // 		m_FirstColValue = theValue.toNumber();
 // 

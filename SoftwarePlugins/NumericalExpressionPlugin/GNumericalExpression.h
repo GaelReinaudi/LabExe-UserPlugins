@@ -40,7 +40,7 @@ private:
 	GParamString m_Expression;
 	GExpressionDisplay* m_ExpressionDisplay;
 	GMathScriptEngine* m_pScriptEngine;
-	QScriptEngineDebugger* m_pEngineDebugger;
+    // QScriptEngineDebugger* m_pEngineDebugger;
 
 	friend class GNumericalExpressionSettingsWidget;
 };

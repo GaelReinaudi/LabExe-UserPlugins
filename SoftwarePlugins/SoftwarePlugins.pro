@@ -29,14 +29,10 @@ ImageStackerPlugin \
 LinearCombinationPlugin \
 \
 PlainTextLoggerPlugin \
-SRSControllerPlugin \
+# SRSControllerPlugin \
 #SerialComPortPlugin \
 #Pupin632MonitorPlugin \
 \
-ImagePixelAdderPlugin \
-ImagePixelAdderPlugin \
-ImagePixelAdderPlugin \
- \
 #\
 #ParamPlotterPlugin \
 #SerialComPortPlugin \

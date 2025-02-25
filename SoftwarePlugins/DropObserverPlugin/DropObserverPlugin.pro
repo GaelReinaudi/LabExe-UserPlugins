@@ -4,7 +4,7 @@
 
 TEMPLATE = lib
 TARGET = DropObserverPlugin
-DESTDIR = ../../plugins/DropObserverPlugin
+DESTDIR = $${BUILD_ROOT}/plugins/$$TARGET
 QT += core gui
 CONFIG += release
 DEFINES += QT_LARGEFILE_SUPPORT PLUGINPROJECT_LIB

@@ -6,3 +6,4 @@ LIBS += \
 -L$$PWD/lib \
 -L$$PWD/bin
 
+DESTDIR = $${BUILD_ROOT}/bin/plugins/$$TARGET
