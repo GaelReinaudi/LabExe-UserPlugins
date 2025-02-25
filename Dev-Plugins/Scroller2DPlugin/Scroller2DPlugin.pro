@@ -4,7 +4,7 @@
 
 TEMPLATE = lib
 TARGET = Scroller2DPlugin_D
-DESTDIR = ../../../LabExe/plugins/Scroller2DPlugin
+DESTDIR = $${BUILD_ROOT}/plugins/$$TARGET
 QT += core gui
 CONFIG += debug
 DEFINES += QT_LARGEFILE_SUPPORT Scroller2DPlugin_LIB

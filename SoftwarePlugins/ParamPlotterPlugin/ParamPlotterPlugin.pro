@@ -1,6 +1,6 @@
 TEMPLATE = lib
 CONFIG += plugin
-DESTDIR = ../../../LabExe/plugins/$$TARGET
+DESTDIR = $${BUILD_ROOT}/plugins/$$TARGET
 
 QT += core gui widgets printsupport
 
