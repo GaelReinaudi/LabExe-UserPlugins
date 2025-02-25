@@ -4,7 +4,7 @@
 
 TEMPLATE = lib
 TARGET = EmailMessagerPlugin
-DESTDIR = ../../plugins/EmailMessagerPlugin
+DESTDIR = $${BUILD_ROOT}/plugins/$$TARGET
 QT += core gui
 CONFIG += release
 DEFINES += QT_LARGEFILE_SUPPORT EmailMessagerPlugin_LIB

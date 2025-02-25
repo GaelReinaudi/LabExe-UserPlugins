@@ -4,7 +4,7 @@
 
 TEMPLATE = lib
 TARGET = InternetBrowserPlugin
-DESTDIR = ../../plugins/InternetBrowserPlugin
+DESTDIR = $${BUILD_ROOT}/plugins/$$TARGET
 QT += core gui network webkit
 CONFIG += release
 DEFINES += QT_LARGEFILE_SUPPORT InternetBrowserPlugin_LIB QT_WEBKIT_LIB QT_NETWORK_LIB
