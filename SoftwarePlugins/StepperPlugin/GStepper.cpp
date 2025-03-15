@@ -26,7 +26,7 @@ for the name (the first argument, e.g. "num. samples").
 	// It will be over-written if a previously saved value is read from a file.
 	m_StepSize.SetHardLimits(0.0, 99.9);
 	m_StepSize.SetDisplayDecimals(3);
-
+	m_StepSize = 1.0;
 // 	m_PointsPerStep = 1;
 	m_PointsPerStep.SetHardLimits(1, 1000000);
 
@@ -35,6 +35,7 @@ for the name (the first argument, e.g. "num. samples").
 
 	m_Start.SetDisplayDecimals(2);
 	m_Maximum.SetDisplayDecimals(2);
+	m_Maximum = 99.0;
 
 	// Connects the input bucket to the event that starts a calculation of the average
 	connect(&m_InputBucket, SIGNAL(ValueUpdated(double)), this, SLOT(StartUpdateOutput()));
@@ -50,6 +51,8 @@ for the name (the first argument, e.g. "num. samples").
 	connect(&m_StepSize, SIGNAL(ValueUpdated(double)), this, SLOT(SetSteps()));
 	connect(&m_Maximum, SIGNAL(ValueUpdated(double)), this, SLOT(SetSteps()));
 	connect(&m_Start, SIGNAL(ValueUpdated(double)), this, SLOT(SetSteps()));
+
+	m_PointsPerStep = 1;
 }
 //! [Extra initialization the parameters]
 
