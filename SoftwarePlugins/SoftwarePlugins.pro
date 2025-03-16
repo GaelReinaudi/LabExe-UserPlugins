@@ -3,6 +3,7 @@ TEMPLATE = subdirs
 THE_SRYBEXE_PLUGINS = \
 Scroller2DPlugin \
 StepperPlugin \
+ListStepperPlugin \
 LowPassFilterPlugin \
 RollingStatsPlugin \
 LockingSlapperPlugin \

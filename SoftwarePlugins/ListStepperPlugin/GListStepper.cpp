@@ -1,0 +1,159 @@
+#include "GListStepper.h"
+#include <QRegularExpression>
+
+//! [Initialize the parameters]
+GListStepper::GListStepper(QObject *parent, QString uniqueIdentifierName /* = "" */)
+    : GProgDevice(parent, uniqueIdentifierName)
+    , m_InputBucket("Trigger", this)
+    , m_OutputBucket("Output", this)
+    , m_Reset("Reset", this)
+    , m_Enable("Enable Stepping", this)
+    , m_ValueListText("Value List", this)
+    , m_Delay("Delay (s)", this)
+    , m_CurrentIndex("Current Index", this, GParam::ReadOnly)
+    , m_ValuesCount("Total Values", this, GParam::ReadOnly)
+{
+//! [Initialize the parameters]
+/*
+Note: All parameters defined with "this" device as parent (see above) will be saved automatically 
+when the device state is saved to file. The name used to save the values is the same as the one provided 
+for the name (the first argument, e.g. "num. samples").
+*/
+//! [Extra initialization the parameters]
+    // Set up delay parameter
+    m_Delay.SetTypicalStep(0.01);
+    m_Delay.SetHardLimits(0.00, 99.9);
+    m_Delay.SetDisplayDecimals(3);
+    
+    // Set default value list text with example
+    m_ValueListText = "1.0, 2.5, 3.7, 5.0, 8.2";
+    
+    // Initialize read-only parameters
+    m_CurrentIndex = 0;
+    m_ValuesCount = 0;
+    
+    // Parse the default value list
+    ParseValueList(m_ValueListText.StringValue());
+    
+    // Connect signals
+    connect(&m_InputBucket, SIGNAL(ValueUpdated(double)), this, SLOT(StartUpdateOutput()));
+    connect(&m_Reset, SIGNAL(ValueUpdated(bool)), this, SLOT(Reset()));
+    connect(&m_ValueListText, SIGNAL(ValueUpdated(const QString&)), this, SLOT(ParseValueList(const QString&)));
+    
+    // Initialize with first value if list is not empty
+    if (!m_ValueList.isEmpty()) {
+        m_OutputBucket.SetParamValue(m_ValueList.first());
+    }
+}
+//! [Extra initialization the parameters]
+
+GListStepper::~GListStepper()
+{
+}
+
+/////////////////////////////////////////////////////////////////////
+/*!
+Populates a widget provided by a workbench in order to represent (and be adequately connected to) this GListStepper. 
+Layouts are used to make the widget react correctly to re-sizing.
+\param:  GDeviceWidget * theDeviceWidget : the parent widget in the gui.
+*////////////////////////////////////////////////////////////////////
+//[PopulateDeviceWidgetImplementation]
+void GListStepper::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget)
+{
+    // We add a vertical layout to hold together all the widgets that we are going to display.
+    QVBoxLayout* pVlay = new QVBoxLayout();
+    theDeviceWidget->AddSubLayout(pVlay);
+    
+    // We insert widgets provided by the input and output param buckets.
+    pVlay->addWidget(m_InputBucket.ProvideNewParamWidget(theDeviceWidget));
+    pVlay->addWidget(m_OutputBucket.ProvideNewParamWidget(theDeviceWidget));
+    
+    // We add a form layout that will hold the numerical settings.
+    QFormLayout* pFLay = new QFormLayout();
+    pVlay->addLayout(pFLay);
+    
+    // Add the text editor for value list
+    QWidget* valueListWidget = m_ValueListText.ProvideNewParamLineEdit(theDeviceWidget);
+    valueListWidget->setMinimumHeight(100); // Set minimum height for better visibility
+    pFLay->addRow(m_ValueListText.ProvideNewLabel(theDeviceWidget), valueListWidget);
+    
+    // Add other parameters
+    pFLay->addRow(m_Delay.ProvideNewLabel(theDeviceWidget), m_Delay.ProvideNewParamSpinBox(theDeviceWidget));
+    pFLay->addRow(m_CurrentIndex.ProvideNewLabel(theDeviceWidget), m_CurrentIndex.ProvideNewParamSpinBox(theDeviceWidget));
+    pFLay->addRow(m_ValuesCount.ProvideNewLabel(theDeviceWidget), m_ValuesCount.ProvideNewParamSpinBox(theDeviceWidget));
+    
+    // Add the reset button and enable checkbox
+    pVlay->addWidget(m_Reset.ProvideNewParamButton(theDeviceWidget));
+    pVlay->addWidget(m_Enable.ProvideNewParamCheckBox(theDeviceWidget));
+    
+    // Add expandable space
+    pVlay->addStretch();
+}
+//[PopulateDeviceWidgetImplementation]
+
+void GListStepper::ParseValueList(const QString& text)
+{
+    m_ValueList.clear();
+    
+    // Split the text by commas, spaces, and newlines
+    QStringList parts = text.split(QRegularExpression("[,\\s\\n]+"), Qt::SkipEmptyParts);
+    
+    // Convert each part to a double and add to the value list
+    bool conversionOk;
+    foreach (const QString& part, parts) {
+        double value = part.trimmed().toDouble(&conversionOk);
+        if (conversionOk) {
+            m_ValueList.append(value);
+        }
+    }
+    
+    // Update the count
+    m_ValuesCount = m_ValueList.size();
+    
+    // Reset the index
+    Reset();
+}
+
+void GListStepper::StartUpdateOutput()
+{
+    if (m_Delay > 0.0) {
+        QTimer::singleShot(int(m_Delay * 1000), this, SLOT(UpdateOutput()));
+    } else {
+        UpdateOutput();
+    }
+}
+
+void GListStepper::UpdateOutput()
+{
+    if (!m_Enable || m_ValueList.isEmpty()) {
+        return; // Do nothing if disabled or list is empty
+    }
+    
+    // Get the current index (constrained within the list bounds)
+    int index = m_CurrentIndex.IntValue();
+    
+    // Output the current value
+    if (index < m_ValueList.size()) {
+        m_OutputBucket.SetParamValue(m_ValueList.at(index));
+    }
+    
+    // Move to next index, wrap around if at the end
+    index = (index + 1) % m_ValueList.size();
+    m_CurrentIndex = index;
+}
+
+void GListStepper::Reset()
+{
+    // Reset index to beginning of list
+    m_CurrentIndex = 0;
+    
+    // Set output to first value if list is not empty
+    if (!m_ValueList.isEmpty()) {
+        m_OutputBucket.SetParamValue(m_ValueList.first());
+    }
+}
+
+void GListStepper::UpdateValueList()
+{
+    ParseValueList(m_ValueListText.StringValue());
+} 
