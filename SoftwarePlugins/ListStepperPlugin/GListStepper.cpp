@@ -7,11 +7,13 @@ GListStepper::GListStepper(QObject *parent, QString uniqueIdentifierName /* = ""
     , m_InputBucket("Trigger", this)
     , m_OutputBucket("Output", this)
     , m_Reset("Reset", this)
-    , m_Enable("Enable Stepping", this)
-    , m_ValueListText("Value List", this)
+    , m_Enable("Enable", this)
+    , m_ValueListText("List", this)
     , m_Delay("Delay (s)", this)
-    , m_CurrentIndex("Current Index", this, GParam::ReadOnly)
-    , m_ValuesCount("Total Values", this, GParam::ReadOnly)
+    , m_CurrentIndex("Index", this, GParam::ReadOnly)
+    , m_ValuesCount("Num Values", this, GParam::ReadOnly)
+    , m_TriggerInterval("Trig / N", this)
+    , m_TriggerCount(0)
 {
 //! [Initialize the parameters]
 /*
@@ -20,13 +22,18 @@ when the device state is saved to file. The name used to save the values is the 
 for the name (the first argument, e.g. "num. samples").
 */
 //! [Extra initialization the parameters]
+    m_Enable = true;
     // Set up delay parameter
     m_Delay.SetTypicalStep(0.01);
     m_Delay.SetHardLimits(0.00, 99.9);
     m_Delay.SetDisplayDecimals(3);
     
+    // Set up trigger interval parameter
+    m_TriggerInterval.SetHardLimits(1, 1000);
+    m_TriggerInterval = 1;
+    
     // Set default value list text with example
-    m_ValueListText = "1.0, 2.5, 3.7, 5.0, 8.2";
+    m_ValueListText = "1,2 3 4 , bad5\n 5,6 7 bad7 8 9\n10";
     
     // Initialize read-only parameters
     m_CurrentIndex = 0;
@@ -72,13 +79,9 @@ void GListStepper::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget)
     QFormLayout* pFLay = new QFormLayout();
     pVlay->addLayout(pFLay);
     
-    // Add the text editor for value list
-    QWidget* valueListWidget = m_ValueListText.ProvideNewParamLineEdit(theDeviceWidget);
-    valueListWidget->setMinimumHeight(100); // Set minimum height for better visibility
-    pFLay->addRow(m_ValueListText.ProvideNewLabel(theDeviceWidget), valueListWidget);
-    
-    // Add other parameters
+    // Add parameters to form layout
     pFLay->addRow(m_Delay.ProvideNewLabel(theDeviceWidget), m_Delay.ProvideNewParamSpinBox(theDeviceWidget));
+    pFLay->addRow(m_TriggerInterval.ProvideNewLabel(theDeviceWidget), m_TriggerInterval.ProvideNewParamSpinBox(theDeviceWidget));
     pFLay->addRow(m_CurrentIndex.ProvideNewLabel(theDeviceWidget), m_CurrentIndex.ProvideNewParamSpinBox(theDeviceWidget));
     pFLay->addRow(m_ValuesCount.ProvideNewLabel(theDeviceWidget), m_ValuesCount.ProvideNewParamSpinBox(theDeviceWidget));
     
@@ -86,8 +89,16 @@ void GListStepper::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget)
     pVlay->addWidget(m_Reset.ProvideNewParamButton(theDeviceWidget));
     pVlay->addWidget(m_Enable.ProvideNewParamCheckBox(theDeviceWidget));
     
-    // Add expandable space
-    pVlay->addStretch();
+    // Add label for value list at the bottom
+    QHBoxLayout* valueListLabelLayout = new QHBoxLayout();
+    pVlay->addLayout(valueListLabelLayout);
+    valueListLabelLayout->addWidget(m_ValueListText.ProvideNewLabel(theDeviceWidget));
+    
+    // Add the text editor for value list at the bottom with stretching
+    QWidget* valueListWidget = m_ValueListText.ProvideNewParamTextEdit(theDeviceWidget);
+    valueListWidget->setMinimumHeight(100); // Set minimum height for better visibility
+    valueListWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding); // Make it expand in both directions
+    pVlay->addWidget(valueListWidget, 1); // Add with stretch factor of 1
 }
 //[PopulateDeviceWidgetImplementation]
 
@@ -129,23 +140,35 @@ void GListStepper::UpdateOutput()
         return; // Do nothing if disabled or list is empty
     }
     
-    // Get the current index (constrained within the list bounds)
-    int index = m_CurrentIndex.IntValue();
+    // Increment the trigger counter
+    m_TriggerCount++;
     
-    // Output the current value
-    if (index < m_ValueList.size()) {
-        m_OutputBucket.SetParamValue(m_ValueList.at(index));
+    // Only advance to the next value when the trigger counter reaches the interval
+    if (m_TriggerCount >= m_TriggerInterval.IntValue()) {
+        // Reset the trigger counter
+        m_TriggerCount = 0;
+        
+        // Get the current index (constrained within the list bounds)
+        int index = m_CurrentIndex.IntValue();
+        
+        // Output the current value
+        if (index < m_ValueList.size()) {
+            m_OutputBucket.SetParamValue(m_ValueList.at(index));
+        }
+        
+        // Move to next index, wrap around if at the end
+        index = (index + 1) % m_ValueList.size();
+        m_CurrentIndex = index;
     }
-    
-    // Move to next index, wrap around if at the end
-    index = (index + 1) % m_ValueList.size();
-    m_CurrentIndex = index;
 }
 
 void GListStepper::Reset()
 {
     // Reset index to beginning of list
     m_CurrentIndex = 0;
+    
+    // Reset trigger counter
+    m_TriggerCount = 0;
     
     // Set output to first value if list is not empty
     if (!m_ValueList.isEmpty()) {
