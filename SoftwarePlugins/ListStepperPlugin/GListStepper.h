@@ -62,6 +62,10 @@ private:
     GParamInt m_CurrentIndex;
     //! Total number of values in the list
     GParamInt m_ValuesCount;
+    //! Number of triggers needed to advance to the next value
+    GParamInt m_TriggerInterval;
+    //! Counter for the trigger events
+    int m_TriggerCount;
 //! [variablesOutput]
     //! List of values parsed from text input
     QList<double> m_ValueList;
