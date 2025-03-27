@@ -1,7 +1,9 @@
 #include "GPupin632Monitor.h"
 #include <QWebEngineView>
 #include <QWebEnginePage>
+#ifdef USING_QT5_WEBENGINE
 #include <QWebEngineFrame>
+#endif
 // #include <QTimer>
 // #include <QFile>
 // #include <QTextStream>
@@ -180,15 +182,25 @@ void GPupin632Monitor::StartUpdateOutput()
 }
 
 void GPupin632Monitor::GetWebpage()
-{	if(m_AmIUpdating)//Prevent fast triggering from creating multiple webpage load requests. 
-	{	m_UpdateStatus = "Trigger ignored! Not done with previous trigger.";
+{	
+	if(m_AmIUpdating) //Prevent fast triggering from creating multiple webpage load requests. 
+	{	
+		m_UpdateStatus = "Trigger ignored! Not done with previous trigger.";
 		return;
 	}
 	
 	//OK, let's try to load the facilities webpage: 
 	Thehtml = "";
 	TheWebView->load(QUrl(m_OurLabUrl));
+
+#ifdef USING_QT5_WEBENGINE
 	Thehtml = TheWebView->page()->mainFrame()->toHtml();
+#else
+	// Qt6 WebEngine doesn't have mainFrame, needs a different approach
+	TheWebView->page()->toHtml([this](const QString &html) {
+		Thehtml = html;
+	});
+#endif
 	
 	m_AmIUpdating = true; 
 	m_UpdateStatus = "Loading webpage...";

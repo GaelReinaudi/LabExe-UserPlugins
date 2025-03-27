@@ -4,7 +4,12 @@
 #include "device.h"
 #include <QWebEngineView>
 #include <QWebEnginePage>
+
+// Qt5 vs Qt6 WebEngine differences
+#ifdef USING_QT5_WEBENGINE
 #include <QWebEngineFrame>
+#endif
+
 #include "param.h"
 
 /////////////////////////////////////////////////////////////////////
