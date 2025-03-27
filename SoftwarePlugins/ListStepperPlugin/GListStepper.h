@@ -34,6 +34,10 @@ public slots:
     void Reset();
     //! Updates the value list from text input
     void UpdateValueList();
+    //! Generates equally spaced values and adds them to the list
+    void GenerateLinspace();
+    //! Randomizes the order of values in the list
+    void RandomizeList();
 
 //![PopulateDeviceWidget]
 protected:
@@ -69,6 +73,16 @@ private:
 //! [variablesOutput]
     //! List of values parsed from text input
     QList<double> m_ValueList;
+    //! Start value for generated equally spaced sequence
+    GParamDouble m_StartValue;
+    //! End value for generated equally spaced sequence 
+    GParamDouble m_EndValue;
+    //! Number of points in the generated sequence
+    GParamInt m_NumPoints;
+    //! Input bucket to trigger sequence generation
+    GSingleParamBucket m_GenerateLinspaceBucket;
+    //! Input bucket to trigger list randomization
+    GSingleParamBucket m_RandomizeListBucket;
 //! [variables]
 
 private slots:
