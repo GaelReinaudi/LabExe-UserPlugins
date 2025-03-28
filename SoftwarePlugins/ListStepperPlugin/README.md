@@ -31,8 +31,8 @@ The plugin interface consists of the following components:
 - **Start**: Start value for equally spaced sequence generation
 - **End**: End value for equally spaced sequence generation
 - **Num Points**: Number of points to generate in the sequence
-- **Generate Input Bucket**: Connect a parameter to trigger sequence generation
-- **Shuffle Input Bucket**: Connect a parameter to randomize the list lines
+- **Generate Button**: Click to generate an equally spaced sequence
+- **Shuffle Button**: Click to randomize the order of lines in the list
 
 ### Value List
 - Text editor for viewing and manually editing the list of values
@@ -51,17 +51,14 @@ The plugin interface consists of the following components:
 
 1. Set the desired "Start" and "End" values
 2. Specify the number of points in "Num Points"
-3. Either:
-   - Connect a parameter to the "Generate" input bucket, or
-   - Manually trigger generation by connecting a parameter and changing its value
+3. Click the "Generate" button
 4. The plugin will generate equally spaced values with one value per line
 
 ### Randomizing the List
 
 1. Populate the list with values (either manually or using the generator)
-2. Connect a parameter to the "Shuffle" input bucket
-3. When the connected parameter changes value, the lines in the list will be shuffled
-4. Each line remains intact, preserving any formatting or multi-value lines
+2. Click the "Shuffle" button
+3. The lines in the list will be shuffled, keeping each line intact
 
 ## Advanced Features
 

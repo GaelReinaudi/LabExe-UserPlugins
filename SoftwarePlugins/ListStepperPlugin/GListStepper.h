@@ -79,10 +79,10 @@ private:
     GParamDouble m_EndValue;
     //! Number of points in the generated sequence
     GParamInt m_NumPoints;
-    //! Input bucket to trigger sequence generation
-    GSingleParamBucket m_GenerateLinspaceBucket;
-    //! Input bucket to trigger list randomization
-    GSingleParamBucket m_RandomizeListBucket;
+    //! Button to trigger sequence generation
+    GParamBool m_GenerateLinspace;
+    //! Button to trigger list randomization
+    GParamBool m_RandomizeList;
 //! [variables]
 
 private slots:
