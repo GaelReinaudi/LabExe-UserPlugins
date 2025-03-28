@@ -121,17 +121,18 @@ void GStepper::UpdateOutput()
 	{
 		if (m_Maximum > m_Start)//If you're counting up...
 		{
-			if (m_CurrentFreq <= m_Maximum - m_StepSize * 0.999999999999)//The 0.9999... is to
-				//ensure that a rounding error doesn't cause (m_Maximum - m_StepSize) to be 
-				//artificially small, and therefore prevent this condition from being executed.
+			// Calculate the theoretical maximum step index
+			int maxStepIndex = ppsteps * (floor(abs(((m_Maximum - m_Start) / m_StepSize))) + 1);
+			
+			if (m_CurrentStep.IntValue() < maxStepIndex)
 			{
 				if (m_CurrentStep.IntValue() % ppsteps == 0)
 				{
 					//Recall that m_StepSize is forced to be positive.
-					m_CurrentFreq = m_Start + m_CurrentStep * m_StepSize / ppsteps;
+					m_CurrentFreq = m_Start + (m_CurrentStep.IntValue() / ppsteps) * m_StepSize;
 					m_OutputBucket.SetParamValue(m_CurrentFreq);
 				}
-					m_CurrentStep += 1;
+				m_CurrentStep += 1;
 			}
 			else
 			{
@@ -142,11 +143,14 @@ void GStepper::UpdateOutput()
 		}
 		else//If you're counting down...
 		{
-			if (m_CurrentFreq >= m_Maximum + m_StepSize * 0.999999999999)
+			// Calculate the theoretical maximum step index
+			int maxStepIndex = ppsteps * (floor(abs(((m_Maximum - m_Start) / m_StepSize))) + 1);
+			
+			if (m_CurrentStep.IntValue() < maxStepIndex)
 			{
 				if (m_CurrentStep.IntValue() % ppsteps == 0)
 				{
-					m_CurrentFreq = m_Start - m_CurrentStep * m_StepSize / ppsteps;
+					m_CurrentFreq = m_Start - (m_CurrentStep.IntValue() / ppsteps) * m_StepSize;
 					m_OutputBucket.SetParamValue(m_CurrentFreq);
 				}
 				m_CurrentStep += 1;
