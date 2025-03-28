@@ -20,8 +20,8 @@ GListStepper::GListStepper(QObject *parent, QString uniqueIdentifierName /* = ""
     , m_StartValue("Start", this)
     , m_EndValue("End", this)
     , m_NumPoints("Num Points", this)
-    , m_GenerateLinspaceBucket("Generate", this)
-    , m_RandomizeListBucket("Shuffle", this)
+    , m_GenerateLinspace("Generate", this)
+    , m_RandomizeList("Shuffle", this)
 {
 //! [Initialize the parameters]
 /*
@@ -64,8 +64,8 @@ for the name (the first argument, e.g. "num. samples").
     connect(&m_InputBucket, SIGNAL(ValueUpdated(double)), this, SLOT(StartUpdateOutput()));
     connect(&m_Reset, SIGNAL(ValueUpdated(bool)), this, SLOT(Reset()));
     connect(&m_ValueListText, SIGNAL(ValueUpdated(const QString&)), this, SLOT(ParseValueList(const QString&)));
-    connect(&m_GenerateLinspaceBucket, SIGNAL(ValueUpdated(double)), this, SLOT(GenerateLinspace()));
-    connect(&m_RandomizeListBucket, SIGNAL(ValueUpdated(double)), this, SLOT(RandomizeList()));
+    connect(&m_GenerateLinspace, SIGNAL(ValueDidChange(bool)), this, SLOT(GenerateLinspace()));
+    connect(&m_RandomizeList, SIGNAL(ValueDidChange(bool)), this, SLOT(RandomizeList()));
     
     // Initialize with first value if list is not empty
     if (!m_ValueList.isEmpty()) {
@@ -124,12 +124,12 @@ void GListStepper::PopulateDeviceWidget(GDeviceWidget* theDeviceWidget)
     genFormLayout->addRow(m_EndValue.ProvideNewLabel(theDeviceWidget), m_EndValue.ProvideNewParamSpinBox(theDeviceWidget));
     genFormLayout->addRow(m_NumPoints.ProvideNewLabel(theDeviceWidget), m_NumPoints.ProvideNewParamSpinBox(theDeviceWidget));
     
-    // Add input buckets for generating and randomizing (instead of buttons)
-    QHBoxLayout* bucketLayout = new QHBoxLayout();
-    genLayout->addLayout(bucketLayout);
+    // Add buttons for generating and randomizing (instead of input buckets)
+    QHBoxLayout* buttonLayout = new QHBoxLayout();
+    genLayout->addLayout(buttonLayout);
     
-    bucketLayout->addWidget(m_GenerateLinspaceBucket.ProvideNewParamWidget(theDeviceWidget));
-    bucketLayout->addWidget(m_RandomizeListBucket.ProvideNewParamWidget(theDeviceWidget));
+    buttonLayout->addWidget(m_GenerateLinspace.ProvideNewParamButton(theDeviceWidget));
+    buttonLayout->addWidget(m_RandomizeList.ProvideNewParamButton(theDeviceWidget));
     
     // Add label for value list at the bottom
     QHBoxLayout* valueListLabelLayout = new QHBoxLayout();
