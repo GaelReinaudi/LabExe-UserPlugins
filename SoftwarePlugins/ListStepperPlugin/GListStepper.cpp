@@ -64,8 +64,8 @@ for the name (the first argument, e.g. "num. samples").
     connect(&m_InputBucket, SIGNAL(ValueUpdated(double)), this, SLOT(StartUpdateOutput()));
     connect(&m_Reset, SIGNAL(ValueUpdated(bool)), this, SLOT(Reset()));
     connect(&m_ValueListText, SIGNAL(ValueUpdated(const QString&)), this, SLOT(ParseValueList(const QString&)));
-    connect(&m_GenerateLinspace, SIGNAL(ValueDidChange()), this, SLOT(GenerateLinspace()));
-    connect(&m_RandomizeList, SIGNAL(ValueDidChange()), this, SLOT(RandomizeList()));
+    connect(&m_GenerateLinspace, SIGNAL(ValueDidChange(bool)), this, SLOT(GenerateLinspace()));
+    connect(&m_RandomizeList, SIGNAL(ValueDidChange(bool)), this, SLOT(RandomizeList()));
     
     // Initialize with first value if list is not empty
     if (!m_ValueList.isEmpty()) {
