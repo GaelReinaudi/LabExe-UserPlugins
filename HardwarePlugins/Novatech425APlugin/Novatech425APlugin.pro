@@ -4,11 +4,12 @@ include($$PWD/../../common.pri)
 
 QT += core gui widgets
 
-
-LIBS += \
-    -lsetupapi \
-    -ladvapi32 \
-    -luser32
+win32 {
+    LIBS += \
+        -lsetupapi \
+        -ladvapi32 \
+        -luser32
+}
 
 CONFIG(debug, debug|release) {
     LIBS += -llabexe_D

@@ -1,8 +1,6 @@
 #include "GPlainTextLogger.h"
 #include "GPlainTextLoggerWidget.h"
 
-#include "Script/GMathScriptEngine.h"
-
 #include <QVBoxLayout>
 
 GPlainTextLogger::GPlainTextLogger(QObject *parent, QString uniqueIdentifierName /* = "" */)

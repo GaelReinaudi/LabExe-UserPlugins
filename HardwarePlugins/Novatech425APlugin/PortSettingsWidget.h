@@ -2,7 +2,7 @@
 #define PORTSETTINGSWIDGETNovatech425A_H
 
 #include <QWidget>
-#include "ui_portsettingswidget.h"
+#include "ui_PortSettingsWidget.h"
 
 class PortSettingsWidget : public QWidget
 {
