@@ -5,8 +5,8 @@ TEMPLATE = lib
 include($$PWD/../../common.pri)
 
 INCLUDEPATH += \
-        ./../../../LabExe/src \
-        ./../../include \
+        $$PWD/../../../LabExe/src \
+        $$PWD/../../include \
         ./GeneratedFiles \
         .
 

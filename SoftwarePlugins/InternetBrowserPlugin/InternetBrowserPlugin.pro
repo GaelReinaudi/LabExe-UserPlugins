@@ -9,12 +9,12 @@ QT += core gui network webkit
 CONFIG += release
 DEFINES += QT_LARGEFILE_SUPPORT InternetBrowserPlugin_LIB QT_WEBKIT_LIB QT_NETWORK_LIB
 INCLUDEPATH += ./../../src \
-    ./../../include \
+    $$PWD/../../include \
     ./GeneratedFiles \
     ./GeneratedFiles/Release \
     .
 LIBS += -L"$$PWD/../../lib" \
-    -L"./../../bin" \
+    -L"$$PWD/../../bin" \
     -llabexe
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/release

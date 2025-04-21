@@ -11,8 +11,8 @@ INCLUDEPATH += \
 	.
 
 LIBS += \
-	-L"./../../lib" \
-	-L"./../../../LabExe/bin"
+	-L"$$PWD/../../lib" \
+	-L"$$PWD/../../../LabExe/bin"
 
 CONFIG(debug, debug|release) {
 	LIBS += -llabexe_D

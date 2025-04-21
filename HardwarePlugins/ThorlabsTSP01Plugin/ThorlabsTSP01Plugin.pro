@@ -6,8 +6,8 @@ include($$PWD/../../common.pri)
 QT += core gui widgets
 
 INCLUDEPATH += \
-        ./../../../LabExe/src \
-        ./../../include \
+        $$PWD/../../../LabExe/src \
+        $$PWD/../../include \
         "C:/Program Files/IVI Foundation/VISA/Win64\Include" \
 
 LIBS += -L"$$PWD/../../lib/thorlabs" -lvisa64

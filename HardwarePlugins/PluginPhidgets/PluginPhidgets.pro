@@ -6,7 +6,7 @@ QT += core gui widgets
 
 
 LIBS += \
-    -L"./../../lib/phidgets/x64" -lphidget22
+    -L"$$PWD/../../lib/phidgets/x64" -lphidget22
 
 CONFIG(debug, debug|release) {
 	LIBS += -llabexe_D

@@ -9,12 +9,12 @@ QT += core gui
 CONFIG += release
 DEFINES += QT_LARGEFILE_SUPPORT EmailMessagerPlugin_LIB
 INCLUDEPATH += ./../../../LabExe/src \
-    ./../../../LabExe/include \
+    $$PWD/../../../LabExe/include \
     ./GeneratedFiles \
     ./GeneratedFiles/Release \
     .
 LIBS += -L"$$PWD/../../../LabExe/lib" \
-    -L"./../../../LabExe/bin" \
+    -L"$$PWD/../../../LabExe/bin" \
     -llabexe
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/release

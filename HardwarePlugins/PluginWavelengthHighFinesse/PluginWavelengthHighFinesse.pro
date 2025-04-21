@@ -7,7 +7,7 @@ QT += core gui widgets
 
 
 LIBS += \
-	-L"./../../lib/wlm" -lwlmData
+	-L"$$PWD/../../lib/wlm" -lwlmData
 
 CONFIG(debug, debug|release) {
 	LIBS += -llabexe_D
