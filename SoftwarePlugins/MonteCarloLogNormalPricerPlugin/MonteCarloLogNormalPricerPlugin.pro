@@ -1,9 +1,9 @@
 TEMPLATE = lib
 CONFIG += plugin
 include($$PWD/../../common.pri)
-DESTDIR = $${BUILD_ROOT}/plugins/$$TARGET
+ = $${BUILD_ROOT}/plugins/$$TARGET
 
-QT += core gui widgets script
+QT += core gui widgets
 
 INCLUDEPATH += \
         ./../../../LabExe/src \

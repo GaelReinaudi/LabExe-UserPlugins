@@ -13,7 +13,7 @@ INCLUDEPATH += ./../../src \
     ./GeneratedFiles \
     ./GeneratedFiles/Release \
     .
-LIBS += -L"./../../lib" \
+LIBS += -L"$$PWD/../../lib" \
     -L"./../../bin" \
     -llabexe
 DEPENDPATH += .

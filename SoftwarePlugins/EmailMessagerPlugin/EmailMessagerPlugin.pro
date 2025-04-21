@@ -13,7 +13,7 @@ INCLUDEPATH += ./../../../LabExe/src \
     ./GeneratedFiles \
     ./GeneratedFiles/Release \
     .
-LIBS += -L"./../../../LabExe/lib" \
+LIBS += -L"$$PWD/../../../LabExe/lib" \
     -L"./../../../LabExe/bin" \
     -llabexe
 DEPENDPATH += .

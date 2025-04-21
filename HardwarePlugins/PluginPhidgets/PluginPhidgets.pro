@@ -1,13 +1,9 @@
 TEMPLATE = lib
 CONFIG += plugin
 include($$PWD/../../common.pri)
-DESTDIR = $${BUILD_ROOT}/plugins/$$TARGET
 
 QT += core gui widgets
 
-INCLUDEPATH += \
-        ./../../../LabExe/src \
-        ./../../include \
 
 LIBS += \
     -L"./../../lib/phidgets/x64" -lphidget22

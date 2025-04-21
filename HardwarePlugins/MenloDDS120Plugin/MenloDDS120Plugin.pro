@@ -1,13 +1,8 @@
 TEMPLATE = lib
 CONFIG += plugin
 include($$PWD/../../common.pri)
-DESTDIR = $${BUILD_ROOT}/plugins/$$TARGET
 
-QT += core gui axserver axcontainer
-
-INCLUDEPATH += \
-        ./../../../LabExe/src \
-        ./../../include \
+QT += core gui widgets
 
 LIBS += \
     -lsetupapi \
