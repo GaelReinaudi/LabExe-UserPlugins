@@ -1,7 +1,6 @@
 TEMPLATE = lib
 CONFIG += plugin
 include($$PWD/../../common.pri)
-DESTDIR = $${BUILD_ROOT}/plugins/$$TARGET
 
 QT += core gui widgets
 
@@ -9,7 +8,7 @@ INCLUDEPATH += \
         ./../../../LabExe/src \
         ./../../include \
 
-LIBS += -L"./../../lib/uEye" -luEye_api_64
+LIBS += -L$$PWD/../../lib/uEye -luEye_api_64
 
 CONFIG(debug, debug|release) {
 	LIBS += -llabexe_D
