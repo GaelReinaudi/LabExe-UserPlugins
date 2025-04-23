@@ -242,7 +242,9 @@ void GMenloDDS120::setNewParity()
 		m_pExtSerialPort->setParity(PAR_SPACE);
 		break;
 	case 1:
+#ifdef Q_OS_WIN
 		m_pExtSerialPort->setParity(PAR_MARK);
+#endif
 		break;
 	case 2:
 		m_pExtSerialPort->setParity(PAR_NONE);
@@ -289,7 +291,9 @@ void GMenloDDS120::setNewStopBits()
 		m_pExtSerialPort->setStopBits(STOP_1);
 		break;
 	case 1:
+#ifdef Q_OS_WIN
 		m_pExtSerialPort->setStopBits(STOP_1_5);
+#endif
 		break;
 	case 2:
 		m_pExtSerialPort->setStopBits(STOP_2);

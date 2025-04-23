@@ -4,6 +4,7 @@ include($$PWD/../../common.pri)
 
 QT += core gui widgets
 
+
 win32 {
     LIBS += \
         -lsetupapi \

@@ -108,7 +108,7 @@ private:
 
 
 	friend class GNovatech425AWidget;
-	GNovatech425AWidget* m_pControllerWidget;
+    // GNovatech425AWidget* m_pControllerWidget;
 };
 
 #endif // GNovatech425A_H

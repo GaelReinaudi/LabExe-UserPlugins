@@ -1,4 +1,4 @@
-#include "portsettingswidget.h"
+#include "PortSettingsWidget.h"
 
 PortSettingsWidget::PortSettingsWidget(QWidget *parent)
 	: QWidget(parent)
