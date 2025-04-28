@@ -14,10 +14,22 @@ SOURCES += ./GNovatech409B.cpp \
     ./GNovatech409BWidget.cpp \
     ./hled.cpp \
     ./PortSettingsWidget.cpp \
-    ../../include/qextserialport/src/qextserialenumerator.cpp \
-    ../../include/qextserialport/src/qextserialenumerator_win.cpp \
-    ../../include/qextserialport/src/qextserialport.cpp \
-    ../../include/qextserialport/src/qextserialport_win.cpp \
-    ./Novatech409Bplugin.cpp
+    ../../include/qExtSerialPort/src/qextserialenumerator.cpp \
+    ../../include/qExtSerialPort/src/qextserialport.cpp \
+
+win32 {
+    SOURCES += \
+        ../../include/qExtSerialPort/src/qextserialenumerator_win.cpp \
+        ../../include/qExtSerialPort/src/qextserialport_win.cpp
+}
+
+unix {
+    SOURCES += \
+        ../../include/qExtSerialPort/src/qextserialenumerator_linux.cpp \
+        ../../include/qExtSerialPort/src/qextserialport_unix.cpp
+}
+
+SOURCES += ./Novatech409Bplugin.cpp
+
 FORMS += ./GNovatech409BWidget.ui \
     ./PortSettingsWidget.ui

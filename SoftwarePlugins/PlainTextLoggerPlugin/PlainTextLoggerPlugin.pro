@@ -3,11 +3,11 @@ CONFIG += plugin
 include($$PWD/../../common.pri)
 
 
-QT += core gui widgets script
+QT += core gui widgets
 
 INCLUDEPATH += \
-        ./../../../LabExe/src \
-        ./../../include \
+        $$PWD/../../../LabExe/src \
+        $$PWD/../../include \
         ./GeneratedFiles \
         .
 

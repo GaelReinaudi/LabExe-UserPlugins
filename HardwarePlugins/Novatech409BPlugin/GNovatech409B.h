@@ -108,7 +108,7 @@ private:
 
 
 	friend class GNovatech409BWidget;
-	GNovatech409BWidget* m_pControllerWidget;
+    // GNovatech409BWidget* m_pControllerWidget;
 };
 
 #endif // GNovatech409B_H

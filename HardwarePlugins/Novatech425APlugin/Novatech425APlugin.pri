@@ -1,4 +1,3 @@
-
 HEADERS += ./GNovatech425A.h \
     ./GNovatech425AWidget.h \
     ./hled.h \
@@ -10,14 +9,27 @@ HEADERS += ./GNovatech425A.h \
     ../../include/qExtSerialPort/src/qextserialport_p.h \
     ./Novatech425Aplugin.h \
     ./Novatech425Aplugin_global.h
+
 SOURCES += ./GNovatech425A.cpp \
     ./GNovatech425AWidget.cpp \
     ./hled.cpp \
     ./PortSettingsWidget.cpp \
     ../../include/qExtSerialPort/src/qextserialenumerator.cpp \
-    ../../include/qExtSerialPort/src/qextserialenumerator_win.cpp \
     ../../include/qExtSerialPort/src/qextserialport.cpp \
-    ../../include/qExtSerialPort/src/qextserialport_win.cpp \
-    ./Novatech425Aplugin.cpp
+
+win32 {
+    SOURCES += \
+        ../../include/qExtSerialPort/src/qextserialenumerator_win.cpp \
+        ../../include/qExtSerialPort/src/qextserialport_win.cpp
+}
+
+unix {
+    SOURCES += \
+        ../../include/qExtSerialPort/src/qextserialenumerator_linux.cpp \
+        ../../include/qExtSerialPort/src/qextserialport_unix.cpp
+}
+
+SOURCES += ./Novatech425Aplugin.cpp
+
 FORMS += ./GNovatech425AWidget.ui \
     ./PortSettingsWidget.ui

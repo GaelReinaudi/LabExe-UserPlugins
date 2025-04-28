@@ -109,7 +109,7 @@ private:
 
 
 	friend class GMenloDDS120Widget;
-	GMenloDDS120Widget* m_pControllerWidget;
+    // GMenloDDS120Widget* m_pControllerWidget;
 };
 
 #endif // GSERIALPORT_H

@@ -9,12 +9,12 @@ QT += core gui
 CONFIG += debug
 DEFINES += QT_LARGEFILE_SUPPORT Scroller2DPlugin_LIB
 INCLUDEPATH += ./../../../LabExe/src \
-    ./../../../LabExe/include \
+    $$PWD/../../../LabExe/include \
     ./GeneratedFiles \
     ./GeneratedFiles/Debug \
     .
-LIBS += -L"./../../../LabExe/lib" \
-    -L"./../../../LabExe/bin" \
+LIBS += -L"$$PWD/../../../LabExe/lib" \
+    -L"$$PWD/../../../LabExe/bin" \
     -llabexe_D
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/debug

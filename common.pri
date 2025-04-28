@@ -1,6 +1,10 @@
 include($$PWD/../LabExe/common.pri)
 
-INCLUDEPATH += ./include
+INCLUDEPATH += \
+    $$PWD/../LabExe/src \
+    $$PWD/include \
+    ./GeneratedFiles \
+    .
 
 LIBS += \
 -L$$PWD/lib \

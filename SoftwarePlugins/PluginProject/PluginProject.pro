@@ -9,12 +9,12 @@ QT += core gui
 CONFIG += release
 DEFINES += QT_LARGEFILE_SUPPORT PLUGINPROJECT_LIB
 INCLUDEPATH += ./../../src \
-    ./../../include \
+    $$PWD/../../include \
     ./GeneratedFiles \
     ./GeneratedFiles/Release \
     .
-LIBS += -L"./../../lib" \
-    -L"./../../bin" \
+LIBS += -L"$$PWD/../../lib" \
+    -L"$$PWD/../../bin" \
     -llabexe
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/release

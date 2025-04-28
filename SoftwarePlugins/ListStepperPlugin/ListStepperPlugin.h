@@ -13,7 +13,7 @@ When the input bucket receives a trigger, it outputs the next value in the list.
 The list of values is specified in a text box and can be comma, space, or newline separated.
 The reset button restarts from the beginning of the list.
 */
-class GListStepperPlugin : public GDevicePlugin
+class ListeStepperPlugin_LIB GListStepperPlugin : public GDevicePlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID "Gael.GDevicePlugin/2.0")

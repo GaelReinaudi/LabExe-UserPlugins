@@ -3,12 +3,6 @@ CONFIG += plugin
 include($$PWD/../../common.pri)
 
 QT += core gui widgets
-# Disable ActiveX support temporarily to fix build issues
-# QT += axserver axcontainer
-
-INCLUDEPATH += \
-        ./../../../LabExe/src \
-        ./../../include \
 
 LIBS += \
     -lsetupapi \

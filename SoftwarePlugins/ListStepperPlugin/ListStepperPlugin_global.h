@@ -3,10 +3,10 @@
 
 #include <QtCore/qglobal.h>
 
-#if defined(LISTSTEPPERPLUGIN_LIBRARY)
-#  define LISTSTEPPERPLUGINSHARED_EXPORT Q_DECL_EXPORT
+#if defined(ListStepperPlugin_LIB)
+#  define ListeStepperPlugin_LIB Q_DECL_EXPORT
 #else
-#  define LISTSTEPPERPLUGINSHARED_EXPORT Q_DECL_IMPORT
+#  define ListeStepperPlugin_LIB Q_DECL_IMPORT
 #endif
 
 #endif // LISTSTEPPERPLUGIN_GLOBAL_H 

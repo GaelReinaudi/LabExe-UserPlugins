@@ -4,11 +4,8 @@ include($$PWD/../../common.pri)
 
 QT += core gui widgets
 
-INCLUDEPATH += \
-        ./../../../LabExe/src \
-        ./../../include \
 
-LIBS += -L$$PWD/../../lib/uEye -luEye_api_64
+LIBS += -L"$$PWD/../../lib/uEye" -luEye_api_64
 
 CONFIG(debug, debug|release) {
 	LIBS += -llabexe_D

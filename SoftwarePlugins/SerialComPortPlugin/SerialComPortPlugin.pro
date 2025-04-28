@@ -1,13 +1,13 @@
 TEMPLATE = lib
 CONFIG += plugin
 include($$PWD/../../common.pri)
-DESTDIR = $${BUILD_ROOT}/plugins/$$TARGET
+ = $${BUILD_ROOT}/plugins/$$TARGET
 
 QT += core gui widgets
 
 INCLUDEPATH += \
-        ./../../../LabExe/src \
-        ./../../include \
+        $$PWD/../../../LabExe/src \
+        $$PWD/../../include \
         ./GeneratedFiles \
         .
 

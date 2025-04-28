@@ -6,8 +6,8 @@ include($$PWD/../../common.pri)
 QT += core gui widgets script
 
 INCLUDEPATH += \
-        ./../../../LabExe/src \
-        ./../../include \
+        $$PWD/../../../LabExe/src \
+        $$PWD/../../include \
         ./GeneratedFiles \
         .
 
