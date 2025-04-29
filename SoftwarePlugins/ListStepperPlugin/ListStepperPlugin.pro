@@ -16,7 +16,7 @@ CONFIG(debug, debug|release) {
     LIBS += -llabexe
 }
 
-DEFINES += ListStepperPlugin_LIB LISTSTEPPERPLUGIN_LIBRARY
+DEFINES += ListStepperPlugin_LIB
 
 # Including sources and headers from the pri file
 include(ListStepperPlugin.pri)
